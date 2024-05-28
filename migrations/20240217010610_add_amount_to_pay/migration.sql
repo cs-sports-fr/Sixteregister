@@ -1,3 +1,0 @@
--- AlterTable
-ALTER TABLE "Team" ADD COLUMN     "amountPaidInCents" INTEGER NOT NULL DEFAULT 0,
-ADD COLUMN     "amountToPayInCents" INTEGER NOT NULL DEFAULT 0;

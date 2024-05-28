@@ -20,7 +20,6 @@ from .utils import (
     check_and_update_team_amount_to_pay_then_get_team,
     get_team_if_allowed,
     send_charte_email,
-    send_host_rez_email,
 )
 
 from infra.prisma import getPrisma  # type: ignore
@@ -89,9 +88,6 @@ async def create_team(
                 participant.chartePassword,
                 url,
             )
-
-            if participant.mailHebergeur is not None:
-                await send_host_rez_email(participant.mailHebergeur, participant.firstname)
 
         except Exception:
             pass

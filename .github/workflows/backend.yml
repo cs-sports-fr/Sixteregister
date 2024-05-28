@@ -32,7 +32,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           source: "./backend.Dockerfile, ./docker-compose-prod.yml, ./backend, ./schema.prisma, .env"
-          target: "/home/ec2-user/toss-register"
+          target: "/home/ec2-user/sixte"
 
       - name: Run docker-compose up
         uses: appleboy/ssh-action@master
@@ -41,6 +41,6 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
-            cd /home/ec2-user/toss-register
+            cd /home/ec2-user/sixte
             sudo docker-compose -f docker-compose-prod.yml down backend || true
             sudo docker-compose -f docker-compose-prod.yml up --build backend -d

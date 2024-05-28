@@ -30,9 +30,9 @@ async def get_all_schools():
 @schools_router.post(
     "/", response_model=School, dependencies=[Depends(check_super_admin)]
 )
-async def create_school(name: str, is_in_idf: bool):
+async def create_school(name: str):
     school = await prisma.school.create(
-        data=SchoolCreateInput(name=name, isInIDF=is_in_idf)
+        data=SchoolCreateInput(name=name)
     )
     return school
 
@@ -42,10 +42,10 @@ async def create_school(name: str, is_in_idf: bool):
     response_model=School,
     dependencies=[Depends(check_super_admin)],
 )
-async def update_school(school_id: int, name: str, is_in_idf: bool):
+async def update_school(school_id: int, name: str):
     school = await prisma.school.update(
         where=SchoolWhereUniqueInput(id=school_id),
-        data=SchoolCreateInput(name=name, isInIDF=is_in_idf),
+        data=SchoolCreateInput(name=name),
     )
     return school
 

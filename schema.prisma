@@ -56,34 +56,7 @@ enum Gender {
     preferNotToSay
 }
 
-enum ClassementTennis {
-    NC
-    C40
-    C305
-    C304
-    C303
-    C302
-    C301
-    C30
-    C155
-    C154
-    C153
-    C152
-    C151
-    C15
-    C56
-    C46
-    C36
-    C26
-    C16
-    C0
-}
 
-enum ArmeEscrime {
-    Sabre
-    Epee
-    Fleuret
-}
 
 model User {
     id           Int            @id @default(autoincrement())
@@ -112,53 +85,22 @@ model Participant {
     chartePassword    String
     createdAt         DateTime          @default(now())
     isCaptain         Boolean
-    licenceID         String
-    packId            Int
-    pack              Pack              @relation(fields: [packId], references: [id])
     schoolId          Int
     school            School            @relation(fields: [schoolId], references: [id])
     teamId            Int
     team              Team              @relation(fields: [teamId], references: [id])
-    products          Product[]         @relation()
-    isVegan           Boolean           @default(false)
-    hasAllergies      Boolean           @default(false)
-    certificateLink   String?
     charteEmailSent   Boolean           @default(false)
     certificateOK     Boolean           @default(false)
-    weight            Float?
-    mailHebergeur     String?
-    classementTennis  ClassementTennis?
-    classementTT      Float?
-    armeVoeu1         ArmeEscrime?
-    armeVoeu2         ArmeEscrime?
-    armeVoeu3         ArmeEscrime?
 }
 
 model School {
     id           Int           @id @default(autoincrement())
     name         String
-    isInIDF      Boolean       @default(false)
-    isDeleg      Boolean       @default(false)
     users        User[]
     participants Participant[]
     teams        Team[]
 }
 
-model Pack {
-    id             Int           @id @default(autoincrement())
-    name           String
-    participants   Participant[]
-    priceInCents   Int           @default(0)
-    isAllowedInIDF Boolean       @default(true)
-}
-
-model Product {
-    id           Int           @id @default(autoincrement())
-    name         String
-    priceInCents Int
-    participants Participant[]
-    pictureLink  String
-}
 
 enum mailClient {
     SES

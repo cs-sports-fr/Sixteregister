@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Pack" ADD COLUMN     "priceInCents" INTEGER NOT NULL DEFAULT 0;

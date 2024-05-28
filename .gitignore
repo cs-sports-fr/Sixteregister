@@ -1,5 +1,5 @@
 # ignore venv contents
-toss-register-env
+sixte-env
 
 .env
 
