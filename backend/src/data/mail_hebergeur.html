@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email automatique hebergement TOSS</title>
+    <style type="text/css">
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1c1f2a;
+            color: #ffffff;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .email-logo {
+            margin-top: 50px;
+            margin-bottom: 30px;
+            width: 50%;
+            height: auto;
+        }
+
+        .email-content {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .email-image {
+            border-radius: 8px;
+            width: 75%;
+            max-width: 300px;
+            height: auto;
+        }
+
+        .email-content h1 {
+            font-size: 4rem;
+        }
+
+        .email-content p {
+            margin-top: 20px;
+            font-size: 2rem;
+        }
+
+        .email-button {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 15px 30px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .parteu-logo {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 50px;
+            max-height: 100px;
+        }
+
+        .social-icons {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .email-footer {
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 50px;
+        }
+
+        .unsubscribe {
+            color: #ffffff;
+            text-decoration: underline;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+
+
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 90%;
+                padding: 10px;
+            }
+
+            .email-content {
+                padding: 20px;
+            }
+
+            .email-content h1 {
+                font-size: 2rem;
+                /* Smaller font size for h1 */
+            }
+
+            .email-content p {
+                font-size: 1rem;
+                /* Smaller font size for paragraph */
+            }
+
+            .email-image {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .email-button {
+                padding: 10px 20px;
+            }
+
+            .social-icons {
+                font-size: 20px;
+            }
+
+            .email-footer {
+                font-size: 12px;
+            }
+
+            .parteu-logo {
+                width: 30%;
+                height: auto;
+            }
+        }
+    </style>
+
+    <!--[if mso]>
+<style type="text/css">
+    body, html {
+        font-family: Arial, sans-serif !important;
+        background-color: #1c1f2a !important;
+        color: #ffffff !important;
+    }
+    .email-container {
+        width: 600px !important;
+        text-align: center !important;
+    }
+    .email-content {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        padding: 30px !important;
+        /* Fallback for border-radius not supported in Outlook */
+        border-radius: 0px !important;
+    }
+    .email-image {
+        width: 75% !important;
+        max-width: 300px !important;
+    }
+    .email-content h1, .email-content p {
+        font-size: 20px !important; /* Adjusted font size for Outlook */
+    }
+    .email-button {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+        padding: 15px 30px !important;
+        display: inline-block !important;
+        border-radius: 0px !important; /* Fallback for border-radius */
+    }
+    .parteu-logo, .email-footer, .social-icons, .unsubscribe {
+        font-size: 14px !important;
+    }
+    .parteu-logo{
+        width:300px !important;
+        height: auto !important;
+    }
+    .social-icons a {
+        color: #ffffff !important;
+    }
+</style>
+<![endif]-->
+</head>
+
+<body>
+    <div class="email-container">
+        <img class="email-logo"
+            src="https://cs-sports.fr/toss-register/tosslogo.jpg"
+            alt="TOSS Logo">
+
+        <div class="email-content">
+            <!--[if mso]>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+    <tr>
+        <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+    </tr>
+</table>
+<![endif]-->
+            <h1>Bonjour !</h1>
+            <img class="email-image"
+                src="https://cs-sports.fr/toss-register/tosslettres.jpg"
+                alt="Lettres TOSS">
+            <p>Nous sommes l’équipe organisatrice du TOSS et nous te contactons car ${FIRSTNAME} s’est inscrit.e en
+                choisissant le pack hébergement en résidence et t’as inscrit.e comme étant la personne qui allait
+                l'héberger.</p>
+            <p>Si cela est-bien le cas, peux-tu nous le confirmer en envoyant un email à l’adresse
+                hebergement@cs-sports.fr , en joignant <a
+                    href="https://cs-sports.fr/toss-register/accord%20hebergement.pdf">l'accord d'hébergement</a>
+                complété. Nous te prions également de mettre pour objet à ce mail « Hebergeur_Nom_Prénom ».</p>
+            <!--[if mso]>
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+    <tr>
+        <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+    </tr>
+</table>
+<![endif]-->
+        </div>
+
+        <div class="social-icons">
+            <a href="https://www.facebook.com/toss.cs"><img
+                    src="https://cs-sports.fr/toss-register/facebook.png"
+                    alt="Facebook" /></a>
+            <a href="https://www.instagram.com/toss_cs/"><img
+                    src="https://cs-sports.fr/toss-register/instagram.png"
+                    alt="Instagram" /></a>
+            <a href="https://www.cs-sports.fr/toss/"><img
+                    src="https://cs-sports.fr/toss-register/website.png"
+                    alt="Website" /></a>
+        </div>
+
+        <div class="social-icons">
+            <img class="parteu-logo"
+                src="https://cs-sports.fr/toss-register/ALTEN.png"
+                alt="Alten Logo" />
+            <img class="parteu-logo"
+                src="https://cs-sports.fr/toss-register/MAZARS-LOGO-PNG.png"
+                alt="Mazars Logo" />
+        </div>
+
+        <div class="email-footer">
+            Bureau des sports CentraleSupélec<br>
+            3 rue Joliot-Curie, 91190 Gif-sur-Yvette
+        </div>
+
+        <a href="mailto:info@cs-sports.fr" class="unsubscribe">Se désinscrire</a>
+    </div>
+</body>
+
+</html>

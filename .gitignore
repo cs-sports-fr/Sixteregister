@@ -1,0 +1,6 @@
+# ignore venv contents
+toss-register-env
+
+.env
+
+.vscode
