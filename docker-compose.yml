@@ -7,13 +7,14 @@ services:
       - POSTGRES_DB=sixte
       - POSTGRES_USER=${DATABASE_USER}
       - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_DOCKER_NETWORK_IP}:5432/sixte?schema=public
     ports:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
       dbnet:
-        ipv4_address: 172.25.0.4
+        ipv4_address: ${DATABASE_DOCKER_NETWORK_IP}
 
   prisma-migrate:
     container_name: prisma-migrate
@@ -23,7 +24,7 @@ services:
     env_file:
       - .env
     environment:
-      - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@172.25.0.4:5432/sixte?schema=public
+      - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_DOCKER_NETWORK_IP}:5432/${DATABASE_TABLE}?schema=public
     depends_on:
       - db
     networks:
@@ -43,7 +44,7 @@ services:
     env_file:
       - .env
     environment:
-      - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@172.25.0.4:5432/sixte?schema=public
+      - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_DOCKER_NETWORK_IP}:5432/${DATABASE_TABLE}?schema=public
       - MODE=prod
     networks:
       dbnet:
@@ -60,7 +61,7 @@ services:
     env_file:
       - .env
     environment:
-      - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@172.25.0.4:5432/sixte?schema=public
+      - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_DOCKER_NETWORK_IP}:5432/${DATABASE_TABLE}?schema=public
     networks:
       dbnet:
   
