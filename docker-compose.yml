@@ -29,7 +29,7 @@ services:
       - db
     networks:
       dbnet:
-        ipv4_address: 172.25.0.6
+        ipv4_address: 10.5.0.6
 
   backend:
     build:
@@ -48,7 +48,7 @@ services:
       - MODE=prod
     networks:
       dbnet:
-        ipv4_address: 172.25.0.5
+        ipv4_address: 10.5.0.5
 
   prisma-studio:
     build:
@@ -73,5 +73,5 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.25.0.0/16
-          gateway: 172.25.0.1
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
