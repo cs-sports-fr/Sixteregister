@@ -152,16 +152,10 @@ async def check_and_update_team_amount_to_pay_then_get_team(
         return team, amount_to_pay_in_cents
 
     for participant in team.participants:
-        if participant.pack is not None:
-            if team.schoolId == 13:
-                amount_to_pay_in_cents += participant.pack.priceInCents - 4000
-            elif team.schoolId in [1, 2, 3]:
-                amount_to_pay_in_cents += participant.pack.priceInCents - 1000
-            else:
-                amount_to_pay_in_cents += participant.pack.priceInCents
+       
+        amount_to_pay_in_cents += 4200
 
-        if team.sportId == 19:
-            amount_to_pay_in_cents += 1000
+        
 
     if team.amountToPayInCents != amount_to_pay_in_cents:
         team = await prisma.team.update(

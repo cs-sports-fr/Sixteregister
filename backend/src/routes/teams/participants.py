@@ -130,7 +130,7 @@ async def team_update_participant(
 
     existing_participant = await prisma.participant.find_first(
         where=ParticipantWhereInput(id=participant_id, teamId=team_id),
-        include=ParticipantInclude(products=True),
+        
     )
     if not existing_participant:
         raise HTTPException(status_code=404, detail="Participant not found")
@@ -144,7 +144,6 @@ async def team_update_participant(
             email=participant.email,
             dateOfBirth=participant.dateOfBirth,
             isCaptain=participant.isCaptain,
-            licenceID=participant.licenceID,
         ),
     )
 

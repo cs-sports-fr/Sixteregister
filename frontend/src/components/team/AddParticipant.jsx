@@ -11,7 +11,7 @@ import * as yup from 'yup';
 import { useSnackbar } from '../../provider/snackbarProvider';
 import { ApiTossConnected } from '../../service/axios';
 
-const AddParticipant = ({ open, onClose, goodies, packs, teamId }) => {
+const AddParticipant = ({ open, onClose, packs, teamId }) => {
 
     const { showSnackbar } = useSnackbar();
 
@@ -22,11 +22,6 @@ const AddParticipant = ({ open, onClose, goodies, packs, teamId }) => {
         firstname: null,
         dateOfBirth: null,
         gender: null,
-        packId: null,
-        isVegan: false,
-        hasAllergies: false,
-        licenceID: '',
-        productsIds: [],
         isCaptain: false,
     }
     const [participant, setParticipant] = useState(initState);
@@ -39,12 +34,7 @@ const AddParticipant = ({ open, onClose, goodies, packs, teamId }) => {
         firstname: yup.string().required('Prénom requis'),
         dateOfBirth: yup.date().required('Date de naissance requise'),
         gender: yup.string().required('Genre requis'),
-        packId: yup.number().required('Pack requis'),
-        mailHebergeur: yup.string().email('Email invalide').when(['packId'], {
-            is: (packId) => packId == '5' || packId == '6' || packId == '11' || packId == '12', // Vérifie si packId est un des rez
-            then: schema => schema.email("Email invalide").required("Email de l'hébergeur requis"),  // Rend emailHebergeur obligatoire si la condition est vraie
-            otherwise: schema => schema.notRequired() // Rend emailHebergeur non obligatoire si la condition est fausse
-            })
+        
     });
 
     // eslint-disable-next-line no-unused-vars
@@ -153,199 +143,9 @@ const AddParticipant = ({ open, onClose, goodies, packs, teamId }) => {
                             />
                         </LocalizationProvider>
                     </Box>
-                    <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                        <InputLabel htmlFor="licence" sx={{ marginBottom: 1 }}>Licence</InputLabel>
-                        <TextField id="licence"
-                            placeholder="Licence"
-                            variant="outlined"
-                            value={participant?.licenceID || ''}
-                            onChange={handleChange}
-                            fullWidth
-                            name="licenceID"
-                        />
-                    </Box>
-                    {(participant?.sport?.sport === "Boxe" || participant?.sport?.sport === "Judo") &&
-                        <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                            <InputLabel htmlFor="weight" sx={{ marginBottom: 1 }}>Poids</InputLabel>
-                            <TextField id="weight"
-                                placeholder="Poids (kg)"
-                                variant="outlined"
-                                value={participant?.weight || ''}
-                                onChange={handleChange}
-                                fullWidth
-                                autoComplete="weight"
-                                name="weight"
-                                type="number"
-                                InputProps={{
-                                    inputProps: {
-                                        min: 0,
-                                        max: 200,
-                                        onInput: (e) => {
-                                            e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3);
-                                            if (parseInt(e.target.value) > 200) e.target.value = 200;
-                                        }
-                                    }
-                                }}
-                            />
-                        </Box>}
-                    {(participant?.sport?.sport === 'Tennis de table') &&
-                        <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                            <InputLabel htmlFor="classementTT" sx={{ marginBottom: 1 }}>Classement</InputLabel>
-                            <TextField id="classement"
-                                placeholder="Classement"
-                                variant="outlined"
-                                value={participant?.classementTT || ''}
-                                onChange={handleChange}
-                                fullWidth
-                                autoComplete="classementTT"
-                                name="classementTT"
-                                type="number"
-                                InputProps={{
-                                    inputProps: {
-                                        min: 0,
-                                        max: 5000,
-                                        onInput: (e) => {
-                                            e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 4);
-                                            if (parseInt(e.target.value) > 5000) e.target.value = 5000;
-                                        }
-                                    }
-                                }}
-                            />
-                        </Box>
-                    }
-                    {(participant?.sport?.sport === 'Tennis') &&
-                        <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                            <InputLabel htmlFor="classementTennis" sx={{ marginBottom: 1 }}>Classement</InputLabel>
-                            <Autocomplete
-                                id="classementTennis"
-                                variant="outlined"
-                                fullWidth
-                                options={classementTennis}
-                                getOptionLabel={(option) => option.label}
-                                renderInput={(params) =>
-                                    <TextField {...params}
-                                        placeholder="Rechercher Classement"
-                                        InputLabelProps={{ shrink: true }}
-                                        inputProps={{
-                                            ...params.inputProps,
-                                            style: {
-                                                paddingTop: 0,
-                                            },
-                                        }}
-                                    />}
-                                renderOption={(props, option) => (
-                                    <ListItem
-                                        key={option.id}
-                                        {...props}
-                                        variant="school"
-                                    >
-                                        <ListItemText primary={option.label} />
-                                    </ListItem>
-                                )}
-                                value={classementTennis.find(option => option.type === participant?.classementTennis) || null}
-                                onChange={(e, newValue) => handleChange({ target: { name: "classementTennis", value: newValue ? newValue.type : null } })}
-                                isOptionEqualToValue={(option, value) => option.type === value.type}
-                            />
-                        </Box>
-
-                    }
-                    {(participant?.sport?.sport === 'Escrime') &&
-                        <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                            <InputLabel htmlFor="armeVoeu1" sx={{ marginBottom: 1 }}>Voeu 1</InputLabel>
-                            <Autocomplete
-                                id="armeVoeu1"
-                                variant="outlined"
-                                fullWidth
-                                options={armevoeux}
-                                getOptionLabel={(option) => option.label}
-                                renderInput={(params) =>
-                                    <TextField {...params}
-                                        placeholder="Rechercher Arme"
-                                        InputLabelProps={{ shrink: true }}
-                                        inputProps={{
-                                            ...params.inputProps,
-                                            style: {
-                                                paddingTop: 0,
-                                            },
-                                        }}
-                                    />}
-                                renderOption={(props, option) => (
-                                    <ListItem
-                                        key={option.id}
-                                        {...props}
-                                        variant="school"
-                                    >
-                                        <ListItemText primary={option.label} />
-                                    </ListItem>
-                                )}
-                                value={armevoeux.find(option => option.type === participant?.armeVoeu1) || null}
-                                onChange={(e, newValue) => handleChange({ target: { name: "armeVoeu1", value: newValue ? newValue.type : null } })}
-                                isOptionEqualToValue={(option, value) => option.type === value.type}
-                            />
-                            <InputLabel htmlFor="armeVoeu2" sx={{ marginBottom: 1 }}>Voeu 2</InputLabel>
-                            <Autocomplete
-                                id="armeVoeu2"
-                                variant="outlined"
-                                fullWidth
-                                options={armevoeux}
-                                getOptionLabel={(option) => option.label}
-                                renderInput={(params) =>
-                                    <TextField {...params}
-                                        placeholder="Rechercher Arme"
-                                        InputLabelProps={{ shrink: true }}
-                                        inputProps={{
-                                            ...params.inputProps,
-                                            style: {
-                                                paddingTop: 0,
-                                            },
-                                        }}
-                                    />}
-                                renderOption={(props, option) => (
-                                    <ListItem
-                                        key={option.id}
-                                        {...props}
-                                        variant="school"
-                                    >
-                                        <ListItemText primary={option.label} />
-                                    </ListItem>
-                                )}
-                                value={armevoeux.find(option => option.type === participant?.armeVoeu2) || null}
-                                onChange={(e, newValue) => handleChange({ target: { name: "armeVoeu2", value: newValue ? newValue.type : null } })}
-                                isOptionEqualToValue={(option, value) => option.type === value.type}
-                            />
-                            <InputLabel htmlFor="armeVoeu3" sx={{ marginBottom: 1 }}>Voeu 3</InputLabel>
-                            <Autocomplete
-                                id="armeVoeu3"
-                                variant="outlined"
-                                fullWidth
-                                options={armevoeux}
-                                getOptionLabel={(option) => option.label}
-                                renderInput={(params) =>
-                                    <TextField {...params}
-                                        placeholder="Rechercher Arme"
-                                        InputLabelProps={{ shrink: true }}
-                                        inputProps={{
-                                            ...params.inputProps,
-                                            style: {
-                                                paddingTop: 0,
-                                            },
-                                        }}
-                                    />}
-                                renderOption={(props, option) => (
-                                    <ListItem
-                                        key={option.id}
-                                        {...props}
-                                        variant="school"
-                                    >
-                                        <ListItemText primary={option.label} />
-                                    </ListItem>
-                                )}
-                                value={armevoeux.find(option => option.type === participant?.armeVoeu3) || null}
-                                onChange={(e, newValue) => handleChange({ target: { name: "armeVoeu3", value: newValue ? newValue.type : null } })}
-                                isOptionEqualToValue={(option, value) => option.type === value.type}
-                            />
-                        </Box>
-                    }
+                    
+                    
+                    
                     <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
                         <InputLabel htmlFor="gender" sx={{ marginBottom: 1 }}>Genre</InputLabel>
                         <Autocomplete
@@ -381,103 +181,12 @@ const AddParticipant = ({ open, onClose, goodies, packs, teamId }) => {
                             isOptionEqualToValue={(option, value) => option.type === value.type}
                         />
                     </Box>
-                    <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                        <InputLabel htmlFor="pack" sx={{ marginBottom: 1 }}>Pack</InputLabel>
-                        <Autocomplete
-                            id="pack"
-                            variant="outlined"
-                            fullWidth
-                            options={packs}
-                            getOptionLabel={(option) => option.name}
-                            renderInput={(params) =>
-                                <TextField {...params}
-                                    placeholder="Rechercher pack"
-                                    InputLabelProps={{ shrink: true }}
-                                    inputProps={{
-                                        ...params.inputProps,
-                                        style: {
-                                            paddingTop: 0,
-                                        },
-                                    }}
-                                    error={!!errors.packId}
-                                    helperText={errors.packId}
-                                />}
-                            renderOption={(props, option) => (
-                                <ListItem
-                                    key={option.id}
-                                    {...props}
-                                    variant="school"
-                                >
-                                    <ListItemText primary={option.name} />
-                                </ListItem>
-                            )}
-                            value={packs.find(option => option.id === participant?.packId) || null}
-                            onChange={(e, newValue) => handleChange({ target: { name: "packId", value: newValue ? newValue.id : null } })}
-                            isOptionEqualToValue={(option, value) => option.id === value.id}
-                        />
-                    </Box>
-                    {(participant?.packId === 5 || participant?.packId === 6 || participant?.packId === 11 || participant?.packId === 12) &&
-                        <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                            <InputLabel htmlFor="mailHebergeur" sx={{ marginBottom: 1 }}>Email hebergeur</InputLabel>
-                            <TextField id="mailHebergeur"
-                                placeholder="Email hebergeur"
-                                variant="outlined"
-                                value={participant?.mailHebergeur || ''}
-                                onChange={handleChange}
-                                fullWidth
-                                name="mailHebergeur"
-                                error={!!errors.mailHebergeur}
-                                helperText={errors.mailHebergeur}
-                            />
-                        </Box>
-                    }
+                    
+                    
                     <Divider sx={{ mb: 1 }} />
-                    <Typography variant="h6" sx={{ mb: 1 }}>Régime alimentaire</Typography>
-                    <Box sx={{ justifyContent: 'left', textAlign: 'left' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5, ml: 1 }}>
-                            <Checkbox
-                                sx={{
-                                    color: "primary.main",
-                                    '&.Mui-checked': {
-                                        color: "primary.main",
-                                    },
-                                }}
-                                checked={participant?.isVegan}
-                                onChange={(e, checked) => handleChange({ target: { name: "isVegan", value: checked } })}
-                            />
-                            <Typography sx={{ ml: 2 }}>Végan</Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5, ml: 1 }}>
-                            <Checkbox
-                                sx={{
-                                    color: "primary.main",
-                                    '&.Mui-checked': {
-                                        color: "primary.main",
-                                    },
-                                }}
-                                checked={participant?.hasAllergies}
-                                onChange={(e, checked) => handleChange({ target: { name: "hasAllergies", value: checked } })}
-                            />
-                            <Typography sx={{ ml: 2 }}>Allergie arachides/ fruits à coque</Typography>
-                        </Box>
-                    </Box>
+                    
                     <Divider sx={{ mb: 1, mt: 1 }} />
-                    <Typography variant="h6" sx={{ mb: 1 }}>Goodies</Typography>
-                    {goodies.map((goodie) => (
-                        <Box key={goodie.id} sx={{ display: 'flex', alignItems: 'center', mb: 0.5, ml: 1 }}>
-                            <Checkbox
-                                sx={{
-                                    color: "primary.main",
-                                    '&.Mui-checked': {
-                                        color: "primary.main",
-                                    },
-                                }}
-                                checked={participant?.productsIds?.includes(goodie.id)}
-                                onChange={(e, checked) => handleCheckboxChange(goodie.id, checked)}
-                            />
-                            <Typography sx={{ ml: 2 }}>{goodie.name}</Typography>
-                        </Box>
-                    ))}
+                    
                     <Button variant="contained" sx={{ mt: 2 }} fullWidth onClick={handleSubmit}>Enregistrer</Button>
                 </Box>
             </Box>

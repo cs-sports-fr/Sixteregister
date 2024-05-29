@@ -66,7 +66,7 @@ const Login = () => {
             <Grid container spacing={2} height={'102vh'}>
                 <Grid item md={6} xs={12} sx={{ textAlign: 'center', alignSelf: "center" }}> {/* xs={12} md={6} pour responsive a faire */}
                     <Grid py={'10vh'} px={'22%'} sx={{}}>
-                        <Typography variant="h1" sx={{ fontSize: '7rem', fontWeight: 'bold' }}>TOSS</Typography>
+                        <Typography variant="h1" sx={{ fontSize: '7rem', fontWeight: 'bold' }}>Sixte</Typography>
                         <DividerText text="Connexion" />
                         <Box m={'1vw'}>
                             <form onSubmit={handleLogin}>
@@ -74,7 +74,7 @@ const Login = () => {
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left' }}>
                                         <InputLabel htmlFor="email" sx={{ marginBottom: 1 }}>Email</InputLabel>
                                         <TextField id="email"
-                                            placeholder="toss@cs-sports.fr"
+                                            placeholder="sixte@cs-sports.fr"
                                             variant="outlined"
                                             value={email}
                                             onChange={handleChangeEmail}

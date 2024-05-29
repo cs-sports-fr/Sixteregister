@@ -34,11 +34,7 @@ const SelectSport = ({ callback, sports, callbackType, isCollective }) => {
 
             {isSportCollective === null &&
                 <Box display="flex" flexDirection="row" justifyContent="center" gap={2}>
-                    <Button variant="contained" color="primary" sx={{ width: '12rem' }}
-                        onClick={() => { setIsSportCollective(false); callbackType(false) }}
-                    >
-                        Sport individuel
-                    </Button>
+                    
                     <Button variant="contained" color="primary" sx={{ width: '12rem' }}
                         onClick={() => { setIsSportCollective(true); callbackType(true) }}
                     >

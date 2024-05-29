@@ -28,11 +28,11 @@ async def get_all_sports():
 
 
 @sports_router.get(
-    "/{sport_id}", response_model=Sport, dependencies=[Depends(check_admin)]
+    "/{sportId}", response_model=Sport, dependencies=[Depends(check_admin)]
 )
-async def get_sport(sport_id: int):
+async def get_sport(sportId: int):
     sport = await prisma.sport.find_unique(
-        where=SportWhereUniqueInput(id=sport_id),
+        where=SportWhereUniqueInput(id=sportId),
         include=SportInclude(
             teams=FindManyTeamArgsFromSport(
                 include=TeamIncludeFromTeamRecursive1(
@@ -69,12 +69,12 @@ async def create_sport(
 
 
 @sports_router.put(
-    "/{sport_id}",
+    "/{sportId}",
     response_model=Sport,
     dependencies=[Depends(check_super_admin)],
 )
 async def update_sport(
-    sport_id: int,
+    sportId: int,
     sport: str,
     nb_of_teams: int,
     nb_players_min: int,
@@ -82,7 +82,7 @@ async def update_sport(
     is_collective: bool,
 ):
     updated_sport = await prisma.sport.update(
-        where=SportWhereUniqueInput(id=sport_id),
+        where=SportWhereUniqueInput(id=sportId),
         data=SportCreateInput(
             sport=sport,
             nbOfTeams=nb_of_teams,
@@ -94,6 +94,6 @@ async def update_sport(
     return updated_sport
 
 
-@sports_router.delete("/{sport_id}", dependencies=[Depends(check_super_admin)])
-async def delete_sport(sport_id: int):
-    await prisma.sport.delete(where=SportWhereUniqueInput(id=sport_id))
+@sports_router.delete("/{sportId}", dependencies=[Depends(check_super_admin)])
+async def delete_sport(sportId: int):
+    await prisma.sport.delete(where=SportWhereUniqueInput(id=sportId))

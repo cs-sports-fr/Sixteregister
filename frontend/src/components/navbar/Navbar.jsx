@@ -22,8 +22,8 @@ const Navbar = ({ navigation }) => {
                     <Box sx={{ display: "flex", flexDirection: 'row', alignItems: 'center' }}>
                         <Box>
                             <img
-                                src={isDarkMode ? "/images/logo_toss_light.png" : "/images/logo_toss_dark.png"}
-                                alt="Logo Toss"
+                                src={isDarkMode ? "/images/logo_sixte.png" : "/images/logo_sixte.png"}
+                                alt="Logo Sixte"
                                 width={40}
                                 height={40}
                             />

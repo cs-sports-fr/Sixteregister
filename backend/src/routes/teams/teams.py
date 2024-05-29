@@ -160,9 +160,7 @@ async def get_teams(user: Annotated[User, Depends(check_user)]):
         teams = await prisma.team.find_many(
             include=TeamInclude(
                 participants=FindManyParticipantArgsFromTeam(
-                    include=ParticipantIncludeFromParticipantRecursive1(
-                        products=True
-                    )
+                   
                 ),
                 sport=True,
             )
@@ -179,9 +177,7 @@ async def get_teams(user: Annotated[User, Depends(check_user)]):
             ),
             include=TeamInclude(
                 participants=FindManyParticipantArgsFromTeam(
-                    include=ParticipantIncludeFromParticipantRecursive1(
-                        products=True
-                    )
+                    
                 ),
                 sport=True,
             ),
@@ -192,9 +188,7 @@ async def get_teams(user: Annotated[User, Depends(check_user)]):
         where=TeamWhereInput(teamAdminUserId=user.id),
         include=TeamInclude(
             participants=FindManyParticipantArgsFromTeam(
-                include=ParticipantIncludeFromParticipantRecursive1(
-                    products=True
-                )
+                
             ),
             sport=True,
         ),

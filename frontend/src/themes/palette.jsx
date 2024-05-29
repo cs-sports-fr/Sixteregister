@@ -99,7 +99,7 @@ const palette = {
         default: GREY[960],
         neutral: GREY[0],
         navbar: GREY[0],// PRIMARY.main
-        drawer: GREY[800],
+        drawer: '#6784c0',
     },
     action: {
         active: GREY[600],

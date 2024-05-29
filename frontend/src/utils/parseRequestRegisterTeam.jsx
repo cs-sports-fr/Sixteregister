@@ -5,12 +5,8 @@ const isParticipantEmpty = (participant) => {
         participant.lastname === null &&
         participant.firstname === null &&
         participant.dateOfBirth === null &&
-        participant.gender === null &&
-        participant.packId === null &&
-        participant.isVegan === false &&
-        participant.hasAllergies === false &&
-        participant.licenceID === '' &&
-        Array.isArray(participant.productsIds) && participant.productsIds.length === 0;
+        participant.gender === null 
+        
 }
 
 const parseRegisterTeamRequest = (participants) => { // remove empty participants
