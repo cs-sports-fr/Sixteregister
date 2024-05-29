@@ -5,8 +5,6 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/fr';
 import gender from "../../assets/gender.json";
-import classementTennis from "../../assets/classementTennis.json";
-import armevoeux from "../../assets/armevoeux.json";
 import { ApiTossConnected } from "../../service/axios";
 import axios from "axios";
 import * as yup from 'yup';
@@ -22,6 +20,8 @@ const RegisterTeam = ({ sport }) => {
 
     const [teamName, setTeamName] = useState("");
 
+
+
     const navigation = useNavigate();
 
     const initialErrorState = {
@@ -32,8 +32,6 @@ const RegisterTeam = ({ sport }) => {
             firstname: '',
             dateOfBirth: '',
             gender: '',
-            packId: '',
-            mailHebergeur: '',
         })),
     };
     const [errors, setErrors] = useState(initialErrorState);
@@ -59,18 +57,6 @@ const RegisterTeam = ({ sport }) => {
             dateOfBirth: null,
             isCaptain: index === 0,
             gender: null,
-            packId: null,
-            isVegan: false,
-            hasAllergies: false,
-            licenceID: '',
-            weight: 0,
-            productsIds: [],
-            mailHebergeur: '',
-            classementTennis: null,
-            classementTT: null,
-            armeVoeu1: null,
-            armeVoeu2: null,
-            armeVoeu3: null,
         }))
     );
 
@@ -82,40 +68,10 @@ const RegisterTeam = ({ sport }) => {
             index === selectedPlayer - 1 ? { ...player, [name]: value } : player
         ))
     }
-    const handleCheckboxChange = (goodieId, checked) => {
-        setPlayerData(playerData.map((player, index) => {
-            if (index === selectedPlayer - 1) {
-                // Si la checkbox est cochée, ajoutez le goodieId au tableau des goodies du joueur
-                // Sinon, retirez-le
-                const updatedGoodies = checked
-                    ? [...player.productsIds, goodieId]
-                    : player.productsIds.filter(id => id !== goodieId);
+   
+  
 
-                return { ...player, productsIds: updatedGoodies };
-            }
-            return player;
-        }));
-    };
-
-    const [packs, setPacks] = useState([]);
-    const [goodies, setGoodies] = useState([]);
-    const fetchData = () => {
-        const endpoints = [
-            '/packs',
-            '/products',
-        ]
-        axios.all(endpoints.map(url => ApiTossConnected.get(url)))
-            .then(axios.spread((...responses) => {
-                setPacks(responses[0].data);
-                setGoodies(responses[1].data);
-            })).catch((error) => {
-                console.log(error);
-            });
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+   
 
 
     const playerSchema = yup.object().shape({
@@ -124,13 +80,9 @@ const RegisterTeam = ({ sport }) => {
         firstname: yup.string().required('Prénom requis'),
         dateOfBirth: yup.date().required('Date de naissance requise'),
         gender: yup.string().required('Genre requis'),
-        packId: yup.string().required('Pack requis'),
 
-        mailHebergeur: yup.string().email('Email invalide').when(['packId'], {
-            is: (packId) => packId == '5' || packId == '6' || packId == '11' || packId == '12', // Vérifie si packId est un des rez
-            then: schema => schema.email("Email invalide").required("Email de l'hébergeur requis"),  // Rend emailHebergeur obligatoire si la condition est vraie
-            otherwise: schema => schema.notRequired() // Rend emailHebergeur non obligatoire si la condition est fausse
-        })
+
+      
     });
 
     const optionalPlayerSchema = yup.object().test(
@@ -163,7 +115,7 @@ const RegisterTeam = ({ sport }) => {
 
 
     const handleSubmit = async (event) => {
-        // console.log(playerData);
+        console.log(playerData);
         event.preventDefault()
         try {
             await teamSchema.validate({ teamName, players: playerData }, { abortEarly: false })
@@ -178,7 +130,7 @@ const RegisterTeam = ({ sport }) => {
                     if (error.response.data.detail === "A team with this name already exists") {
                         showSnackbar('Une équipe a déja ce nom', 3000, 'error',);
                     } else {
-                        showSnackbar('Une erreur est survenue', 3000, 'error',);
+                        showSnackbar('Une erreur est là', 3000, 'error',);
                     }
 
                 });
@@ -312,20 +264,7 @@ const RegisterTeam = ({ sport }) => {
                                             isOptionEqualToValue={(option, value) => option.type === value.type}
                                         />
                                     </Box>
-                                    <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                                        <InputLabel htmlFor="licenceId" sx={{ marginBottom: 1 }}>Numéro de licence</InputLabel>
-                                        <TextField id="licenceId"
-                                            placeholder="Numéro de licence"
-                                            variant="outlined"
-                                            value={playerData[selectedPlayer - 1]?.licenceID || ''}
-                                            onChange={handleChange}
-                                            fullWidth
-                                            autoComplete="licenceID"
-                                            name="licenceID"
-                                            error={!!errors.players[selectedPlayer - 1]?.licenceID}
-                                            helperText={errors.players[selectedPlayer - 1]?.licenceID}
-                                        />
-                                    </Box>
+                                    
                                 </Grid>
                                 <Grid item xs={6} sx={{ backgroundColor: 'background.paper' }}>
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
@@ -355,303 +294,12 @@ const RegisterTeam = ({ sport }) => {
                                             />
                                         </LocalizationProvider>
                                     </Box>
-                                    <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                                        <InputLabel htmlFor="pack" sx={{ marginBottom: 1 }}>Pack</InputLabel>
-                                        <Autocomplete
-                                            id="pack"
-                                            variant="outlined"
-                                            fullWidth
-                                            options={sport.id !== 27 ? packs.filter(option => ![7, 8, 9, 10, 11, 12].includes(option.id)) : packs}
-                                            getOptionLabel={(option) => option.name /*option.id === 5 ? "Rez sans Diner" : option.name*/}
-                                            renderInput={(params) =>
-                                                <TextField {...params}
-                                                    placeholder="Rechercher pack"
-                                                    InputLabelProps={{ shrink: true }}
-                                                    inputProps={{
-                                                        ...params.inputProps,
-                                                        style: {
-                                                            paddingTop: 0,
-                                                        },
-                                                    }}
-                                                    error={!!errors.players[selectedPlayer - 1]?.packId}
-                                                    helperText={errors.players[selectedPlayer - 1]?.packId}
-                                                />}
-                                            renderOption={(props, option) => (
-                                                <ListItem
-                                                    key={option.id}
-                                                    {...props}
-                                                    variant="school"
-                                                >
-                                                    <ListItemText primary={option.name} />
-                                                </ListItem>
-                                            )}
-                                            value={packs.find(option => option.id === playerData[selectedPlayer - 1]?.packId) || null}
-                                            onChange={(e, newValue) => handleChange({ target: { name: "packId", value: newValue ? newValue.id : null } })}
-                                            isOptionEqualToValue={(option, value) => option.id === value.id}
-                                        />
-                                    </Box>
-                                    {(sport.sport === 'Boxe' || sport.sport === 'Judo') &&
-                                        <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                                            <InputLabel htmlFor="weight" sx={{ marginBottom: 1 }}>Poids</InputLabel>
-                                            <TextField id="weight"
-                                                placeholder="Poids (kg)"
-                                                variant="outlined"
-                                                value={playerData[selectedPlayer - 1]?.weight || ''}
-                                                onChange={handleChange}
-                                                fullWidth
-                                                autoComplete="weight"
-                                                name="weight"
-                                                type="number"
-                                                InputProps={{
-                                                    inputProps: {
-                                                        min: 0,
-                                                        max: 200,
-                                                        onInput: (e) => {
-                                                            e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 3);
-                                                            if (parseInt(e.target.value) > 200) e.target.value = 200;
-                                                        }
-                                                    }
-                                                }}
-                                            />
-                                        </Box>
-                                    }
-                                    {(sport.sport === 'Tennis de table') &&
-                                        <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                                            <InputLabel htmlFor="classementTT" sx={{ marginBottom: 1 }}>Classement</InputLabel>
-                                            <TextField id="classementTT"
-                                                placeholder="Classement"
-                                                variant="outlined"
-                                                value={playerData[selectedPlayer - 1]?.classementTT || ''}
-                                                onChange={handleChange}
-                                                fullWidth
-                                                autoComplete="classementTT"
-                                                name="classementTT"
-                                                type="number"
-                                                InputProps={{
-                                                    inputProps: {
-                                                        min: 0,
-                                                        max: 5000,
-                                                        onInput: (e) => {
-                                                            e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 4);
-                                                            if (parseInt(e.target.value) > 5000) e.target.value = 5000;
-                                                        }
-                                                    }
-                                                }}
-                                            />
-                                        </Box>
-                                    }
-                                    {(sport.sport === 'Tennis') &&
-                                        <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                                            <InputLabel htmlFor="classementTennis" sx={{ marginBottom: 1 }}>Classement</InputLabel>
-                                            <Autocomplete
-                                                id="classementTennis"
-                                                variant="outlined"
-                                                fullWidth
-                                                options={classementTennis}
-                                                getOptionLabel={(option) => option.label}
-                                                renderInput={(params) =>
-                                                    <TextField {...params}
-                                                        placeholder="Rechercher Classement"
-                                                        InputLabelProps={{ shrink: true }}
-                                                        inputProps={{
-                                                            ...params.inputProps,
-                                                            style: {
-                                                                paddingTop: 0,
-                                                            },
-                                                        }}
-                                                        error={!!errors.players[selectedPlayer - 1]?.classementTennis}
-                                                        helperText={errors.players[selectedPlayer - 1]?.classementTennis}
-                                                    />}
-                                                renderOption={(props, option) => (
-                                                    <ListItem
-                                                        key={option.id}
-                                                        {...props}
-                                                        variant="school"
-                                                    >
-                                                        <ListItemText primary={option.label} />
-                                                    </ListItem>
-                                                )}
-                                                value={classementTennis.find(option => option.type === playerData[selectedPlayer - 1]?.classementTennis) || null}
-                                                onChange={(e, newValue) => handleChange({ target: { name: "classementTennis", value: newValue ? newValue.type : null } })}
-                                                isOptionEqualToValue={(option, value) => option.type === value.type}
-                                            />
-                                        </Box>
-
-                                    }
-                                    {(sport.sport === 'Escrime') &&
-                                        <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                                            <InputLabel htmlFor="armeVoeu1" sx={{ marginBottom: 1 }}>Voeu 1</InputLabel>
-                                            <Autocomplete
-                                                id="armeVoeu1"
-                                                variant="outlined"
-                                                fullWidth
-                                                options={armevoeux}
-                                                getOptionLabel={(option) => option.label}
-                                                renderInput={(params) =>
-                                                    <TextField {...params}
-                                                        placeholder="Rechercher Arme"
-                                                        InputLabelProps={{ shrink: true }}
-                                                        inputProps={{
-                                                            ...params.inputProps,
-                                                            style: {
-                                                                paddingTop: 0,
-                                                            },
-                                                        }}
-                                                        error={!!errors.players[selectedPlayer - 1]?.armeVoeu1}
-                                                        helperText={errors.players[selectedPlayer - 1]?.armeVoeu1}
-                                                    />}
-                                                renderOption={(props, option) => (
-                                                    <ListItem
-                                                        key={option.id}
-                                                        {...props}
-                                                        variant="school"
-                                                    >
-                                                        <ListItemText primary={option.label} />
-                                                    </ListItem>
-                                                )}
-                                                value={armevoeux.find(option => option.type === playerData[selectedPlayer - 1]?.armeVoeu1) || null}
-                                                onChange={(e, newValue) => handleChange({ target: { name: "armeVoeu1", value: newValue ? newValue.type : null } })}
-                                                isOptionEqualToValue={(option, value) => option.type === value.type}
-                                            />
-                                            <InputLabel htmlFor="armeVoeu2" sx={{ marginBottom: 1 }}>Voeu 2</InputLabel>
-                                            <Autocomplete
-                                                id="armeVoeu2"
-                                                variant="outlined"
-                                                fullWidth
-                                                options={armevoeux}
-                                                getOptionLabel={(option) => option.label}
-                                                renderInput={(params) =>
-                                                    <TextField {...params}
-                                                        placeholder="Rechercher Arme"
-                                                        InputLabelProps={{ shrink: true }}
-                                                        inputProps={{
-                                                            ...params.inputProps,
-                                                            style: {
-                                                                paddingTop: 0,
-                                                            },
-                                                        }}
-                                                        error={!!errors.players[selectedPlayer - 1]?.armeVoeu2}
-                                                        helperText={errors.players[selectedPlayer - 1]?.armeVoeu2}
-                                                    />}
-                                                renderOption={(props, option) => (
-                                                    <ListItem
-                                                        key={option.id}
-                                                        {...props}
-                                                        variant="school"
-                                                    >
-                                                        <ListItemText primary={option.label} />
-                                                    </ListItem>
-                                                )}
-                                                value={armevoeux.find(option => option.type === playerData[selectedPlayer - 1]?.armeVoeu2) || null}
-                                                onChange={(e, newValue) => handleChange({ target: { name: "armeVoeu2", value: newValue ? newValue.type : null } })}
-                                                isOptionEqualToValue={(option, value) => option.type === value.type}
-                                            />
-                                            <InputLabel htmlFor="armeVoeu3" sx={{ marginBottom: 1 }}>Voeu 3</InputLabel>
-                                            <Autocomplete
-                                                id="armeVoeu3"
-                                                variant="outlined"
-                                                fullWidth
-                                                options={armevoeux}
-                                                getOptionLabel={(option) => option.label}
-                                                renderInput={(params) =>
-                                                    <TextField {...params}
-                                                        placeholder="Rechercher Arme"
-                                                        InputLabelProps={{ shrink: true }}
-                                                        inputProps={{
-                                                            ...params.inputProps,
-                                                            style: {
-                                                                paddingTop: 0,
-                                                            },
-                                                        }}
-                                                        error={!!errors.players[selectedPlayer - 1]?.armeVoeu3}
-                                                        helperText={errors.players[selectedPlayer - 1]?.armeVoeu3}
-                                                    />}
-                                                renderOption={(props, option) => (
-                                                    <ListItem
-                                                        key={option.id}
-                                                        {...props}
-                                                        variant="school"
-                                                    >
-                                                        <ListItemText primary={option.label} />
-                                                    </ListItem>
-                                                )}
-                                                value={armevoeux.find(option => option.type === playerData[selectedPlayer - 1]?.armeVoeu3) || null}
-                                                onChange={(e, newValue) => handleChange({ target: { name: "armeVoeu3", value: newValue ? newValue.type : null } })}
-                                                isOptionEqualToValue={(option, value) => option.type === value.type}
-                                            />
-                                        </Box>
-                                    }
+                                    
                                 </Grid>
                             </Grid>
-                            {(playerData[selectedPlayer - 1]?.packId === 5 || playerData[selectedPlayer - 1]?.packId === 6 || playerData[selectedPlayer - 1]?.packId === 11 || playerData[selectedPlayer - 1]?.packId === 12) &&
-                                <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                                    <InputLabel htmlFor="mailHebergeur" sx={{ marginBottom: 1 }}>Email hebergeur (Uniquement chez une de vos connaissances)</InputLabel>
-                                    <TextField id="mailHebergeur"
-                                        placeholder="Email hebergeur"
-                                        variant="outlined"
-                                        value={playerData[selectedPlayer - 1]?.mailHebergeur || ''}
-                                        onChange={handleChange}
-                                        fullWidth
-                                        name="mailHebergeur"
-                                        error={!!errors.players[selectedPlayer - 1]?.mailHebergeur}
-                                        helperText={errors.players[selectedPlayer - 1]?.mailHebergeur}
-                                    />
-                                </Box>
-                            }
-                            <Divider sx={{ marginY: 1 }} />
-                            <Box>
-                                <Typography variant="h6" sx={{ mb: 1 }}>Régime alimentaire</Typography>
-                                <Box sx={{ justifyContent: 'left', textAlign: 'left' }}>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5, ml: 1 }}>
-                                        <Checkbox
-                                            sx={{
-                                                color: "primary.main",
-                                                '&.Mui-checked': {
-                                                    color: "primary.main",
-                                                },
-                                            }}
-                                            checked={playerData[selectedPlayer - 1]?.isVegan}
-                                            onChange={(e, checked) => handleChange({ target: { name: "isVegan", value: checked } })}
-                                        />
-                                        <Typography sx={{ ml: 2 }}>Végan</Typography>
-                                    </Box>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.5, ml: 1 }}>
-                                        <Checkbox
-                                            sx={{
-                                                color: "primary.main",
-                                                '&.Mui-checked': {
-                                                    color: "primary.main",
-                                                },
-                                            }}
-                                            checked={playerData[selectedPlayer - 1]?.hasAllergies}
-                                            onChange={(e, checked) => handleChange({ target: { name: "hasAllergies", value: checked } })}
-                                        />
-                                        <Typography sx={{ ml: 2 }}>Allergie arachides/ fruits à coque</Typography>
-                                    </Box>
-                                </Box>
-                            </Box>
-
-                            <Divider sx={{ marginY: 2 }} />
-                            <Box>
-                                <Typography variant="h6" sx={{ mb: 2 }}>Choix des goodies</Typography>
-                                <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 1 }}>
-                                    {goodies.map((goodie) => (
-                                        <Box key={goodie.id} sx={{ display: 'flex', alignItems: 'center', mb: 0.5, ml: 1 }}>
-                                            <Checkbox
-                                                sx={{
-                                                    color: "primary.main",
-                                                    '&.Mui-checked': {
-                                                        color: "primary.main",
-                                                    },
-                                                }}
-                                                checked={playerData[selectedPlayer - 1]?.productsIds.includes(goodie.id)}
-                                                onChange={(e, checked) => handleCheckboxChange(goodie.id, checked)}
-                                            />
-                                            <Typography sx={{ ml: 2 }}>{goodie.name}</Typography>
-                                        </Box>
-                                    ))}
-                                </Box>
-                            </Box>
+                            
+                            
+                            
                         </form>
                     </Box>
                 </Box>

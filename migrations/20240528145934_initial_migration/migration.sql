@@ -15,7 +15,7 @@ CREATE TYPE "PaymentStatus" AS ENUM ('Pending', 'Paid', 'Failed', 'Canceled', 'F
 
 -- CreateTable
 CREATE TABLE "Sport" (
-    "id" SERIAL NOT NULL,
+    "id" INTEGER NOT NULL,
     "sport" TEXT NOT NULL,
     "nbPlayersMin" INTEGER NOT NULL DEFAULT 1,
     "nbPlayersMax" INTEGER NOT NULL DEFAULT 300,

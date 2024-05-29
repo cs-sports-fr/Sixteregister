@@ -70,10 +70,13 @@ Create a virtual environment using `python3.11 -m venv toss-register-env` (`pyth
  
 On mac and linux, run `source toss-register-env/bin/activate` to activate the environnemnt.
 On windows, run `.\toss-register-env\Scripts\activate` to activate the environnemnt.
+
+If not done yet, run `pip install prisma` and `prisma generate`
  
 Go into the backend folder using `cd backend`
  
 Install the requirements using `pip install -r requirements.txt`
+
  
 After you installed all the requirements and started all the services, you can now execute the project using: `python3 src` using python3 or simply `python src` depending on your installation.
  
