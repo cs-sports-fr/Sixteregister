@@ -13,16 +13,10 @@ const parseTeam = (team) => {
     let parsedTeam = { ...team }
 
     parsedTeam.participants = parsedTeam.participants.map(participant => {
-        const price = participant.pack.priceInCents + (participant.products?.reduce((acc, { priceInCents }) => acc + priceInCents, 0) || 0);
-        const diet = constructDiet(participant);
+
 
         return {
             ...participant,
-            diet,
-            packname: participant.pack.name,
-            price: formatPrice(price),
-            productsIds: participant.products?.map(({ id }) => id),
-            certif: participant.certificateLink || participant.licenceID ? true : false,
             gender: participant.gender === 'preferNotToSay' ? 'NC' : participant.gender
         };
     }).sort((a, b) => a.id - b.id);

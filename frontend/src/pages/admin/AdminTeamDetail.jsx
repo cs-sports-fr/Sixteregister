@@ -40,19 +40,13 @@ const AdminTeamDetail = () => {
         setErrors({})
     }
 
-    const [packs, setPacks] = useState([]);
-    const [goodies, setGoodies] = useState([]);
     const fetchData = () => {
         const endpoints = [
-            'packs',
-            'products',
             'teams/' + teamId,
         ]
         axios.all(endpoints.map(url => ApiTossConnected.get(url)))
             .then(axios.spread((...responses) => {
-                setPacks(responses[0].data);
-                setGoodies(responses[1].data);
-                setTeam(parseTeam(responses[2].data));
+                setTeam(parseTeam(responses[0].data));
             })).catch((error) => {
                 console.log(error);
             });
@@ -83,7 +77,8 @@ const AdminTeamDetail = () => {
         firstname: yup.string().required('Prénom requis'),
         dateOfBirth: yup.date().required('Date de naissance requise'),
         gender: yup.string().required('Genre requis'),
-        packId: yup.number().required('Pack requis')
+        isBoursier: yup.string().required('Obligatoire'),
+
     });
 
     const [errors, setErrors] = useState({});
@@ -163,8 +158,6 @@ const AdminTeamDetail = () => {
                 onClose={handleCloseDrawer}
                 participant={selectedParticipant}
                 setSelectedParticipant={setSelectedParticipant}
-                packs={packs}
-                goodies={goodies}
                 errors={errors}
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
@@ -178,6 +171,7 @@ const AdminTeamDetail = () => {
                 open={drawerOpenAdd}
                 onClose={() => { setDrawerOpenAdd(false); fetchData(); }}
                 teamId={teamId}
+
             />
         </Box>
     );
@@ -193,7 +187,7 @@ const columns = [
     { label: "Capitaine", align: "center", name: "isCaptain", type: "boolean" },
     { label: "Date de naissance", align: "center", name: "dateOfBirth", type: "date" },
     { label: "Charte signée", align: "center", name: "charteIsValidated", type: "boolean" },
-    { label: "Boursier", align: "center", name: "certif", type: "certif" },
+    { label: "Boursier", align: "center", name: "isBoursier", type: "boolean" },
     { label: "Prix", align: "center", name: "price" },
 ]
 
