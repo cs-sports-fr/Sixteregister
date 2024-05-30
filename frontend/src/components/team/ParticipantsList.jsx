@@ -31,22 +31,7 @@ const ParticipantsList = ({ headerItem, columns, players, modify, onModify, team
         }
     };
 
-    const handleCertif = async (teamId, participantId) => {
-        try {
-            const response = await ApiTossConnected.get(`/teams/${teamId}/participant/${participantId}/certificate`, { responseType: 'blob' });
-
-            if (response.status === 200) {
-                const blob = response.data; // Convertit la réponse en Blob
-                const fileURL = URL.createObjectURL(blob); // Crée un URL pour le Blob
-                window.open(fileURL, '_blank'); // Ouvre le fichier dans un nouvel onglet
-            } else {
-                console.error('Erreur lors de la récupération du certificat, statut:', response.status);
-            }
-        } catch (error) {
-            console.error('Erreur lors de la récupération du certificat:', error);
-            showSnackbar('Une erreur est survenue lors de la récupération du certificat', 3000, 'error');
-        }
-    }
+    
 
 
     return (
@@ -85,9 +70,9 @@ const ParticipantsList = ({ headerItem, columns, players, modify, onModify, team
                                                         {indexP + 1}
                                                     </TableCell>
                                                     :
-                                                    column?.type === "certif" ?
-                                                        <TableCell key={indexC} align={column?.align} sx={{ cursor: 'pointer' }} onClick={() => { if (player["certificateLink"]) { handleCertif(teamId, player.id) } }}>
-                                                            {player[column?.name] ? player["certificateLink"] ?
+                                                    column?.type === "isBoursier" ?
+                                                        <TableCell key={indexC} align={column?.align} sx={{ cursor: 'pointer' }} onClick={() => { if (player["isBoursier"]) { handleCertif(teamId, player.id) } }}>
+                                                            {player[column?.name] ? player["isBoursier"] ?
                                                                 <Visibility color="success" /> : <CheckCircle color="success" /> : <Cancel color="error" />}
                                                         </TableCell>
                                                         :
@@ -108,7 +93,7 @@ const ParticipantsList = ({ headerItem, columns, players, modify, onModify, team
                                 <TableRow>
                                     <TableCell colSpan={columns.length + (modify ? 1 : 0)} align="center">
                                         <Typography component="h2" sx={{ color: 'divider', marginTop: '1rem' }}>
-                                            Aucune joueurs dans l&apos;équipe
+                                            Aucuns joueurs dans l&apos;équipe
                                         </Typography>
                                     </TableCell>
                                 </TableRow>

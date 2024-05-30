@@ -11,7 +11,7 @@ import * as yup from 'yup';
 import { useSnackbar } from '../../provider/snackbarProvider';
 import { ApiTossConnected } from '../../service/axios';
 
-const AddParticipant = ({ open, onClose, packs, teamId }) => {
+const AddParticipant = ({ open, onClose, teamId }) => {
 
     const { showSnackbar } = useSnackbar();
 
@@ -23,6 +23,7 @@ const AddParticipant = ({ open, onClose, packs, teamId }) => {
         dateOfBirth: null,
         gender: null,
         isCaptain: false,
+        isBoursier : false,
     }
     const [participant, setParticipant] = useState(initState);
     const [errors, setErrors] = useState({});
@@ -34,6 +35,7 @@ const AddParticipant = ({ open, onClose, packs, teamId }) => {
         firstname: yup.string().required('Prénom requis'),
         dateOfBirth: yup.date().required('Date de naissance requise'),
         gender: yup.string().required('Genre requis'),
+        isBoursier: yup.string().required('Obligatoire'),
         
     });
 
@@ -197,8 +199,6 @@ const AddParticipant = ({ open, onClose, packs, teamId }) => {
 AddParticipant.propTypes = {
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    goodies: PropTypes.array.isRequired,
-    packs: PropTypes.array.isRequired,
     teamId: PropTypes.string.isRequired
 };
 
