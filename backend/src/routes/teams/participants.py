@@ -144,6 +144,7 @@ async def team_update_participant(
             email=participant.email,
             dateOfBirth=participant.dateOfBirth,
             isCaptain=participant.isCaptain,
+            isBoursier=participant.isBoursier,
         ),
     )
 

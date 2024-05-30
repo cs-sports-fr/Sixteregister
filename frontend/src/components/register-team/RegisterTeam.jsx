@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Checkbox, Divider, Grid, InputLabel, ListItem, ListItemText, TextField, Typography } from "@mui/material";
+import { Autocomplete, Box, Button, Checkbox, Divider, Grid, InputLabel, ListItem, ListItemText, TextField, Typography, RadioGroup, FormControlLabel, Radio, FormHelperText } from "@mui/material";
 import { PropTypes } from "prop-types";
 import { useEffect, useState } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -32,6 +32,7 @@ const RegisterTeam = ({ sport }) => {
             firstname: '',
             dateOfBirth: '',
             gender: '',
+            isBoursier : '',
         })),
     };
     const [errors, setErrors] = useState(initialErrorState);
@@ -57,6 +58,7 @@ const RegisterTeam = ({ sport }) => {
             dateOfBirth: null,
             isCaptain: index === 0,
             gender: null,
+            isBoursier : false,
         }))
     );
 
@@ -80,6 +82,7 @@ const RegisterTeam = ({ sport }) => {
         firstname: yup.string().required('Prénom requis'),
         dateOfBirth: yup.date().required('Date de naissance requise'),
         gender: yup.string().required('Genre requis'),
+        isBoursier: yup.string().required('Obligatoire'),
 
 
       
@@ -294,6 +297,28 @@ const RegisterTeam = ({ sport }) => {
                                             />
                                         </LocalizationProvider>
                                     </Box>
+
+                                    <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
+            <InputLabel htmlFor="isBoursier" sx={{ marginBottom: 1 }}>Boursier</InputLabel>
+            <RadioGroup
+                row
+                aria-labelledby="isBoursier"
+                name="isBoursier"
+                value={String(playerData[selectedPlayer - 1]?.isBoursier || false)}
+                onChange={(event) => handleChange({
+                    target: {
+                        name: 'isBoursier',
+                        value: event.target.value === 'true'
+                    }
+                })}
+            >
+                <FormControlLabel value="true" control={<Radio />} label="Oui" />
+                <FormControlLabel value="false" control={<Radio />} label="Non" />
+            </RadioGroup>
+            {errors.players[selectedPlayer - 1]?.isBoursier && (
+                <FormHelperText error>{errors.players[selectedPlayer - 1]?.isBoursier}</FormHelperText>
+            )}
+        </Box>
                                     
                                 </Grid>
                             </Grid>
