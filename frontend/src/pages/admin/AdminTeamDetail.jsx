@@ -178,8 +178,6 @@ const AdminTeamDetail = () => {
                 open={drawerOpenAdd}
                 onClose={() => { setDrawerOpenAdd(false); fetchData(); }}
                 teamId={teamId}
-                packs={packs}
-                goodies={goodies}
             />
         </Box>
     );
@@ -194,10 +192,8 @@ const columns = [
     { label: "Genre", align: "center", name: "gender" },
     { label: "Capitaine", align: "center", name: "isCaptain", type: "boolean" },
     { label: "Date de naissance", align: "center", name: "dateOfBirth", type: "date" },
-    { label: "Régime alimentaire", align: "center", name: "diet" },
     { label: "Charte signée", align: "center", name: "charteIsValidated", type: "boolean" },
-    { label: "Certificat | Licence", align: "center", name: "certif", type: "certif" },
-    { label: "Pack", align: "center", name: "packname" },
+    { label: "Boursier", align: "center", name: "certif", type: "certif" },
     { label: "Prix", align: "center", name: "price" },
 ]
 

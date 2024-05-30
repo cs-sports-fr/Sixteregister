@@ -35,6 +35,7 @@ class ParticipantInput(BaseModel):
     email: str
     dateOfBirth: datetime
     isCaptain: bool
+    isBoursier :bool
 
 
 async def get_team_if_allowed(
@@ -119,6 +120,7 @@ async def add_participant_to_team(
             lastname=new_participant.lastname,
             email=new_participant.email,
             dateOfBirth=new_participant.dateOfBirth,
+            isBoursier=new_participant.isBoursier,
             charteIsValidated=False,
             chartePassword=charte_password,
             teamId=team_id,
@@ -153,7 +155,7 @@ async def check_and_update_team_amount_to_pay_then_get_team(
 
     for participant in team.participants:
        
-        amount_to_pay_in_cents += 4200
+        amount_to_pay_in_cents += 4400
 
         
 
