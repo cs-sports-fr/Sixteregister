@@ -77,7 +77,7 @@ const Login = () => {
                                             autoComplete="email"
                                             error={!!emailError}
                                             helperText={emailError}
-                                            sx={{ color: '#000' }}
+                                            sx={{ color: '#000', '& .MuiOutlinedInput-root': { '&.Mui-focused fieldset': { borderColor: '#093274' } } }}
                                             InputProps={{
                                                 style: { color: '#000' }
                                             }}
@@ -97,7 +97,7 @@ const Login = () => {
                                             autoComplete="current-password"
                                             error={!!passwordError}
                                             helperText={passwordError}
-                                            sx={{ color: '#000' }}
+                                            sx={{ color: '#000', '& .MuiOutlinedInput-root': { '&.Mui-focused fieldset': { borderColor: '#093274' } } }}
                                             InputProps={{
                                                 style: { color: '#000' }
                                             }}
