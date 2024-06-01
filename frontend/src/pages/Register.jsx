@@ -1,5 +1,5 @@
 import { Autocomplete, Box, Button, Checkbox, Divider, Grid, InputLabel, Link, ListItem, ListItemText, TextField, Typography } from "@mui/material";
-import LayoutUnauthenticated from "../components/layouts/LayoutUnauthenticated"
+import LayoutUnauthenticated from "../components/layouts/LayoutUnauthenticated";
 import PasswordInput from "../components/PasswordInput";
 import { useSnackbar } from "../provider/snackbarProvider";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +40,6 @@ const Register = () => {
     });
 
     const handleChange = (e, newInput) => {
-        // console.log('newInput', newInput);
         const { name, value, checked, type } = e.target;
         if (newInput != undefined && type != 'checkbox') {
             setFormData({
@@ -60,9 +59,8 @@ const Register = () => {
         setIsSubmitting(true);
 
         try {
-            // Valider les données du formulaire
             await validationSchema.validate(formData, { abortEarly: false });
-            setErrors({}); // Réinitialiser les erreurs
+            setErrors({});
 
             const userData = {
                 lastname: formData.name,
@@ -72,7 +70,7 @@ const Register = () => {
                 mobile: formData.tel,
                 password: formData.password,
             };
-            // Envoyer les données du formulaire ici
+
             ApiTossNotConnected.post('/signup/', userData, { headers: { 'Content-Type': 'application/json' } }).then(() => {
                 showSnackbar('Inscription réussie, veuillez vous connecter', 3000, 'success',);
                 navigate('/');
@@ -118,6 +116,18 @@ const Register = () => {
         <LayoutUnauthenticated isDarkMode={isDarkMode}>
             <Box display={'flex'} flexDirection={'column'} height={'100vh'} >
                 <Grid container spacing={2} height={'102vh'}>
+                    <Grid item xs={12} md={5}
+                        sx={{
+                            backgroundImage: 'url(/images/cup.jpg)',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                    </Grid>
                     <Grid item xs={12} md={7} >
                         <Grid py={'10vh'} px={'13%'} sx={{}}>
                             <Typography sx={{
@@ -125,14 +135,15 @@ const Register = () => {
                                 fontWeight: 'bold',
                                 mb: 1.5,
                                 letterSpacing: '0.001rem',
+                                color: '#000'
                             }}>
-                                <span style={{ textDecoration: 'underline', textDecorationColor: '#DBA802', textUnderlineOffset: '0.7rem', textDecorationThickness: '4px', }}>Inscr</span>iption au <span style={{ color: "#DBA802" }}>TOSS {import.meta.env.VITE_TOSS_YEAR}</span>
+                                <span style={{ textDecoration: 'underline', textDecorationColor: '#961D90', textUnderlineOffset: '0.7rem', textDecorationThickness: '4px', }}>Inscr</span>iption au <span style={{ color: "#961D90" }}>TOSS {import.meta.env.VITE_TOSS_YEAR}</span>
                             </Typography>
 
                             <form >
                                 <Grid container columnSpacing={6}>
                                     <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="name" sx={{ marginBottom: 1 }}>Nom</InputLabel>
+                                        <InputLabel htmlFor="name" sx={{ marginBottom: 1, color: '#000' }}>Nom</InputLabel>
                                         <TextField id="name"
                                             placeholder="Doe"
                                             variant="outlined"
@@ -142,10 +153,16 @@ const Register = () => {
                                             error={!!errors.name}
                                             helperText={errors.name}
                                             onChange={handleChange}
+                                            InputProps={{
+                                                style: { color: '#000' }
+                                            }}
+                                            InputLabelProps={{
+                                                style: { color: '#000' }
+                                            }}
                                         />
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="firstname" sx={{ marginBottom: 1 }}>Prénom</InputLabel>
+                                        <InputLabel htmlFor="firstname" sx={{ marginBottom: 1, color: '#000' }}>Prénom</InputLabel>
                                         <TextField id="firstname"
                                             placeholder="John"
                                             variant="outlined"
@@ -155,11 +172,17 @@ const Register = () => {
                                             error={!!errors.firstname}
                                             helperText={errors.firstname}
                                             onChange={handleChange}
+                                            InputProps={{
+                                                style: { color: '#000' }
+                                            }}
+                                            InputLabelProps={{
+                                                style: { color: '#000' }
+                                            }}
                                         />
                                     </Grid>
                                 </Grid>
                                 <Grid mt={errors.name || errors.firstname ? 0 : 2} mb={errors.school ? 0 : 2}>
-                                    <InputLabel htmlFor="school" sx={{ marginBottom: 1 }}>Ecole</InputLabel>
+                                    <InputLabel htmlFor="school" sx={{ marginBottom: 1, color: '#000' }}>Ecole</InputLabel>
                                     <Autocomplete id="school"
                                         variant="outlined"
                                         fullWidth
@@ -168,11 +191,12 @@ const Register = () => {
                                         renderInput={(params) =>
                                             <TextField {...params}
                                                 placeholder="Rechercher votre école"
-                                                InputLabelProps={{ shrink: true }}
+                                                InputLabelProps={{ shrink: true, style: { color: '#000' } }}
                                                 inputProps={{
                                                     ...params.inputProps,
                                                     style: {
                                                         paddingTop: 0,
+                                                        color: '#000'
                                                     },
                                                 }}
                                                 error={!!errors.school}
@@ -194,7 +218,7 @@ const Register = () => {
                                 </Grid>
                                 <Grid container columnSpacing={6}>
                                     <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="email" sx={{ marginBottom: 1 }}>Email</InputLabel>
+                                        <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: '#000' }}>Email</InputLabel>
                                         <TextField id="email"
                                             placeholder="Doe"
                                             variant="outlined"
@@ -205,10 +229,16 @@ const Register = () => {
                                             helperText={errors.email}
                                             onChange={handleChange}
                                             autoComplete="email"
+                                            InputProps={{
+                                                style: { color: '#000' }
+                                            }}
+                                            InputLabelProps={{
+                                                style: { color: '#000' }
+                                            }}
                                         />
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="tel" sx={{ marginBottom: 1 }}>Téléphone</InputLabel>
+                                        <InputLabel htmlFor="tel" sx={{ marginBottom: 1, color: '#000' }}>Téléphone</InputLabel>
                                         <TextField id="tel"
                                             placeholder="06 .. .. .. .."
                                             variant="outlined"
@@ -218,6 +248,12 @@ const Register = () => {
                                             error={!!errors.tel}
                                             helperText={errors.tel}
                                             onChange={handleChange}
+                                            InputProps={{
+                                                style: { color: '#000' }
+                                            }}
+                                            InputLabelProps={{
+                                                style: { color: '#000' }
+                                            }}
                                         />
                                     </Grid>
                                 </Grid>
@@ -226,7 +262,7 @@ const Register = () => {
 
                                 <Grid container columnSpacing={6}>
                                     <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="password" sx={{ marginBottom: 1 }}>Mot de passe</InputLabel>
+                                        <InputLabel htmlFor="password" sx={{ marginBottom: 1, color: '#000' }}>Mot de passe</InputLabel>
                                         <PasswordInput id="password"
                                             variant="outlined"
                                             fullWidth
@@ -236,10 +272,16 @@ const Register = () => {
                                             helperText={errors.password}
                                             handlePassword={handleChange}
                                             autoComplete="new-password"
+                                            InputProps={{
+                                                style: { color: '#000' }
+                                            }}
+                                            InputLabelProps={{
+                                                style: { color: '#000' }
+                                            }}
                                         />
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="confirm-password" sx={{ marginBottom: 1 }}>Confirmer le mot de passe</InputLabel>
+                                        <InputLabel htmlFor="confirm-password" sx={{ marginBottom: 1, color: '#000' }}>Confirmer le mot de passe</InputLabel>
                                         <PasswordInput id="confirm-password"
                                             variant="outlined"
                                             fullWidth
@@ -249,10 +291,16 @@ const Register = () => {
                                             helperText={errors.confirmPassword}
                                             handlePassword={handleChange}
                                             autoComplete="new-password"
+                                            InputProps={{
+                                                style: { color: '#000' }
+                                            }}
+                                            InputLabelProps={{
+                                                style: { color: '#000' }
+                                            }}
                                         />
                                     </Grid>
                                 </Grid>
-                                <Typography sx={{ marginY: 2, fontSize: '0.8rem', fontStyle: 'italic', fontWeight: 'bolder', textAlign: 'center' }} >
+                                <Typography sx={{ marginY: 2, fontSize: '0.8rem', fontStyle: 'italic', fontWeight: 'bolder', textAlign: 'center', color: '#000' }} >
                                     Le mot de passe doit contenir minimum 8 caractères, 1 chiffre, 1 majuscule et 1 caractère spécial
                                 </Typography>
 
@@ -262,9 +310,9 @@ const Register = () => {
                                     <Grid item xs={1} md={1}>
                                         <Checkbox
                                             sx={{
-                                                color: !errors.checkbox ? "#DBA802" : 'red',
+                                                color: !errors.checkbox ? "#961D90" : 'red',
                                                 '&.Mui-checked': {
-                                                    color: "#DBA802",
+                                                    color: "#961D90",
                                                 },
                                             }}
                                             name="checkbox"
@@ -273,13 +321,13 @@ const Register = () => {
                                         />
                                     </Grid>
                                     <Grid item xs={11} md={11}>
-                                        <Typography sx={{ fontSize: '0.8rem' }}>
+                                        <Typography sx={{ fontSize: '0.8rem', color: '#000' }}>
                                             Je certifie avoir lu et approuvé les{" "}
-                                            <Link href="/CGI/CGI_indiv.pdf" target="_blank" style={{ fontWeight: "600", color: "#DBA802", textDecorationColor: "#DBA802" }}>
+                                            <Link href="/CGI/CGI_indiv.pdf" target="_blank" style={{ fontWeight: "600", color: "#961D90", textDecorationColor: "#961D90" }}>
                                                 Conditions Générales d&apos;Inscription{" "}
                                             </Link>{" "}
                                             ou les{" "}
-                                            <Link href="/CGI/CGI_delegations.pdf" target="_blank" style={{ fontWeight: "600", color: "#DBA802", textDecorationColor: "#DBA802" }}>
+                                            <Link href="/CGI/CGI_delegations.pdf" target="_blank" style={{ fontWeight: "600", color: "#961D90", textDecorationColor: "#961D90" }}>
                                                 CGI Délégations
                                             </Link>{" "}
                                             si mon école est une délégation.
@@ -289,10 +337,10 @@ const Register = () => {
 
                                 <Grid container columnSpacing={6} sx={{ mt: 3 }}>
                                     <Grid item xs={12} md={6}>
-                                        <Button variant="yellow_lighter" onClick={() => navigate('/')} fullWidth>Retour</Button>
+                                        <Button variant="yellow_lighter" onClick={() => navigate('/')} fullWidth sx={{ color: '#000' }}>Retour</Button>
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <Button variant="yellow" type="submit" fullWidth
+                                        <Button variant="purple" type="submit" fullWidth
                                             disabled={isSubmitting}
                                             onClick={handleSubmit}
                                         >
@@ -303,24 +351,10 @@ const Register = () => {
                             </form>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} md={5}
-                        sx={{
-                            backgroundImage: 'url(/images/register.jpeg)', // Remplacez chemin/vers/votre/image.jpg par le chemin réel de votre image
-                            backgroundSize: 'cover', // Couvre toute la zone disponible sans perdre les proportions de l'image
-                            backgroundPosition: 'center', // Centre l'image dans la zone disponible
-                            display: 'flex',
-                            flexDirection: 'column', // Organise les enfants en colonne
-                            justifyContent: 'center', // Centre verticalement
-                            alignItems: 'center', // Centre horizontalement
-                        }}
-                    >
-
-                    </Grid>
                 </Grid >
             </Box>
         </LayoutUnauthenticated >
     )
 }
-
 
 export default Register;

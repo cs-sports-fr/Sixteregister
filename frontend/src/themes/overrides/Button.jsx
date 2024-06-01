@@ -1,3 +1,4 @@
+import { purple } from '@mui/material/colors';
 import { alpha } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
@@ -47,18 +48,18 @@ export default function Button(theme) {
                     },
                 },
 
-                yellow: {
-                    backgroundColor: '#DBA802', // Fond plus clair
+                purple: {
+                    backgroundColor: '#961D90', // Fond plus clair
                     color: theme.palette.primary.contrastText, // Couleur de texte
                     '&:hover': {
-                        backgroundColor: '#fdd249', // Fond un peu plus clair au survol
+                        backgroundColor: '#EB6AE5', // Fond un peu plus clair au survol
                     },
                 },
                 yellow_lighter: {
                     backgroundColor: theme.palette.grey[200], // Fond plus clair
                     color: theme.palette.text.black, // Couleur de texte
                     '&:hover': {
-                        backgroundColor: '#fdd249', // Fond un peu plus sombre au survol
+                        backgroundColor: '#EB6AE5', // Fond un peu plus sombre au survol
                     },
                 },
 

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # toss-register
 Monorepo for the registering platform of the TOSS
  
@@ -94,6 +93,3 @@ Go into the frontend folder using `cd frontend`
 Install the requirements using `pnpm install` or `npm install`(slower)
  
 You can now execute the project using: `pnpm run dev` or `npm run dev`(slower)
-=======
-# Sixteregister
->>>>>>> 0cd3fdc10fd896708aed6ac3dd5b6a03b52c41cc

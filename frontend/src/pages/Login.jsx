@@ -27,13 +27,12 @@ const Login = () => {
         setPassword(text.target.value);
     };
 
-
-    const handleLogin = () => {
+    const handleLogin = (event) => {
         event.preventDefault();
         if (!validateEmail(email)) {
             setEmailError("Veuillez entrer une adresse e-mail valide.");
             showSnackbar("Veuillez entrer une adresse e-mail valide.", 3000, "error")
-        } else if (password == "") {
+        } else if (password === "") {
             setPasswordError("Veuillez entrer un mot de passe valide.")
             showSnackbar("Veuillez entrer un mot de passe valide.", 3000, "error")
         } else {
@@ -53,26 +52,22 @@ const Login = () => {
                     showSnackbar("Identifiants incorrects.", 3000, "error")
                 });
         }
-
-
-
     };
 
-    const isDarkMode = true;
-
+    const isDarkMode = false;
 
     return (
         <LayoutUnauthenticated isDarkMode={isDarkMode}>
             <Grid container spacing={2} height={'102vh'}>
-                <Grid item md={6} xs={12} sx={{ textAlign: 'center', alignSelf: "center" }}> {/* xs={12} md={6} pour responsive a faire */}
+                <Grid item md={6} xs={12} sx={{ textAlign: 'center', alignSelf: "center" }}>
                     <Grid py={'10vh'} px={'22%'} sx={{}}>
-                        <Typography variant="h1" sx={{ fontSize: '7rem', fontWeight: 'bold' }}>Sixte</Typography>
-                        <DividerText text="Connexion" />
+                        <Typography variant="h1" sx={{ fontSize: '7rem', fontWeight: 'bold', color: '#000' }}>Sixte</Typography>
+                        <DividerText text="Connexion" sx={{ color: '#000' }} />
                         <Box m={'1vw'}>
                             <form onSubmit={handleLogin}>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left' }}>
-                                        <InputLabel htmlFor="email" sx={{ marginBottom: 1 }}>Email</InputLabel>
+                                        <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: '#000' }}>Email</InputLabel>
                                         <TextField id="email"
                                             placeholder="sixte@cs-sports.fr"
                                             variant="outlined"
@@ -82,10 +77,17 @@ const Login = () => {
                                             autoComplete="email"
                                             error={!!emailError}
                                             helperText={emailError}
+                                            sx={{ color: '#000' }}
+                                            InputProps={{
+                                                style: { color: '#000' }
+                                            }}
+                                            InputLabelProps={{
+                                                style: { color: '#000' }
+                                            }}
                                         />
                                     </Box>
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left' }}>
-                                        <InputLabel htmlFor="password" sx={{ marginBottom: 1 }} >Mot de passe</InputLabel>
+                                        <InputLabel htmlFor="password" sx={{ marginBottom: 1, color: '#000' }} >Mot de passe</InputLabel>
                                         <TextField id="password"
                                             variant="outlined"
                                             type="password"
@@ -95,43 +97,44 @@ const Login = () => {
                                             autoComplete="current-password"
                                             error={!!passwordError}
                                             helperText={passwordError}
+                                            sx={{ color: '#000' }}
+                                            InputProps={{
+                                                style: { color: '#000' }
+                                            }}
+                                            InputLabelProps={{
+                                                style: { color: '#000' }
+                                            }}
                                         />
                                     </Box>
-                                    <Link href="/forgot-password" underline="hover" sx={{ textAlign: 'left' }}>Mot de passe oublié ?</Link>
-                                    <Button type="submit" fullWidth>Se connecter</Button>
+                                    <Link href="/forgot-password" underline="hover" sx={{ textAlign: 'left', color: '#093274' }}>Mot de passe oublié ?</Link>
+                                    <Button type="submit" fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Se connecter</Button>
                                 </Box>
                             </form>
                         </Box>
-                        <DividerText text="Autres" />
+                        <DividerText text="Autres" sx={{ color: '#000' }} />
                         <Box m={2} >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                                <Link href="/charte" sx={{ width: '100%', mr: 1 }}><Button fullWidth>Signer la charte</Button></Link>
-                                <Link href="/register" sx={{ width: '100%', ml: 1 }}><Button fullWidth>Inscription</Button></Link>
+                                <Link href="/charte" sx={{ width: '100%', mr: 1 }}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Signer la charte</Button></Link>
+                                <Link href="/register" sx={{ width: '100%', ml: 1 }}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Inscription</Button></Link>
                             </Box>
-                            <Button href="https://www.cs-sports.fr/toss/" variant="lighter" sx={{ mt: 2, width: '100%' }}>Retour au site</Button>
+                            <Button href="https://www.cs-sports.fr/toss/" variant="lighter" sx={{ mt: 2, width: '100%', backgroundColor: '#afc4e2', color: '#093274', '&:hover': { backgroundColor: '#91A2FF' } }}>Retour au site</Button>
                         </Box>
                     </Grid>
                 </Grid>
                 <Grid item md={6} xs={12}
                     sx={{
-                        backgroundImage: 'url(/images/soiree.jpeg)', // Remplacez chemin/vers/votre/image.jpg par le chemin réel de votre image
-                        backgroundSize: 'cover', // Couvre toute la zone disponible sans perdre les proportions de l'image
-                        backgroundPosition: 'center', // Centre l'image dans la zone disponible
+                        backgroundImage: 'url(/images/stade.jpg)',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
                         display: 'flex',
-                        flexDirection: 'column', // Organise les enfants en colonne
-                        justifyContent: 'center', // Centre verticalement
-                        alignItems: 'center', // Centre horizontalement
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}
                 >
-                    <Typography variant="login" sx={{ fontSize: '6rem', textAlign: 'center' }}>ESPACE PARTICIPANT</Typography>
-                    {/* <Box sx={{ mt: 'auto', display: 'block' }}>
-                        <Typography variant="body1">&ldquo;On peut mettre une quote ici si jamais.&rdquo;</Typography>
-                        <Typography variant="caption">Sofia Davis</Typography>
-                    </Box> */}
                 </Grid>
             </Grid>
         </LayoutUnauthenticated>
-
     );
 };
 

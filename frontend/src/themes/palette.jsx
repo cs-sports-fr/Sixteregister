@@ -78,6 +78,11 @@ const ERROR = {
     contrastText: '#f3f7f4',
 };
 
+const NAVY_BLUE = {
+    main: '#093274',
+    contrastText: '#ffffff',
+};
+
 const palette = {
     common: { black: '#000', white: '#fff' },
     primary: PRIMARY,
@@ -86,17 +91,18 @@ const palette = {
     success: SUCCESS,
     warning: WARNING,
     error: ERROR,
+    navy: NAVY_BLUE,
     grey: GREY,
     divider: alpha(GREY[100], 0.44),
     text: {
         primary: PRIMARY.contrastText,
         secondary: SECONDARY.contrastText,
-        disabled: GREY[500],
+        disabled: GREY[900],
         black: '#101218'
     },
     background: {
         paper: GREY[900],
-        default: GREY[960],
+        default: GREY[400],
         neutral: GREY[0],
         navbar: GREY[0],// PRIMARY.main
         drawer: '#6784c0',
