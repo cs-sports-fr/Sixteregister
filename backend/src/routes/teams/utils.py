@@ -36,6 +36,7 @@ class ParticipantInput(BaseModel):
     dateOfBirth: datetime
     isCaptain: bool
     isBoursier :bool
+    ValidateBoursier : bool
 
 
 async def get_team_if_allowed(

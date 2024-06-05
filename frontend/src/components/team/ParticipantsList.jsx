@@ -65,13 +65,14 @@ const ParticipantsList = ({ headerItem, columns, players, modify, onModify, team
                                                     {new Date(player[column?.name]).toLocaleDateString()}
                                                 </TableCell>
                                                 :
+                                                column?.type === "index" ?
                                                     <TableCell key={indexC} align={column?.align}>
                                                         {indexP + 1}
                                                     </TableCell>
-                                                    
-                                                    
-                                                        
-                                    
+                                                    :
+                                                    <TableCell align={column?.align}>
+                                                        {player[column?.name]}
+                                                    </TableCell>                                 
                                                     
                                                     
                                     ))}
