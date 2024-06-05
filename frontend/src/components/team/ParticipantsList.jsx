@@ -65,20 +65,15 @@ const ParticipantsList = ({ headerItem, columns, players, modify, onModify, team
                                                     {new Date(player[column?.name]).toLocaleDateString()}
                                                 </TableCell>
                                                 :
-                                                column?.type === "index" ?
                                                     <TableCell key={indexC} align={column?.align}>
                                                         {indexP + 1}
                                                     </TableCell>
-                                                    :
-                                                    column?.type === "isBoursier" ?
-                                                        <TableCell key={indexC} align={column?.align} sx={{ cursor: 'pointer' }} onClick={() => { if (player["isBoursier"]) { handleCertif(teamId, player.id) } }}>
-                                                            {player[column?.name] ? player["isBoursier"] ?
-                                                                <Visibility color="success" /> : <CheckCircle color="success" /> : <Cancel color="error" />}
-                                                        </TableCell>
-                                                        :
-                                                        <TableCell key={indexC} align={column?.align}>
-                                                            {player[column?.name]}
-                                                        </TableCell>
+                                                    
+                                                    
+                                                        
+                                    
+                                                    
+                                                    
                                     ))}
                                     {modify && <TableCell align="center" sx={{ cursor: 'pointer' }} onClick={() => onModify(player.id)}>
                                         <Edit />

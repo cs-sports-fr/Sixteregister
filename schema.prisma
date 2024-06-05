@@ -91,6 +91,7 @@ model Participant {
     team              Team              @relation(fields: [teamId], references: [id])
     charteEmailSent   Boolean           @default(false)
     isBoursier        Boolean           @default(false)
+    ValidateBoursier  Boolean           @default(false)
 }
 
 model School {

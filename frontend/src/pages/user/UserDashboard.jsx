@@ -43,14 +43,6 @@ function UserDashboard() {
                         <ToPayCard minHeight={'25vh'} payments={paymentData} />
                     </Grid>
 
-                    <Grid item xs={12} md={4} sx={{ p: 2, bgcolor: 'background.drawer' }}>
-                        <GoodiesCardUser minHeight={'25vh'} />
-                    </Grid>
-
-                    <Grid item xs={12} md={4} sx={{ p: 2, bgcolor: 'background.drawer' }}>
-                        <FunctioningCard minHeight={'25vh'} />
-                    </Grid>
-
                     <Grid item xs={12} sx={{ p: 2, bgcolor: 'background.drawer' }}>
                         <EquipesInscritesPage teams={teams} />
                     </Grid>

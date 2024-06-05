@@ -78,6 +78,7 @@ const AdminTeamDetail = () => {
         dateOfBirth: yup.date().required('Date de naissance requise'),
         gender: yup.string().required('Genre requis'),
         isBoursier: yup.string().required('Obligatoire'),
+        ValidateBoursier: yup.string().required('Obligatoire'),
 
     });
 
@@ -188,7 +189,7 @@ const columns = [
     { label: "Date de naissance", align: "center", name: "dateOfBirth", type: "date" },
     { label: "Charte signée", align: "center", name: "charteIsValidated", type: "boolean" },
     { label: "Boursier", align: "center", name: "isBoursier", type: "boolean" },
-    { label: "Prix", align: "center", name: "price" },
+    { label: "ValidateBoursier", align: "center", name: "ValidateBoursier", type: "boolean" },
 ]
 
 export default AdminTeamDetail;

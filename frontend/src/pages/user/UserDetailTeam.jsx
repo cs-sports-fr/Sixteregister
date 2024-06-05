@@ -34,19 +34,13 @@ const UserDetailTeam = () => {
         setErrors({})
     }
 
-    const [packs, setPacks] = useState([]);
-    const [goodies, setGoodies] = useState([]);
     const fetchData = () => {
         const endpoints = [
-            'packs',
-            'products',
             'teams/' + teamId,
         ]
         axios.all(endpoints.map(url => ApiTossConnected.get(url)))
             .then(axios.spread((...responses) => {
-                setPacks(responses[0].data);
-                setGoodies(responses[1].data);
-                setTeam(parseTeam(responses[2].data));
+                setTeam(parseTeam(responses[0].data));
             })).catch((error) => {
                 console.log(error);
             });
@@ -64,10 +58,7 @@ const UserDetailTeam = () => {
         setSelectedParticipant({ ...selectedParticipant, [name]: value })
     }
     const handleCheckboxChange = (goodieId, checked) => {
-        const updatedGoodies = checked
-            ? [...selectedParticipant.productsIds, goodieId]
-            : selectedParticipant.productsIds.filter(id => id !== goodieId);
-        setSelectedParticipant({ ...selectedParticipant, productsIds: updatedGoodies });
+        setSelectedParticipant({ ...selectedParticipant });
     };
 
     //** Validation de données */
@@ -77,12 +68,8 @@ const UserDetailTeam = () => {
         firstname: yup.string().required('Prénom requis'),
         dateOfBirth: yup.date().required('Date de naissance requise'),
         gender: yup.string().required('Genre requis'),
-        packId: yup.number().required('Pack requis'),
-        mailHebergeur: yup.string().email('Email invalide').when(['packId'], {
-            is: (packId) => packId == '5' || packId == '6' || packId == '11' || packId == '12', // Vérifie si packId est un des rez
-            then: schema => schema.email("Email invalide").required("Email de l'hébergeur requis"),  // Rend emailHebergeur obligatoire si la condition est vraie
-            otherwise: schema => schema.notRequired() // Rend emailHebergeur non obligatoire si la condition est fausse
-        })
+        isBoursier: yup.string().required('Obligatoire'),
+        
     });
 
     const [errors, setErrors] = useState({});
@@ -139,8 +126,6 @@ const UserDetailTeam = () => {
                 onClose={handleCloseDrawer}
                 participant={selectedParticipant}
                 setSelectedParticipant={setSelectedParticipant}
-                packs={packs}
-                goodies={goodies}
                 errors={errors}
                 handleSubmit={handleSubmit}
                 handleChange={handleChange}
@@ -154,8 +139,6 @@ const UserDetailTeam = () => {
                 open={drawerOpenAdd}
                 onClose={() => { setDrawerOpenAdd(false); fetchData(); }}
                 teamId={teamId}
-                packs={packs}
-                goodies={goodies}
             />
         </Box>
     );
@@ -169,11 +152,9 @@ const columns = [
     { label: "Genre", align: "center", name: "gender" },
     { label: "Capitaine", align: "center", name: "isCaptain", type: "boolean" },
     { label: "Date de naissance", align: "center", name: "dateOfBirth", type: "date" },
-    { label: "Régime alimentaire", align: "center", name: "diet" },
     { label: "Charte signée", align: "center", name: "charteIsValidated", type: "boolean" },
-    { label: "Certificat | Licence", align: "center", name: "certif", type: "boolean" },
-    { label: "Pack", align: "center", name: "packname" },
-    { label: "Prix", align: "center", name: "price" },
+    { label: "Boursier", align: "center", name: "isBoursier", type: "boolean" },
+    { label: "ValidateBoursier", align: "center", name: "ValidateBoursier", type: "boolean" },
 ]
 
 export default UserDetailTeam;
