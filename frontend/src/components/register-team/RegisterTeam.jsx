@@ -33,6 +33,7 @@ const RegisterTeam = ({ sport }) => {
             dateOfBirth: '',
             gender: '',
             isBoursier : '',
+            ValidateBoursier : '',
         })),
     };
     const [errors, setErrors] = useState(initialErrorState);
@@ -59,6 +60,7 @@ const RegisterTeam = ({ sport }) => {
             isCaptain: index === 0,
             gender: null,
             isBoursier : false,
+            ValidateBoursier : false,
         }))
     );
 
@@ -299,16 +301,16 @@ const RegisterTeam = ({ sport }) => {
                                     </Box>
 
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-            <InputLabel htmlFor="isBoursier" sx={{ marginBottom: 1 }}>Boursier</InputLabel>
-            <RadioGroup
-                row
-                aria-labelledby="isBoursier"
-                name="isBoursier"
-                value={String(playerData[selectedPlayer - 1]?.isBoursier || false)}
-                onChange={(event) => handleChange({
-                    target: {
-                        name: 'isBoursier',
-                        value: event.target.value === 'true'
+                                        <InputLabel htmlFor="isBoursier" sx={{ marginBottom: 1 }}>Boursier</InputLabel>
+                                        <RadioGroup
+                                            row
+                                            aria-labelledby="isBoursier"
+                                            name="isBoursier"
+                                            value={String(playerData[selectedPlayer - 1]?.isBoursier || false)}
+                                            onChange={(event) => handleChange({
+                                                target: {
+                                                    name: 'isBoursier',
+                                                    value: event.target.value === 'true'
                     }
                 })}
             >
