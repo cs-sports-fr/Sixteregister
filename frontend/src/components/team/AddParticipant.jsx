@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Checkbox, Divider, Drawer, InputLabel, ListItem, ListItemText, TextField, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, RadioGroup, FormControlLabel, Radio, Checkbox, Divider, Drawer, InputLabel, ListItem, ListItemText, TextField, Typography } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import gender from "../../assets/gender.json";
@@ -24,6 +24,7 @@ const AddParticipant = ({ open, onClose, teamId }) => {
         gender: null,
         isCaptain: false,
         isBoursier : false,
+        ValidateBoursier : false,
     }
     const [participant, setParticipant] = useState(initState);
     const [errors, setErrors] = useState({});
@@ -183,7 +184,43 @@ const AddParticipant = ({ open, onClose, teamId }) => {
                             isOptionEqualToValue={(option, value) => option.type === value.type}
                         />
                     </Box>
-                    
+                    <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
+                        <InputLabel htmlFor="isBoursier" sx={{ marginBottom: 1 }}>Boursier</InputLabel>
+                        <RadioGroup
+                                            row
+                                            aria-labelledby="isBoursier"
+                                            name="isBoursier"
+                                            value={participant?.isBoursier || ''}
+                                            onChange={(event) => handleChange({
+                                                target: {
+                                                    name: 'isBoursier',
+                                                    value: event.target.value === 'true'
+                    }
+                })}
+            >
+                <FormControlLabel value="true" control={<Radio />} label="Oui" />
+                <FormControlLabel value="false" control={<Radio />} label="Non" />
+            </RadioGroup>
+                    </Box>
+
+                    <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
+                        <InputLabel htmlFor="ValidateBoursier" sx={{ marginBottom: 1 }}>ValidateBoursier</InputLabel>
+                        <RadioGroup
+                                            row
+                                            aria-labelledby="ValidateBoursier"
+                                            name="ValidateBoursier"
+                                            value={participant?.ValidateBoursier || ''}
+                                            onChange={(event) => handleChange({
+                                                target: {
+                                                    name: 'ValidateBoursier',
+                                                    value: event.target.value === 'true'
+                    }
+                })}
+            >
+                <FormControlLabel value="true" control={<Radio />} label="Oui" />
+                <FormControlLabel value="false" control={<Radio />} label="Non" />
+            </RadioGroup>
+                    </Box>
                     
                     <Divider sx={{ mb: 1 }} />
                     
