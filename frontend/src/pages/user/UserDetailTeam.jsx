@@ -101,7 +101,6 @@ const UserDetailTeam = () => {
     const PlayerListHeader =
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', my: 2.5 }}>
             <Box sx={{ width: '15%', mr: 2.5 }}>
-                <Button disabled={true} /*{team?.participants?.length >= team?.sport?.nbPlayersMax}*/ onClick={() => setDrawerOpenAdd(true)}>Ajouter un joueur</Button>
             </Box>
         </Box>
 
