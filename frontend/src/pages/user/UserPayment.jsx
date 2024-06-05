@@ -183,9 +183,9 @@ const UserPayment = () => {
                         <Card variant='outlined' sx={{ borderRadius: '0.8rem', width: '100%', mb: 3 }}>
                             <CardHeader title={'Paiement'} />
                             <CardContent>
-                                <Typography sx={{ fontSize: '1.25rem' }}>Pour régler votre solde, veuillez contacter votre bds qui va effectuer un virement sur le compte suivant :</Typography>
+                                <Typography sx={{ fontSize: '1.25rem' }}>Pour régler votre solde, vous devez effectuer un virement sur le compte suivant :</Typography>
                                 <Typography sx={{ fontSize: '1.25rem' }}>FR76 3000 4000 8600 0102 3594 368</Typography>
-                                <Typography sx={{ fontSize: '1.25rem' }}>Avec comme motif : TOSS - Votre école</Typography>
+                                <Typography sx={{ fontSize: '1.25rem' }}>Avec comme motif : SIXTE - Votre école</Typography>
                                 <Typography sx={{ fontSize: '1.25rem' }}>Envoyer ensuite votre preuve de virement à <a href="mailto:contact@cs-sports.fr?subject=[Paiement TOSS]">contact@cs-sports.fr</a></Typography>
                             </CardContent>
                         </Card>

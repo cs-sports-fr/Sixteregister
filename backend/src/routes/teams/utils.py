@@ -122,6 +122,7 @@ async def add_participant_to_team(
             email=new_participant.email,
             dateOfBirth=new_participant.dateOfBirth,
             isBoursier=new_participant.isBoursier,
+            ValidateBoursier=False,
             charteIsValidated=False,
             chartePassword=charte_password,
             teamId=team_id,
@@ -155,11 +156,13 @@ async def check_and_update_team_amount_to_pay_then_get_team(
         return team, amount_to_pay_in_cents
 
     for participant in team.participants:
-       
-        amount_to_pay_in_cents += 4400
-
-        
-
+        if participant.isBoursier : 
+            amount_to_pay_in_cents += 3500
+            print("nkcelecl")
+        else:
+            amount_to_pay_in_cents += 4400
+            print("pas boursier")
+            
     if team.amountToPayInCents != amount_to_pay_in_cents:
         team = await prisma.team.update(
             data=TeamUpdateInput(
