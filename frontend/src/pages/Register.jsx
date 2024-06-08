@@ -137,7 +137,7 @@ const Register = () => {
                                 letterSpacing: '0.001rem',
                                 color: '#000'
                             }}>
-                                <span style={{ textDecoration: 'underline', textDecorationColor: '#961D90', textUnderlineOffset: '0.7rem', textDecorationThickness: '4px', }}>Inscr</span>iption au <span style={{ color: "#961D90" }}>TOSS {import.meta.env.VITE_TOSS_YEAR}</span>
+                                <span style={{ textDecoration: 'underline', textDecorationColor: '#093274', textUnderlineOffset: '0.7rem', textDecorationThickness: '4px', }}>Inscr</span>iption au <span style={{ color: "#093274" }}>SIXTE {import.meta.env.VITE_TOSS_YEAR}</span>
                             </Typography>
 
                             <form >
@@ -310,9 +310,9 @@ const Register = () => {
                                     <Grid item xs={1} md={1}>
                                         <Checkbox
                                             sx={{
-                                                color: !errors.checkbox ? "#961D90" : 'red',
+                                                color: !errors.checkbox ? "#093274" : 'red',
                                                 '&.Mui-checked': {
-                                                    color: "#961D90",
+                                                    color: "#093274",
                                                 },
                                             }}
                                             name="checkbox"
@@ -323,11 +323,11 @@ const Register = () => {
                                     <Grid item xs={11} md={11}>
                                         <Typography sx={{ fontSize: '0.8rem', color: '#000' }}>
                                             Je certifie avoir lu et approuvé les{" "}
-                                            <Link href="/CGI/CGI_indiv.pdf" target="_blank" style={{ fontWeight: "600", color: "#961D90", textDecorationColor: "#961D90" }}>
+                                            <Link href="/CGI/CGI_indiv.pdf" target="_blank" style={{ fontWeight: "600", color: "#093274", textDecorationColor: "#093274" }}>
                                                 Conditions Générales d&apos;Inscription{" "}
                                             </Link>{" "}
                                             ou les{" "}
-                                            <Link href="/CGI/CGI_delegations.pdf" target="_blank" style={{ fontWeight: "600", color: "#961D90", textDecorationColor: "#961D90" }}>
+                                            <Link href="/CGI/CGI_delegations.pdf" target="_blank" style={{ fontWeight: "600", color: "#093274", textDecorationColor: "#093274" }}>
                                                 CGI Délégations
                                             </Link>{" "}
                                             si mon école est une délégation.
@@ -343,6 +343,7 @@ const Register = () => {
                                         <Button variant="purple" type="submit" fullWidth
                                             disabled={isSubmitting}
                                             onClick={handleSubmit}
+                                            sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' }}}
                                         >
                                             {isSubmitting ? 'Envoi en cours...' : 'S\'inscrire'}
                                         </Button>
