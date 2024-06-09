@@ -133,40 +133,29 @@ const UserPayment = () => {
                 <Box flexGrow={1} display={'flex'} alignContent={'center'} p={8} flexDirection={'column'}>
                     
 
-                    {paymentData?.PrincipalList?.amountToPay >= 1000 || isDelegation.includes(user.schoolId)?
-
-                        <Card variant='outlined' sx={{ borderRadius: '0.8rem', width: '100%', mb: 3 }}>
-                            <CardHeader title={'Paiement'} />
-                            <CardContent>
-                                <Typography sx={{ fontSize: '1.25rem' }}>Pour régler votre solde, vous devez effectuer un virement sur le compte suivant :</Typography>
-                                <Typography sx={{ fontSize: '1.25rem' }}>FR76 3000 4000 8600 0102 3594 368</Typography>
-                                <Typography sx={{ fontSize: '1.25rem' }}>Avec comme motif : SIXTE - Votre école</Typography>
-                                <Typography sx={{ fontSize: '1.25rem' }}>Envoyer ensuite votre preuve de virement à <a href="mailto:contact@cs-sports.fr?subject=[Paiement TOSS]">contact@cs-sports.fr</a></Typography>
-                            </CardContent>
-                        </Card>
-                        :
-                        <Card variant='outlined' sx={{ borderRadius: '0.8rem', width: '100%', mb: 3 }}>
-                            <CardHeader title={'Paiement'} />
-                            <CardContent>
-                                <TeamPaymentList columns={columns} teams={principalTeams} modify={true} onModify={(team) => handleLydiaPayment(team)} disabled={(team) => checkPayment(team)} />
-                            </CardContent>
-                        </Card>
-                    }
+                    
                     <Card variant='outlined' sx={{ borderRadius: '0.8rem', width: '100%', mb: 3, marginTop: '2%' }}>
-                        <CardHeader title={'Cautions'} />
+                        <CardHeader title={'Comment payer ?'} />
                         <CardContent>
                             <Box sx={{ width: '100%' }}>
                                 <TableContainer>
                                     <Table size="small">
                                         <TableBody>
+
                                             <TableRow>
                                                 <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>
+                                                    <Typography sx={{ fontSize: '1.2rem' }}>
+                                                        <span style={{fontStyle: 'bold'}}>Paiement :</span > <span style={{ fontStyle: 'italic' }}>Pour régler votre solde, vous devez effectuer un virement sur le compte suivant : FR76 3000 4000 8600 0102 3594 368</span>
+                                                    </Typography>
+                                                    <Typography sx={{ fontSize: '1.2rem' }}>
+                                                        <span style={{ fontStyle: 'italic' }}>Avec comme motif : SIXTE - Votre école - Football (M ou F)</span>
+                                                    </Typography>
+                                                    <Typography sx={{ fontSize: '1.2rem' }}>
                                                         <span style={{}}>Montant caution sport :</span> <span style={{ fontStyle: 'italic' }}>50€ par participant (à envoyer avant le ...)</span>
                                                     </Typography>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}> Adresse pour le chèque de caution : 3 rue Joliot-Curie, 91190 Gif sur Yvette</Typography>
+                                                    <Typography sx={{ fontSize: '1.2rem' }}> Adresse pour le chèque de caution : 3 rue Joliot-Curie, 91190 Gif sur Yvette</Typography>
                                                 </TableCell>
                                                 <TableCell>
                                                     <Typography sx={{ fontSize: '1rem' }}>{ }</Typography>
