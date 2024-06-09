@@ -49,7 +49,7 @@ export default function Button(theme) {
                 },
 
                 purple: {
-                    backgroundColor: '#961D90', // Fond plus clair
+                    backgroundColor: '#637381', // Fond plus clair
                     color: theme.palette.primary.contrastText, // Couleur de texte
                     '&:hover': {
                         backgroundColor: '#EB6AE5', // Fond un peu plus clair au survol

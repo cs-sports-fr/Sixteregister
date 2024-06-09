@@ -39,9 +39,7 @@ function UserDashboard() {
             <Box sx={{ display: 'flex', bgcolor: 'background.drawer' }}>
                 <Grid container spacing={0} sx={{ mx: 8, my: 4 }}>
 
-                    <Grid item xs={12} md={4} sx={{ p: 2, bgcolor: 'background.drawer' }}>
-                        <ToPayCard minHeight={'25vh'} payments={paymentData} />
-                    </Grid>
+                    
 
                     <Grid item xs={12} sx={{ p: 2, bgcolor: 'background.drawer' }}>
                         <EquipesInscritesPage teams={teams} />

@@ -131,52 +131,7 @@ const UserPayment = () => {
             {/* Main Content */}
             {config?.isPaymentOpen ?
                 <Box flexGrow={1} display={'flex'} alignContent={'center'} p={8} flexDirection={'column'}>
-                    <Card variant='outlined' sx={{ borderRadius: '0.8rem', width: '100%', mb: 3 }}>
-                        <CardHeader title={'Récapitulatif liste principale'} />
-                        <CardContent>
-                            <Box sx={{ width: '50%', ml: 5 }}>
-                                <TableContainer>
-                                    <Table size="small">
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>Nombre de joueurs inscrits : </Typography>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>{paymentData?.PrincipalList?.totalPlayers}</Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>Nombre d&apos;équipes inscrites : </Typography>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>{paymentData?.PrincipalList?.totalTeams}</Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>Montant déjà réglé :</Typography>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>{paymentData?.PrincipalList?.amountPaid} €</Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1.25rem' }}>Reste à payer : </Typography>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1.25rem' }}>{paymentData?.PrincipalList?.amountToPay.toFixed(2)} €</Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
-                                </TableContainer>
-                            </Box>
-
-                        </CardContent>
-                    </Card>
+                    
 
                     {paymentData?.PrincipalList?.amountToPay >= 1000 || isDelegation.includes(user.schoolId)?
 
@@ -207,20 +162,7 @@ const UserPayment = () => {
                                             <TableRow>
                                                 <TableCell>
                                                     <Typography sx={{ fontSize: '1rem' }}>
-                                                        <span style={{}}>Montant caution deleg :</span> <span style={{ fontStyle: 'italic' }}>2500€ pour une délégation (à envoyer avant le 27 mars)</span>
-                                                    </Typography>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>Ordre pour le chèque de caution : CentraleSupelec Sports</Typography>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>{ }</Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>
-                                                        <span style={{}}>Montant caution sport :</span> <span style={{ fontStyle: 'italic' }}>200€ par participant (à envoyer avant le 11 avril)</span>
+                                                        <span style={{}}>Montant caution sport :</span> <span style={{ fontStyle: 'italic' }}>50€ par participant (à envoyer avant le ...)</span>
                                                     </Typography>
                                                 </TableCell>
                                                 <TableCell>
@@ -230,26 +172,7 @@ const UserPayment = () => {
                                                     <Typography sx={{ fontSize: '1rem' }}>{ }</Typography>
                                                 </TableCell>
                                             </TableRow>
-                                            <TableRow>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>
-                                                        <span style={{}}>Montant caution hébergement :</span> <span style={{ fontStyle: 'italic' }}>600€ pour un hébergement en résidence (à envoyer avant le 11 avril)</span>
-                                                    </Typography>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem' }}>{ }</Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem', fontStyle: 'italic' }}>Pour une délegation, les cautions sont centralisées. Seul le responsable de délegation doit envoyer un chèque pour la déleg, pour le sport, et pour l'hébergement. Attention, il faut bien faire 3 chèques distincts. </Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>
-                                                    <Typography sx={{ fontSize: '1rem', fontStyle: 'italic' }}>Si vous ne faites pas partie d'une délegation, les cautions sont centralisées par équipe. Là encore, il faudra réaliser 2 chèques différents (un pour le sport, et un en cas d'hébergement en résidence). </Typography>
-                                                </TableCell>
-                                            </TableRow>
+                                            
                                         </TableBody>
                                     </Table>
                                 </TableContainer>
