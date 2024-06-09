@@ -65,8 +65,8 @@ function Chartes() {
             <Grid container spacing={2} height={'102vh'}>
                 <Grid item md={6} xs={12} sx={{ textAlign: 'center', alignSelf: "center" }}>
                     <Grid py={'10vh'} px={'25%'} sx={{}}>
-                        <Typography sx={{ fontSize: '2rem', fontWeight: 'bold', mb: 1.5, letterSpacing: '0.001rem' }}>CHARTE INDIVIDUELLE DU TOSS</Typography>
-                        <Box m={'1vw'}><Button fullWidth onClick={handleReadCharte}>Lire la charte</Button></Box>
+                        <Typography sx={{ fontSize: '2rem', fontWeight: 'bold', mb: 1.5, letterSpacing: '0.001rem' }}>CHARTE INDIVIDUELLE DU SIXTE</Typography>
+                        <Box m={'1vw'}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }} onClick={handleReadCharte}>Lire la charte</Button></Box>
                         <DividerText text="Valider la charte" />
                         <Box m={'1vw'}>
                             <form onSubmit={handleSign}>
@@ -74,7 +74,7 @@ function Chartes() {
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left' }}>
                                         <InputLabel htmlFor="email" sx={{ marginBottom: 1 }}>Email</InputLabel>
                                         <TextField id="email"
-                                            placeholder="toss@cs-sports.fr"
+                                            placeholder="sixte@cs-sports.fr"
                                             variant="outlined"
                                             value={email}
                                             onChange={handleChangeEmail}
@@ -96,8 +96,8 @@ function Chartes() {
                                             helperText={passwordError}
                                         />
                                     </Box>
-                                    <Button type="submit" fullWidth>Valider la charte</Button>
-                                    <Button href="/" variant="lighter" fullWidth >Retour</Button>
+                                    <Button type="submit" fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Valider la charte</Button>
+                                    <Button href="/" variant="lighter" fullWidth sx={{ mt: 2, width: '100%', backgroundColor: '#afc4e2', color: '#093274', '&:hover': { backgroundColor: '#91A2FF' } }}>Retour</Button>
 
                                 </Box>
                             </form>
@@ -106,7 +106,7 @@ function Chartes() {
                 </Grid>
                 <Grid item md={6} xs={12}
                     sx={{
-                        backgroundImage: 'url(/images/soiree.jpeg)', // Remplacez chemin/vers/votre/image.jpg par le chemin réel de votre image
+                        backgroundImage: 'url(/images/photocharte.jpg)', // Remplacez chemin/vers/votre/image.jpg par le chemin réel de votre image
                         backgroundSize: 'cover', // Couvre toute la zone disponible sans perdre les proportions de l'image
                         backgroundPosition: 'center', // Centre l'image dans la zone disponible
                         display: 'flex',

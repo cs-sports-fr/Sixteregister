@@ -61,7 +61,7 @@ const ForgotPassword = () => {
                             <Box sx={{ justifyContent: 'left', textAlign: 'left' }}>
                                 <InputLabel htmlFor="email" sx={{ marginBottom: 1 }}>Email</InputLabel>
                                 <TextField id="email"
-                                    placeholder="toss@cs-sports.fr"
+                                    placeholder="sixte@cs-sports.fr"
                                     variant="outlined"
                                     value={email}
                                     onChange={handleChangeEmail}
@@ -75,7 +75,7 @@ const ForgotPassword = () => {
                                 variant="contained"
                                 color="primary"
                                 fullWidth
-                                sx={{ mt: 2 }}
+                                sx={{ mt: 2 ,backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' }}}
                                 type="submit"
                             >
                                 Réinitialiser le mot de passe
@@ -84,7 +84,7 @@ const ForgotPassword = () => {
                                 onClick={() => navigate("/")}
                                 variant="lighter"
                                 fullWidth
-                                sx={{ mt: 2 }}
+                                sx={{ mt: 2 ,width: '100%', backgroundColor: '#afc4e2', color: '#093274', '&:hover': { backgroundColor: '#91A2FF' }}} 
                             >
                                 Retour au site
                             </Button>
@@ -93,7 +93,7 @@ const ForgotPassword = () => {
                 </Grid>
                 <Grid item md={6} xs={12}
                     sx={{
-                        backgroundImage: 'url(/images/soiree.jpeg)', // Remplacez chemin/vers/votre/image.jpg par le chemin réel de votre image
+                        backgroundImage: 'url(/images/mdpoublie.jpg)', // Remplacez chemin/vers/votre/image.jpg par le chemin réel de votre image
                         backgroundSize: 'cover', // Couvre toute la zone disponible sans perdre les proportions de l'image
                         backgroundPosition: 'center', // Centre l'image dans la zone disponible
                         display: 'flex',

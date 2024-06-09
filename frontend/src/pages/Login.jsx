@@ -117,7 +117,7 @@ const Login = () => {
                                 <Link href="/charte" sx={{ width: '100%', mr: 1 }}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Signer la charte</Button></Link>
                                 <Link href="/register" sx={{ width: '100%', ml: 1 }}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Inscription</Button></Link>
                             </Box>
-                            <Button href="https://www.cs-sports.fr/toss/" variant="lighter" sx={{ mt: 2, width: '100%', backgroundColor: '#afc4e2', color: '#093274', '&:hover': { backgroundColor: '#91A2FF' } }}>Retour au site</Button>
+                            <Button href="https://www.cs-sports.fr/sixte/" variant="lighter" sx={{ mt: 2, width: '100%', backgroundColor: '#afc4e2', color: '#093274', '&:hover': { backgroundColor: '#91A2FF' } }}>Retour au site</Button>
                         </Box>
                     </Grid>
                 </Grid>
