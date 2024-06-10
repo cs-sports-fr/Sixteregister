@@ -1,6 +1,9 @@
 # ignore venv contents
 sixte-env
+sixte-register-env
+Sixteregister-env
 
 .env
 
 .vscode
+node_modules
