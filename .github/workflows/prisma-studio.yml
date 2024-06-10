@@ -30,7 +30,7 @@ jobs:
       - name: Deploy the prisma studio and migrate
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST_PRISMA_STUDIO }}
+          host: ${{ secrets.EC2_HOST_PRISMA }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
