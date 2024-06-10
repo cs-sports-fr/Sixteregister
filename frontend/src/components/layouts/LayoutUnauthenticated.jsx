@@ -8,7 +8,7 @@ function LayoutUnauthenticated({ isDarkMode, children }) {
         <Box sx={{ height: '100vh' }}>
             <Box sx={{ position: 'absolute', top: 16, left: 16, zIndex: 20 }}>
                 <img
-                    src={isDarkMode ? "/images/logo_toss_light.png" : "/images/logo_toss_dark.png"}
+                    src={isDarkMode ? "/images/logo_sixte.png" : "/images/logo_sixte.png"}
                     alt="Logo Toss"
                     width={50}
                     height={50}

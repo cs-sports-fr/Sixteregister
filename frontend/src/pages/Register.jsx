@@ -326,11 +326,7 @@ const Register = () => {
                                             <Link href="/CGI/CGI_indiv.pdf" target="_blank" style={{ fontWeight: "600", color: "#093274", textDecorationColor: "#093274" }}>
                                                 Conditions Générales d&apos;Inscription{" "}
                                             </Link>{" "}
-                                            ou les{" "}
-                                            <Link href="/CGI/CGI_delegations.pdf" target="_blank" style={{ fontWeight: "600", color: "#093274", textDecorationColor: "#093274" }}>
-                                                CGI Délégations
-                                            </Link>{" "}
-                                            si mon école est une délégation.
+                                            
                                         </Typography>
                                     </Grid>
                                 </Grid>
