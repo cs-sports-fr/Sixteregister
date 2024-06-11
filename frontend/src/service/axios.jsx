@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const ApiTossConnected = axios.create({
-    baseURL: import.meta.env.VITE_API_TOSS_URL,
+    baseURL: import.meta.env.VITE_API_SIXTE_API_URL,
 });
 
 // Add an interceptor to attach the JWT token to each request
