@@ -1,4 +1,4 @@
-name: Deploy Prisma Studio to EC2 (DO AFTER RUNNING PRISMA MIGRATE)
+name: Deploy Prisma Migrate to EC2 and migrate DB
 
 on:
   workflow_dispatch:
@@ -24,10 +24,10 @@ jobs:
           host: ${{ secrets.EC2_HOST_PRISMA }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-          source: "./prisma.Dockerfile, ./migrations, ./docker-compose-prod.yml, ./schema.prisma, .env"
+          source: "./prisma-migrate.Dockerfile, ./migrations, ./docker-compose-prod.yml, ./schema.prisma, .env"
           target: "/home/ec2-user/sixte-prisma"
 
-      - name: Deploy the prisma studio
+      - name: Deploy the prisma studio and migrate
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST_PRISMA }}
@@ -35,5 +35,5 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
             cd /home/ec2-user/sixte-prisma
-            sudo docker-compose -f docker-compose-prod.yml down prisma-studio || true
-            sudo docker-compose -f docker-compose-prod.yml up --build prisma-studio -d
+            sudo docker-compose -f docker-compose-prod.yml down prisma-migrate || true
+            sudo docker-compose -f docker-compose-prod.yml up --build prisma-migrate -d
