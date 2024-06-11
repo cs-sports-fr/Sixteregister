@@ -59,7 +59,7 @@ ApiTossConnected.interceptors.response.use(
 );
 
 const ApiTossNotConnected = axios.create({
-    baseURL: import.meta.env.VITE_API_TOSS_URL,
+    baseURL: import.meta.env.VITE_API_SIXTE_API_URL,
 });
 
 export { ApiTossConnected, ApiTossNotConnected }
