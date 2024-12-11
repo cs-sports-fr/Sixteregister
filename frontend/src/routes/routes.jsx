@@ -165,7 +165,7 @@ const routesForNotAuthenticatedOnly = [
         element: <Results />,
     },
 
-        path: "/login",
+    {    path: "/login",
         element: <Login />,
     },
 ];
