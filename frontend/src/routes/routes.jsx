@@ -17,6 +17,8 @@ import SuperAdminParameters from "../pages/superAdmin/SuperAdminParameters";
 import SuperAdminUser from "../pages/superAdmin/SuperAdminUser";
 import Home from "../pages/vitrine/Home";
 import Results from "../pages/vitrine/Results"
+import Sponsor from "../pages/vitrine/Sponsor";
+
 // Define user routes
 const routesForUser = [
     {
@@ -142,6 +144,10 @@ const routesForNotAuthenticatedOnly = [
         element: <Home/>,
     },
     {
+        path: "/sponsor",
+        element: <Sponsor/>,
+    },
+    {
         path: "/sign-in",
         element: <Login />,
     },
@@ -154,10 +160,14 @@ const routesForNotAuthenticatedOnly = [
         element: <ForgotPassword />,
     },
     {
+
         path: "/results",
         element: <Results />,
     },
 
+        path: "/login",
+        element: <Login />,
+    },
 ];
 
 
