@@ -1,67 +1,76 @@
 import React, { useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Fade } from '@mui/material';
 import palette from '../../themes/palette';
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
 
 const ResultsPage = () => {
     const [selectedYear, setSelectedYear] = useState('2020M');
 
-    const handleYearChange = (year) => {
-        setSelectedYear(year);
-    };
 
+    const [isFading, setIsFading] = useState(false);
+    const handleYearChange = (year) => {
+        if (year !== selectedYear) {
+            setIsFading(true); // Active le fade-out
+            setTimeout(() => {
+                setSelectedYear(year); // Change l'année après le fade-out
+                setIsFading(false); // Réactive le fade-in
+            }, 300); // Durée du fade-out
+        }
+    };
+    
     const resultsData = {
         "2018M": [
-            { rank: "1ÈRE PLACE", team: "Centrale Nantes" },
-            { rank: "2NDE PLACE", team: "École Polytechnique" },
+            { rank: "1ÈRE PLACE", team: "CENTRALE NANTES" },
+            { rank: "2NDE PLACE", team: "ÉCOLE POLYTECHNIQUE" },
             { rank: "3ÈME PLACE", team: "ISEP" },
         ],
         "2018F": [
-            { rank: "1ÈRE PLACE", team: "Paris Sciences et Lettres" },
+            { rank: "1ÈRE PLACE", team: "PARIS SCIENCES ET LETTRES" },
             { rank: "2NDE PLACE", team: "ENTPE" },
-            { rank: "3ÈME PLACE", team: "Centrale Nantes" },
+            { rank: "3ÈME PLACE", team: "CENTRALE NANTES" },
         ],
         "2019M": [
             { rank: "1ÈRE PLACE", team: "EFREI" },
             { rank: "2NDE PLACE", team: "HEC" },
-            { rank: "3ÈME PLACE", team: "CentraleSupélec" },
+            { rank: "3ÈME PLACE", team: "CENTRALESUPÉLEC" },
         ],
         "2019F": [
             { rank: "1ÈRE PLACE", team: "ENTPE" },
-            { rank: "2NDE PLACE", team: "CentraleSupélec" },
-            { rank: "3ÈME PLACE", team: "Audencia" },
+            { rank: "2NDE PLACE", team: "CENTRALESUPÉLEC" },
+            { rank: "3ÈME PLACE", team: "AUDENCIA" },
         ],
         "2020M": [
-            { rank: "1ÈRE PLACE", team: "CentraleSupélec" },
-            { rank: "2NDE PLACE", team: "Centrale Nantes" },
+            { rank: "1ÈRE PLACE", team: "CENTRALESUPÉLEC" },
+            { rank: "2NDE PLACE", team: "CENTRALE NANTES" },
             { rank: "3ÈME PLACE", team: "HEI" },
         ],
         "2020F": [
-            { rank: "1ÈRE PLACE", team: "STAPS Nancy" },
-            { rank: "2NDE PLACE", team: "Université PSL" },
-            { rank: "3ÈME PLACE", team: "Bordeaux SA" },
+            { rank: "1ÈRE PLACE", team: "STAPS NANCY" },
+            { rank: "2NDE PLACE", team: "UNIVERSITÉ PSL" },
+            { rank: "3ÈME PLACE", team: "BORDEAUX SA" },
         ],
         "2022M": [
-            { rank: "1ÈRE PLACE", team: "Mines d'Alès" },
-            { rank: "2NDE PLACE", team: "Supméca" },
-            { rank: "3ÈME PLACE", team: "Centrale Lille" },
+            { rank: "1ÈRE PLACE", team: "MINES D'ALÈS" },
+            { rank: "2NDE PLACE", team: "SUPMÉCA" },
+            { rank: "3ÈME PLACE", team: "CENTRALE LILLE" },
         ],
         "2022F": [
-            { rank: "1ÈRE PLACE", team: "Université PSL" },
-            { rank: "2NDE PLACE", team: "CentraleSupélec" },
-            { rank: "3ÈME PLACE", team: "UBM Foot" },
+            { rank: "1ÈRE PLACE", team: "UNIVERSITÉ PSL" },
+            { rank: "2NDE PLACE", team: "CENTRALESUPÉLEC" },
+            { rank: "3ÈME PLACE", team: "UBM FOOT" },
         ],
         "2023M": [
             { rank: "1ÈRE PLACE", team: "ESSEC" },
-            { rank: "2NDE PLACE", team: "IMT Nord Europe" },
-            { rank: "3ÈME PLACE", team: "Paris XI" },
+            { rank: "2NDE PLACE", team: "IMT NORD EUROPE" },
+            { rank: "3ÈME PLACE", team: "PARIS XI" },
         ],
         "2023F": [
-            { rank: "1ÈRE PLACE", team: "CentraleSupélec" },
-            { rank: "2NDE PLACE", team: "STAPS Nancy" },
-            { rank: "3ÈME PLACE", team: "Bordeaux Montaigne" },
+            { rank: "1ÈRE PLACE", team: "CENTRALESUPÉLEC" },
+            { rank: "2NDE PLACE", team: "STAPS NANCY" },
+            { rank: "3ÈME PLACE", team: "BORDEAUX MONTAIGNE" },
         ],
     };
+    
 
     const years = ['2018M', '2018F', '2019M', '2019F', '2020M', '2020F', '2022M', '2022F', '2023M', '2023F'];
 
@@ -77,10 +86,10 @@ const ResultsPage = () => {
                     textAlign: 'center',
                     marginTop: '2rem',
                     marginBottom: '1rem',
-                    color: 'palette.secondary.dark'
+                    color: 'secondary.dark'
                 }}
             >
-                Résultats du Sixte
+                RÉSULTATS DU SIXTE
             </Typography>
 
             {/* Years Navigation */}
@@ -90,7 +99,7 @@ const ResultsPage = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexWrap: 'wrap',
-                    backgroundColor: 'palette.secondary.dark',
+                    backgroundColor: 'secondary.dark',
                     borderRadius: '2rem',
                     padding: '0.5rem',
                     marginY: '2rem',
@@ -105,16 +114,15 @@ const ResultsPage = () => {
                         sx={{
                             paddingX: '1rem',
                             paddingY: '0.5rem',
-                            color: selectedYear === year ? 'white' : '',
-                            backgroundColor: selectedYear === year ? 'palette.primary.main' : 'transparent',
+                            color: selectedYear === year ? 'white' : 'white',
+                            backgroundColor: selectedYear === year ? 'primary.main' : 'transparent',
                             borderRadius: '1.5rem',
                             cursor: 'pointer',
-                            fontWeight: 'bold',
                             fontSize: '1rem',
                             textAlign: 'center',
                             transition: 'background-color 0.3s',
                             '&:hover': {
-                                backgroundColor: selectedYear === year ? 'palette.primary.main' : '#333333',
+                                backgroundColor: selectedYear === year ? 'primary.main' : 'transparent',
                             },
                         }}
                     >
@@ -124,43 +132,46 @@ const ResultsPage = () => {
             </Box>
 
             {/* Results Display */}
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: { xs: 'column', sm: 'row' },
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: '2rem',
-                    flexWrap: 'wrap', // Wraps the boxes on smaller screens
-                    marginTop: '2rem',
-                }}
-            >
-                {results.map((result, index) => (
-                    <Box
-                        key={index}
-                        sx={{backgroundColor: 'palette.secondary.dark',
-                            color: 'white',
-                            padding: '1rem',
-                            borderRadius: '0.5rem',
-                            textAlign: 'center',
-                            width: { xs: '70%', sm: '14rem', md: '18rem' }, // Largeur responsive
-                            height: { xs: 'auto', sm: '8rem', md: '10rem' }, // Hauteur responsive
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Ombre pour un rendu élégant
-                            }}
-                    >
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', color : 'white'}}>
-                            {result.rank}
-                        </Typography>
-                        <Typography variant="h5" sx={{ color: 'palette.primary.main' }}>
-                            {result.team}
-                        </Typography>
-                    </Box>
-                ))}
-            </Box>
+            <Fade in={!isFading} timeout={300}>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '2rem',
+                flexWrap: 'wrap', // Wraps the boxes on smaller screens
+                marginTop: '2rem',
+            }}
+        >
+            {results.map((result, index) => (
+                <Box
+                    key={index}
+                    sx={{
+                        backgroundColor: 'secondary.dark',
+                        color: 'white',
+                        padding: '1rem',
+                        borderRadius: '0.5rem',
+                        textAlign: 'center',
+                        width: { xs: '70%', sm: '14rem', md: '18rem' }, // Largeur responsive
+                        height: { xs: 'auto', sm: '8rem', md: '10rem' }, // Hauteur responsive
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Ombre pour un rendu élégant
+                    }}
+                >
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'white' }}>
+                        {result.rank}
+                    </Typography>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                        {result.team}
+                    </Typography>
+                </Box>
+            ))}
+        </Box>
+    </Fade>
         </LayoutUnauthenticated>
     );
 };
