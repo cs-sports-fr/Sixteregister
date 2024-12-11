@@ -1,6 +1,6 @@
 import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,Fade,Slide } from "@mui/material";
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
-
+import Footer from "../../components/footer/footer";
 const Home = () => {
     const isDarkMode = false;
 
@@ -19,6 +19,7 @@ const Home = () => {
 
                 </Box>
             </Box>
+            <Footer/>
         </LayoutUnauthenticated>
     );
 };
