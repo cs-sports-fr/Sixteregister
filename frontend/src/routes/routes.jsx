@@ -157,6 +157,10 @@ const routesForNotAuthenticatedOnly = [
         path: "/forgot-password",
         element: <ForgotPassword />,
     },
+    {
+        path: "/login",
+        element: <Login />,
+    },
 ];
 
 
