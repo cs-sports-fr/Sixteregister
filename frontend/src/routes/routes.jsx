@@ -16,10 +16,10 @@ import AdminTeamDetail from "../pages/admin/AdminTeamDetail";
 import SuperAdminParameters from "../pages/superAdmin/SuperAdminParameters";
 import SuperAdminUser from "../pages/superAdmin/SuperAdminUser";
 import Home from "../pages/vitrine/Home";
+import Photo from "../pages/vitrine/photo";
 import Results from "../pages/vitrine/Results"
 import Sponsor from "../pages/vitrine/Sponsor";
 
-// Define user routes
 const routesForUser = [
     {
         path: "/",
@@ -159,8 +159,10 @@ const routesForNotAuthenticatedOnly = [
         path: "/forgot-password",
         element: <ForgotPassword />,
     },
+    {        path: "/photos",
+        element: <Photo />,
+    },
     {
-
         path: "/results",
         element: <Results />,
     },
