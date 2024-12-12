@@ -1,6 +1,11 @@
 import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,Fade,Slide } from "@mui/material";
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
-
+import Apropos from "../../components/Home/apropos";
+import Deroulementjournee from "../../components/Home/deroulementjournee";
+import Sixtemen from "../../components/Home/sixtemen";
+import Apropos from "../../components/Home/apropos";
+import Statistics from "../../components/Home/statistics";
+import Video from "../../components/Home/video";
 const Home = () => {
     const isDarkMode = false;
 
@@ -8,16 +13,14 @@ const Home = () => {
 
     return (
         <LayoutUnauthenticated isDarkMode={isDarkMode}>
-            <Box>
-                <Box sx={{}}>
-                    <Typography variant="h1">18 février 2024</Typography>
-                    <Typography variant="h1">Le Sixte se déroule a clairefontaine</Typography>
-                </Box>
-                <Box>
-                    <Button>S'Inscrire</Button>
-                    <Button>Se connecter</Button>
+            <Box sx={{height:'200vh'}}> 
+                <Apropos/>
+                <Deroulementjournee/>
 
-                </Box>
+                <Sixtemen/>
+
+                <Statistics/>
+                <Video/>
             </Box>
         </LayoutUnauthenticated>
     );
