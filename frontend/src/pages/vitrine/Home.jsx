@@ -2,6 +2,9 @@ import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, T
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
 import Apropos from "../../components/Home/apropos";
 import Statistics from "../../components/Home/statistics";
+import Scrollingimages from "../../components/Home/scrollingimage";
+
+
 const Home = () => {
     const isDarkMode = false;
 
@@ -12,6 +15,8 @@ const Home = () => {
             <Box sx={{height:'200vh'}}> 
                 <Apropos/>
                 <Statistics/>
+                <Scrollingimages/>
+
             </Box>
         </LayoutUnauthenticated>
     );
