@@ -17,6 +17,7 @@ import SuperAdminParameters from "../pages/superAdmin/SuperAdminParameters";
 import SuperAdminUser from "../pages/superAdmin/SuperAdminUser";
 import Home
  from "../pages/vitrine/Home";
+ import FAQ from "../pages/vitrine/FAQ";
 // Define user routes
 const routesForUser = [
     {
@@ -139,6 +140,10 @@ const routesForNotAuthenticatedOnly = [
     {
         path: "/",
         element: <Home/>,
+    },
+    {
+        path: "/FAQ",
+        element: <FAQ/>,
     },
     {
         path: "/sign-in",
