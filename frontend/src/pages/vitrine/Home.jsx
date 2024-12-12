@@ -5,6 +5,7 @@ import Deroulementjournee from "../../components/Home/deroulementjournee";
 import Sixtemen from "../../components/Home/sixtemen";
 import Apropos from "../../components/Home/apropos";
 import Statistics from "../../components/Home/statistics";
+import Scrollingimages from "../../components/Home/scrollingimage";
 import Video from "../../components/Home/video";
 const Home = () => {
     const isDarkMode = false;
@@ -20,6 +21,8 @@ const Home = () => {
                 <Sixtemen/>
 
                 <Statistics/>
+                <Scrollingimages/>
+
                 <Video/>
             </Box>
         </LayoutUnauthenticated>
