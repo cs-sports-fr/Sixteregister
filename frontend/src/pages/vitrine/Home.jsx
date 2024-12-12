@@ -2,6 +2,7 @@ import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, T
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
 import Apropos from "../../components/Home/apropos";
 import Statistics from "../../components/Home/statistics";
+import Video from "../../components/Home/video";
 const Home = () => {
     const isDarkMode = false;
 
@@ -12,6 +13,7 @@ const Home = () => {
             <Box sx={{height:'200vh'}}> 
                 <Apropos/>
                 <Statistics/>
+                <Video/>
             </Box>
         </LayoutUnauthenticated>
     );
