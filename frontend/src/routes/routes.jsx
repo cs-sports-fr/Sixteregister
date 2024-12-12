@@ -15,6 +15,9 @@ import Profile from "../pages/common/Profile";
 import AdminTeamDetail from "../pages/admin/AdminTeamDetail";
 import SuperAdminParameters from "../pages/superAdmin/SuperAdminParameters";
 import SuperAdminUser from "../pages/superAdmin/SuperAdminUser";
+import Home
+ from "../pages/vitrine/Home";
+ import FAQ from "../pages/vitrine/FAQ";
 import Home from "../pages/vitrine/Home";
 import Photo from "../pages/vitrine/photo";
 import Results from "../pages/vitrine/Results"
@@ -144,7 +147,9 @@ const routesForNotAuthenticatedOnly = [
         element: <Home/>,
     },
     {
-        path: "/sponsor",
+        path: "/FAQ",
+        element: <FAQ/>,},
+    {   path: "/sponsor",
         element: <Sponsor/>,
     },
     {
