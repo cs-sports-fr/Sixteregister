@@ -18,7 +18,11 @@ import SuperAdminUser from "../pages/superAdmin/SuperAdminUser";
 import Home
  from "../pages/vitrine/Home";
  import FAQ from "../pages/vitrine/FAQ";
-// Define user routes
+import Home from "../pages/vitrine/Home";
+import Photo from "../pages/vitrine/photo";
+import Results from "../pages/vitrine/Results"
+import Sponsor from "../pages/vitrine/Sponsor";
+
 const routesForUser = [
     {
         path: "/",
@@ -77,6 +81,7 @@ const routesForAdmin = [
         name: 'Déconnexion',
         hidden: true,
     },
+
 ]
 
 // Define super admin route
@@ -143,7 +148,9 @@ const routesForNotAuthenticatedOnly = [
     },
     {
         path: "/FAQ",
-        element: <FAQ/>,
+        element: <FAQ/>,},
+    {   path: "/sponsor",
+        element: <Sponsor/>,
     },
     {
         path: "/sign-in",
@@ -156,6 +163,17 @@ const routesForNotAuthenticatedOnly = [
     {
         path: "/forgot-password",
         element: <ForgotPassword />,
+    },
+    {        path: "/photos",
+        element: <Photo />,
+    },
+    {
+        path: "/results",
+        element: <Results />,
+    },
+
+    {    path: "/login",
+        element: <Login />,
     },
 ];
 

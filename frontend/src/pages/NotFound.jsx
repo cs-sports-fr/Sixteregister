@@ -19,27 +19,30 @@ const NotFoundPage = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 minHeight: '100vh',
-                backgroundImage: `url(images/soiree.jpeg)`,
+                backgroundImage: `url(/public/images/erreur404pics.jpg)`,
                 backgroundSize: 'cover',
+                backgroundPosition: 'center',  // L'image est centrée
+                backgroundAttachment: 'fixed',
             }}
         >
             <Box
                 sx={{
                     textAlign: 'center',
-                    maxWidth: '50%',
-                    backgroundColor: (theme) => alpha(theme.palette.background.drawer, 0.7),
+                    maxWidth: '40%',
+                    height: '40%',
+                    backgroundColor: (theme) => alpha(theme.palette.primary.dark, 0.7),
                     borderRadius: '1rem',
-                    padding: '1rem',
+                    padding: '2rem',
                 }}
             >
                 <Typography variant="h1" sx={{
                     fontSize: { xs: '2rem', md: '3rem', lg: '4rem' },
-                    marginBottom: '1rem'
+                    marginBottom: '2rem'
                 }}>
-                    Erreur 4<img src='images/logo_sixte.png' alt="logo" style={{ width: { xs: '2rem', md: '3rem', lg: '4rem' }, height: '3rem', paddingTop: '1rem' }} />4 :
+                    Erreur 404 :
                 </Typography>
-                <Typography variant="h1" sx={{ fontSize: { xs: '2rem', md: '3rem', lg: '4rem' }, marginBottom: '1rem' }}>
-                    Cette page n&apos;existe pas
+                <Typography variant="h1" sx={{ fontSize: { xs: '1rem', md: '2rem', lg: '3rem' }, marginBottom: '1rem' }}>
+                    Oups, Cette page n&apos;existe pas
                 </Typography>
                 <Button variant="contained" color="primary" onClick={handleRedirect} startIcon={<ArrowBack />} sx={{ marginTop: '1rem' }}>
                     Retourner à l&apos;accueil
