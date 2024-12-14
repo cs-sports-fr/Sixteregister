@@ -18,7 +18,6 @@ import SuperAdminUser from "../pages/superAdmin/SuperAdminUser";
 import Home
  from "../pages/vitrine/Home";
  import FAQ from "../pages/vitrine/FAQ";
-import Home from "../pages/vitrine/Home";
 import Photo from "../pages/vitrine/photo";
 import Results from "../pages/vitrine/Results"
 import Sponsor from "../pages/vitrine/Sponsor";

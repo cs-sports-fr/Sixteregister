@@ -2,20 +2,16 @@ import { createTheme } from "@mui/material/styles";
 import palette from "./palette";
 import ComponentsOverrides from "./overrides";
 
-
 const theme = createTheme({
     palette: palette,
     typography: {
         fontFamily: [
-            'Gill Sans',
-            'Gill Sans MT',
-            'Calibri',
-            'Trebuchet MS',
-            'sans-serif'
+            'Oswald', // Use Rubik font
+            'sans-serif' // Fallback to sans-serif in case Rubik is not available
         ].join(',')
     }
-
 });
+
 theme.components = ComponentsOverrides(theme);
 
 export default theme;

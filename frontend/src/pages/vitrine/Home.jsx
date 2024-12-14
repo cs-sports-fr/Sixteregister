@@ -3,10 +3,10 @@ import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticate
 import Apropos from "../../components/Home/apropos";
 import Deroulementjournee from "../../components/Home/deroulementjournee";
 import Sixtemen from "../../components/Home/sixtemen";
-import Apropos from "../../components/Home/apropos";
 import Statistics from "../../components/Home/statistics";
 import Scrollingimages from "../../components/Home/scrollingimage";
 import Video from "../../components/Home/video";
+import Footer from "../../components/footer/footer";
 const Home = () => {
     const isDarkMode = false;
 
@@ -15,15 +15,14 @@ const Home = () => {
     return (
         <LayoutUnauthenticated isDarkMode={isDarkMode}>
             <Box sx={{height:'200vh'}}> 
+                <Scrollingimages/>
                 <Apropos/>
                 <Deroulementjournee/>
-
-                <Sixtemen/>
-
                 <Statistics/>
-                <Scrollingimages/>
-
+                <Sixtemen/>
                 <Video/>
+                <Footer/>
+
             </Box>
         </LayoutUnauthenticated>
     );
