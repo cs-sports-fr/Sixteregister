@@ -6,7 +6,7 @@ const theme = createTheme({
     palette: palette,
     typography: {
         fontFamily: [
-            'Rubik', // Use Rubik font
+            'Oswald', // Use Rubik font
             'sans-serif' // Fallback to sans-serif in case Rubik is not available
         ].join(',')
     }

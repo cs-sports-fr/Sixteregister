@@ -103,7 +103,9 @@ const ScrollingImages = () => {
               },    
             }}
           >
+            <Typography sx={{color:'white',fontWeight:'bold',fontSize:'1.2rem'}}>
             S'INSCRIRE
+            </Typography>
           </Button>
           <Button
             variant="outlined"
@@ -124,7 +126,7 @@ const ScrollingImages = () => {
               },            
             }}
           >
-            <Typography sx={{color:'black',fontWeight:'bold'}}>
+            <Typography sx={{color:'black',fontWeight:'bold',fontSize:'1.2rem'}}>
             SE CONNECTER
             </Typography>
           </Button>

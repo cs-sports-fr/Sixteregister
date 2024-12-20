@@ -7,6 +7,7 @@ import Statistics from "../../components/Home/statistics";
 import Scrollingimages from "../../components/Home/scrollingimage";
 import Video from "../../components/Home/video";
 import Footer from "../../components/footer/footer";
+import IconsInscription from "../../components/Home/iconsinscription";
 const Home = () => {
     const isDarkMode = false;
 
@@ -17,6 +18,7 @@ const Home = () => {
             <Box sx={{height:'200vh'}}> 
                 <Scrollingimages/>
                 <Apropos/>
+                <IconsInscription/>
                 <Deroulementjournee/>
                 <Statistics/>
                 <Sixtemen/>
