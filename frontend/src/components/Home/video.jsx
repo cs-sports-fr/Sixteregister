@@ -99,7 +99,7 @@ const Video = () => {
                             color: palette.grey[400],
                         }}
                     >
-                        RÉCAPITULATIF DU SIXTE 2022 RÉALISÉ PAR L'ASSOCIATION HYRIS DE CENTRALESUPÉLEC.
+                        RÉCAPITULATIF DU SIXTE 2023 RÉALISÉ PAR L'ASSOCIATION HYRIS DE CENTRALESUPÉLEC.
                     </Typography>
             </Box>
         </Box>

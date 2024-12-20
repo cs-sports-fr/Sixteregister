@@ -3,7 +3,7 @@ import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticate
 
 import palette from '../../themes/palette';
 
-
+import Footer from "../../components/footer/footer";
 
 const FAQ = () => {
     const isDarkMode = false;
@@ -105,8 +105,8 @@ const FAQ = () => {
                 </Box>
                 </Box>
                 
-
             </Box>
+            <Footer/>
         </LayoutUnauthenticated>
     );
 };

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Fade } from '@mui/material';
 import palette from '../../themes/palette';
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
-
+import Footer from '../../components/footer/footer';
 const ResultsPage = () => {
     const [selectedYear, setSelectedYear] = useState('2020M');
 
@@ -171,6 +171,7 @@ const ResultsPage = () => {
                     ))}
                 </Box>
             </Fade>
+
         </LayoutUnauthenticated>
     );
 };

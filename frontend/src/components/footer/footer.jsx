@@ -4,7 +4,6 @@ import palette from "../../themes/palette";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
-
 const Footer = ({ navigation }) => {
     const isDarkMode = true;
     const theme = useTheme();
@@ -34,10 +33,10 @@ const Footer = ({ navigation }) => {
                         <Grid container sx={{backgroundColor:'secondary.dark'}} >
                             <Grid item sx={{ marginLeft: '2rem', display: { xs: 'none', lg: 'block' } ,backgroundColor:'secondary.dark'}}>
                                 <Box>
-                                    <Typography variant='h4' sx={{fontWeight:'bold',mb:'1rem'}}>NOUS CONTACTER</Typography>   
-                                <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>3, rue Joliot-Curie,<br/>
+                                    <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>NOUS CONTACTER</Typography>   
+                                <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>3, rue Joliot-Curie,<br/>
                                 Gif-sur-Yvette, 91190</Box>
-                                <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>
+                                <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>
                                 sixte@cs-sports.fr
                                 </Box>
                                 </Box>
@@ -84,14 +83,14 @@ const Footer = ({ navigation }) => {
                         <Grid container  sx={{backgroundColor:'secondary.dark'}}
                         >
                             <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
-                                <Typography variant='h4' sx={{fontWeight:'bold',mb:'1rem'}}>LIENS</Typography>   
-                                <Link href="/results" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Résultats</Link>
-                                <Link href="/photo" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Galerie photo </Link>
-                                <Link href="/sponsor" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>Nos partenaires</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Infos</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Espace Admin</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Règlement</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> CGI</Link>
+                                <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>LIENS</Typography>   
+                                <Link href="/results" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Résultats</Link>
+                                <Link href="/photo" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Galerie photo </Link>
+                                <Link href="/sponsor" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>Nos partenaires</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Infos</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Espace Admin</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Règlement</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> CGI</Link>
                             </Grid>
                         </Grid>
                         <Grid container sx={{
@@ -100,13 +99,13 @@ const Footer = ({ navigation }) => {
                         }}
                         >
                             <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
-                            <Typography variant='h4' sx={{fontWeight:'bold',mb:'1rem'}}>NAVIGATION RAPIDE</Typography>   
-                            <Link href="./pages/vitrine/Home.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Acceuil</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> A propos</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Planning </Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>L'équipe</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Le récap 2024</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>Nous contacter</Link>
+                            <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>NAVIGATION RAPIDE</Typography>   
+                            <Link href="./pages/vitrine/Home.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Acceuil</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> A propos</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Planning </Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>L'équipe</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Le récap 2024</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>Nous contacter</Link>
                             </Grid> 
                         </Grid>
                     </Grid> 

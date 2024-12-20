@@ -1,6 +1,6 @@
 import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,Fade,Slide } from "@mui/material";
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
-
+import Footer from "../../components/footer/footer";
 const Sponsor = () => {
     const isDarkMode = false;
 
@@ -67,6 +67,8 @@ continue de redéfinir la manière dont nous interagissons avec l’argent au qu
                 paddingBottom: "2.5rem",fontSize:'1.25rem'}}>
                 Contact partenaires: <a href="mailto:contact-partenaires@cs-sports.fr" target="_blank">contact-partenaires@cs-sports.fr</a>
                </Box>
+               <Footer/>
+
             </Box>
         </LayoutUnauthenticated>
     );

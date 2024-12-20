@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
-
+import Footer from "../../components/footer/footer";
 const Photo = () => {
     const isDarkMode = false;
 
@@ -95,6 +95,8 @@ const Photo = () => {
                     />
                     </a>
                 </Box>
+                <Footer/>
+
             </Box>
         </LayoutUnauthenticated>
     );
