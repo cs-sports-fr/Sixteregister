@@ -6,15 +6,14 @@ import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticate
 const ResultsPage = () => {
     const [selectedYear, setSelectedYear] = useState('2020M');
 
-
     const [isFading, setIsFading] = useState(false);
     const handleYearChange = (year) => {
         if (year !== selectedYear) {
-            setIsFading(true); // Active le fade-out
+            setIsFading(true); // Start fade-out
             setTimeout(() => {
-                setSelectedYear(year); // Change l'année après le fade-out
-                setIsFading(false); // Réactive le fade-in
-            }, 300); // Durée du fade-out
+                setSelectedYear(year); // Change year after fade-out
+                setIsFading(false); // Start fade-in
+            }, 300); // Duration of fade-out
         }
     };
     
@@ -70,7 +69,6 @@ const ResultsPage = () => {
             { rank: "3ÈME PLACE", team: "BORDEAUX MONTAIGNE" },
         ],
     };
-    
 
     const years = ['2018M', '2018F', '2019M', '2019F', '2020M', '2020F', '2022M', '2022F', '2023M', '2023F'];
 
@@ -78,33 +76,32 @@ const ResultsPage = () => {
 
     return (
         <LayoutUnauthenticated>
-            {/* Title */}
-            <Typography
-                sx={{
-                    fontSize: { xs: '2rem', md: '3rem', lg: '4rem' },
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    marginTop: '2rem',
-                    marginBottom: '1rem',
-                    color: 'secondary.dark'
-                }}
-            >
-                RÉSULTATS DU SIXTE
-            </Typography>
+            <Box sx={{height:'20vh',width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                <Typography
+                    variant="h2"
+                    sx={{
+                        mt: '8rem',
+                        fontWeight: 'bold',
+                        fontSize: '3rem',
+                        color: 'black',
+                        textTransform: 'uppercase',
+                    }}
+                >
+                    Resultats du Sixte
+                </Typography>
+            </Box>
 
             {/* Years Navigation */}
             <Box
                 sx={{
                     display: 'flex',
-                    justifyContent: 'center',
                     alignItems: 'center',
-                    flexWrap: 'wrap',
                     backgroundColor: 'secondary.dark',
-                    borderRadius: '2rem',
-                    padding: '0.5rem',
-                    marginY: '2rem',
-                    maxWidth: { xs: '90%', sm: '40rem', lg: '50rem' },
+                    borderRadius: '1.5rem',
+                    padding: '0.25rem',
+                    width: 'fit-content',
                     marginX: 'auto',
+                    marginY: '2rem',
                 }}
             >
                 {years.map((year) => (
@@ -112,66 +109,68 @@ const ResultsPage = () => {
                         key={year}
                         onClick={() => handleYearChange(year)}
                         sx={{
+                            cursor: 'pointer',
+                            borderRadius: '1.5rem',
                             paddingX: '1rem',
                             paddingY: '0.5rem',
-                            color: selectedYear === year ? 'white' : 'white',
                             backgroundColor: selectedYear === year ? 'primary.main' : 'transparent',
-                            borderRadius: '1.5rem',
-                            cursor: 'pointer',
-                            fontSize: '1rem',
-                            textAlign: 'center',
                             transition: 'background-color 0.3s',
-                            '&:hover': {
-                                backgroundColor: selectedYear === year ? 'primary.main' : 'transparent',
-                            },
                         }}
                     >
-                        {year}
+                        <Typography
+                            sx={{
+                                color: 'white',
+                                fontWeight: 'bold',
+                                fontSize: '1rem', // Adjust if needed
+                            }}
+                        >
+                            {year}
+                        </Typography>
                     </Box>
                 ))}
             </Box>
 
             {/* Results Display */}
             <Fade in={!isFading} timeout={300}>
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: { xs: 'column', sm: 'row' },
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '2rem',
-                flexWrap: 'wrap', // Wraps the boxes on smaller screens
-                marginTop: '2rem',
-            }}
-        >
-            {results.map((result, index) => (
                 <Box
-                    key={index}
                     sx={{
-                        backgroundColor: 'secondary.dark',
-                        color: 'white',
-                        padding: '1rem',
-                        borderRadius: '0.5rem',
-                        textAlign: 'center',
-                        width: { xs: '70%', sm: '14rem', md: '18rem' }, // Largeur responsive
-                        height: { xs: 'auto', sm: '8rem', md: '10rem' }, // Hauteur responsive
                         display: 'flex',
-                        flexDirection: 'column',
+                        flexDirection: { xs: 'column', sm: 'row' },
                         justifyContent: 'center',
                         alignItems: 'center',
-                        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', // Ombre pour un rendu élégant
+                        gap: '2rem',
+                        flexWrap: 'wrap',
+                        marginTop: '2rem',
                     }}
                 >
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'white' }}>
-                        {result.rank}
-                    </Typography>
-                    <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
-                        {result.team}
-                    </Typography>
+                    {results.map((result, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                mt: '1rem',
+                                backgroundColor: 'secondary.dark',
+                                color: 'white',
+                                padding: '1rem',
+                                borderRadius: '0.5rem',
+                                textAlign: 'center',
+                                width: { xs: '70%', sm: '14rem', md: '18rem' },
+                                height: { xs: 'auto', sm: '8rem', md: '10rem' },
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Typography variant="h6" sx={{ fontWeight: 'medium', color: 'white' }}>
+                                {result.rank}
+                            </Typography>
+                            <Typography variant="h5" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
+                                {result.team}
+                            </Typography>
+                        </Box>
+                    ))}
                 </Box>
-            ))}
-        </Box>
-    </Fade>
+            </Fade>
         </LayoutUnauthenticated>
     );
 };

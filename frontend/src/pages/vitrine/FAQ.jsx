@@ -1,4 +1,4 @@
-import { Box, Button, Typography, ThemeProvider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,Fade,Slide, colors } from "@mui/material";
+import { Box, Link,Button, Typography, ThemeProvider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,Fade,Slide, colors } from "@mui/material";
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
 
 import palette from '../../themes/palette';
@@ -10,9 +10,23 @@ const FAQ = () => {
 
     return (
         <LayoutUnauthenticated isDarkMode={isDarkMode}>
-            <Box sx={{color: palette.secondary.dark}}>
-            
+            <Box>
+                <Box sx={{height:'20vh',width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                    <Typography
+                            variant="h2"
+                            sx={{
+                                mt: '8rem',
+                                fontWeight: 'bold',
+                                fontSize: '3rem',
+                                color: 'black',
+                                textTransform: 'uppercase',
+                            }}
+                            >
+                        Infos pratiques
+                    </Typography>
+                </Box>
                 <Box sx={{display : "flex"}}>
+                    
                     <Box sx={{display:'flex',flexDirection:'column',alignItems:'center', width:"50%", padding:'4rem'}}>
                         <h1 sx={{ fontWeight: 'bold', textAlign: 'center', color: palette.secondary.dark}}>LA JOURNÉE</h1>
                         <Typography variant="p" sx={{className:"left-align", color: palette.secondary.main, paddingBottom: '2rem'}}>Le Tournoi se déroule sur toute la journée avec 32 équipes pour les hommes et 16 pour les femmes. Le matin se jouera la phase de poule, et l'après-midi auront lieu la phase finale et le tournoi de consolantes. Entre-temps vous aurez l'occasion de reprendre des forces avec un repas chaud de qualité. L'après-midi vous aurez aussi la possibilité d'une visite exceptionnelle du musée des Bleus, prendre des photos devant la coupe du monde
@@ -83,7 +97,7 @@ const FAQ = () => {
                 </Box>
                 <Box sx={{textAlign: 'left', paddingTop:'2rem', paddingBottom:'2rem'}}>
                 <Typography sx={{color: palette.secondary.main}}>
-                    Une autre question ? Envoie un mail à 
+                    Une autre question ? Envoie un mail à <span> </span>
                     <Link href="mailto:sixte@cs-sports.fr" sx={{ textDecoration: 'none' }}>
                         sixte@cs-sports.fr
                     </Link>

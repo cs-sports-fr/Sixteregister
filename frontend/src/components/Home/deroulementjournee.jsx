@@ -49,10 +49,11 @@ const Deroulementjournee = () => {
         <Typography
           variant="h2"
           sx={{
-            fontWeight: 'bold',
+            fontWeight: 'medium',
             alignSelf: 'flex-start',
             marginBottom: '1rem',
             fontSize: '1.5rem',
+            textTransform: 'uppercase',
             color: palette.primary.main,
           }}
         >

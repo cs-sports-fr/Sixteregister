@@ -146,9 +146,9 @@ const routesForNotAuthenticatedOnly = [
         element: <Home/>,
     },
     {
-        path: "/FAQ",
+        path: "/infos",
         element: <FAQ/>,},
-    {   path: "/sponsor",
+    {   path: "/partenaires",
         element: <Sponsor/>,
     },
     {
@@ -163,11 +163,11 @@ const routesForNotAuthenticatedOnly = [
         path: "/forgot-password",
         element: <ForgotPassword />,
     },
-    {        path: "/photos",
+    {        path: "/galerie",
         element: <Photo />,
     },
     {
-        path: "/results",
+        path: "/resultats",
         element: <Results />,
     },
 

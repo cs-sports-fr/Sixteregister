@@ -7,9 +7,21 @@ const Sponsor = () => {
     return (
         <LayoutUnauthenticated isDarkMode={isDarkMode}>
             <Box>
-               <Box sx={{fontSize: "2.5rem",alignItems:'center',justifyContent:'center',display:'flex',
-    fontWeight: "bold",
-    marginBottom: "2.5",paddingTop:"1.25rem"}}>PARTENAIRES</Box>
+                <Box sx={{height:'20vh',width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        mt: '8rem',
+                                        fontWeight: 'bold',
+                                        fontSize: '3rem',
+                                        color: 'black',
+                                        textTransform: 'uppercase',
+                                    }}
+                                >
+                                 Nos Partenaires
+                                </Typography>
+                            </Box>
+              
                <Box sx={{display:'flex',
     alignItems: "center",
     justifyContent: "space-between"}}>
@@ -53,7 +65,7 @@ continue de redéfinir la manière dont nous interagissons avec l’argent au qu
                </Box>
                <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',marginTop: "1.25rem",
                 paddingBottom: "2.5rem",fontSize:'1.25rem'}}>
-                Contact partenaires :<a href="mailto:contact-partenaires@cs-sports.fr" target="_blank">contact-partenaires@cs-sports.fr</a>
+                Contact partenaires: <a href="mailto:contact-partenaires@cs-sports.fr" target="_blank">contact-partenaires@cs-sports.fr</a>
                </Box>
             </Box>
         </LayoutUnauthenticated>

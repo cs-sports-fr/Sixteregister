@@ -65,7 +65,7 @@ Ce week-end de compétition inoubliable, et la plus grosse soirée de l’année
             variant="h5"
             sx={{
               color: palette.primary.main,
-              fontWeight: 'bold',
+              fontWeight: 'medium',
               marginBottom: '1rem',
             }}
           >

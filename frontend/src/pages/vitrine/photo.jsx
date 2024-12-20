@@ -7,38 +7,37 @@ const Photo = () => {
     return (
         <LayoutUnauthenticated isDarkMode={isDarkMode}>
             <Box>
+                <Box sx={{height:'20vh',width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        mt: '8rem',
+                                        fontWeight: 'bold',
+                                        fontSize: '3rem',
+                                        color: 'black',
+                                        textTransform: 'uppercase',
+                                    }}
+                                >
+                                    Photos du Sixte
+                                </Typography>
+                    </Box>
+                
                 <Box sx={{
-                    display: 'flex',
+                    width: '100%',
+                    display:'flex',
+                    flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    flexwrap: 'wrap',
+                    gap: '3rem',
+                    mt: '2rem',
                 }}>
-                    <Typography sx={{
-                        color: "black",
-                        fontSize : "5rem"
-                    }}
-                    > Galerie Photos
-                    </Typography>
-                </Box>
-                <Box sx={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '1rem',
-                    padding: '1rem',
-                    backgroundImage: 'url(/images/Background.jpg)',  
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    borderRadius: '0.5rem',
-                }}>
+                    <Box sx={{display:'flex', gap: '2rem',alignItems: 'center', justifyContent: 'center'}}>
                     <img 
                         src="/images/Photo1.jpg" 
                         alt="Photo1" 
                         style={{
-                            width: '90%',
+                            width: '40%',
                             height: 'auto',
-                            maxWidth: '30rem',
-                            maxHeight: '20rem',
-                            borderRadius: '0.5rem',
                             objectFit: 'cover'
                         }} 
                     />
@@ -46,23 +45,19 @@ const Photo = () => {
                         src="/images/Photo2.jpg" 
                         alt="Photo2" 
                         style={{
-                            width: '90%',
+                            width: '40%',
                             height: 'auto',
-                            maxWidth: '30rem',
-                            maxHeight: '20rem',
-                            borderRadius: '0.5rem',
                             objectFit: 'cover'
                         }} 
                     />
+                    </Box>
+                    <Box sx={{display:'flex', gap: '2rem',alignItems: 'center', justifyContent: 'center'}}>
                     <img 
                         src="/images/Photo3.jpg" 
                         alt="Photo3" 
                         style={{
-                            width: '90%',
+                            width: '40%',
                             height: 'auto',
-                            maxWidth: '30rem',
-                            maxHeight: '20rem',
-                            borderRadius: '0.5rem',
                             objectFit: 'cover'
                         }} 
                     />
@@ -70,27 +65,25 @@ const Photo = () => {
                         src="/images/Photo5.jpg" 
                         alt="Photo5" 
                         style={{
-                            width: '90%',
+                            width: '40%',
                             height: 'auto',
-                            maxWidth: '30rem',
-                            maxHeight: '20rem',
-                            borderRadius: '0.5rem',
                             objectFit: 'cover'
                         }} 
                     />
+                    </Box>
                 </Box>
-                <Box sx={{
+                <Box 
+                    sx={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexDirection: 'column',
                     marginTop: '2rem',
                     padding: '1rem',
-                    backgroundColor: '#f0f0f0',
-                    borderRadius: '0.5rem',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
                 }}>
-                        Merci à <strong>Pics</strong> pour les magnifiques photos !
+                        <Typography sx={{color:'black',mb:"3rem"}}>  Merci à Pics pour les magnifiques photos ! Retrouvez plus de photos du Sixte sur leur site !
+                        </Typography>
+                    <a href="https://galerie.pics/galerie/sixte-2023-2024">
                     <img 
                         src="/images/Logopics.png" 
                         alt="Pics Logo" 
@@ -100,6 +93,7 @@ const Photo = () => {
                             objectFit: 'contain'
                         }}
                     />
+                    </a>
                 </Box>
             </Box>
         </LayoutUnauthenticated>
