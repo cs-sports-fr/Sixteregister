@@ -34,7 +34,7 @@ const Footer = ({ navigation }) => {
                         <Grid container sx={{backgroundColor:'secondary.dark'}} >
                             <Grid item sx={{ marginLeft: '2rem', display: { xs: 'none', lg: 'block' } ,backgroundColor:'secondary.dark'}}>
                                 <Box>
-                                <h1>NOUS CONTACTER</h1>
+                                    <Typography variant='h4' sx={{fontWeight:'bold',mb:'1rem'}}>NOUS CONTACTER</Typography>   
                                 <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>3, rue Joliot-Curie,<br/>
                                 Gif-sur-Yvette, 91190</Box>
                                 <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>
@@ -83,12 +83,11 @@ const Footer = ({ navigation }) => {
                         </Grid>
                         <Grid container  sx={{backgroundColor:'secondary.dark'}}
                         >
-                            <Grid item sx={{backgroundColor:'secondary.dark'}}>
-                                <h1>LIENS</h1>   
-                                <Link href="./pages/vitrine/Home.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Acceuil</Link>
-                                <Link href=".pages/vitrine/Results.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Résultats</Link>
-                                <Link href="./pages/vitrine/photo.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Galerie photo </Link>
-                                <Link href=".pages/vitrine/Sponsor.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>Nos partenaires</Link>
+                            <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
+                                <Typography variant='h4' sx={{fontWeight:'bold',mb:'1rem'}}>LIENS</Typography>   
+                                <Link href="/results" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Résultats</Link>
+                                <Link href="/photo" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Galerie photo </Link>
+                                <Link href="/sponsor" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>Nos partenaires</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Infos</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Espace Admin</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Règlement</Link>
@@ -100,9 +99,9 @@ const Footer = ({ navigation }) => {
                                 backgroundColor:'secondary.dark'
                         }}
                         >
-                            <Grid item sx={{backgroundColor:'secondary.dark'}}>
-                            <h1>NAVIGATION RAPIDE</h1>
-                                <Link href="./pages/vitrine/Home.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Acceuil</Link>
+                            <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
+                            <Typography variant='h4' sx={{fontWeight:'bold',mb:'1rem'}}>NAVIGATION RAPIDE</Typography>   
+                            <Link href="./pages/vitrine/Home.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Acceuil</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> A propos</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Planning </Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>L'équipe</Link>
@@ -114,7 +113,9 @@ const Footer = ({ navigation }) => {
                     <Grid item sx={{
                         backgroundColor: 'primary.main',
                         width: '30%',
-                        
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',                        
                         padding: '2rem'
                     }}
                     >
