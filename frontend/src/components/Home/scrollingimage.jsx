@@ -38,7 +38,7 @@ const ScrollingImages = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '100vh',
+        height: '80vh',
         overflow: 'hidden',
       }}
     >
@@ -78,14 +78,15 @@ const ScrollingImages = () => {
           position: 'relative',
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2 }}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 3 }}>
           {slides[currentIndex].title}
         </Typography>
-        <Typography variant="h2" sx={{ fontWeight: 'bold', mb: 4 }}>
+        <Typography variant="h2" sx={{ fontWeight: 'bold', mb: 5 }}>
           {slides[currentIndex].subtitle}
         </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
           <Button
+          href='/register'
             variant="outlined"
             sx={{
                 borderColor: 'white',
@@ -94,8 +95,7 @@ const ScrollingImages = () => {
               fontWeight: 'bold',
               borderRadius: '8px',
               padding: '1.6rem',
-              width: '15rem',
-              py:"2rem",
+              width: '12rem',
               ":hover": {
                 backgroundColor: 'primary.main',
                 borderColor: 'white',
@@ -103,11 +103,12 @@ const ScrollingImages = () => {
               },    
             }}
           >
-            <Typography sx={{color:'white',fontWeight:'bold',fontSize:'1.2rem'}}>
+            <Typography sx={{color:'white',fontWeight:'bold',fontSize:'1rem'}}>
             S'INSCRIRE
             </Typography>
           </Button>
           <Button
+          href='/login'
             variant="outlined"
             sx={{
                 borderColor: 'white',
@@ -116,8 +117,8 @@ const ScrollingImages = () => {
               fontWeight: 'bold',
               borderRadius: '8px',
               padding: '1.6rem',
-              width: '15rem',
-              py:"2rem",
+              width: '12rem',
+              py:"1.6rem",
               fontcolor:'black',
               ":hover": {
                 backgroundColor: 'white',
@@ -126,7 +127,7 @@ const ScrollingImages = () => {
               },            
             }}
           >
-            <Typography sx={{color:'black',fontWeight:'bold',fontSize:'1.2rem'}}>
+            <Typography sx={{color:'black',fontWeight:'bold',fontSize:'1.0rem'}}>
             SE CONNECTER
             </Typography>
           </Button>
