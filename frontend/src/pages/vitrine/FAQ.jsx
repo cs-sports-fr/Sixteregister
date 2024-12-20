@@ -82,7 +82,12 @@ const FAQ = () => {
                     </Box>
                 </Box>
                 <Box sx={{textAlign: 'left', paddingTop:'2rem', paddingBottom:'2rem'}}>
-                    <Typography sx={{color: palette.secondary.main}}>Une autre question ? Envoie un mail à <a href="sixte@cs-sports.fr" style={{ textDecoration: 'none' }}>sixte@cs-sports.fr</a></Typography>
+                <Typography sx={{color: palette.secondary.main}}>
+                    Une autre question ? Envoie un mail à 
+                    <Link href="mailto:sixte@cs-sports.fr" sx={{ textDecoration: 'none' }}>
+                        sixte@cs-sports.fr
+                    </Link>
+                </Typography>
                 </Box>
                 </Box>
                 
