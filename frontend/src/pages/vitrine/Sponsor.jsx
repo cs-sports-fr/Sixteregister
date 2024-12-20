@@ -26,7 +26,7 @@ const Sponsor = () => {
     alignItems: "center",
     justifyContent: "space-between"}}>
                 <Box>
-                <img sx={{maxWidth: "100%", height: "auto",}} src='./public/images/redbull_logo.png' alt='Logo Redbull'/>
+                <img sx={{maxWidth: "100%", height: "auto",}} src='/images/redbull_logo.png' alt='Logo Redbull'/>
                 </Box>
                 <Box sx={{paddingRight:'9.375rem',fontSize:'1.25rem'}}>
 Red Bull est une entreprise 
@@ -60,7 +60,7 @@ innover dans le secteur des paiements numériques. Avec des millions d’utilisa
 continue de redéfinir la manière dont nous interagissons avec l’argent au quotidien.
                 </Box>
                 <Box sx={{paddingRight:'9.375rem'}}>
-                    <img sx={{width:'100%',height:'50%'}}src='./public/images/logo_lydia.png' alt='Logo Lydia'/>
+                    <img sx={{width:'100%',height:'50%'}}src='images/logo_lydia.png' alt='Logo Lydia'/>
                 </Box>
                </Box>
                <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',marginTop: "1.25rem",

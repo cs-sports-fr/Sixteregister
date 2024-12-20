@@ -31,7 +31,7 @@ const FAQ = () => {
                         <h1 sx={{ fontWeight: 'bold', textAlign: 'center', color: palette.secondary.dark}}>LA JOURNÉE</h1>
                         <Typography variant="p" sx={{className:"left-align", color: palette.secondary.main, paddingBottom: '2rem'}}>Le Tournoi se déroule sur toute la journée avec 32 équipes pour les hommes et 16 pour les femmes. Le matin se jouera la phase de poule, et l'après-midi auront lieu la phase finale et le tournoi de consolantes. Entre-temps vous aurez l'occasion de reprendre des forces avec un repas chaud de qualité. L'après-midi vous aurez aussi la possibilité d'une visite exceptionnelle du musée des Bleus, prendre des photos devant la coupe du monde
                         </Typography>
-                        <img src="../public/images/FAQ.jpg" alt="Photo de l'équipe" style={{height:"100%", width: "100%",objectFit: "cover"}}/>
+                        <img src="/images/FAQ.jpg" alt="Photo de l'équipe" style={{height:"100%", width: "100%",objectFit: "cover"}}/>
                     </Box>
                     <Box sx={{display:'flex',flexDirection:'column',alignItems:'center', width:"50%", padding:'4rem'}}>
                         <h1 sx={{ fontWeight: "bold", textAlign: 'center'}}>ACCÈS</h1>

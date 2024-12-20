@@ -43,7 +43,7 @@ Ce week-end de compétition inoubliable, et la plus grosse soirée de l’année
         }}
       >
         <img
-          src="./public/images/photoaccueil.png"
+          src="/images/photoaccueil.png"
           alt="BDS"
           style={{
             borderRadius: '0.8rem',

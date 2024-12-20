@@ -9,12 +9,12 @@ const ScrollingImages = () => {
   // Images for the carousel with associated text
   const slides = [
     {
-      image: './public/images/home1.jpg',
+      image: '/images/home1.jpg',
       title: '10 Février 2024',
       subtitle: 'TOURNOI DE FOOTBALL À 7',
     },
     {
-      image: './public/images/home2.jpg',
+      image: '/images/home2.jpg',
       title: '10 Février 2024',
       subtitle: 'LE SIXTE SE DEROULE A CLAIREFONTAINE',
     },
