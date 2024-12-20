@@ -1,12 +1,13 @@
-import { Box } from "@mui/material";
+import { Box, Typography, Link, Grid, useTheme, useMediaQuery } from '@mui/material';
 import { blue, green, red } from "@mui/material/colors";
 import palette from "../../themes/palette";
-
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 
 const Footer = ({ navigation }) => {
     const isDarkMode = true;
-
+    const theme = useTheme();
     return (
         <>
             <Box
@@ -14,117 +15,114 @@ const Footer = ({ navigation }) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent:'center space-between',   
-                    backgroundColor:'grey'
+                    width:'100%',
                 }}
 
             >
-                <Box sx={{
-                    display : "flex",
-                    lignItems: 'center',
-                    justifyContent:'center',
-                    justifyContent:'space-between',  
-                }}
-                >
-                    <Box>
-                        <h1>NOUS CONTACTER</h1>
-                        <p>3, rue Joliot-Curie,
-                        Gif-sur-Yvette, 91190</p>
-                        <p>
-                        sixte@cs-sports.fr
-                        </p>
-                        <Box sx={{
-                            display:"grid",
-                            gridTemplateColumns:"1fr 1fr "
-                            }}
-                        >
-                            <Box sx={{ backgroundColor:'primary.main'
-
-                                
-                                
-                            }}>
-                            <a href="https://www.instagram.com/bds_centralesupelec/?hl=fr" style={{height:'100%',width:'100%', objectFit: 'cover',}}> <img src="" alt="notre instagram" /></a>
-                            </Box>
-                            <Box sx={{
-                                border:'2px white solid ',
-                                borderRadius:'100%',
-                                width:'5rem',
-                                height:'5rem'
-
-                                
-                                
-                            }}
-                            >
-                            <a href="https://www.facebook.com/CentraleSupelecSports/?locale=fr_FR" style={{}}> <img src="" alt="notre facebook" /></a>
-                            </Box>
-                        </Box>
-                    </Box>
-                    <Box>
-                        <h1>LIENS</h1>
-                        <li>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> Acceuil</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> Résultats</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> Galerie photo </a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}>Nos partenaires</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> Infos</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> Espace Admin</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> Règlement</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> CGI</a>
-                            </ul>
-                        </li>
-                    
-                    </Box>
-                    <Box sx={{
-                            width: '100%', height: 'auto'
+                <Grid container spacing={2} justifyContent="space-between" alignItems="flex-start" sx={{display: 'flex',width: '100%',backgroundColor:'secondary.dark' }}>
+                    <Grid item sx={{
+                        display : "flex",
+                        lignItems: 'center',
+                        justifyContent:'space-between',
+                        gap:'1rem',
+                        color:'white',
+                        backgroundColor:'secondary.dark',
+                        width:'65%',
+                        
                     }}
                     >
-                    <h1>NAVIGATION RAPIDE</h1>
-                        <li>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> Acceuil</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> A propos</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> Planning </a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}>L'équipe</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}> Le récap 2024</a>
-                            </ul>
-                            <ul>
-                                <a href="" style={{textDecoration:'none', color: 'inherit'}}>Nous contacter</a>
-                            </ul>
+                        <Grid container sx={{backgroundColor:'secondary.dark'}} >
+                            <Grid item sx={{ marginLeft: '2rem', display: { xs: 'none', lg: 'block' } ,backgroundColor:'secondary.dark'}}>
+                                <Box>
+                                    <Typography variant='h4' sx={{fontWeight:'bold',mb:'1rem'}}>NOUS CONTACTER</Typography>   
+                                <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>3, rue Joliot-Curie,<br/>
+                                Gif-sur-Yvette, 91190</Box>
+                                <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>
+                                sixte@cs-sports.fr
+                                </Box>
+                                </Box>
+                            </Grid>
+                            <Grid item sx={{
+                                display:'flex',  
+                                backgroundColor: 'transparent',
+                                marginLeft: '2rem',
+                                gap:'1rem'
                             
-                        </li> 
-                    </Box>
-                </Box> 
-                <Box sx={{
-                    backgroundColor: 'blue',
-                    width: '40vw',
-                    height: '100%'
-                }}
-                >
-                    <img src="../images/Logo_BDS_Blanc.png" alt="logo bds" style={{
-                       height:'100%',width:'100%', objectFit: 'cover',}} />
-                </Box>  
+                            }}
+                            >
+                                <Box sx={{  border:'2px white solid ',
+                                    borderRadius:'100%',
+                                    width:'3.5rem',
+                                    height:'3.5rem',
+                                    display: 'flex',
+                                    justifyContent: 'center',  
+                                    alignItems: 'center',
+                                    backgroundColor: 'primary.main'     
+                                }}>
+                                    <Link href="https://www.instagram.com/bds_centralesupelec/?hl=fr" > 
+                                    <InstagramIcon sx={{ fontSize: { sm: '2rem', xs: '1rem' } ,color:'white','&:hover':{opacity:'0.7'}}} />
+                                    </Link>
+                                </Box>
+                                <Box sx={{
+                                    border:'2px white solid ',
+                                    borderRadius:'100%',
+                                    width:'3.5rem',
+                                    height:'3.5rem',
+                                    display: 'flex',
+                                    justifyContent: 'center', 
+                                    alignItems: 'center',
+                                    backgroundColor: 'primary.main' 
+                                        
+                                }}
+                                >
+                                    <Link href="https://www.facebook.com/CentraleSupelecSports/?locale=fr_FR" style={{}}> 
+                                        <FacebookIcon sx={{ fontSize: { sm: '2rem', xs: '1rem' }, color:'white', '&:hover':{opacity:'0.7'} }} />
+                                    </Link>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                        <Grid container  sx={{backgroundColor:'secondary.dark'}}
+                        >
+                            <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
+                                <Typography variant='h4' sx={{fontWeight:'bold',mb:'1rem'}}>LIENS</Typography>   
+                                <Link href="/results" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Résultats</Link>
+                                <Link href="/photo" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Galerie photo </Link>
+                                <Link href="/sponsor" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>Nos partenaires</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Infos</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Espace Admin</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Règlement</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> CGI</Link>
+                            </Grid>
+                        </Grid>
+                        <Grid container sx={{
+                                width: '100%', height: 'auto',
+                                backgroundColor:'secondary.dark'
+                        }}
+                        >
+                            <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
+                            <Typography variant='h4' sx={{fontWeight:'bold',mb:'1rem'}}>NAVIGATION RAPIDE</Typography>   
+                            <Link href="./pages/vitrine/Home.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Acceuil</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> A propos</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Planning </Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>L'équipe</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}> Le récap 2024</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1.2rem', xs: '0.6rem' } }}>Nous contacter</Link>
+                            </Grid> 
+                        </Grid>
+                    </Grid> 
+                    <Grid item sx={{
+                        backgroundColor: 'primary.main',
+                        width: '30%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',                        
+                        padding: '2rem'
+                    }}
+                    >
+                        <img src="../images/Logo_BDS_Blanc.png" alt="logo bds" style={{ width: '60%', maxWidth: '100%' }}
+                         />
+                    </Grid>
+                </Grid>  
             </Box>
         </>
     )
