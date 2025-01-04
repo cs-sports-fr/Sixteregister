@@ -21,6 +21,7 @@ import Home
 import Photo from "../pages/vitrine/photo";
 import Results from "../pages/vitrine/Results"
 import Sponsor from "../pages/vitrine/Sponsor";
+import RegistrationClosed from "../pages/RegistrationClosed";
 
 const routesForUser = [
     {
@@ -157,7 +158,7 @@ const routesForNotAuthenticatedOnly = [
     },
     {
         path: "/register",
-        element: <Register />,
+        element: <RegistrationClosed/>,
     },
     {
         path: "/forgot-password",
