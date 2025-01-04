@@ -6,7 +6,7 @@ function LayoutUnauthenticated({ isDarkMode, children }) {
 
     return (
         <Box>
-            <NavbarVitrine/>
+            <NavbarVitrine></NavbarVitrine>
             {children}
         </Box>
 

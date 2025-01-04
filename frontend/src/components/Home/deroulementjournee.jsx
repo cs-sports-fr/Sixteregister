@@ -36,7 +36,7 @@ const Deroulementjournee = () => {
         marginTop: '2rem',
         alignItems: 'center',
         width: '100%',
-        height: '40vh',
+        height:'auto',
       }}
     >
       <Box

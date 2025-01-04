@@ -1,114 +1,227 @@
-import { Box, Link,Button, Typography, ThemeProvider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,Fade,Slide, colors } from "@mui/material";
-import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
-
+import React, { useState } from 'react';
+import { Box, Typography, IconButton, Collapse, Link } from '@mui/material';
+import LayoutUnauthenticated from '../../components/layouts/LayoutUnauthenticated';
+import Footer from '../../components/footer/footer';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import palette from '../../themes/palette';
 
-import Footer from "../../components/footer/footer";
-
-const FAQ = () => {
+const FaqPractical = () => {
     const isDarkMode = false;
+    const [expandedIndices, setExpandedIndices] = useState([]);
+
+    const handleExpandClick = (index) => {
+        setExpandedIndices((prevIndices) =>
+            prevIndices.includes(index)
+                ? prevIndices.filter((i) => i !== index)
+                : [...prevIndices, index]
+        );
+    };
+
+    // You can break down or group the FAQ entries however you'd like:
+    const faqEntries = [
+        {
+            question: "Déroulement de la journée",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    <Typography sx={{ color: palette.secondary.main, mb: 2 }}>
+                        Le Tournoi se déroule sur toute la journée avec 32 équipes pour les hommes et 16 pour les femmes. Le matin se jouera la phase de poule, et l'après-midi auront lieu la phase finale et le tournoi de consolantes. 
+                        Entre-temps, vous aurez l'occasion de reprendre des forces avec un repas chaud de qualité. 
+                        L'après-midi, vous aurez aussi la possibilité d'une visite exceptionnelle du musée des Bleus, 
+                        prendre des photos devant la coupe du monde...
+                    </Typography>
+                </Box>
+            )
+        },
+        {
+            question: "Comment accéder aux infrastructures ? ",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    
+                    <Typography sx={{ color: palette.secondary.main, mb: 2 }}>
+                        L’organisation ne prévoit pas de moyens de transports pour rejoindre le tournoi ; 
+                        les participants doivent se rendre en voiture ou en car sur place 
+                        (Château de Montjoye, 78120 Clairefontaine-en-Yvelines) (parking disponible).
+                    </Typography>
+                    <Box sx={{ width: '100%', height: '400px' }}>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2637.6111544623736!2d1.9163921766155874!3d48.617285971300426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e42f49b781a471%3A0xf4de842ec780a674!2sCentre%20National%20du%20Football!5e0!3m2!1sfr!2sfr!4v1734372630446!5m2!1sfr!2sfr"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen=""
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </Box>
+                </Box>
+            )
+        },
+        {
+            question: "Quel sont les tarifs et qu'incluent-ils ? ",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    <Typography sx={{ color: palette.secondary.main }}>
+                        L'inscription au tournoi est de <strong style={{ color: palette.primary.main }}>44€</strong> par participant.
+                        <br />
+                        Pour les boursiers, elle s'élève à <strong style={{ color: palette.primary.main }}>28€</strong> sous présentation du justificatif.
+                        <br /><br />
+                        Elle inclut la collation du matin, le repas, la visite du musée ou château et le tournoi 
+                        avec ses diverses activités.
+                    </Typography>
+                </Box>
+            )
+        },
+        {
+            question: "Est-ce que les coachs et les supporters peuvent venir ?",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    <Typography sx={{ color: palette.secondary.main }}>
+                        Les coachs et les supporters <strong>ne peuvent pas</strong> venir au Sixte, seuls les 
+                        joueurs étudiants le peuvent en s’inscrivant en équipe sur le site.
+                    </Typography>
+                </Box>
+            )
+        },
+        {
+            question: "Combien d’équipes une école peut-elle inscrire ?",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    <Typography sx={{ color: palette.secondary.main }}>
+                        Une école peut inscrire au plus deux équipes dans le tournoi féminin et deux dans le 
+                        tournoi masculin. Si elle en inscrit deux dans un tournoi, l’équipe “deux” restera en 
+                        liste d’attente et ne pourra être validée avant le 6 février, date à laquelle elle 
+                        pourra être validée si son dossier est complet (paiement + chartes) et s’il reste 
+                        de la place.
+                    </Typography>
+                </Box>
+            )
+        },
+        {
+            question: "L’inscription sur le site me réserve-t-elle la place ?",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    <Typography sx={{ color: palette.secondary.main }}>
+                        L’inscription ne peut être validée qu’une fois toutes les chartes signées 
+                        et le paiement effectué, l’inscription seule ne réserve pas la place.
+                    </Typography>
+                </Box>
+            )
+        },
+        {
+            question: "Quel matériel prévoir ?",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    <Typography sx={{ color: palette.secondary.main }}>
+                        Le matériel que doivent prévoir les joueurs : chaussures à crampons moulés 
+                        (les crampons vissés sont interdits sur terrains synthétiques), protège-tibias, 
+                        ballons d’échauffement (ballons non prêtés).
+                    </Typography>
+                </Box>
+            )
+        },
+        {
+            question: "Qu’est-ce que propose la buvette ?",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    <Typography sx={{ color: palette.secondary.main }}>
+                        La buvette propose des boissons chaudes et froides.
+                    </Typography>
+                </Box>
+            )
+        },
+        {
+            question: "Une autre question ?",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    <Typography sx={{ color: palette.secondary.main }}>
+                        Envoie un mail à{" "}
+                        <Link
+                            href="mailto:sixte@cs-sports.fr"
+                            sx={{ textDecoration: 'none' }}
+                        >
+                            sixte@cs-sports.fr
+                        </Link>
+                    </Typography>
+                </Box>
+            )
+        },
+    ];
 
     return (
         <LayoutUnauthenticated isDarkMode={isDarkMode}>
-            <Box>
+            <Box
+                component="div"
+                sx={{
+                    position: 'relative',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: '100vh',
+                    backgroundPosition: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    overflow: 'hidden'
+                }}
+            >
+                {/* Header Title */}
                 <Box sx={{height:'20vh',width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                    <Typography
-                            variant="h2"
-                            sx={{
-                                mt: '8rem',
-                                fontWeight: 'bold',
-                                fontSize: '3rem',
-                                color: 'black',
-                                textTransform: 'uppercase',
-                            }}
+                                <Typography
+                                    variant="h2"
+                                    sx={{
+                                        mt: '8rem',
+                                        fontWeight: 'bold',
+                                        fontSize: '3rem',
+                                        color: 'black',
+                                        textTransform: 'uppercase',
+                                    }}
+                                >
+                                    Infos Pratiques
+                                </Typography>
+                            </Box>
+
+                {/* Collapsible FAQ Entries */}
+                <Box sx={{ width: '80%', maxWidth: '1000px' }}>
+                    {faqEntries.map((item, index) => (
+                        <Box key={index} sx={{ mb: 2 }}>
+                            <Box
+                                onClick={() => handleExpandClick(index)}
+                                sx={{
+                                    p: 2,
+                                    backgroundColor: expandedIndices.includes(index) ? 'grey.200' : 'transparent',
+                                    borderRadius: '15px',
+                                    ':hover': {
+                                        backgroundColor: 'grey.200',
+                                        cursor: 'pointer'
+                                    }
+                                }}
                             >
-                        Infos pratiques
-                    </Typography>
-                </Box>
-                <Box sx={{display : "flex"}}>
-                    
-                    <Box sx={{display:'flex',flexDirection:'column',alignItems:'center', width:"50%", padding:'4rem'}}>
-                        <h1 sx={{ fontWeight: 'bold', textAlign: 'center', color: palette.secondary.dark}}>LA JOURNÉE</h1>
-                        <Typography variant="p" sx={{className:"left-align", color: palette.secondary.main, paddingBottom: '2rem'}}>Le Tournoi se déroule sur toute la journée avec 32 équipes pour les hommes et 16 pour les femmes. Le matin se jouera la phase de poule, et l'après-midi auront lieu la phase finale et le tournoi de consolantes. Entre-temps vous aurez l'occasion de reprendre des forces avec un repas chaud de qualité. L'après-midi vous aurez aussi la possibilité d'une visite exceptionnelle du musée des Bleus, prendre des photos devant la coupe du monde
-                        </Typography>
-                        <img src="/images/FAQ.jpg" alt="Photo de l'équipe" style={{height:"100%", width: "100%",objectFit: "cover"}}/>
-                    </Box>
-                    <Box sx={{display:'flex',flexDirection:'column',alignItems:'center', width:"50%", padding:'4rem'}}>
-                        <h1 sx={{ fontWeight: "bold", textAlign: 'center'}}>ACCÈS</h1>
-                        <Box sx={{height: '3rem'}}></Box>
-                        <Box sx={{ width: '100%', height: '100%', marginTop: '2rem', marginBottom:'3rem' }}>
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2637.6111544623736!2d1.9163921766155874!3d48.617285971300426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e42f49b781a471%3A0xf4de842ec780a674!2sCentre%20National%20du%20Football!5e0!3m2!1sfr!2sfr!4v1734372630446!5m2!1sfr!2sfr"
-                            width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy"
-                            referrerPolicy="no-referrer-when-downgrade"
-                        ></iframe>
+                                {/* Question row */}
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                    <IconButton sx={{ display: { xs: 'none', sm: 'flex' } }}>
+                                        {expandedIndices.includes(index)
+                                            ? <ExpandLessIcon sx={{ color: 'grey.800' }} />
+                                            : <ExpandMoreIcon sx={{ color: 'grey.800' }} />
+                                        }
+                                    </IconButton>
+                                    <Typography sx={{ color: 'grey.800', fontWeight: 'bold', fontSize: { xs: '1.2rem', md: '1.3rem' } }}>
+                                        {item.question}
+                                    </Typography>
+                                </Box>
+
+                                {/* Collapsible content */}
+                                <Collapse in={expandedIndices.includes(index)} timeout="auto" unmountOnExit>
+                                    <Box sx={{ mt: 2 }}>
+                                        {item.answer}
+                                    </Box>
+                                </Collapse>
+                            </Box>
                         </Box>
-                        
-                        <Typography sx={{textAlign:'left', color: palette.secondary.main}}>Domaine de Montjoye<br/>78120<br/>Clairefontaine-en-Yvelines
-                        </Typography>
-                    </Box>
-                
+                    ))}
                 </Box>
-                <Box sx={{width: '80%', paddingLeft:'10%', textAlign:'center'}}>
-                <Box sx={{display:'flex',flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                <Box sx={{textAlign: 'center', color:palette.primary.main}}>
-                    <h1 sx={{fontWeight: "bold"}}>Les tarifs</h1>
-                </Box>
-                    <Typography sx={{margin:'0.01', color: palette.secondary.main, textAlign:'center'}}>L'inscription au tournoi est de <Box component="strong" sx={{ color: palette.primary.main }}>44€</Box>  par participant (pas déterminé précisément encore).<br/>
-                    Pour les boursiers, elle s'élève à <Box component="strong" sx={{ color: palette.primary.main }}>28€</Box>  sous présentation du justificatif.<br/><br/>Elle inclut la collation du matin, le repas, la visite du musée ou château et le tournoi avec ses diverses activités</Typography>
-                </Box>
-                <Box sx={{textAlign: 'center', color:palette.primary.main}}>
-                    <h1 sx={{fontWeight: "bold"}}>FAQ - Inscriptions</h1>
-                </Box>
-                <Box sx={{display:'flex',flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                    <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                        <h2 sx={{fontWeight: "bold", margin:'0.1'}}>Est-ce que les coachs et les supporters peuvent venir?</h2>
-                        <Typography sx={{color: palette.secondary.main, marginBottom:'2rem'}}>Les coachs et les supporters <strong>ne peuvent pas</strong> venir au Sixte, seuls les joueurs étudiants le peuvent en s’inscrivant en équipe sur le site.</Typography>
-                    </Box>
-                    <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                        <h2 sx={{fontWeight: "bold", margin:'0.1'}}>Combien d’équipes une école peut-elle inscrire ?</h2>
-                        <Typography sx={{ color: palette.secondary.main, marginBottom:'2rem'}}>Une école peut inscrire au plus deux équipes dans le tournoi féminin et deux dans le tournoi masculin ; si elle en inscrit deux dans un tournoi, l’équipe “deux” restera en liste d’attente et ne pourra être validée avant le 6 février, date à laquelle elle pourra être validée si son dossier est complet (paiement + chartes) et s’il reste de la place.</Typography>
-                    </Box>
-                    <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                        <h2 sx={{fontWeight: "bold", margin:'0.1'}}>L’inscription sur le site me réserve-t-elle la place ?</h2>
-                        <Typography sx={{color: palette.secondary.main, marginBottom:'2rem'}}>L’inscription ne peut être validée qu’une fois toutes les chartes signées et le paiement effectué, l’inscription seule ne réserve pas la place.</Typography>
-                    </Box>
-                    <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                        <h2 sx={{fontWeight: "bold", margin:'0.1'}}>Qu’est ce qui est compris dans le tarif ?</h2>
-                        <Typography sx={{color: palette.secondary.main, marginBottom:'2rem'}}>Le tarif indiviuel pour le Sixte 2024 est de 44 euros. Sport, déjeuner, boisson chaude offerte, accès aux actis. La visite du musée des Bleus et/ou le château des bleus sera accessible.</Typography>
-                    </Box>
-                </Box>
-                <Box sx={{textAlign: 'center', color:palette.primary.main}}>
-                    <h1 sx={{fontWeight: "bold", textAlign: 'left', color:palette.primary.main}}>FAQ - Aspects pratiques</h1>
-                </Box>
-                <Box sx={{display:'flex',flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                    <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                        <h2 sx={{fontWeight: "bold"}}>Comment se rendre au Sixte ?</h2>
-                        <Typography sx={{color: palette.secondary.main, marginBottom:'2rem'}}>L’organisation ne prévoit pas de moyens de transports pour rejoindre le tournoi ; les participants doivent se rendre en voiture/ car sur place (Château de Montjoye, 78120 Clairefontaine-en-Yvelines) (parking disponible).</Typography>
-                    </Box>
-                    <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                        <h2 sx={{fontWeight: "bold", margin:'0.1'}}>Quel matériel prévoir ?</h2>
-                        <Typography sx={{color: palette.secondary.main, marginBottom:'2rem'}}>Le matériel que doivent prévoir les joueurs : chaussures à crampons moulés, les crampons vissés sont interdits (terrains synthétiques), protèges-tibias, ballons d’échauffement (ballons non prêtés)</Typography>
-                    </Box>
-                    <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                        <h2 sx={{fontWeight: "bold", mar    gin:'0.1'}}>Qu’est-ce que propose la buvette ?</h2>
-                        <Typography sx={{color: palette.secondary.main, marginBottom:'2rem'}}>La buvette propose des boissons chaudes et froides.</Typography>
-                    </Box>
-                </Box>
-                <Box sx={{textAlign: 'left', paddingTop:'2rem', paddingBottom:'2rem'}}>
-                <Typography sx={{color: palette.secondary.main}}>
-                    Une autre question ? Envoie un mail à <span> </span>
-                    <Link href="mailto:sixte@cs-sports.fr" sx={{ textDecoration: 'none' }}>
-                        sixte@cs-sports.fr
-                    </Link>
-                </Typography>
-                </Box>
-                </Box>
-                
             </Box>
-            <Footer/>
+            <Footer />
         </LayoutUnauthenticated>
     );
 };
 
-export default FAQ; 
+export default FaqPractical;

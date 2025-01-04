@@ -15,16 +15,16 @@ const Statistics = ({  }) => {
         <Box
       sx={{
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: {xs:'column',sm:'column',md:'row'},
         justifyContent: 'space-between',
-        alignItems: 'center',
-        height:"30vh",
+        alignItems:'center',
         backgroundColor: '#222429',
         gap: '2rem',
         px: '6rem',
+        py:{xs:'3rem'}
       }}
     >
-       <Box sx={{ display: 'flex' }}>
+       <Box sx={{ display: 'flex',width:'15rem' }}>
             <Box sx={{ 
                 borderRadius: '50%', 
                 backgroundColor: 'primary.main', 
@@ -42,8 +42,8 @@ const Statistics = ({  }) => {
                 <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold' }}> 28 </Typography>
             </Box>
         </Box>
-        <Box sx={{ display: 'flex' }}>
-            <Box sx={{ 
+        <Box sx={{ display: 'flex',width:'15rem' }}>
+        <Box sx={{ 
                 borderRadius: '50%', 
                 backgroundColor: 'primary.main', 
                 padding: '1rem', 
@@ -60,8 +60,8 @@ const Statistics = ({  }) => {
                 <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold' }}> 42 </Typography>
             </Box>
         </Box>
-        <Box sx={{ display: 'flex' }}>
-            <Box sx={{ 
+        <Box sx={{ display: 'flex',width:'15rem' }}>
+        <Box sx={{ 
                 borderRadius: '50%', 
                 backgroundColor: 'primary.main', 
                 padding: '1rem', 
@@ -78,8 +78,8 @@ const Statistics = ({  }) => {
                 <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold' }}> 916 </Typography>
             </Box>
         </Box>
-        <Box sx={{ display: 'flex' }}>
-            <Box sx={{ 
+        <Box sx={{ display: 'flex',width:'15rem' }}>
+        <Box sx={{ 
                 borderRadius: '50%', 
                 backgroundColor: 'primary.main', 
                 padding: '1rem', 

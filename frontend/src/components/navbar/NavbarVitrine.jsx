@@ -1,111 +1,212 @@
-// NavbarVitrine.jsx
+import React, { useState } from 'react';
+import { 
+  Box, 
+  Typography, 
+  Button, 
+  IconButton, 
+  Drawer, 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListItemText 
+} from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
-import React from 'react';
-import { Box, Typography, Button } from "@mui/material";
-
-/**
- * Styles for the navigation titles.
- */
 const styles = {
-    title: {
-        color: 'white',
-        fontSize: '1rem',
-        textTransform: 'uppercase',
-        cursor: 'pointer', // Adds a pointer cursor on hover
-        textDecoration: 'none', // Removes underline from links
-        "&:hover": {
-            color: 'primary.main', // Changes color on hover
-        },
-    }
+  title: {
+    color: 'white',
+    fontSize: '1rem',
+    textTransform: 'uppercase',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    "&:hover": {
+      color: 'primary.main',
+    },
+  },
 };
 
-
 const NavbarVitrine = () => {
-    // Define the navigation links within the component
-    const navigation = [
-        { label: 'Accueil', href: '/' },
-        { label: 'Infos Pratiques', href: '/infos' },
-        { label: 'Résultat du tournoi', href: '/resultats' },
-        { label: 'Galerie Photos', href: '/galerie' },
-        { label: 'Nos Partenaires', href: '/partenaires' },
-    ];
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-    return (
-        <Box
-            sx={{
-                position: 'fixed',
-                left: 0,
-                right: 0,
-                zIndex: 20,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0 2rem',
-                py: '1rem',
-                backgroundColor: "secondary.dark",
-            }}
+  const navigation = [
+    { label: 'Accueil', href: '/' },
+    { label: 'Infos Pratiques', href: '/infos' },
+    { label: 'Résultat du tournoi', href: '/resultats' },
+    { label: 'Galerie Photos', href: '/galerie' },
+    { label: 'Nos Partenaires', href: '/partenaires' },
+  ];
+
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerOpen(open);
+  };
+
+  return (
+    <Box
+      sx={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 20,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: { xs: '0 1rem', md: '0 2rem' },
+        py: '1rem',
+        backgroundColor: "secondary.dark",
+      }}
+    >
+      {/* Logo */}
+      <Box>
+        <a href="/">
+          <img
+            src="/images/logo_sixte.png"
+            alt="Logo Toss"
+            width={50}
+            height={50}
+            style={{ display: 'block' }}
+          />
+        </a>
+      </Box>
+
+      {/* Center Section: Links (Visible on md and up) */}
+      <Box
+        sx={{
+          display: { xs: 'none', md: 'flex' }, // Hidden on small screens
+          gap: '2rem',
+          flexGrow: 1,
+          justifyContent: 'center',
+        }}
+      >
+        {navigation.map((link) => (
+          <Typography
+            key={link.label}
+            sx={styles.title}
+            component="a"
+            href={link.href}
+          >
+            {link.label}
+          </Typography>
+        ))}
+      </Box>
+
+      {/* S'INSCRIRE Button (Visible on md and up) */}
+      <Box
+        sx={{
+          display: { sm: 'none', md: 'flex' }, // Hidden on small screens
+        }}
+      >
+        <Button
+          variant="outlined"
+          href='/register'
+          sx={{
+            borderColor: 'white',
+            backgroundColor: 'primary.main',
+            color: 'white',
+            width: '8rem',
+            fontWeight: 'bold',
+            borderRadius: '8px',
+            padding: '0.5rem 1rem',
+            textTransform: 'none',
+            ":hover": {
+              backgroundColor: 'primary.main',
+              borderColor: 'white',
+            },
+          }}
         >
-            {/* Left Section: Logo */}
-            <Box>
-                <a href="/">
-                    <img
-                        src="/images/logo_sixte.png"
-                        alt="Logo Toss"
-                        width={50}
-                        height={50}
-                        style={{ display: 'block' }} // Ensures no extra space below the image
-                    />
-                </a>
-            </Box>
+          S'INSCRIRE
+        </Button>
+      </Box>
 
-            {/* Center Section: Navigation Links */}
-            <Box
-                sx={{
-                    display: 'flex',
-                    gap: '2rem',
-                    flexGrow: 1,
-                    justifyContent: 'center',
-                }}
-            >
-                {navigation.map((link) => (
-                    <Typography
-                        key={link.label}
-                        sx={styles.title}
-                        component="a"
-                        href={link.href}
-                    >
-                        {link.label}
-                    </Typography>
-                ))}
-            </Box>
+      {/* Hamburger Icon (Visible on xs and sm) */}
+      <Box
+        sx={{
+          display: { xs: 'flex', md: 'none' }, // Hidden on md and up
+          alignItems: 'center',
+        }}
+      >
+        <IconButton
+          onClick={toggleDrawer(true)}
+          sx={{ color: 'white' }}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Box>
 
-            {/* Right Section: Register Button */}
-            <Box>
-                <Button
-                    variant="outlined"
-                    href='/register'
-                    sx={{
-                        borderColor: 'white',
-                        backgroundColor: 'primary.main',
-                        color: 'white',
-                        width: '8rem',
-                        fontWeight: 'bold',
-                        borderRadius: '8px',
-                        padding: '0.5rem 1rem',
-                        textTransform: 'none', // Keeps the button text as is
-                        ":hover": {
-                            backgroundColor: 'primary.main', // Darker shade on hover
-                            borderColor: 'white',
-                        },
-                    }}
+      {/* Drawer for Mobile Navigation */}
+      <Drawer
+        anchor='right'
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+      >
+        <Box
+          sx={{ width: 250 }}
+          role="presentation"
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              padding: '1rem',
+            }}
+          >
+            <IconButton onClick={toggleDrawer(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <List>
+            {navigation.map((link) => (
+              <ListItem key={link.label} disablePadding>
+                <ListItemButton
+                  component="a"
+                  href={link.href}
+                  sx={{
+                    textAlign: 'left',
+                  }}
                 >
-                    <Typography sx={{ color: 'white', fontSize: '1rem' }}>
-                        S'INSCRIRE
-                    </Typography>
-                </Button>
-            </Box>
+                  <ListItemText 
+                    primary={
+                      <Typography sx={{ fontWeight: 'bold' }}>
+                        {link.label}
+                      </Typography>
+                    } 
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+            <ListItem disablePadding sx={{ marginTop: '1rem' }}>
+              <Button
+                variant="outlined"
+                href='/register'
+                sx={{
+                  borderColor: 'white',
+                  backgroundColor: 'primary.main',
+                  color: 'white',
+                  width: '100%',
+                  fontWeight: 'bold',
+                  borderRadius: '8px',
+                  padding: '0.5rem 1rem',
+                  textTransform: 'none',
+                  ":hover": {
+                    backgroundColor: 'primary.main',
+                    borderColor: 'white',
+                  },
+                }}
+              >
+                S'INSCRIRE
+              </Button>
+            </ListItem>
+          </List>
         </Box>
-    );
+      </Drawer>
+    </Box>
+  );
 };
 
 export default NavbarVitrine;

@@ -25,9 +25,7 @@ const Sponsor = () => {
                <Box sx={{display:'flex',
     alignItems: "center",
     justifyContent: "space-between"}}>
-                <Box>
-                <img sx={{maxWidth: "100%", height: "auto",}} src='/images/redbull_logo.png' alt='Logo Redbull'/>
-                </Box>
+                <img style={{height:'20rem'}} src="/images/redbull_logo.png" alt="" />
                 <Box sx={{paddingRight:'9.375rem',fontSize:'1.25rem'}}>
 Red Bull est une entreprise 
 autrichienne fondée en 1984 par Dietrich 

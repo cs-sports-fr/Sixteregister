@@ -21,8 +21,9 @@ const Video = () => {
                 justifyContent: 'space-between',
                 gap: '2rem',
                 marginY: '4rem', 
-                paddingX: '2rem', 
+                py: '2rem', 
                 backgroundColor: 'secondary.dark',
+                
             }}
         >
             <Box
@@ -30,6 +31,7 @@ const Video = () => {
                     flex: 1,
                     display: 'flex',
                     justifyContent: 'center',
+                    py:'1rem',
                 }}
             >
                 <video
@@ -65,14 +67,14 @@ const Video = () => {
                 variant="h2"
                 sx={{
                     fontWeight: 'medium',
-                    alignSelf: 'flex-start',
+                    textAlign:'center',
                     marginBottom: '1rem',
                     fontSize: '1.5rem',
                     textTransform: 'uppercase',
                     color: palette.primary.main,
                 }}
                 >
-                Recap Sixte 2023
+                Recap Sixte 2024
                 </Typography>
                 <Typography
                           variant="h2"

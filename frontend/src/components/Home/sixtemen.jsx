@@ -86,7 +86,6 @@ const Sixtemen = () => {
       mt: '5rem',
       textAlign: 'center',
       width: '100%',
-      height: '50vh',
       }}>
 
     <Typography
@@ -121,7 +120,7 @@ const Sixtemen = () => {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '10rem',
+        gap: {xs:'2rem',md:'10rem'},
         width: '100%',
         flexWrap: 'wrap', // Allows wrapping on smaller screens
         padding: '2rem 0',
