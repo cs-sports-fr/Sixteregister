@@ -302,7 +302,7 @@ const Register = () => {
 
                                 <Divider variant="lighter" sx={{ marginY: 3, marginX: 20 }} />
 
-                                <Grid container>
+                                <Grid container sx={{display:'flex',alignItems:'center'}}>
                                     <Grid item xs={1} md={1}>
                                         <Checkbox
                                             sx={{
@@ -329,13 +329,12 @@ const Register = () => {
 
                                 <Grid container columnSpacing={6} sx={{ mt: 3 }}>
                                     <Grid item xs={12} md={6}>
-                                        <Button variant="yellow_lighter" onClick={() => navigate('/')} fullWidth sx={{ color: '#000' }}>Retour</Button>
+                                        <Button variant="lighter" sx={{ width: '100%', backgroundColor: '#afc4e2', color: '#093274' }} onClick={() => navigate('/')} fullWidth>Retour</Button>
                                     </Grid>
                                     <Grid item xs={12} md={6}>
-                                        <Button variant="purple" type="submit" fullWidth
+                                        <Button sx={{ backgroundColor: '#093274', color: '#fff'}} type="submit" fullWidth
                                             disabled={isSubmitting}
                                             onClick={handleSubmit}
-                                            sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' }}}
                                         >
                                             {isSubmitting ? 'Envoi en cours...' : 'S\'inscrire'}
                                         </Button>

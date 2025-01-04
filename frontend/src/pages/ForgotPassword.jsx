@@ -102,7 +102,6 @@ const ForgotPassword = () => {
                         alignItems: 'center', // Centre horizontalement
                     }}
                 >
-                    <Typography variant="login" sx={{ fontSize: '6rem', textAlign: 'center' }}>ESPACE PARTICIPANT</Typography>
                 </Grid>
             </Grid>
 

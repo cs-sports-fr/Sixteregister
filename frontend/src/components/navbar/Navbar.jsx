@@ -20,14 +20,17 @@ const Navbar = ({ navigation }) => {
             >
                 <Box sx={{ display: "flex", flexGrow: 1, justifyContent: 'space-between', flexDirection: 'row' }}>
                     <Box sx={{ display: "flex", flexDirection: 'row', alignItems: 'center' }}>
-                        <Box>
-                            <img
-                                src={isDarkMode ? "/images/logo_sixte.png" : "/images/logo_sixte.png"}
-                                alt="Logo Sixte"
-                                width={40}
-                                height={40}
-                            />
-                        </Box>
+                    <Box>
+                        <a href="/">
+                        <img
+                            src="/images/logo_sixte.png"
+                            alt="Logo Toss"
+                            width={50}
+                            height={50}
+                            style={{ display: 'block' }}
+                        />
+                        </a>
+                    </Box>
                         <Box sx={{ display: "flex", flexDirection: 'row', marginLeft: '1rem' }}>
                             {filteredNavigation.map((item, index) => {
                                 return <NavbarItem item={item} key={index} />

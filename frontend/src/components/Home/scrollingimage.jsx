@@ -16,7 +16,7 @@ const ScrollingImages = () => {
     {
       image: '/images/home2.jpg',
       title: 'Samedi 8 Mars 2025',
-      subtitle: 'LE SIXTE SE DEROULE A CLAIREFONTAINE',
+      subtitle: 'OUVERTURE DES INSCRIPTIONS LE 15 JANVIER',
     },
   ];
 
