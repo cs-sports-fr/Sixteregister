@@ -24,7 +24,7 @@ const Statistics = ({  }) => {
         py:{xs:'3rem'}
       }}
     >
-       <Box sx={{ display: 'flex',width:'15rem' }}>
+       <Box sx={{ display: 'flex',width:'20rem' }}>
             <Box sx={{ 
                 borderRadius: '50%', 
                 backgroundColor: 'primary.main', 
@@ -42,7 +42,7 @@ const Statistics = ({  }) => {
                 <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold' }}> 29 </Typography>
             </Box>
         </Box>
-        <Box sx={{ display: 'flex',width:'15rem' }}>
+        <Box sx={{ display: 'flex',width:'20rem' }}>
         <Box sx={{ 
                 borderRadius: '50%', 
                 backgroundColor: 'primary.main', 
@@ -60,7 +60,7 @@ const Statistics = ({  }) => {
                 <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold' }}> 42 </Typography>
             </Box>
         </Box>
-        <Box sx={{ display: 'flex',width:'15rem' }}>
+        <Box sx={{ display: 'flex',width:'20rem' }}>
         <Box sx={{ 
                 borderRadius: '50%', 
                 backgroundColor: 'primary.main', 
@@ -78,7 +78,7 @@ const Statistics = ({  }) => {
                 <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold' }}> 916 </Typography>
             </Box>
         </Box>
-        <Box sx={{ display: 'flex',width:'15rem' }}>
+        <Box sx={{ display: 'flex',width:'20rem' }}>
         <Box sx={{ 
                 borderRadius: '50%', 
                 backgroundColor: 'primary.main', 
