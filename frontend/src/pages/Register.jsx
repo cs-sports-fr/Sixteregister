@@ -1,5 +1,5 @@
 import { Autocomplete, Box, Button, Checkbox, Divider, Grid, InputLabel, Link, ListItem, ListItemText, TextField, Typography } from "@mui/material";
-import LayoutUnauthenticated from "../components/layouts/LayoutUnauthenticated";
+import LayoutAuthenticated from "../components/layouts/LayoutAuthenticated";
 import PasswordInput from "../components/PasswordInput";
 import { useSnackbar } from "../provider/snackbarProvider";
 import { useNavigate } from "react-router-dom";
@@ -113,7 +113,7 @@ const Register = () => {
     }, []);
 
     return (
-        <LayoutUnauthenticated isDarkMode={isDarkMode}>
+        <LayoutAuthenticated isDarkMode={isDarkMode}>
             <Box display={'flex'} flexDirection={'column'} height={'100vh'} >
                 <Grid container spacing={2} height={'102vh'}>
                     <Grid item xs={12} md={5}
@@ -145,7 +145,6 @@ const Register = () => {
                                     <Grid item xs={12} md={6}>
                                         <InputLabel htmlFor="name" sx={{ marginBottom: 1, color: '#000' }}>Nom</InputLabel>
                                         <TextField id="name"
-                                            placeholder="Doe"
                                             variant="outlined"
                                             fullWidth
                                             value={formData.name}
@@ -164,7 +163,6 @@ const Register = () => {
                                     <Grid item xs={12} md={6}>
                                         <InputLabel htmlFor="firstname" sx={{ marginBottom: 1, color: '#000' }}>Prénom</InputLabel>
                                         <TextField id="firstname"
-                                            placeholder="John"
                                             variant="outlined"
                                             fullWidth
                                             value={formData.firstname}
@@ -191,12 +189,12 @@ const Register = () => {
                                         renderInput={(params) =>
                                             <TextField {...params}
                                                 placeholder="Rechercher votre école"
-                                                InputLabelProps={{ shrink: true, style: { color: '#000' } }}
+                                                InputLabelProps={{ shrink: true, style: { color: 'black' } }}
                                                 inputProps={{
                                                     ...params.inputProps,
                                                     style: {
                                                         paddingTop: 0,
-                                                        color: '#000'
+                                                        color: 'black'
                                                     },
                                                 }}
                                                 error={!!errors.school}
@@ -220,7 +218,6 @@ const Register = () => {
                                     <Grid item xs={12} md={6}>
                                         <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: '#000' }}>Email</InputLabel>
                                         <TextField id="email"
-                                            placeholder="Doe"
                                             variant="outlined"
                                             fullWidth
                                             value={formData.email}
@@ -240,7 +237,6 @@ const Register = () => {
                                     <Grid item xs={12} md={6}>
                                         <InputLabel htmlFor="tel" sx={{ marginBottom: 1, color: '#000' }}>Téléphone</InputLabel>
                                         <TextField id="tel"
-                                            placeholder="06 .. .. .. .."
                                             variant="outlined"
                                             fullWidth
                                             value={formData.tel}
@@ -350,7 +346,7 @@ const Register = () => {
                     </Grid>
                 </Grid >
             </Box>
-        </LayoutUnauthenticated >
+        </LayoutAuthenticated >
     )
 }
 

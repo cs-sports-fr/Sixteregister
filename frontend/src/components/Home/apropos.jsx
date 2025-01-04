@@ -90,7 +90,7 @@ Ce week-end de compétition inoubliable, et la plus grosse soirée de l’année
               color: palette.secondary.main,
             }}
           >
-            Les inscriptions pour la 28ème édition sont ouvertes jusqu'au 14 Janvier
+            Les inscriptions pour la 29ème édition sont ouvertes du 7 janvier au 15 février 2025
           </Typography>
           <Box
             sx={{

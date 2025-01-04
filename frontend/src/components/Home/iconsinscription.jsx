@@ -15,6 +15,41 @@ const IconsInscription = ({  }) => {
 
     return (
         <Box>
+            <Box
+                sx={{
+                height:'13rem',
+                py:'3rem',
+                textAlign: 'center',
+                width: '100%',
+                }}
+            >
+                <Typography
+                    variant="h2"
+                    sx={{
+                        fontWeight: 'medium',
+                        alignSelf: 'flex-start',
+                        marginBottom: '1rem',
+                        fontSize: '1.5rem',
+                        textTransform: 'uppercase',
+                        color: palette.primary.main,
+                    }}
+                    >
+                    Présentation
+                    </Typography>
+                    <Typography
+                    variant="h2"
+                    sx={{
+                        fontWeight: 'bold',
+                        fontSize: '3rem',
+                        alignSelf: 'flex-start',
+                        marginBottom: '1rem',
+                        color: 'black',
+                        textTransform: 'uppercase',
+                    }}
+                    >
+                    Pourquoi venir au sixte ? 
+                    </Typography>
+            </Box>
          <Box
             sx={{
                 backgroundColor: palette.secondary.dark,
@@ -25,7 +60,6 @@ const IconsInscription = ({  }) => {
                 alignItems: 'center',
             }}
             >
-
             <Box
                 sx={{
                 display: 'flex',

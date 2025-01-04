@@ -19,12 +19,11 @@ export default function Button(theme) {
                     fontSize: '0.875rem', // text-sm
                     fontWeight: 'medium', // font-medium
                     lineHeight: 1.75, // Ajustement pour text-sm
-                    backgroundColor: theme.palette.primary.main, // bg-primary
                     color: theme.palette.primary.contrastText, // text-primary-foreground
                     transition: 'background-color 0.3s', // transition-colors
                     textTransform: 'none', // normal-case
                     '&:hover': {
-                        backgroundColor: alpha(theme.palette.primary.main, 0.9), // hover:bg-primary/90
+                        backgroundColor: theme.palette.primary.dark, // hover:bg-primary/90
                     },
                     '&.Mui-disabled': {
                         pointerEvents: 'none', // disabled:pointer-events-none
@@ -44,7 +43,7 @@ export default function Button(theme) {
                     backgroundColor: theme.palette.primary.lighter, // Fond plus clair
                     color: theme.palette.primary.contrastTextLight, // Couleur de texte
                     '&:hover': {
-                        backgroundColor: theme.palette.primary.light, // Fond un peu plus sombre au survol
+                        backgroundColor: theme.palette.register.light, // Fond un peu plus sombre au survol
                     },
                 },
 

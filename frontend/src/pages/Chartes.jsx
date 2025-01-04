@@ -5,7 +5,7 @@ import { useSnackbar } from "../provider/snackbarProvider";
 import { useNavigate } from "react-router-dom";
 import { validateEmail } from "../service/validation";
 import { ApiTossNotConnected } from "../service/axios";
-import LayoutUnauthenticated from "../components/layouts/LayoutUnauthenticated";
+import LayoutAuthenticated from "../components/layouts/LayoutAuthenticated";
 
 
 function Chartes() {
@@ -61,7 +61,7 @@ function Chartes() {
     }
 
     return (
-        <LayoutUnauthenticated isDarkMode={isDarkMode}>
+        <LayoutAuthenticated isDarkMode={isDarkMode}>
             <Grid container spacing={2} height={'102vh'}>
                 <Grid item md={6} xs={12} sx={{ textAlign: 'center', alignSelf: "center" }}>
                     <Grid py={'10vh'} px={'25%'} sx={{}}>
@@ -122,7 +122,7 @@ function Chartes() {
                     </Box> */}
                 </Grid>
             </Grid>
-        </LayoutUnauthenticated>
+        </LayoutAuthenticated>
     );
 }
 

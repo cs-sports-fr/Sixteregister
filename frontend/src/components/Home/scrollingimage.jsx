@@ -10,12 +10,12 @@ const ScrollingImages = () => {
   const slides = [
     {
       image: '/images/home1.jpg',
-      title: '10 Février 2024',
+      title: 'Samedi 8 Mars 2025',
       subtitle: 'TOURNOI DE FOOTBALL À 7',
     },
     {
       image: '/images/home2.jpg',
-      title: '10 Février 2024',
+      title: 'Samedi 8 Mars 2025',
       subtitle: 'LE SIXTE SE DEROULE A CLAIREFONTAINE',
     },
   ];

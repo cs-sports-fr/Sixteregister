@@ -5,17 +5,18 @@ import palette from '../../themes/palette';
 const Deroulementjournee = () => {
   // Two different sets of activities
   const sportsActivities = [
-    { time: '08H00 - 12H00', title: 'Phases de poule (Sport)' },
-    { time: '12H00 - 14H00', title: 'Repas (Cantine de l’EDF)' },
-    { time: '14H00 - 18H00', title: 'Phases finales (Sport)' },
-    { time: '14H00 - 18H00', title: 'Tournoi de consolante (Sport)' },
+    { time: '08H00 - 11H30', title: 'Phases de poule' },
+    { time: '11H30 - 13H30', title: 'Repas (Cantine de l’EDF)' },
+    { time: '13H30 - 18H00', title: 'Phases finales' },
+    { time: '13H30 - 18H00', title: 'Tournoi de consolante' },
   ];
 
   const actiActivities = [
-    { time: '09H00 - 11H00', title: 'Initiation Yoga' },
-    { time: '11H00 - 12H00', title: 'Éveil musculaire' },
-    { time: '13H00 - 15H00', title: 'Atelier méditation' },
-    { time: '15H00 - 17H00', title: 'Atelier artistiques' },
+    { time: '08H00 - 17H00', title: "Village d'acti" },
+    { time: '11H30 - 13H30', title: 'Visite du château des bleus' },
+    { time: '15H00 - 18H00', title: 'Visite musée des bleus' },
+    { time: 'TOUTE LA JOURNEE', title: 'Photos de Clairefontaine' },
+
   ];
 
   // Make sure the initial state matches the format you are checking in your toggle.

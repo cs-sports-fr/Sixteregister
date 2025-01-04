@@ -7,7 +7,7 @@ import { validateEmail } from "../service/validation";
 import { ApiTossNotConnected } from "../service/axios";
 import { useSnackbar } from "../provider/snackbarProvider";
 import DividerText from "../components/DividerText";
-import LayoutUnauthenticated from "../components/layouts/LayoutUnauthenticated";
+import LayoutAuthenticated from "../components/layouts/LayoutAuthenticated";
 
 const Login = () => {
     const { setToken } = useAuth();
@@ -57,7 +57,7 @@ const Login = () => {
     const isDarkMode = false;
 
     return (
-        <LayoutUnauthenticated isDarkMode={isDarkMode}>
+        <LayoutAuthenticated isDarkMode={isDarkMode}>
             <Grid container spacing={2} height={'102vh'}>
                 <Grid item md={6} xs={12} sx={{ textAlign: 'center', alignSelf: "center" }}>
                     <Grid py={'10vh'} px={'22%'} sx={{}}>
@@ -107,17 +107,17 @@ const Login = () => {
                                         />
                                     </Box>
                                     <Link href="/forgot-password" underline="hover" sx={{ textAlign: 'left', color: '#093274' }}>Mot de passe oublié ?</Link>
-                                    <Button type="submit" fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Se connecter</Button>
+                                    <Button type="submit" fullWidth sx={{ backgroundColor: '#093274', color: '#fff'}}>Se connecter</Button>
                                 </Box>
                             </form>
                         </Box>
                         <DividerText text="Autres" sx={{ color: '#000' }} />
                         <Box m={2} >
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                                <Link href="/charte" sx={{ width: '100%', mr: 1 }}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Signer la charte</Button></Link>
-                                <Link href="/register" sx={{ width: '100%', ml: 1 }}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Inscription</Button></Link>
+                                <Link href="/charte" sx={{ width: '100%', mr: 1 }}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff'}}>Signer la charte</Button></Link>
+                                <Link href="/register" sx={{ width: '100%', ml: 1 }}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff'}}>Inscription</Button></Link>
                             </Box>
-                            <Button href="https://www.cs-sports.fr/sixte/" variant="lighter" sx={{ mt: 2, width: '100%', backgroundColor: '#afc4e2', color: '#093274', '&:hover': { backgroundColor: '#91A2FF' } }}>Retour au site</Button>
+                            <Button href="https://www.cs-sports.fr/sixte/" variant="lighter" sx={{ mt: 2, width: '100%', backgroundColor: '#afc4e2', color: '#093274' }}>Retour au site</Button>
                         </Box>
                     </Grid>
                 </Grid>
@@ -134,7 +134,7 @@ const Login = () => {
                 >
                 </Grid>
             </Grid>
-        </LayoutUnauthenticated>
+        </LayoutAuthenticated>
     );
 };
 

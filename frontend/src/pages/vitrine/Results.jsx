@@ -68,9 +68,19 @@ const ResultsPage = () => {
             { rank: "2NDE PLACE", team: "STAPS NANCY" },
             { rank: "3ÈME PLACE", team: "BORDEAUX MONTAIGNE" },
         ],
+        "2024M": [
+            { rank: "1ÈRE PLACE", team: "ESSEC" },
+            { rank: "2NDE PLACE", team: "CENTRALE MARSEILLE" },
+            { rank: "3ÈME PLACE", team: "PARIS XI" },
+        ],
+        "2024F": [
+            { rank: "1ÈRE PLACE", team: "ESPCI" },
+            { rank: "2NDE PLACE", team: "PÔLE LEONARD DE VINCI" },
+            { rank: "3ÈME PLACE", team: "BORDEAUX MONTAIGNE" },
+        ],
     };
 
-    const years = ['2018M', '2018F', '2019M', '2019F', '2020M', '2020F', '2022M', '2022F', '2023M', '2023F'];
+    const years = ['2018M', '2018F', '2019M', '2019F', '2020M', '2020F', '2022M', '2022F', '2023M', '2023F','2024M','2024F'];
 
     const results = resultsData[selectedYear] || [];
 

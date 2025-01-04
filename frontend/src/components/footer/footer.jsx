@@ -12,12 +12,25 @@ const Footer = ({ navigation }) => {
             <Box
                 sx={{
                     display: 'flex',
+                    flexDirection:'column',
+                    gap:'2rem',
                     alignItems: 'center',
                     justifyContent:'center space-between',   
                     width:'100%',
                 }}
 
             >
+                <Box sx={{display:'flex',flexDirection:'row',gap:'5rem',overflow:'hidden',mb:'2rem'}}>
+                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
+                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
+                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
+                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
+                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
+                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
+                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
+                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
+                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
+                </Box>
                 <Grid container spacing={2} justifyContent="space-between" alignItems="flex-start" sx={{display: 'flex',width: '100%',backgroundColor:'secondary.dark' }}>
                     <Grid item sx={{
                         display : "flex",
@@ -30,57 +43,50 @@ const Footer = ({ navigation }) => {
                         
                     }}
                     >
-                        <Grid container sx={{backgroundColor:'secondary.dark'}} >
-                            <Grid item sx={{ marginLeft: '2rem', display: { xs: 'none', lg: 'block' } ,backgroundColor:'secondary.dark'}}>
+                        <Grid container sx={{backgroundColor:'secondary.dark',py:'1rem'}} >
+                            <Grid item sx={{ marginLeft: '2rem',display:'flex',flexDirection:'column',gap:'1rem',backgroundColor:'secondary.dark'}}>
                                 <Box>
                                     <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>NOUS CONTACTER</Typography>   
-                                <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>3, rue Joliot-Curie,<br/>
-                                Gif-sur-Yvette, 91190</Box>
-                                <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>
-                                sixte@cs-sports.fr
+                                    <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>3, rue Joliot-Curie,<br/>
+                                    Gif-sur-Yvette, 91190</Box>
+                                    <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>
+                                    sixte@cs-sports.fr
+                                    </Box>
                                 </Box>
-                                </Box>
-                            </Grid>
-                            <Grid item sx={{
-                                display:'flex',  
-                                backgroundColor: 'transparent',
-                                marginLeft: '2rem',
-                                gap:'1rem'
-                            
-                            }}
-                            >
-                                <Box sx={{  border:'2px white solid ',
-                                    borderRadius:'100%',
-                                    width:'3.5rem',
-                                    height:'3.5rem',
-                                    display: 'flex',
-                                    justifyContent: 'center',  
-                                    alignItems: 'center',
-                                    backgroundColor: 'primary.main'     
-                                }}>
-                                    <Link href="https://www.instagram.com/bds_centralesupelec/?hl=fr" > 
-                                    <InstagramIcon sx={{ fontSize: { sm: '2rem', xs: '1rem' } ,color:'white','&:hover':{opacity:'0.7'}}} />
-                                    </Link>
-                                </Box>
-                                <Box sx={{
-                                    border:'2px white solid ',
-                                    borderRadius:'100%',
-                                    width:'3.5rem',
-                                    height:'3.5rem',
-                                    display: 'flex',
-                                    justifyContent: 'center', 
-                                    alignItems: 'center',
-                                    backgroundColor: 'primary.main' 
-                                        
-                                }}
-                                >
-                                    <Link href="https://www.facebook.com/CentraleSupelecSports/?locale=fr_FR" style={{}}> 
-                                        <FacebookIcon sx={{ fontSize: { sm: '2rem', xs: '1rem' }, color:'white', '&:hover':{opacity:'0.7'} }} />
-                                    </Link>
+                                <Box sx={{display:'flex',flexDirection:'rox',gap:'1rem'}}>
+                                    <Box sx={{  border:'2px white solid ',
+                                        borderRadius:'100%',
+                                        width:'3.5rem',
+                                        height:'3.5rem',
+                                        display: 'flex',
+                                        justifyContent: 'center',  
+                                        alignItems: 'center',
+                                        backgroundColor: 'primary.main'     
+                                    }}>
+                                        <Link href="https://www.instagram.com/bds_centralesupelec/?hl=fr" > 
+                                        <InstagramIcon sx={{ fontSize: { sm: '2rem', xs: '1rem' } ,color:'white','&:hover':{opacity:'0.7'}}} />
+                                        </Link>
+                                    </Box>
+                                    <Box sx={{
+                                        border:'2px white solid ',
+                                        borderRadius:'100%',
+                                        width:'3.5rem',
+                                        height:'3.5rem',
+                                        display: 'flex',
+                                        justifyContent: 'center', 
+                                        alignItems: 'center',
+                                        backgroundColor: 'primary.main' 
+                                            
+                                    }}
+                                    >
+                                        <Link href="https://www.facebook.com/CentraleSupelecSports/?locale=fr_FR" style={{}}> 
+                                            <FacebookIcon sx={{ fontSize: { sm: '2rem', xs: '1rem' }, color:'white', '&:hover':{opacity:'0.7'} }} />
+                                        </Link>
+                                    </Box>
                                 </Box>
                             </Grid>
                         </Grid>
-                        <Grid container  sx={{backgroundColor:'secondary.dark'}}
+                        <Grid container  sx={{backgroundColor:'secondary.dark',py:'1rem'}}
                         >
                             <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
                                 <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>LIENS</Typography>   
@@ -96,6 +102,7 @@ const Footer = ({ navigation }) => {
                         <Grid container sx={{
                                 width: '100%', height: 'auto',
                                 backgroundColor:'secondary.dark'
+                                ,py:'1rem'
                         }}
                         >
                             <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>

@@ -27,7 +27,7 @@ const PRIMARY = {
     lighter: '#f5dbf1',
     light: '#e193d5',
     main: '#318ce7', //bleu
-    dark: '#a43c94',
+    dark: '#093274',
     darker: '#b2d6f',
     contrastText: '#f3f7f4',
     contrastTextLight: '#350d2a',
@@ -42,6 +42,11 @@ const SECONDARY = {
     contrastText: '#f3f7f4',
 };
 
+const REGISTER = {
+    lighter: '#C4CDD5',
+    light: '#afc4e2',
+    main: '#093274', //bleu
+}
 const INFO = {
     // lighter: '#D0F2FF',
     // light: '#74CAFF',
@@ -87,6 +92,7 @@ const palette = {
     common: { black: '#000', white: '#fff' },
     primary: PRIMARY,
     secondary: SECONDARY,
+    register: REGISTER,
     info: INFO,
     success: SUCCESS,
     warning: WARNING,

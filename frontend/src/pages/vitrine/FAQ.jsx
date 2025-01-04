@@ -91,7 +91,7 @@ const FAQ = () => {
                         <Typography sx={{color: palette.secondary.main, marginBottom:'2rem'}}>Le matériel que doivent prévoir les joueurs : chaussures à crampons moulés, les crampons vissés sont interdits (terrains synthétiques), protèges-tibias, ballons d’échauffement (ballons non prêtés)</Typography>
                     </Box>
                     <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'center',alignItems:'center'}}>
-                        <h2 sx={{fontWeight: "bold", margin:'0.1'}}>Qu’est-ce que propose la buvette ?</h2>
+                        <h2 sx={{fontWeight: "bold", mar    gin:'0.1'}}>Qu’est-ce que propose la buvette ?</h2>
                         <Typography sx={{color: palette.secondary.main, marginBottom:'2rem'}}>La buvette propose des boissons chaudes et froides.</Typography>
                     </Box>
                 </Box>

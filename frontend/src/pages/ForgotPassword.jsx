@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import LayoutUnauthenticated from "../components/layouts/LayoutUnauthenticated";
+import LayoutAuthenticated from "../components/layouts/LayoutAuthenticated";
 import { useSnackbar } from "../provider/snackbarProvider";
 import { Box, Button, Divider, Grid, InputLabel, TextField, Typography } from "@mui/material";
 import { useState } from "react";
@@ -49,7 +49,7 @@ const ForgotPassword = () => {
 
 
     return (
-        <LayoutUnauthenticated isDarkMode={isDarkMode}>
+        <LayoutAuthenticated isDarkMode={isDarkMode}>
             <Grid container spacing={2} height={'102vh'}>
                 <Grid item md={6} xs={12} sx={{ textAlign: 'center', alignSelf: "center" }}> {/* xs={12} md={6} pour responsive a faire */}
                     <Grid py={'10vh'} px={'22%'} sx={{}}>
@@ -107,7 +107,7 @@ const ForgotPassword = () => {
             </Grid>
 
 
-        </LayoutUnauthenticated >
+        </LayoutAuthenticated >
     );
 }
 
