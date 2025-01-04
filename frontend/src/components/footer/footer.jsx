@@ -54,7 +54,8 @@ const Footer = ({ navigation }) => {
                                     <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>3, rue Joliot-Curie,<br/>
                                     Gif-sur-Yvette, 91190</Box>
                                     <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>
-                                    sixte@cs-sports.fr
+                                    garance.asselin-de-williencourt@student-cs.fr
+                                    alexandru.state@student-cs.fr
                                     </Box>
                                 </Box>
                                 <Box sx={{display:'flex',flexDirection:'rox',gap:'1rem'}}>

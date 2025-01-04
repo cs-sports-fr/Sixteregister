@@ -83,6 +83,9 @@ const FaqPractical = () => {
                         <br /><br />
                         Elle inclut la collation du matin, le repas, la visite du musée ou château et le tournoi 
                         avec ses diverses activités.
+                        <br /><br />
+
+                        A noter que les tarifs sont succeptibles de changer avant l'ouverture des inscriptions.
                     </Typography>
                 </Box>
             )
@@ -182,10 +185,17 @@ const FaqPractical = () => {
                     >
                         Envoie un mail à{" "}
                         <Link
-                            href="mailto:sixte@cs-sports.fr"
+                            href="mailto:alexandru.state@student-cs.fr"
                             sx={{ textDecoration: 'none' }}
                         >
-                            sixte@cs-sports.fr
+                            alexandru.state@student-cs.fr
+                        </Link>
+                         {" "}ou{" "} 
+                        <Link
+                            href="mailto:garance.asselin-de-williencourt@student-cs.fr"
+                            sx={{ textDecoration: 'none' }}
+                        >
+                            garance.asselin-de-williencourt@student-cs.fr
                         </Link>
                     </Typography>
                 </Box>
