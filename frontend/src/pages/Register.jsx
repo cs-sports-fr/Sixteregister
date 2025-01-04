@@ -116,7 +116,7 @@ const Register = () => {
         <LayoutAuthenticated isDarkMode={isDarkMode}>
             <Box display={'flex'} flexDirection={'column'} height={'100vh'} >
                 <Grid container spacing={2} height={'102vh'}>
-                    <Grid item xs={12} md={5}
+                    <Grid item xs={12} md={5} 
                         sx={{
                             backgroundImage: 'url(/images/cup.jpg)',
                             backgroundSize: 'cover',

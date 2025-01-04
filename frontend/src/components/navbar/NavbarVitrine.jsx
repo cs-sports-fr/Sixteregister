@@ -63,7 +63,7 @@ const NavbarVitrine = () => {
           <img
             src="/images/logo_sixte.png"
             alt="Logo Toss"
-            width={50}
+            width={{sx:50,lg:50}}
             height={50}
             style={{ display: 'block' }}
           />
@@ -73,7 +73,7 @@ const NavbarVitrine = () => {
       {/* Center Section: Links (Visible on md and up) */}
       <Box
         sx={{
-          display: { xs: 'none', md: 'flex' }, // Hidden on small screens
+          display: { xs:'none',sm: 'none', md: 'none',lg:'flex' }, // Hidden on small screens
           gap: '2rem',
           flexGrow: 1,
           justifyContent: 'center',
@@ -94,7 +94,7 @@ const NavbarVitrine = () => {
       {/* S'INSCRIRE Button (Visible on md and up) */}
       <Box
         sx={{
-          display: { xs:'none',sm: 'none', md: 'flex' }, // Hidden on small screens
+          display: {xs:'none',sm: 'none', md: 'none',lg:'flex' }, // Hidden on small screens
         }}
       >
         <Button
@@ -122,15 +122,14 @@ const NavbarVitrine = () => {
       {/* Hamburger Icon (Visible on xs and sm) */}
       <Box
         sx={{
-          display: { xs: 'flex', md: 'none' }, // Hidden on md and up
+          display: { xs: 'flex', md: 'flex',lg:'none' }, // Hidden on md and up
           alignItems: 'center',
         }}
       >
         <IconButton
           onClick={toggleDrawer(true)}
-          sx={{ color: 'white' }}
         >
-          <MenuIcon />
+          <MenuIcon sx={{ color: 'white',fontSize:'3rem' }}/>
         </IconButton>
       </Box>
 
@@ -141,7 +140,7 @@ const NavbarVitrine = () => {
         onClose={toggleDrawer(false)}
       >
         <Box
-          sx={{ width: 250 }}
+          sx={{ width: 400}}
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
@@ -169,7 +168,7 @@ const NavbarVitrine = () => {
                 >
                   <ListItemText 
                     primary={
-                      <Typography sx={{ fontWeight: 'bold' }}>
+                      <Typography sx={{ fontWeight: 'bold',fontSize:'2rem',textAlign:'center' }}>
                         {link.label}
                       </Typography>
                     } 
@@ -177,27 +176,22 @@ const NavbarVitrine = () => {
                 </ListItemButton>
               </ListItem>
             ))}
-            <ListItem disablePadding sx={{ marginTop: '1rem' }}>
-              <Button
-                variant="outlined"
-                href='/register'
-                sx={{
-                  borderColor: 'white',
-                  backgroundColor: 'primary.main',
-                  color: 'white',
-                  width: '100%',
-                  fontWeight: 'bold',
-                  borderRadius: '8px',
-                  padding: '0.5rem 1rem',
-                  textTransform: 'none',
-                  ":hover": {
-                    backgroundColor: 'primary.main',
-                    borderColor: 'white',
-                  },
-                }}
-              >
-                S'INSCRIRE
-              </Button>
+            <ListItem disablePadding sx={{ }}>
+            <ListItemButton
+                  component="a"
+                  href='/register'
+                  sx={{
+                    textAlign: 'left',
+                  }}
+                >
+                  <ListItemText 
+                    primary={
+                      <Typography sx={{ fontWeight: 'bold',fontSize:'2rem',textAlign:'center' }}>
+                        S'inscrire
+                      </Typography>
+                    } 
+                  />
+                </ListItemButton>
             </ListItem>
           </List>
         </Box>

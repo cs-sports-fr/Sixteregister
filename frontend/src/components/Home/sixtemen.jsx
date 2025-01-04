@@ -120,7 +120,7 @@ const Sixtemen = () => {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: {xs:'2rem',md:'10rem'},
+        gap: {xs:'2rem',lg:'10rem'},
         width: '100%',
         flexWrap: 'wrap', // Allows wrapping on smaller screens
         padding: '2rem 0',

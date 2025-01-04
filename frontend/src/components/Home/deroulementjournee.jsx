@@ -132,18 +132,17 @@ const Deroulementjournee = () => {
         </Box>
 
         {/* Activities Cards */}
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2rem',mb:2 }}>
+        <Box sx={{ display: 'flex', flexDirection:{xs:'column',sm:'column',md:'column',lg:'row'}, alignItems:'center', justifyContent: 'center', gap: '2rem',mb:2 }}>
           {activities.map((activity, index) => (
             <Box
               key={index}
               sx={{
                 backgroundColor: 'secondary.dark',
-                // Use a color that contrasts well with the background for text
                 color: '#fff',
                 borderRadius: '0.2rem',
                 padding: '1.5rem',
                 textAlign: 'center',
-                width: '250px',
+                width: '20rem',
                 boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
               }}
             >
@@ -152,13 +151,13 @@ const Deroulementjournee = () => {
                 sx={{
                   fontWeight: 'bold',
                   marginBottom: '0.5rem',
-                  fontSize: '1rem',
+                  fontSize: '1.2rem',
                 }}
               >
                 {activity.time}
               </Typography>
               <Typography
-                variant="h6"
+                variant="h5"
                 sx={{
                   fontWeight: 'bold',
                   color: 'primary.main',

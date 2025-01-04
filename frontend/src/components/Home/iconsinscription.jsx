@@ -1,18 +1,63 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { alpha } from '@mui/material/styles';
 import palette from '../../themes/palette';
 import { SportsSoccer, Group } from '@mui/icons-material';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import CastleRoundedIcon from '@mui/icons-material/CastleRounded';
 
+const cardData = [
+    {
+        icon: <Group sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: palette.primary.main, marginBottom: '1rem' }} />,
+        title: 'DES ÉQUIPES DE TOUTE LA FRANCE',
+        text: '32 équipes masculines et 16 équipes féminines !',
+    },
+    {
+        icon: <DirectionsRunIcon sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: palette.primary.main, marginBottom: '1rem' }} />,
+        title: 'UN CADRE INCROYABLE',
+        text: 'Pouvoir jouer sur les pelouses qu’ont foulé l’équipe de France : que rêver de mieux ?',
+    },
+    {
+        icon: <CastleRoundedIcon sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: palette.primary.main, marginBottom: '1rem' }} />,
+        title: 'UNE VISITE DE CLAIREFONTAINE',
+        text: 'Pour satisfaire ta passion jusqu’au bout, tu pourras éventuellement visiter le château et le musée des Bleus !',
+    },
+];
+
+const Card = ({ icon, title, text }) => (
+    <Box
+        sx={{
+            backgroundColor: palette.secondary.light,
+            borderRadius: '0.2rem',
+            padding: '2rem',
+            textAlign: 'center',
+            flex: 1,
+            marginTop: { xs: 0, sm: 0, md: 0, lg: '-10rem' },
+        }}
+    >
+        {icon}
+        <Typography
+            variant="h5"
+            sx={{
+                fontWeight: 'bold',
+                marginBottom: '0.5rem',
+                color: palette.secondary.dark,
+            }}
+        >
+            {title}
+        </Typography>
+        <Typography sx={{ color: '#555',fontSize:{sm:'1.3rem',md:'1.3rem',lg:'1rem'} }}>
+            {text}
+        </Typography>
+    </Box>
+);
+
 const IconsInscription = () => {
     return (
-        <Box sx={{height:'auto'}}>
+        <Box sx={{ height: 'auto' }}>
             <Box
                 sx={{
-                    height: {xs:'5rem',md:'13rem'},
+                    height: { md: '7rem', lg: '13rem' },
                     py: '3rem',
                     textAlign: 'center',
                     width: '100%',
@@ -58,112 +103,16 @@ const IconsInscription = () => {
                 <Box
                     sx={{
                         display: 'flex',
-                        flexDirection: { xs: 'column', md: 'row' },
+                        flexDirection: { sm: 'column', lg: 'row' },
                         justifyContent: 'space-between',
                         gap: '2rem',
                         width: '100%',
                         marginBottom: '4rem',
                     }}
                 >
-                    {/* Carte 1 */}
-                    <Box
-                        sx={{
-                            backgroundColor: palette.secondary.light,
-                            borderRadius: '0.2rem',
-                            padding: '2rem',
-                            textAlign: 'center',
-                            flex: 1,
-                            marginTop: {xs:0,md:'-10rem'},
-                            height: '20rem',
-                        }}
-                    >
-                        <Group
-                            sx={{
-                                fontSize: { xs: '6rem', sm: '9rem' },
-                                color: palette.primary.main,
-                                marginBottom: '1rem',
-                            }}
-                        />
-                        <Typography
-                            variant="h5"
-                            sx={{
-                                fontWeight: 'bold',
-                                marginBottom: '0.5rem',
-                                color: palette.secondary.dark,
-                            }}
-                        >
-                            DES ÉQUIPES DE TOUTE LA FRANCE
-                        </Typography>
-                        <Typography variant="body1" sx={{ color: '#555' }}>
-                            32 équipes masculines et 16 équipes féminines !
-                        </Typography>
-                    </Box>
-
-                    {/* Carte 2 */}
-                    <Box
-                        sx={{
-                            backgroundColor: palette.secondary.light,
-                            borderRadius: '0.2rem',
-                            padding: '2rem',
-                            textAlign: 'center',
-                            flex: 1,
-                            marginTop: {xs:0,md:'-10rem'},
-                        }}
-                    >
-                        <DirectionsRunIcon
-                            sx={{
-                                fontSize: { xs: '6rem', sm: '9rem' },
-                                color: palette.primary.main,
-                                marginBottom: '1rem',
-                            }}
-                        />
-                        <Typography
-                            variant="h5"
-                            sx={{
-                                fontWeight: 'bold',
-                                marginBottom: '0.5rem',
-                                color: palette.secondary.dark,
-                            }}
-                        >
-                            UN CADRE INCROYABLE
-                        </Typography>
-                        <Typography variant="body1" sx={{ color: '#555' }}>
-                            Pouvoir jouer sur les pelouses qu’ont foulé l’équipe de France : que rêver de mieux ?
-                        </Typography>
-                    </Box>
-
-                    {/* Carte 3 */}
-                    <Box
-                        sx={{
-                            backgroundColor: palette.secondary.light,
-                            borderRadius: '0.2rem',
-                            padding: '2rem',
-                            textAlign: 'center',
-                            flex: 1,
-                            marginTop: {xs:0,md:'-10rem'},
-                        }}
-                    >
-                        <CastleRoundedIcon
-                            sx={{
-                                fontSize: { xs: '6rem', sm: '9rem' },
-                                color: palette.primary.main,
-                                marginBottom: '1rem',
-                            }}
-                        />
-                        <Typography
-                            variant="h5"
-                            sx={{
-                                fontWeight: 'bold',
-                                marginBottom: '0.5rem',
-                                color: palette.secondary.dark,
-                            }}
-                        >
-                            UNE VISITE DE CLAIREFONTAINE
-                        </Typography>
-                        <Typography variant="body1" sx={{ color: '#555' }}>
-                            Pour satisfaire ta passion jusqu’au bout, tu pourras éventuellement visiter le château et le musée des Bleus !
-                        </Typography>
-                    </Box>
+                    {cardData.map((card, index) => (
+                        <Card key={index} icon={card.icon} title={card.title} text={card.text} />
+                    ))}
                 </Box>
 
                 {/* Section "Inscription" */}

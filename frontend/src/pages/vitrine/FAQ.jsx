@@ -18,13 +18,18 @@ const FaqPractical = () => {
         );
     };
 
-    // You can break down or group the FAQ entries however you'd like:
     const faqEntries = [
         {
             question: "Déroulement de la journée",
             answer: (
                 <Box sx={{ mt: 2 }}>
-                    <Typography sx={{ color: palette.secondary.main, mb: 2 }}>
+                    <Typography
+                        sx={{
+                            color: palette.secondary.main,
+                            mb: 2,
+                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                        }}
+                    >
                         Le Tournoi se déroule sur toute la journée avec 32 équipes pour les hommes et 16 pour les femmes. Le matin se jouera la phase de poule, et l'après-midi auront lieu la phase finale et le tournoi de consolantes. 
                         Entre-temps, vous aurez l'occasion de reprendre des forces avec un repas chaud de qualité. 
                         L'après-midi, vous aurez aussi la possibilité d'une visite exceptionnelle du musée des Bleus, 
@@ -37,8 +42,13 @@ const FaqPractical = () => {
             question: "Comment accéder aux infrastructures ? ",
             answer: (
                 <Box sx={{ mt: 2 }}>
-                    
-                    <Typography sx={{ color: palette.secondary.main, mb: 2 }}>
+                    <Typography
+                        sx={{
+                            color: palette.secondary.main,
+                            mb: 2,
+                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                        }}
+                    >
                         L’organisation ne prévoit pas de moyens de transports pour rejoindre le tournoi ; 
                         les participants doivent se rendre en voiture ou en car sur place 
                         (Château de Montjoye, 78120 Clairefontaine-en-Yvelines) (parking disponible).
@@ -61,7 +71,12 @@ const FaqPractical = () => {
             question: "Quel sont les tarifs et qu'incluent-ils ? ",
             answer: (
                 <Box sx={{ mt: 2 }}>
-                    <Typography sx={{ color: palette.secondary.main }}>
+                    <Typography
+                        sx={{
+                            color: palette.secondary.main,
+                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                        }}
+                    >
                         L'inscription au tournoi est de <strong style={{ color: palette.primary.main }}>44€</strong> par participant.
                         <br />
                         Pour les boursiers, elle s'élève à <strong style={{ color: palette.primary.main }}>28€</strong> sous présentation du justificatif.
@@ -76,7 +91,12 @@ const FaqPractical = () => {
             question: "Est-ce que les coachs et les supporters peuvent venir ?",
             answer: (
                 <Box sx={{ mt: 2 }}>
-                    <Typography sx={{ color: palette.secondary.main }}>
+                    <Typography
+                        sx={{
+                            color: palette.secondary.main,
+                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                        }}
+                    >
                         Les coachs et les supporters <strong>ne peuvent pas</strong> venir au Sixte, seuls les 
                         joueurs étudiants le peuvent en s’inscrivant en équipe sur le site.
                     </Typography>
@@ -87,7 +107,12 @@ const FaqPractical = () => {
             question: "Combien d’équipes une école peut-elle inscrire ?",
             answer: (
                 <Box sx={{ mt: 2 }}>
-                    <Typography sx={{ color: palette.secondary.main }}>
+                    <Typography
+                        sx={{
+                            color: palette.secondary.main,
+                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                        }}
+                    >
                         Une école peut inscrire au plus deux équipes dans le tournoi féminin et deux dans le 
                         tournoi masculin. Si elle en inscrit deux dans un tournoi, l’équipe “deux” restera en 
                         liste d’attente et ne pourra être validée avant le 6 février, date à laquelle elle 
@@ -101,7 +126,12 @@ const FaqPractical = () => {
             question: "L’inscription sur le site me réserve-t-elle la place ?",
             answer: (
                 <Box sx={{ mt: 2 }}>
-                    <Typography sx={{ color: palette.secondary.main }}>
+                    <Typography
+                        sx={{
+                            color: palette.secondary.main,
+                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                        }}
+                    >
                         L’inscription ne peut être validée qu’une fois toutes les chartes signées 
                         et le paiement effectué, l’inscription seule ne réserve pas la place.
                     </Typography>
@@ -112,7 +142,12 @@ const FaqPractical = () => {
             question: "Quel matériel prévoir ?",
             answer: (
                 <Box sx={{ mt: 2 }}>
-                    <Typography sx={{ color: palette.secondary.main }}>
+                    <Typography
+                        sx={{
+                            color: palette.secondary.main,
+                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                        }}
+                    >
                         Le matériel que doivent prévoir les joueurs : chaussures à crampons moulés 
                         (les crampons vissés sont interdits sur terrains synthétiques), protège-tibias, 
                         ballons d’échauffement (ballons non prêtés).
@@ -124,7 +159,12 @@ const FaqPractical = () => {
             question: "Qu’est-ce que propose la buvette ?",
             answer: (
                 <Box sx={{ mt: 2 }}>
-                    <Typography sx={{ color: palette.secondary.main }}>
+                    <Typography
+                        sx={{
+                            color: palette.secondary.main,
+                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                        }}
+                    >
                         La buvette propose des boissons chaudes et froides.
                     </Typography>
                 </Box>
@@ -134,7 +174,12 @@ const FaqPractical = () => {
             question: "Une autre question ?",
             answer: (
                 <Box sx={{ mt: 2 }}>
-                    <Typography sx={{ color: palette.secondary.main }}>
+                    <Typography
+                        sx={{
+                            color: palette.secondary.main,
+                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                        }}
+                    >
                         Envoie un mail à{" "}
                         <Link
                             href="mailto:sixte@cs-sports.fr"
@@ -164,20 +209,20 @@ const FaqPractical = () => {
                 }}
             >
                 {/* Header Title */}
-                <Box sx={{height:'20vh',width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
-                                <Typography
-                                    variant="h2"
-                                    sx={{
-                                        mt: '8rem',
-                                        fontWeight: 'bold',
-                                        fontSize: '3rem',
-                                        color: 'black',
-                                        textTransform: 'uppercase',
-                                    }}
-                                >
-                                    Infos Pratiques
-                                </Typography>
-                            </Box>
+                <Box sx={{ height: '20vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <Typography
+                        variant="h2"
+                        sx={{
+                            mt: '8rem',
+                            fontWeight: 'bold',
+                            fontSize: '3rem',
+                            color: 'black',
+                            textTransform: 'uppercase',
+                        }}
+                    >
+                        Infos Pratiques
+                    </Typography>
+                </Box>
 
                 {/* Collapsible FAQ Entries */}
                 <Box sx={{ width: '80%', maxWidth: '1000px' }}>

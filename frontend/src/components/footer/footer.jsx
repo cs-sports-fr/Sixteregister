@@ -20,11 +20,11 @@ const Footer = ({ navigation }) => {
                 }}
 
             >
-                <Box sx={{display:{xs:'flex',md:'none'},flexDirection:'row',gap:'5rem',overflow:'hidden',mb:'2rem'}}>
+                <Box sx={{display:{xs:'flex',md:'flex',lg:'none'},flexDirection:'row',gap:'5rem',overflow:'hidden',mb:'2rem'}}>
                     <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
                     <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
                 </Box>
-                <Box sx={{display:{xs:'none',md:'flex'},flexDirection:'row',gap:'5rem',overflow:'hidden',mb:'2rem'}}>
+                <Box sx={{display:{xs:'none',md:'none',lg:'flex'},flexDirection:'row',gap:'5rem',overflow:'hidden',mb:'2rem'}}>
                     <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
                     <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
                     <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
