@@ -30,11 +30,9 @@ const NavbarVitrine = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const navigation = [
-    { label: 'Accueil', href: '/' },
     { label: 'Infos Pratiques', href: '/infos' },
     { label: 'Résultat du tournoi', href: '/resultats' },
     { label: 'Galerie Photos', href: '/galerie' },
-    { label: 'Nos Partenaires', href: '/partenaires' },
   ];
 
   const toggleDrawer = (open) => (event) => {
@@ -55,8 +53,7 @@ const NavbarVitrine = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: { xs: '0 1rem', md: '0 2rem' },
-        py: '1rem',
+        padding: { xs: '0.55rem', md: '0.6rem 2rem' },
         backgroundColor: "secondary.dark",
       }}
     >
@@ -97,7 +94,7 @@ const NavbarVitrine = () => {
       {/* S'INSCRIRE Button (Visible on md and up) */}
       <Box
         sx={{
-          display: { sm: 'none', md: 'flex' }, // Hidden on small screens
+          display: { xs:'none',sm: 'none', md: 'flex' }, // Hidden on small screens
         }}
       >
         <Button

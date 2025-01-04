@@ -83,7 +83,7 @@ const Sixtemen = () => {
 
   return (
     <Box sx={{
-      mt: '5rem',
+      mt: '3rem',
       textAlign: 'center',
       width: '100%',
       }}>
@@ -94,7 +94,7 @@ const Sixtemen = () => {
             fontWeight: 'medium',
             alignSelf: 'flex-start',
             marginBottom: '1rem',
-            fontSize: '1.5rem',
+            fontSize: { xs: '1.2rem', sm: '1.5rem' },
             textTransform: 'uppercase',
             color: palette.primary.main,
           }}
@@ -105,7 +105,7 @@ const Sixtemen = () => {
           variant="h2"
           sx={{
             fontWeight: 'bold',
-            fontSize: '3rem',
+            fontSize: { xs: '2rem', sm: '3rem' },
             alignSelf: 'flex-start',
             marginBottom: '1rem',
             color: 'black',

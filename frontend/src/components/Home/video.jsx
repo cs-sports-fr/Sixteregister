@@ -47,7 +47,7 @@ const Video = () => {
                     // loop // Uncomment to loop the video
                     // muted // Uncomment to mute the video (required for autoplay in many browsers)
                 >
-                    <source src="https://vid.hyris.tv/encode_tmp/720p/recap-sport-toss-2023.mp4" type="video/mp4" />
+                    <source src="/images/recap-sixte.mp4" type="video/mp4" />
                     Your browser does not support video playback.
                 </video>
             </Box>

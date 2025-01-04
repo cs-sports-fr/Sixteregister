@@ -39,7 +39,7 @@ const Statistics = ({  }) => {
             </Box>
             <Box sx={{ marginLeft: '1rem' }}>
                 <Typography variant="h6" sx={{ color: 'grey.400', fontWeight: 'bold' }}> EDITION </Typography>
-                <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold' }}> 28 </Typography>
+                <Typography variant="h3" sx={{ color: 'white', fontWeight: 'bold' }}> 29 </Typography>
             </Box>
         </Box>
         <Box sx={{ display: 'flex',width:'15rem' }}>

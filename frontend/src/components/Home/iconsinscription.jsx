@@ -12,7 +12,7 @@ const IconsInscription = () => {
         <Box sx={{height:'auto'}}>
             <Box
                 sx={{
-                    height: {xs:'8rem',md:'13rem'},
+                    height: {xs:'5rem',md:'13rem'},
                     py: '3rem',
                     textAlign: 'center',
                     width: '100%',

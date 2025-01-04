@@ -90,25 +90,20 @@ const Footer = ({ navigation }) => {
                                 </Box>
                             </Grid>
                         </Grid>
-                        <Grid container  sx={{backgroundColor:'secondary.dark',py:'1rem'}}
+                        <Grid container  sx={{display:{xs:'none',sm:'none',md:'block'},backgroundColor:'secondary.dark',py:'1rem'}}
                         >
                             <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
                                 <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>LIENS</Typography>   
-                                <Link href="/results" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Résultats</Link>
-                                <Link href="/photo" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Galerie photo </Link>
-                                <Link href="/sponsor" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>Nos partenaires</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Infos</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Espace Admin</Link>
+                                <Link href="/resultats" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Résultats</Link>
+                                <Link href="/galerie" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Galerie photo </Link>
+                                <Link href="/partenaires" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>Nos partenaires</Link>
+                                <Link href="/infos" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Infos</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Règlement</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> CGI</Link>
                             </Grid>
                         </Grid>
-                        <Grid container sx={{
-                                width: '100%', height: 'auto',
-                                backgroundColor:'secondary.dark'
-                                ,py:'1rem'
-                        }}
-                        >
+                        <Grid container  sx={{display:{xs:'none',sm:'none',md:'block'},backgroundColor:'secondary.dark',py:'1rem'}} >
+
                             <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
                             <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>NAVIGATION RAPIDE</Typography>   
                             <Link href="./pages/vitrine/Home.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Acceuil</Link>
@@ -116,7 +111,6 @@ const Footer = ({ navigation }) => {
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Planning </Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>L'équipe</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Le récap 2024</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>Nous contacter</Link>
                             </Grid> 
                         </Grid>
                     </Grid> 

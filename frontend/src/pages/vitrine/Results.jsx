@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Box, Typography, Fade } from '@mui/material';
-import palette from '../../themes/palette';
+import { Box, Typography, Fade, useMediaQuery } from '@mui/material';
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
-import Footer from '../../components/footer/footer';
+
 const ResultsPage = () => {
     const [selectedYear, setSelectedYear] = useState('2020M');
-
     const [isFading, setIsFading] = useState(false);
+
     const handleYearChange = (year) => {
         if (year !== selectedYear) {
             setIsFading(true); // Start fade-out
@@ -16,7 +15,7 @@ const ResultsPage = () => {
             }, 300); // Duration of fade-out
         }
     };
-    
+
     const resultsData = {
         "2018M": [
             { rank: "1ÈRE PLACE", team: "CENTRALE NANTES" },
@@ -80,13 +79,18 @@ const ResultsPage = () => {
         ],
     };
 
-    const years = ['2018M', '2018F', '2019M', '2019F', '2020M', '2020F', '2022M', '2022F', '2023M', '2023F','2024M','2024F'];
+
+    const years = ['2018M', '2018F', '2019M', '2019F', '2020M', '2020F', '2022M', '2022F', '2023M', '2023F', '2024M', '2024F'];
+    const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm')); // Adjust based on your theme
+
+    // Only display the last 4 years on small screens
+    const visibleYears = isSmallScreen ? years.slice(-4) : years;
 
     const results = resultsData[selectedYear] || [];
 
     return (
         <LayoutUnauthenticated>
-            <Box sx={{height:'20vh',width:'100%', display:'flex', justifyContent:'center', alignItems:'center'}}>
+            <Box sx={{ height: '20vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Typography
                     variant="h2"
                     sx={{
@@ -114,7 +118,7 @@ const ResultsPage = () => {
                     marginY: '2rem',
                 }}
             >
-                {years.map((year) => (
+                {visibleYears.map((year) => (
                     <Box
                         key={year}
                         onClick={() => handleYearChange(year)}
@@ -131,7 +135,7 @@ const ResultsPage = () => {
                             sx={{
                                 color: 'white',
                                 fontWeight: 'bold',
-                                fontSize: '1rem', // Adjust if needed
+                                fontSize: '1rem',
                             }}
                         >
                             {year}
@@ -181,7 +185,6 @@ const ResultsPage = () => {
                     ))}
                 </Box>
             </Fade>
-
         </LayoutUnauthenticated>
     );
 };
