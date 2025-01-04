@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Button, IconButton } from '@mui/material';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-
+import palette from '../../themes/palette';
 const ScrollingImages = () => {
   const navigate = useNavigate();
   
@@ -103,7 +103,7 @@ const ScrollingImages = () => {
               },    
             }}
           >
-            <Typography sx={{color:'white',fontWeight:'bold',fontSize:'1rem'}}>
+            <Typography sx={{color:'secondary.dark',fontWeight:'bold',fontSize:'1rem'}}>
             S'INSCRIRE
             </Typography>
           </Button>
@@ -111,23 +111,21 @@ const ScrollingImages = () => {
           href='/login'
             variant="outlined"
             sx={{
-                borderColor: 'white',
-
-              backgroundColor:'white',
+              borderColor: 'white',
+              backgroundColor:'secondary.dark',
               fontWeight: 'bold',
               borderRadius: '8px',
               padding: '1.6rem',
               width: '12rem',
               py:"1.6rem",
-              fontcolor:'black',
               ":hover": {
-                backgroundColor: 'white',
+                backgroundColor:'secondary.dark',
                 borderColor: 'white',
 
               },            
             }}
           >
-            <Typography sx={{color:'black',fontWeight:'bold',fontSize:'1.0rem'}}>
+            <Typography sx={{color:'white',fontWeight:'bold',fontSize:'1.0rem'}}>
             SE CONNECTER
             </Typography>
           </Button>

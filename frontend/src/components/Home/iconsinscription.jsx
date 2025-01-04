@@ -8,17 +8,17 @@ import CastleRoundedIcon from '@mui/icons-material/CastleRounded';
 
 const cardData = [
     {
-        icon: <Group sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: palette.primary.main, marginBottom: '1rem' }} />,
+        icon: <Group sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: "secondary.dark", marginBottom: '1rem' }} />,
         title: 'DES ÉQUIPES DE TOUTE LA FRANCE',
         text: '32 équipes masculines et 16 équipes féminines !',
     },
     {
-        icon: <DirectionsRunIcon sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: palette.primary.main, marginBottom: '1rem' }} />,
+        icon: <DirectionsRunIcon sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: "secondary.dark", marginBottom: '1rem' }} />,
         title: 'UN CADRE INCROYABLE',
         text: 'Pouvoir jouer sur les pelouses qu’ont foulé l’équipe de France : que rêver de mieux ?',
     },
     {
-        icon: <CastleRoundedIcon sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: palette.primary.main, marginBottom: '1rem' }} />,
+        icon: <CastleRoundedIcon sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: "secondary.dark", marginBottom: '1rem' }} />,
         title: 'UNE VISITE DE CLAIREFONTAINE',
         text: 'Pour satisfaire ta passion jusqu’au bout, tu pourras éventuellement visiter le château et le musée des Bleus !',
     },
@@ -71,7 +71,7 @@ const IconsInscription = () => {
                         marginBottom: '1rem',
                         fontSize: { xs: '1.2rem', sm: '1.5rem' },
                         textTransform: 'uppercase',
-                        color: palette.primary.main,
+                        color: "primary.main",
                     }}
                 >
                     Présentation
@@ -83,7 +83,7 @@ const IconsInscription = () => {
                         fontSize: { xs: '2rem', sm: '3rem' },
                         alignSelf: 'flex-start',
                         marginBottom: '1rem',
-                        color: 'black',
+                        color: 'secondary.dark',
                         textTransform: 'uppercase',
                     }}
                 >
