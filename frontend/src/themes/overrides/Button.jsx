@@ -40,7 +40,7 @@ export default function Button(theme) {
                 },
 
                 lighter: {
-                    backgroundColor: theme.palette.primary.lighter, // Fond plus clair
+                    backgroundColor: "#afc4e2", // Fond plus clair
                     color: theme.palette.primary.contrastTextLight, // Couleur de texte
                     '&:hover': {
                         backgroundColor: theme.palette.register.light, // Fond un peu plus sombre au survol

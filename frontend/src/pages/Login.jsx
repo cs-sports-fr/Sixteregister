@@ -58,8 +58,8 @@ const Login = () => {
 
     return (
         <LayoutAuthenticated isDarkMode={isDarkMode}>
-            <Grid container spacing={2} height={'102vh'}>
-                <Grid item md={6} xs={12} sx={{ textAlign: 'center', alignSelf: "center" }}>
+            <Grid container height={'102vh'}>
+                <Grid item md={12} lg={6} sx={{ textAlign: 'center',alignSelf: 'center' }}>
                     <Grid py={'10vh'} px={'22%'} sx={{}}>
                         <Typography variant="h1" sx={{ fontSize: '7rem', fontWeight: 'bold', color: '#000' }}>Sixte</Typography>
                         <DividerText text="Connexion" sx={{ color: '#000' }} />
@@ -69,7 +69,6 @@ const Login = () => {
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left' }}>
                                         <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: '#000' }}>Email</InputLabel>
                                         <TextField id="email"
-                                            placeholder="sixte@cs-sports.fr"
                                             variant="outlined"
                                             value={email}
                                             onChange={handleChangeEmail}
@@ -121,7 +120,7 @@ const Login = () => {
                         </Box>
                     </Grid>
                 </Grid>
-                <Grid item md={6} xs={12}
+                <Grid item md={0} lg={6}
                     sx={{
                         backgroundImage: 'url(/images/stade.jpg)',
                         backgroundSize: 'cover',

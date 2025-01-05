@@ -115,8 +115,8 @@ const Register = () => {
     return (
         <LayoutAuthenticated isDarkMode={isDarkMode}>
             <Box display={'flex'} flexDirection={'column'} height={'100vh'} >
-                <Grid container spacing={2} height={'102vh'}>
-                    <Grid item xs={12} md={5} 
+                <Grid container spacing={0} height={'102vh'}>
+                    <Grid item md={0} lg={6}
                         sx={{
                             backgroundImage: 'url(/images/cup.jpg)',
                             backgroundSize: 'cover',
@@ -128,7 +128,7 @@ const Register = () => {
                         }}
                     >
                     </Grid>
-                    <Grid item xs={12} md={7} >
+                    <Grid item md={12} lg={6} >
                         <Grid py={'10vh'} px={'13%'} sx={{}}>
                             <Typography sx={{
                                 fontSize: '3rem',

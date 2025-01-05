@@ -158,7 +158,7 @@ const routesForNotAuthenticatedOnly = [
     },
     {
         path: "/register",
-        element: <RegistrationClosed/>,
+        element: <Register/>,
     },
     {
         path: "/forgot-password",

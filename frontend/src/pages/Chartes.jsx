@@ -62,19 +62,18 @@ function Chartes() {
 
     return (
         <LayoutAuthenticated isDarkMode={isDarkMode}>
-            <Grid container spacing={2} height={'102vh'}>
-                <Grid item md={6} xs={12} sx={{ textAlign: 'center', alignSelf: "center" }}>
+            <Grid container height={'100vh'}>
+                <Grid item lg={6} md={12} sx={{ textAlign: 'center', alignSelf: "center" }}>
                     <Grid py={'10vh'} px={'25%'} sx={{}}>
-                        <Typography sx={{ fontSize: '2rem', fontWeight: 'bold', mb: 1.5, letterSpacing: '0.001rem' }}>CHARTE INDIVIDUELLE DU SIXTE</Typography>
-                        <Box m={'1vw'}><Button fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }} onClick={handleReadCharte}>Lire la charte</Button></Box>
+                        <Typography sx={{ fontSize: {md:'3rem',lg:'2rem'}, fontWeight: 'bold', mb: 1.5, letterSpacing: '0.001rem' }}>CHARTE INDIVIDUELLE DU SIXTE</Typography>
+                        <Box m={'1vw'}><Button fullWidth onClick={handleReadCharte} sx={{ backgroundColor: '#093274',fontSize:'1rem' }}>Lire la charte</Button></Box>
                         <DividerText text="Valider la charte" />
                         <Box m={'1vw'}>
                             <form onSubmit={handleSign}>
                                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left' }}>
-                                        <InputLabel htmlFor="email" sx={{ marginBottom: 1 }}>Email</InputLabel>
+                                        <InputLabel htmlFor="email" sx={{ marginBottom: 1, color:'black' }}>Email</InputLabel>
                                         <TextField id="email"
-                                            placeholder="sixte@cs-sports.fr"
                                             variant="outlined"
                                             value={email}
                                             onChange={handleChangeEmail}
@@ -85,26 +84,26 @@ function Chartes() {
                                         />
                                     </Box>
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 0.5 }}>
-                                        <InputLabel htmlFor="password" sx={{ marginBottom: 1 }} >Mot de passe charte</InputLabel>
+                                        <InputLabel htmlFor="password" sx={{ marginBottom: 1,color:'black' }} >Mot de passe charte</InputLabel>
                                         <TextField id="passwordCharte"
                                             variant="outlined"
                                             value={password}
                                             onChange={handleChangePassword}
                                             fullWidth
-                                            placeholder="ksSD82Fs"
                                             error={!!passwordError}
                                             helperText={passwordError}
                                         />
                                     </Box>
-                                    <Button type="submit" fullWidth sx={{ backgroundColor: '#093274', color: '#fff', '&:hover': { backgroundColor: '#91A2FF' } }}>Valider la charte</Button>
-                                    <Button href="/" variant="lighter" fullWidth sx={{ mt: 2, width: '100%', backgroundColor: '#afc4e2', color: '#093274', '&:hover': { backgroundColor: '#91A2FF' } }}>Retour</Button>
+                                    <Button type="submit" fullWidth sx={{ backgroundColor: '#093274' }} 
+                                    >Valider la charte</Button>
+                                    <Button href="/" variant="lighter" fullWidth>Retour</Button>
 
                                 </Box>
                             </form>
                         </Box>
                     </Grid>
                 </Grid>
-                <Grid item md={6} xs={12}
+                <Grid item md={0} lg={6}
                     sx={{
                         backgroundImage: 'url(/images/photocharte.jpg)', // Remplacez chemin/vers/votre/image.jpg par le chemin réel de votre image
                         backgroundSize: 'cover', // Couvre toute la zone disponible sans perdre les proportions de l'image
@@ -115,11 +114,7 @@ function Chartes() {
                         alignItems: 'center', // Centre horizontalement
                     }}
                 >
-                    <Typography variant="login" sx={{ fontSize: '6rem', textAlign: 'center' }}>ESPACE PARTICIPANT</Typography>
-                    {/* <Box sx={{ mt: 'auto', display: 'block' }}>
-                        <Typography variant="body1">&ldquo;On peut mettre une quote ici si jamais.&rdquo;</Typography>
-                        <Typography variant="caption">Sofia Davis</Typography>
-                    </Box> */}
+                
                 </Grid>
             </Grid>
         </LayoutAuthenticated>

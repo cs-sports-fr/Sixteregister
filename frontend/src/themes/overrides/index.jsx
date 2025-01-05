@@ -8,7 +8,7 @@ import Link from './Link';
 import ListItem from './ListItem';
 import Box from './Box';
 import TableCell from './TableCell';
-
+import TextField from './TextField';
 
 
 // ----------------------------------------------------------------------
@@ -24,5 +24,6 @@ export default function ComponentsOverrides(theme) {
         ListItem(theme),
         Box(theme),
         TableCell(theme),
+        TextField(theme),
     );
 }
