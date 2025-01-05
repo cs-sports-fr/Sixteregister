@@ -107,7 +107,7 @@ const Footer = ({ navigation }) => {
 
                             <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
                             <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>NAVIGATION RAPIDE</Typography>   
-                            <Link href="./pages/vitrine/Home.jsx" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Acceuil</Link>
+                            <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Accueil</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> A propos</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Planning </Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>L'équipe</Link>

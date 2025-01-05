@@ -118,7 +118,7 @@ const FaqPractical = () => {
                     >
                         Une école peut inscrire au plus deux équipes dans le tournoi féminin et deux dans le 
                         tournoi masculin. Si elle en inscrit deux dans un tournoi, l’équipe “deux” restera en 
-                        liste d’attente et ne pourra être validée avant le 6 février, date à laquelle elle 
+                        liste d’attente et ne pourra être validée avant le 15 février, date à laquelle elle 
                         pourra être validée si son dossier est complet (paiement + chartes) et s’il reste 
                         de la place.
                     </Typography>
