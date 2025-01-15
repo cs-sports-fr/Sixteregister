@@ -99,8 +99,6 @@ const Footer = ({ navigation }) => {
                                 <Link href="/galerie" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Galerie photo </Link>
                                 <Link href="/partenaires" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>Nos partenaires</Link>
                                 <Link href="/infos" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Infos</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Règlement</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> CGI</Link>
                             </Grid>
                         </Grid>
                         <Grid container  sx={{display:{xs:'none',sm:'none',md:'block'},backgroundColor:'secondary.dark',py:'1rem'}} >
