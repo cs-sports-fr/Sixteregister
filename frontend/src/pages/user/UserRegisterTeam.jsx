@@ -94,7 +94,7 @@ const UserRegisterTeam = () => {
                     <Box sx={{ bgcolor: 'background.drawer', width: '100%', display: 'flex', justifyContent: 'center', textAlign: 'center', flexDirection: 'column' }}>
                         <Typography variant="h4" align="center"  >Les inscriptions sont fermées</Typography>
                         {/* Countdown before registration open */}
-                        {config?.expectedRegistrationDate && <Typography variant="h6" align="center" >Ouverture des inscriptions dans {countdown}</Typography>}
+                        {config?.expectedRegistrationDate && <Typography variant="h6" align="center" >Ouverture des inscriptions le 15 janvier</Typography>}
 
                     </Box>
                 }

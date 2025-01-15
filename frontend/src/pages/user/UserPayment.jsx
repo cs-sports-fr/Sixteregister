@@ -145,13 +145,11 @@ const UserPayment = () => {
                                             <TableRow>
                                                 <TableCell>
                                                     <Typography sx={{ fontSize: '1.2rem' }}>
-                                                        <span style={{fontStyle: 'bold'}}>Paiement :</span > <span style={{ fontStyle: 'italic' }}>Pour régler votre solde, vous devez effectuer un virement sur le compte suivant : FR76 3000 4000 8600 0102 3594 368</span>
+                                                        <span style={{fontStyle: 'bold'}}>Paiement :</span > <span style={{ fontStyle: 'italic' }}>Pour régler votre solde, vous devez effectuer le paiement sur la cagnotte <a href="https://collecte.io/inscription-sixte-2025/fr">Lydia</a> </span>
                                                     </Typography>
+                                                   
                                                     <Typography sx={{ fontSize: '1.2rem' }}>
-                                                        <span style={{ fontStyle: 'italic' }}>Avec comme motif : SIXTE - Votre école - Football (M ou F)</span>
-                                                    </Typography>
-                                                    <Typography sx={{ fontSize: '1.2rem' }}>
-                                                        <span style={{}}>Montant caution sport :</span> <span style={{ fontStyle: 'italic' }}>50€ par participant (à envoyer avant le ...)</span>
+                                                        <span style={{}}>Montant caution sport :</span> <span style={{ fontStyle: 'italic' }}>50€ par participant</span>
                                                     </Typography>
                                                 </TableCell>
                                                 <TableCell>

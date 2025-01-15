@@ -62,6 +62,8 @@ const SelectSport = ({ callback, sports, callbackType, isCollective }) => {
                                     ...params.inputProps,
                                     style: {
                                         paddingTop: 0,
+                                        color: 'white', // Add this line for white text
+
                                     },
                                 }}
                             // error={!!errors.school}

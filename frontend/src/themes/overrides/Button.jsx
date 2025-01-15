@@ -22,8 +22,9 @@ export default function Button(theme) {
                     color: theme.palette.primary.contrastText, // text-primary-foreground
                     transition: 'background-color 0.3s', // transition-colors
                     textTransform: 'none', // normal-case
+                    backgroundColor: "#093274", // hover:bg-primary/90
                     '&:hover': {
-                        backgroundColor: theme.palette.primary.dark, // hover:bg-primary/90
+                        backgroundColor: "#093274", // hover:bg-primary/90
                     },
                     '&.Mui-disabled': {
                         pointerEvents: 'none', // disabled:pointer-events-none

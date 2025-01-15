@@ -216,6 +216,12 @@ const RegisterTeam = ({ sport }) => {
                                             fullWidth
                                             autoComplete="lastname"
                                             name="lastname"
+                                            inputProps={{
+                                                style: {
+                                                    color: 'white', // Add this line for white text
+            
+                                                },
+                                            }}
                                             error={!!errors.players[selectedPlayer - 1]?.lastname}
                                             helperText={errors.players[selectedPlayer - 1]?.lastname}
                                         />
@@ -230,6 +236,12 @@ const RegisterTeam = ({ sport }) => {
                                             fullWidth
                                             autoComplete="email"
                                             name="email"
+                                            inputProps={{
+                                                style: {
+                                                    color: 'white', // Add this line for white text
+            
+                                                },
+                                            }}
                                             error={!!errors.players[selectedPlayer - 1]?.email}
                                             helperText={errors.players[selectedPlayer - 1]?.email}
                                         />
@@ -250,6 +262,7 @@ const RegisterTeam = ({ sport }) => {
                                                         ...params.inputProps,
                                                         style: {
                                                             paddingTop: 0,
+                                                            color:'white', // Add this line for white text
                                                         },
                                                     }}
                                                     error={!!errors.players[selectedPlayer - 1]?.gender}
@@ -280,6 +293,12 @@ const RegisterTeam = ({ sport }) => {
                                             value={playerData[selectedPlayer - 1]?.firstname || ''}
                                             onChange={handleChange}
                                             fullWidth
+                                            inputProps={{
+                                                style: {
+                                                    color: 'white', // Add this line for white text
+            
+                                                },
+                                            }}
                                             autoComplete="firstname"
                                             name="firstname"
                                             error={!!errors.players[selectedPlayer - 1]?.firstname}
@@ -287,18 +306,39 @@ const RegisterTeam = ({ sport }) => {
                                         />
                                     </Box>
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
-                                        <InputLabel htmlFor="dateOfbBirth" sx={{ marginBottom: 1 }}>Date de naissance</InputLabel>
+                                        <InputLabel htmlFor="dateOfBirth" sx={{ marginBottom: 1, color: 'white' }}>
+                                            Date de naissance
+                                        </InputLabel>
                                         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
                                             <DatePicker
                                                 disableFuture
                                                 value={playerData[selectedPlayer - 1]?.dateOfBirth ? dayjs(playerData[selectedPlayer - 1]?.dateOfBirth) : null}
-                                                onChange={(newValue) => handleChange({ target: { name: "dateOfBirth", value: newValue ? new Date(newValue?.toDate()) : null } })}
+                                                onChange={(newValue) =>
+                                                    handleChange({
+                                                        target: {
+                                                            name: "dateOfBirth",
+                                                            value: newValue ? new Date(newValue?.toDate()) : null,
+                                                        },
+                                                    })
+                                                }
                                                 name="dateOfBirth"
                                                 autoComplete="dateOfBirth"
-                                                sx={{ width: '100%' }}
+                                                sx={{
+                                                    width: '100%',
+                                                    '.MuiInputBase-root': {
+                                                        color: 'white', // Ensure input text is white
+                                                    },
+                                                    '.MuiInputBase-input': {
+                                                        color: 'white', // Text color in the input
+                                                    },
+                                                    '.MuiSvgIcon-root': {
+                                                        color: 'white', // Icon color (e.g., calendar icon)
+                                                    },
+                                                }}
                                             />
                                         </LocalizationProvider>
                                     </Box>
+
 
                                     <Box sx={{ justifyContent: 'left', textAlign: 'left', mb: 2 }}>
                                         <InputLabel htmlFor="isBoursier" sx={{ marginBottom: 1 }}>Boursier</InputLabel>
