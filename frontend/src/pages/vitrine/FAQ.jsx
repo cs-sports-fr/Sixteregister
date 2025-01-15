@@ -77,15 +77,17 @@ const FaqPractical = () => {
                             fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
                         }}
                     >
-                        L'inscription au tournoi est de <strong style={{ color: palette.primary.main }}>44€</strong> par participant.
+                        L'inscription au tournoi est de <strong style={{ color: palette.primary.main }}>46€</strong> par participant.
                         <br />
                         Pour les boursiers, elle s'élève à <strong style={{ color: palette.primary.main }}>28€</strong> sous présentation du justificatif.
-                        <br /><br />
+                        <br />
+                        Pour les électrocentraliens, elle s'élève à <strong style={{ color: palette.primary.main }}>35€</strong> sous présentation du justificatif.
+                        <br />
+                        <br />
+
                         Elle inclut la collation du matin, le repas, la visite du musée ou château et le tournoi 
                         avec ses diverses activités.
                         <br /><br />
-
-                        A noter que les tarifs sont succeptibles de changer avant l'ouverture des inscriptions.
                     </Typography>
                 </Box>
             )
