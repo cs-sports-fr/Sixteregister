@@ -154,6 +154,8 @@ const UserPayment = () => {
                                                 </TableCell>
                                                 <TableCell>
                                                     <Typography sx={{ fontSize: '1.2rem' }}> Adresse pour le chèque de caution : 3 rue Joliot-Curie, 91190 Gif sur Yvette</Typography>
+                                                    <Typography sx={{ fontSize: '1.2rem' }}> Bénéficiaire pour le chèque de caution : BDS</Typography>
+
                                                 </TableCell>
                                                 <TableCell>
                                                     <Typography sx={{ fontSize: '1rem' }}>{ }</Typography>
