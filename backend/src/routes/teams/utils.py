@@ -157,10 +157,10 @@ async def check_and_update_team_amount_to_pay_then_get_team(
 
     for participant in team.participants:
         if participant.isBoursier : 
-            amount_to_pay_in_cents += 3500
+            amount_to_pay_in_cents += 2800
             print("nkcelecl")
         else:
-            amount_to_pay_in_cents += 4400
+            amount_to_pay_in_cents += 4600
             print("pas boursier")
             
     if team.amountToPayInCents != amount_to_pay_in_cents:
