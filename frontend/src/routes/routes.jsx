@@ -15,9 +15,8 @@ import Profile from "../pages/common/Profile";
 import AdminTeamDetail from "../pages/admin/AdminTeamDetail";
 import SuperAdminParameters from "../pages/superAdmin/SuperAdminParameters";
 import SuperAdminUser from "../pages/superAdmin/SuperAdminUser";
-import Home
- from "../pages/vitrine/Home";
- import FAQ from "../pages/vitrine/FAQ";
+import Home from "../pages/vitrine/Home";
+import FAQ from "../pages/vitrine/FAQ";
 import Photo from "../pages/vitrine/photo";
 import Results from "../pages/vitrine/Results"
 import Sponsor from "../pages/vitrine/Sponsor";
@@ -144,13 +143,15 @@ const routesForPublic = [
 const routesForNotAuthenticatedOnly = [
     {
         path: "/",
-        element: <Home/>,
+        element: <Home />,
     },
     {
         path: "/infos",
-        element: <FAQ/>,},
-    {   path: "/partenaires",
-        element: <Sponsor/>,
+        element: <FAQ />,
+    },
+    {
+        path: "/partenaires",
+        element: <Sponsor />,
     },
     {
         path: "/sign-in",
@@ -158,13 +159,14 @@ const routesForNotAuthenticatedOnly = [
     },
     {
         path: "/register",
-        element: <Register/>,
+        element: <Register />,
     },
     {
         path: "/forgot-password",
         element: <ForgotPassword />,
     },
-    {        path: "/galerie",
+    {
+        path: "/galerie",
         element: <Photo />,
     },
     {
@@ -172,7 +174,8 @@ const routesForNotAuthenticatedOnly = [
         element: <Results />,
     },
 
-    {    path: "/login",
+    {
+        path: "/login",
         element: <Login />,
     },
 ];
