@@ -90,7 +90,7 @@ Ce week-end de compétition inoubliable, et la plus grosse soirée de l’année
               color: palette.secondary.main,
             }}
           >
-            Les inscriptions pour la 29ème édition sont ouvertes du 7 janvier au 15 février 2025
+            Les inscriptions pour la 30ème édition sont ouvertes du 15 décembre 2025 au 15 janvier 2026
           </Typography>
           <Box
             sx={{

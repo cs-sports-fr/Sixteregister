@@ -5,9 +5,10 @@ import { alpha } from '@mui/material/styles';
 import palette from '../../themes/palette';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import EmailIcon from '@mui/icons-material/Email';
 
 
-const PersonCard = ({ name, role, imageSrc }) => {
+const PersonCard = ({ name, role, imageSrc, mail }) => {
   return (
     <Box
       sx={{
@@ -16,6 +17,10 @@ const PersonCard = ({ name, role, imageSrc }) => {
         height: '20rem',
         overflow: 'hidden',
         boxShadow: '0px 8px 30px rgba(0, 0, 0, 0.2)',
+        backgroundColor: 'black',
+        '&:hover .mail-overlay': {
+          bottom: 0,
+        },
       }}
     >
       <Box
@@ -23,12 +28,15 @@ const PersonCard = ({ name, role, imageSrc }) => {
         src={imageSrc}
         alt={name}
         sx={{
-          width: '100%',
-          objectFit: 'crop',
+          width: '70%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: name === 'Laure De Sury D\'Aspremont' ? 'center 30%' : 'center 53%',
+
         }}
       />
 
-      {/* Overlay */}
+      {/* Overlay principal */}
       <Box
         sx={{
           position: 'absolute',
@@ -61,6 +69,41 @@ const PersonCard = ({ name, role, imageSrc }) => {
           {role}
         </Typography>
       </Box>
+
+      {/* Overlay mail au survol */}
+      <Box
+        className="mail-overlay"
+        sx={{
+          position: 'absolute',
+          bottom: '-4rem',
+          left: 0,
+          width: '100%',
+          bgcolor: palette.primary.main,
+          color: 'white',
+          padding: '1rem',
+          textAlign: 'center',
+          transition: 'bottom 0.3s ease',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.5rem',
+        }}
+      >
+        <EmailIcon />
+        <Typography
+          component="a"
+          href={`mailto:${mail}`}
+          sx={{
+            color: 'white',
+            textDecoration: 'none',
+            '&:hover': {
+              textDecoration: 'underline',
+            },
+          }}
+        >
+          {mail}
+        </Typography>
+      </Box>
     </Box>
   );
 };
@@ -69,14 +112,16 @@ const PersonCard = ({ name, role, imageSrc }) => {
 const Sixtemen = () => {
   const people = [
     {
-      name: 'Alexandru State',
+      name: 'Mathurin Le Brun',
       role: 'Sixteman',
-      imageSrc: '/images/photo_alex.jpg', // Ensure the path is correct
+      imageSrc: '/images/photo_matutu.jpg',
+      mail: 'mathurin.lebrun@student-cs.fr' 
     },
     {
-      name: 'Garance Asselin',
+      name: 'Laure De Sury D\'Aspremont',
       role: 'Sixtewoman',
-      imageSrc: '/images/photo_garance.jpg', // Ensure the path is correct
+      imageSrc: '/images/photo_laure.jpg',
+      mail: 'laure.desurydaspermont@student-cs.fr' 
     },
 
   ];
@@ -86,55 +131,56 @@ const Sixtemen = () => {
       mt: '3rem',
       textAlign: 'center',
       width: '100%',
-      }}>
+    }}>
 
-    <Typography
-          variant="h2"
-          sx={{
-            fontWeight: 'medium',
-            alignSelf: 'flex-start',
-            marginBottom: '1rem',
-            fontSize: { xs: '1.2rem', sm: '1.5rem' },
-            textTransform: 'uppercase',
-            color: palette.primary.main,
-          }}
-        >
-          L'équipe 
-        </Typography>
-        <Typography
-          variant="h2"
-          sx={{
-            fontWeight: 'bold',
-            fontSize: { xs: '2rem', sm: '3rem' },
-            alignSelf: 'flex-start',
-            marginBottom: '1rem',
-            color: 'black',
-            textTransform: 'uppercase',
-          }}
-        >
-          La Sixteam
-        </Typography>
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: {xs:'2rem',lg:'10rem'},
-        width: '100%',
-        flexWrap: 'wrap', // Allows wrapping on smaller screens
-        padding: '2rem 0',
-      }}
-    >
-      {people.map((person, index) => (
-        <PersonCard
-          key={index}
-          name={person.name}
-          role={person.role}
-          imageSrc={person.imageSrc}
-        />
-      ))}
-    </Box>
+      <Typography
+        variant="h2"
+        sx={{
+          fontWeight: 'medium',
+          alignSelf: 'flex-start',
+          marginBottom: '1rem',
+          fontSize: { xs: '1.2rem', sm: '1.5rem' },
+          textTransform: 'uppercase',
+          color: palette.primary.main,
+        }}
+      >
+        L'équipe
+      </Typography>
+      <Typography
+        variant="h2"
+        sx={{
+          fontWeight: 'bold',
+          fontSize: { xs: '2rem', sm: '3rem' },
+          alignSelf: 'flex-start',
+          marginBottom: '1rem',
+          color: 'black',
+          textTransform: 'uppercase',
+        }}
+      >
+        La Sixteam
+      </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: { xs: '2rem', lg: '10rem' },
+          width: '100%',
+          flexWrap: 'wrap',
+          padding: '2rem 0',
+        }}
+      >
+        {people.map((person, index) => (
+          <PersonCard
+            key={index}
+            name={person.name}
+            role={person.role}
+            imageSrc={person.imageSrc}
+            mail={person.mail}
+          />
+        ))}
+      </Box>
     </Box>
   );
 };

@@ -5,17 +5,17 @@ import { useNavigate } from 'react-router-dom';
 
 const ScrollingImages = () => {
   const navigate = useNavigate();
-  
+
   // Images for the carousel with associated text
   const slides = [
     {
       image: '/images/home1.jpg',
-      title: 'Samedi 8 Mars 2025',
+      title: 'Samedi 8 Février 2026',
       subtitle: 'TOURNOI DE FOOTBALL À 7',
     },
     {
       image: '/images/home2.jpg',
-      title: 'Samedi 8 Mars 2025',
+      title: 'Samedi 8 février 2026',
       subtitle: 'OUVERTURE DES INSCRIPTIONS LE 15 JANVIER',
     },
   ];
@@ -86,10 +86,10 @@ const ScrollingImages = () => {
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
           <Button
-          href='/register'
+            href='/register'
             variant="outlined"
             sx={{
-                borderColor: 'white',
+              borderColor: 'white',
               backgroundColor: 'primary.main',
               color: 'white',
               fontWeight: 'bold',
@@ -100,35 +100,35 @@ const ScrollingImages = () => {
                 backgroundColor: 'primary.main',
                 borderColor: 'white',
 
-              },    
+              },
             }}
           >
-            <Typography sx={{color:'white',fontWeight:'bold',fontSize:'1rem'}}>
-            S'INSCRIRE
+            <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '1rem' }}>
+              S'INSCRIRE
             </Typography>
           </Button>
           <Button
-          href='/login'
+            href='/login'
             variant="outlined"
             sx={{
-                borderColor: 'white',
+              borderColor: 'white',
 
-              backgroundColor:'white',
+              backgroundColor: 'white',
               fontWeight: 'bold',
               borderRadius: '8px',
               padding: '1.6rem',
               width: '12rem',
-              py:"1.6rem",
-              fontcolor:'black',
+              py: "1.6rem",
+              fontcolor: 'black',
               ":hover": {
                 backgroundColor: 'white',
                 borderColor: 'white',
 
-              },            
+              },
             }}
           >
-            <Typography sx={{color:'black',fontWeight:'bold',fontSize:'1.0rem'}}>
-            SE CONNECTER
+            <Typography sx={{ color: 'black', fontWeight: 'bold', fontSize: '1.0rem' }}>
+              SE CONNECTER
             </Typography>
           </Button>
         </Box>

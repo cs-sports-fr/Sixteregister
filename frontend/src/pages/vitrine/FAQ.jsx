@@ -30,9 +30,9 @@ const FaqPractical = () => {
                             fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
                         }}
                     >
-                        Le Tournoi se déroule sur toute la journée avec 32 équipes pour les hommes et 16 pour les femmes. Le matin se jouera la phase de poule, et l'après-midi auront lieu la phase finale et le tournoi de consolantes. 
-                        Entre-temps, vous aurez l'occasion de reprendre des forces avec un repas chaud de qualité. 
-                        L'après-midi, vous aurez aussi la possibilité d'une visite exceptionnelle du musée des Bleus, 
+                        Le Tournoi se déroule sur toute la journée avec 32 équipes pour les hommes et 16 pour les femmes. Le matin se jouera la phase de poule, et l'après-midi auront lieu la phase finale et le tournoi de consolantes.
+                        Entre-temps, vous aurez l'occasion de reprendre des forces avec un repas chaud de qualité.
+                        L'après-midi, vous aurez aussi la possibilité d'une visite exceptionnelle du musée des Bleus,
                         prendre des photos devant la coupe du monde...
                     </Typography>
                 </Box>
@@ -49,8 +49,8 @@ const FaqPractical = () => {
                             fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
                         }}
                     >
-                        L’organisation ne prévoit pas de moyens de transports pour rejoindre le tournoi ; 
-                        les participants doivent se rendre en voiture ou en car sur place 
+                        L’organisation ne prévoit pas de moyens de transports pour rejoindre le tournoi ;
+                        les participants doivent se rendre en voiture ou en car sur place
                         (Château de Montjoye, 78120 Clairefontaine-en-Yvelines) (parking disponible).
                     </Typography>
                     <Box sx={{ width: '100%', height: '400px' }}>
@@ -85,7 +85,7 @@ const FaqPractical = () => {
                         <br />
                         <br />
 
-                        Elle inclut la collation du matin, le repas, la visite du musée ou château et le tournoi 
+                        Elle inclut la collation du matin, le repas, la visite du musée ou vestiaire des bleus et le tournoi
                         avec ses diverses activités.
                         <br /><br />
                     </Typography>
@@ -102,7 +102,7 @@ const FaqPractical = () => {
                             fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
                         }}
                     >
-                        Les coachs et les supporters <strong>ne peuvent pas</strong> venir au Sixte, seuls les 
+                        Les coachs et les supporters <strong>ne peuvent pas</strong> venir au Sixte, seuls les
                         joueurs étudiants le peuvent en s’inscrivant en équipe sur le site.
                     </Typography>
                 </Box>
@@ -118,10 +118,10 @@ const FaqPractical = () => {
                             fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
                         }}
                     >
-                        Une école peut inscrire au plus deux équipes dans le tournoi féminin et deux dans le 
-                        tournoi masculin. Si elle en inscrit deux dans un tournoi, l’équipe “deux” restera en 
-                        liste d’attente et ne pourra être validée avant le 15 février, date à laquelle elle 
-                        pourra être validée si son dossier est complet (paiement + chartes) et s’il reste 
+                        Une école peut inscrire au plus deux équipes dans le tournoi féminin et deux dans le
+                        tournoi masculin. Si elle en inscrit deux dans un tournoi, l’équipe “deux” restera en
+                        liste d’attente et ne pourra être validée avant le 15 février, date à laquelle elle
+                        pourra être validée si son dossier est complet (paiement + chartes) et s’il reste
                         de la place.
                     </Typography>
                 </Box>
@@ -137,7 +137,7 @@ const FaqPractical = () => {
                             fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
                         }}
                     >
-                        L’inscription ne peut être validée qu’une fois toutes les chartes signées 
+                        L’inscription ne peut être validée qu’une fois toutes les chartes signées
                         et le paiement effectué, l’inscription seule ne réserve pas la place.
                     </Typography>
                 </Box>
@@ -153,8 +153,8 @@ const FaqPractical = () => {
                             fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
                         }}
                     >
-                        Le matériel que doivent prévoir les joueurs : chaussures à crampons moulés 
-                        (les crampons vissés sont interdits sur terrains synthétiques), protège-tibias, 
+                        Le matériel que doivent prévoir les joueurs : chaussures à crampons moulés
+                        (les crampons vissés sont interdits sur terrains synthétiques), protège-tibias,
                         ballons d’échauffement (ballons non prêtés).
                     </Typography>
                 </Box>
@@ -192,7 +192,7 @@ const FaqPractical = () => {
                         >
                             alexandru.state@student-cs.fr
                         </Link>
-                         {" "}ou{" "} 
+                        {" "}ou{" "}
                         <Link
                             href="mailto:garance.asselin-de-williencourt@student-cs.fr"
                             sx={{ textDecoration: 'none' }}

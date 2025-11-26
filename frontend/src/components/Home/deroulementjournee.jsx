@@ -13,7 +13,7 @@ const Deroulementjournee = () => {
 
   const actiActivities = [
     { time: '08H00 - 17H00', title: "Village d'acti" },
-    { time: '11H30 - 13H30', title: 'Visite du château des bleus' },
+    { time: '11H30 - 13H30', title: 'Visite du vestiaire des bleus' },
     { time: '15H00 - 18H00', title: 'Visite musée des bleus' },
     { time: 'TOUTE LA JOURNEE', title: 'Photos de Clairefontaine' },
 
@@ -36,7 +36,7 @@ const Deroulementjournee = () => {
         my: '2rem',
         alignItems: 'center',
         width: '100%',
-        height:'auto',
+        height: 'auto',
       }}
     >
       <Box
@@ -132,7 +132,7 @@ const Deroulementjournee = () => {
         </Box>
 
         {/* Activities Cards */}
-        <Box sx={{ display: 'flex', flexDirection:{xs:'column',sm:'column',md:'column',lg:'row'}, alignItems:'center', justifyContent: 'center', gap: '2rem',mb:2 }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'column', md: 'column', lg: 'row' }, alignItems: 'center', justifyContent: 'center', gap: '2rem', mb: 2 }}>
           {activities.map((activity, index) => (
             <Box
               key={index}

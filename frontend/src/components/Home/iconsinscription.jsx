@@ -5,6 +5,8 @@ import palette from '../../themes/palette';
 import { SportsSoccer, Group } from '@mui/icons-material';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import CastleRoundedIcon from '@mui/icons-material/CastleRounded';
+import RoomIcon from '@mui/icons-material/MeetingRoom';
+
 
 const cardData = [
     {
@@ -18,9 +20,9 @@ const cardData = [
         text: 'Pouvoir jouer sur les pelouses qu’ont foulé l’équipe de France : que rêver de mieux ?',
     },
     {
-        icon: <CastleRoundedIcon sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: palette.primary.main, marginBottom: '1rem' }} />,
+        icon: <RoomIcon sx={{ fontSize: { md: '6rem', lg: '9rem' }, color: palette.primary.main, marginBottom: '1rem' }} />,
         title: 'UNE VISITE DE CLAIREFONTAINE',
-        text: 'Pour satisfaire ta passion jusqu’au bout, tu pourras éventuellement visiter le château et le musée des Bleus !',
+        text: 'Pour satisfaire ta passion jusqu’au bout, tu pourras visiter le musée des Bleus et leur vestiaire !',
     },
 ];
 
