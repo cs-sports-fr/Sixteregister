@@ -77,10 +77,20 @@ const ResultsPage = () => {
             { rank: "2NDE PLACE", team: "PÔLE LEONARD DE VINCI" },
             { rank: "3ÈME PLACE", team: "BORDEAUX MONTAIGNE" },
         ],
+        "2025M": [
+            { rank: "1ÈRE PLACE", team: "IFMKNF" },
+            { rank: "2NDE PLACE", team: "INSA ROUEN" },
+            { rank: "3ÈME PLACE", team: "MINES D'ALES" },
+        ],
+        "2025F": [
+            { rank: "1ÈRE PLACE", team: "PÔLE LEONARD DE VINCI" },
+            { rank: "2NDE PLACE", team: "AMOS LILLE" },
+            { rank: "3ÈME PLACE", team: "DROIT AIX" },
+        ],
     };
 
 
-    const years = ['2018M', '2018F', '2019M', '2019F', '2020M', '2020F', '2022M', '2022F', '2023M', '2023F', '2024M', '2024F'];
+    const years = ['2018M', '2018F', '2019M', '2019F', '2020M', '2020F', '2022M', '2022F', '2023M', '2023F', '2024M', '2024F', '2025M', '2025F'];
     const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down('sm')); // Adjust based on your theme
 
     // Only display the last 4 years on small screens
