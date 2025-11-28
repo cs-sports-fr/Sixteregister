@@ -15,7 +15,8 @@ const Video = () => {
         <Box
             id="video"
             sx={{
-                background: `linear-gradient(135deg, ${palette.secondary.dark} 0%, #0a2540 100%)`,
+                // background: `linear-gradient(135deg, ${palette.secondary.dark} 0%, #0a2540 100%)`,
+                background: 'white',
                 padding: { xs: '4rem 2rem', md: '5rem 3rem' },
                 position: 'relative',
                 overflow: 'hidden',
@@ -41,7 +42,7 @@ const Video = () => {
                     sx={{
                         fontWeight: 'bold',
                         fontSize: { xs: '2rem', sm: '3rem' },
-                        color: 'white',
+                        color: palette.primary.dark,
                         textTransform: 'uppercase',
                         marginBottom: '1rem',
                     }}

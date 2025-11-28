@@ -20,7 +20,8 @@ const Statistics = ({ }) => {
     return (
         <Box
             sx={{
-                background: `linear-gradient(135deg, ${palette.primary.dark} 0%, #0a2540 100%)`,
+                // background: `linear-gradient(135deg, ${palette.primary.dark} 0%, #0a2540 100%)`,
+                background: 'white',
                 padding: { xs: '4rem 2rem', md: '5rem 3rem' },
                 position: 'relative',
                 overflow: 'hidden',
@@ -51,7 +52,7 @@ const Statistics = ({ }) => {
                     sx={{
                         fontWeight: 'bold',
                         fontSize: { xs: '2rem', sm: '3rem' },
-                        color: 'white',
+                        color: palette.primary.dark,
                         textTransform: 'uppercase',
                     }}
                 >

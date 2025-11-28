@@ -142,8 +142,9 @@ const IconsInscription = () => {
             </Box>
             <Box
                 sx={{
-                    background: `linear-gradient(135deg, ${palette.primary.dark} 0%, #0a2540 100%)`,
-                    color: palette.secondary.light,
+                    // background: `linear-gradient(135deg, ${palette.primary.dark} 0%, #0a2540 100%)`,
+                    background: 'white',
+                    color: palette.primary.dark,
                     padding: { xs: '4rem 2rem', sm: '6rem 2rem' },
                     display: 'flex',
                     flexDirection: 'column',
