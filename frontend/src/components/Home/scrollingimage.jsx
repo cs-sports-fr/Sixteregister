@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
-import { Box, Typography, Button, IconButton } from '@mui/material';
+import { Box, Typography, IconButton } from '@mui/material';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
 
 const ScrollingImages = () => {
-  const navigate = useNavigate();
-
   // Images for the carousel with associated text
   const slides = [
     {
-      image: '/images/home1.jpg',
+      image: '/images/equipe_etoile.jpg',
       title: 'Samedi 8 Février 2026',
       subtitle: 'TOURNOI DE FOOTBALL À 7',
     },
     {
-      image: '/images/home2.jpg',
-      title: 'Samedi 8 février 2026',
-      subtitle: 'OUVERTURE DES INSCRIPTIONS LE 15 JANVIER',
+      image: '/images/entree.jpg',
+      title: 'Vivez l\'expérience Clairefontaine',
+      subtitle: 'JOUEZ LÀ OÙ LES LÉGENDES SE SONT ENTRAÎNÉES',
+    },
+    {
+      image: '/images/jeu 1.jpg',
+      title: 'Affrontez les meilleures écoles',
+      subtitle: 'UNE COMPÉTITION INTENSE ET CONVIVIALE',
+    },
+    {
+      image: '/images/coupe.jpg',
+      title: 'Des souvenirs inoubliables',
+      subtitle: 'REJOIGNEZ L\'AVENTURE DU SIXTE 2026',
     },
   ];
 
@@ -51,6 +58,7 @@ const ScrollingImages = () => {
           width: '100%',
           height: '100vh',
           objectFit: 'cover',
+          objectPosition: 'center 50%',
           position: 'absolute',
           zIndex: -2,
         }}
@@ -76,61 +84,65 @@ const ScrollingImages = () => {
           color: 'white',
           zIndex: 1,
           position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          minHeight: '400px',
         }}
       >
-        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 3 }}>
-          {slides[currentIndex].title}
-        </Typography>
-        <Typography variant="h2" sx={{ fontWeight: 'bold', mb: 5 }}>
-          {slides[currentIndex].subtitle}
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
-          <Button
-            href='/register'
-            variant="outlined"
-            sx={{
-              borderColor: 'white',
-              backgroundColor: 'primary.main',
-              color: 'white',
-              fontWeight: 'bold',
-              borderRadius: '8px',
-              padding: '1.6rem',
-              width: '12rem',
-              ":hover": {
-                backgroundColor: 'primary.main',
-                borderColor: 'white',
-
-              },
+        <Box
+          sx={{
+            minHeight: '120px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            mb: 5,
+          }}
+        >
+          <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 3 }}>
+            {slides[currentIndex].title}
+          </Typography>
+          <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
+            {slides[currentIndex].subtitle}
+          </Typography>
+        </Box>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 2,
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '15px',
+            padding: '1rem 1.5rem',
+            border: '2px solid rgba(255, 255, 255, 0.3)',
+            minWidth: '500px',
+            minHeight: '150px',
+          }}
+        >
+          <Typography 
+            sx={{ 
+              color: 'white', 
+              fontSize: { xs: '1.2rem', md: '1.5rem' },
+              fontWeight: '400',
+              letterSpacing: '1px',
             }}
           >
-            <Typography sx={{ color: 'white', fontWeight: 'bold', fontSize: '1rem' }}>
-              S'INSCRIRE
-            </Typography>
-          </Button>
-          <Button
-            href='/login'
-            variant="outlined"
-            sx={{
-              borderColor: 'white',
-
-              backgroundColor: 'white',
+            Ouverture des inscriptions le
+          </Typography>
+          <Typography 
+            sx={{ 
+              color: 'primary.red',
+              fontSize: { xs: '1.5rem', md: '2rem' },
               fontWeight: 'bold',
-              borderRadius: '8px',
-              padding: '1.6rem',
-              width: '12rem',
-              py: "1.6rem",
-              fontcolor: 'black',
-              ":hover": {
-                backgroundColor: 'white',
-                borderColor: 'white',
-
-              },
+              textShadow: '0 0 20px rgba(255, 107, 107, 0.5)',
+              letterSpacing: '2px',
             }}
           >
-            <Typography sx={{ color: 'black', fontWeight: 'bold', fontSize: '1.0rem' }}>
-              SE CONNECTER
-            </Typography>
-          </Button>
+            15 DÉCEMBRE 2025
+          </Typography>
         </Box>
       </Box>
 
