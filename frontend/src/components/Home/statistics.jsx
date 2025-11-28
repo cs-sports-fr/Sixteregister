@@ -72,11 +72,13 @@ const Statistics = ({ }) => {
             {/* Stats Cards */}
             <Box
                 sx={{
-                    display: 'flex',
-                    flexDirection: { xs: 'column', sm: 'column', md: 'row' },
-                    justifyContent: 'center',
-                    alignItems: 'stretch',
-                    gap: { xs: '2rem', md: '2.5rem' },
+                    display: 'grid',
+                    gridTemplateColumns: { 
+                        xs: 'repeat(2, 1fr)', 
+                        sm: 'repeat(2, 1fr)', 
+                        md: 'repeat(4, 1fr)' 
+                    },
+                    gap: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
                     maxWidth: '1400px',
                     margin: '0 auto',
                 }}
@@ -88,10 +90,8 @@ const Statistics = ({ }) => {
                             backgroundColor: 'rgba(255, 255, 255, 0.95)',
                             backdropFilter: 'blur(10px)',
                             borderRadius: '20px',
-                            padding: '2.5rem 2rem',
+                            padding: { xs: '2rem 1.5rem', md: '2.5rem 2rem' },
                             textAlign: 'center',
-                            flex: 1,
-                            minWidth: { xs: '100%', md: '220px' },
                             boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
                             transition: 'all 0.3s ease',
                             border: '2px solid rgba(255, 255, 255, 0.3)',
