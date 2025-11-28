@@ -38,7 +38,8 @@ const SECONDARY = {
     // lighter: '#D6E4FF',
     light: '#F4F5F8', //grisclair
     main: 'rgb(104, 106, 111)',//gris
-    dark: '#222429',
+    dark: 'rgba(5, 25, 57, 0.95)',
+    // dark: '#222429',
     // darker: '#091A7A',
     contrastText: '#f3f7f4',
 };
