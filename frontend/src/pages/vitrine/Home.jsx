@@ -15,7 +15,7 @@ const Home = () => {
 
     return (
         <LayoutUnauthenticated isDarkMode={isDarkMode}>
-            <Box sx={{ minHeight: '100vh', overflowX: 'hidden', width: '100%', margin: 0, padding: 0 }}> 
+            <Box sx={{height:'200vh'}}> 
                 <Scrollingimages/>
                 <IconsInscription/>
                 <Deroulementjournee/>

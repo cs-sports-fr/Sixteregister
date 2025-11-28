@@ -25,7 +25,7 @@ const styles = {
     padding: '0.5rem 0',
     transition: 'color 0.3s ease',
     "&:hover": {
-      color: 'primary.main',
+      color: 'primary.red',
     },
     "&::after": {
       content: '""',
@@ -34,7 +34,7 @@ const styles = {
       left: 0,
       width: '0%',
       height: '2px',
-      backgroundColor: 'primary.main',
+      backgroundColor: 'primary.red',
       transition: 'width 0.3s ease',
     },
     "&:hover::after": {
@@ -143,8 +143,8 @@ const NavbarVitrine = () => {
           variant="outlined"
           href='/register'
           sx={{
-            borderColor: 'primary.main',
-            backgroundColor: 'primary.main',
+            borderColor: 'primary.white',
+            backgroundColor: 'primary.red',
             color: 'white',
             width: '9rem',
             fontWeight: 'bold',
@@ -157,8 +157,8 @@ const NavbarVitrine = () => {
             transition: 'all 0.3s ease',
             ":hover": {
               backgroundColor: 'white',
-              color: 'primary.main',
-              borderColor: 'primary.main',
+              color: 'primary.red',
+              borderColor: 'primary.red',
               boxShadow: '0 6px 20px rgba(255, 107, 107, 0.4)',
               transform: 'translateY(-2px)',
             },

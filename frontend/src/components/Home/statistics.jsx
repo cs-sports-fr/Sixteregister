@@ -20,12 +20,10 @@ const Statistics = ({ }) => {
     return (
         <Box
             sx={{
-                background: `linear-gradient(135deg, ${palette.secondary.dark} 0%, #0a2540 100%)`,
-                paddingTop: { xs: '4rem', md: '5rem' },
-                paddingX: { xs: '2rem', md: '3rem' },
-                paddingBottom: { xs: '12rem', md: '14rem' },
+                background: `linear-gradient(135deg, ${palette.primary.dark} 0%, #0a2540 100%)`,
+                padding: { xs: '4rem 2rem', md: '5rem 3rem' },
                 position: 'relative',
-                overflow: 'visible',
+                overflow: 'hidden',
             }}
         >
             {/* Header Section */}
@@ -74,18 +72,13 @@ const Statistics = ({ }) => {
             {/* Stats Cards */}
             <Box
                 sx={{
-                    display: 'grid',
-                    gridTemplateColumns: { 
-                        xs: 'repeat(2, 1fr)',
-                        md: 'repeat(2, 1fr)',
-                        lg: 'repeat(4, 1fr)'
-                    },
-                    gap: { xs: '1.5rem', md: '2.5rem' },
+                    display: 'flex',
+                    flexDirection: { xs: 'column', sm: 'column', md: 'row' },
+                    justifyContent: 'center',
+                    alignItems: 'stretch',
+                    gap: { xs: '2rem', md: '2.5rem' },
                     maxWidth: '1400px',
                     margin: '0 auto',
-                    marginBottom: { xs: '-8rem', md: '-10rem' },
-                    position: 'relative',
-                    zIndex: 2,
                 }}
             >
                 {stats.map((stat, index) => (
@@ -95,8 +88,10 @@ const Statistics = ({ }) => {
                             backgroundColor: 'rgba(255, 255, 255, 0.95)',
                             backdropFilter: 'blur(10px)',
                             borderRadius: '20px',
-                            padding: { xs: '2rem 1.5rem', md: '2.5rem 2rem' },
+                            padding: '2.5rem 2rem',
                             textAlign: 'center',
+                            flex: 1,
+                            minWidth: { xs: '100%', md: '220px' },
                             boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
                             transition: 'all 0.3s ease',
                             border: '2px solid rgba(255, 255, 255, 0.3)',

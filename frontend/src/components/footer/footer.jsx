@@ -15,36 +15,69 @@ const Footer = ({ navigation }) => {
                     flexDirection:'column',
                     gap:'2rem',
                     alignItems: 'center',
-                    justifyContent:'center space-between',   
+                    justifyContent:'center',   
                     width:'100%',
+                    backgroundColor: 'white',
+                    paddingTop: '4rem',
                 }}
-
             >
-                <Box sx={{display:{xs:'flex',md:'flex',lg:'none'},flexDirection:'row',gap:'5rem',overflow:'hidden',mb:'2rem'}}>
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
+                {/* Section Sponsors avec animation */}
+                <Box sx={{ width: '100%', overflow: 'hidden', position: 'relative', paddingY: '2rem' }}>
+                    <Typography
+                        variant="h2"
+                        sx={{
+                            fontWeight: '600',
+                            textAlign: 'center',
+                            marginBottom: '3rem',
+                            fontSize: { xs: '0.9rem', sm: '1rem' },
+                            textTransform: 'uppercase',
+                            color: palette.primary.red,
+                            letterSpacing: '2px',
+                        }}
+                    >
+                        Nos partenaires
+                    </Typography>
+                    
+                    {/* Animation de défilement des logos */}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            gap: '5rem',
+                            animation: 'scroll 20s linear infinite',
+                            '@keyframes scroll': {
+                                '0%': { transform: 'translateX(0)' },
+                                '100%': { transform: 'translateX(-50%)' },
+                            },
+                        }}
+                    >
+                        {/* Premier set de logos */}
+                        <Box sx={{ display: 'flex', gap: '5rem', alignItems: 'center' }}>
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/logo_lydia.png" alt="Lydia" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/redbull_logo.png" alt="Red Bull" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/logo_lydia.png" alt="Lydia" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/redbull_logo.png" alt="Red Bull" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/logo_lydia.png" alt="Lydia" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/redbull_logo.png" alt="Red Bull" />
+                        </Box>
+                        {/* Duplication pour animation infinie */}
+                        <Box sx={{ display: 'flex', gap: '5rem', alignItems: 'center' }}>
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/logo_lydia.png" alt="Lydia" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/redbull_logo.png" alt="Red Bull" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/logo_lydia.png" alt="Lydia" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/redbull_logo.png" alt="Red Bull" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/logo_lydia.png" alt="Lydia" />
+                            <img style={{ height: '5rem', filter: 'grayscale(0%)', transition: 'all 0.3s ease' }} src="/images/redbull_logo.png" alt="Red Bull" />
+                        </Box>
+                    </Box>
                 </Box>
-                <Box sx={{display:{xs:'none',md:'none',lg:'flex'},flexDirection:'row',gap:'5rem',overflow:'hidden',mb:'2rem'}}>
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                </Box>
-                <Grid container spacing={2} justifyContent="space-between" alignItems="flex-start" sx={{display: 'flex',width: '100%',backgroundColor:'secondary.dark' }}>
-                    <Grid item sx={{
+                <Grid container sx={{display: 'flex',width: '100%', backgroundColor: 'secondary.dark'}}>
+                    <Grid item xs={12} md={9} sx={{
                         display : "flex",
                         lignItems: 'center',
                         justifyContent:'space-between',
                         gap:'1rem',
                         color:'white',
                         backgroundColor:'secondary.dark',
-                        width:'65%',
-                        
                     }}
                     >
                         <Grid container sx={{backgroundColor:'secondary.dark',py:'1rem'}} >
@@ -54,8 +87,8 @@ const Footer = ({ navigation }) => {
                                     <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>3, rue Joliot-Curie,<br/>
                                     Gif-sur-Yvette, 91190</Box>
                                     <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>
-                                    garance.asselin-de-williencourt@student-cs.fr
-                                    alexandru.state@student-cs.fr
+                                    laure.desurydaspermont@student-cs.fr
+                                    mathurin.lebrun@student-cs.fr
                                     </Box>
                                 </Box>
                                 <Box sx={{display:'flex',flexDirection:'rox',gap:'1rem'}}>
@@ -66,7 +99,7 @@ const Footer = ({ navigation }) => {
                                         display: 'flex',
                                         justifyContent: 'center',  
                                         alignItems: 'center',
-                                        backgroundColor: 'primary.main'     
+                                        backgroundColor: 'primary.red'     
                                     }}>
                                         <Link href="https://www.instagram.com/bds_centralesupelec/?hl=fr" > 
                                         <InstagramIcon sx={{ fontSize: { sm: '2rem', xs: '1rem' } ,color:'white','&:hover':{opacity:'0.7'}}} />
@@ -80,7 +113,7 @@ const Footer = ({ navigation }) => {
                                         display: 'flex',
                                         justifyContent: 'center', 
                                         alignItems: 'center',
-                                        backgroundColor: 'primary.main' 
+                                        backgroundColor: 'primary.red' 
                                             
                                     }}
                                     >
@@ -108,21 +141,19 @@ const Footer = ({ navigation }) => {
                             <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Accueil</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> A propos</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Planning </Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>L'équipe</Link>
+                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>L&apos;équipe</Link>
                                 <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Le récap 2024</Link>
                             </Grid> 
                         </Grid>
                     </Grid> 
-                    <Grid item sx={{
-                        backgroundColor: 'primary.main',
-                        width: '30%',
+                    <Grid item xs={12} md={3} sx={{
+                        backgroundColor: 'primary.red',
                         display: {xs:'none',md:'flex'},
                         justifyContent: 'center',
                         alignItems: 'center',                        
-                        padding: '2rem'
                     }}
                     >
-                        <img src="../images/Logo_BDS_Blanc.png" alt="logo bds" style={{ width: '60%', maxWidth: '100%' }}
+                        <img src="../images/Logo_BDS_Blanc.png" alt="logo bds" style={{ width: '40%', maxWidth: '100%' }}
                          />
                     </Grid>
                 </Grid>  
