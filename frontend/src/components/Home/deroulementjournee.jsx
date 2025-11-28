@@ -53,7 +53,7 @@ const Deroulementjournee = () => {
             fontWeight: 'bold',
             fontSize: { xs: '2rem', sm: '3rem' },
             marginBottom: '1rem',
-            color: palette.secondary.dark,
+            color: palette.primary.dark,
             textTransform: 'uppercase',
           }}
         >

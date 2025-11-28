@@ -73,7 +73,7 @@ const Card = ({ icon, title, text }) => (
             sx={{
                 fontWeight: 'bold',
                 marginBottom: '1rem',
-                color: palette.secondary.dark,
+                color: palette.primary.dark,
                 fontSize: { xs: '1.2rem', md: '1.4rem' },
                 transition: 'color 0.3s ease',
             }}
@@ -123,7 +123,7 @@ const IconsInscription = () => {
                         fontSize: { xs: '2rem', sm: '3rem' },
                         alignSelf: 'flex-start',
                         marginBottom: '1rem',
-                        color: palette.secondary.dark,
+                        color: palette.primary.dark,
                         textTransform: 'uppercase',
                     }}
                 >
@@ -142,7 +142,7 @@ const IconsInscription = () => {
             </Box>
             <Box
                 sx={{
-                    background: `linear-gradient(135deg, ${palette.secondary.dark} 0%, #0a2540 100%)`,
+                    background: `linear-gradient(135deg, ${palette.primary.dark} 0%, #0a2540 100%)`,
                     color: palette.secondary.light,
                     padding: { xs: '4rem 2rem', sm: '6rem 2rem' },
                     display: 'flex',
