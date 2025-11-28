@@ -5,7 +5,7 @@ import NavbarVitrine from "../navbar/NavbarVitrine";
 function LayoutUnauthenticated({ isDarkMode, children }) {
 
     return (
-        <Box>
+        <Box sx={{ width: '100%', overflowX: 'hidden', margin: 0, padding: 0 }}>
             <NavbarVitrine></NavbarVitrine>
             {children}
         </Box>
