@@ -26,7 +26,7 @@ const Deroulementjournee = () => {
   const activities = selectedCategory === 'SPORT' ? sportsActivities : actiActivities;
 
   return (
-    <Box sx={{ height: 'auto', backgroundColor: '#f8f9fa', padding: { xs: '3rem 1rem', md: '5rem 3rem' } }}>
+    <Box id="deroulement" sx={{ height: 'auto', backgroundColor: '#f8f9fa', padding: { xs: '3rem 1rem', md: '5rem 3rem' } }}>
       {/* Header Section */}
       <Box
         sx={{

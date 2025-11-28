@@ -3,7 +3,6 @@ import { Box, Typography, IconButton, Collapse, Link } from '@mui/material';
 import LayoutUnauthenticated from '../../components/layouts/LayoutUnauthenticated';
 import Footer from '../../components/footer/footer';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import palette from '../../themes/palette';
 
 const FaqPractical = () => {
@@ -25,14 +24,15 @@ const FaqPractical = () => {
                 <Box sx={{ mt: 2 }}>
                     <Typography
                         sx={{
-                            color: palette.secondary.main,
+                            color: 'rgba(255, 255, 255, 0.9)',
                             mb: 2,
-                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
                         }}
                     >
-                        Le Tournoi se déroule sur toute la journée avec 32 équipes pour les hommes et 16 pour les femmes. Le matin se jouera la phase de poule, et l'après-midi auront lieu la phase finale et le tournoi de consolantes.
-                        Entre-temps, vous aurez l'occasion de reprendre des forces avec un repas chaud de qualité.
-                        L'après-midi, vous aurez aussi la possibilité d'une visite exceptionnelle du musée des Bleus,
+                        Le Tournoi se déroule sur toute la journée avec 32 équipes pour les hommes et 16 pour les femmes. Le matin se jouera la phase de poule, et l&apos;après-midi auront lieu la phase finale et le tournoi de consolantes.
+                        Entre-temps, vous aurez l&apos;occasion de reprendre des forces avec un repas chaud de qualité.
+                        L&apos;après-midi, vous aurez aussi la possibilité d&apos;une visite exceptionnelle du musée des Bleus,
                         prendre des photos devant la coupe du monde...
                     </Typography>
                 </Box>
@@ -44,12 +44,13 @@ const FaqPractical = () => {
                 <Box sx={{ mt: 2 }}>
                     <Typography
                         sx={{
-                            color: palette.secondary.main,
+                            color: 'rgba(255, 255, 255, 0.9)',
                             mb: 2,
-                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
                         }}
                     >
-                        L’organisation ne prévoit pas de moyens de transports pour rejoindre le tournoi ;
+                        L&apos;organisation ne prévoit pas de moyens de transports pour rejoindre le tournoi ;
                         les participants doivent se rendre en voiture ou en car sur place
                         (Château de Montjoye, 78120 Clairefontaine-en-Yvelines) (parking disponible).
                     </Typography>
@@ -73,15 +74,16 @@ const FaqPractical = () => {
                 <Box sx={{ mt: 2 }}>
                     <Typography
                         sx={{
-                            color: palette.secondary.main,
-                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
                         }}
                     >
-                        L'inscription au tournoi est de <strong style={{ color: palette.primary.main }}>46€</strong> par participant.
+                        L&apos;inscription au tournoi est de <strong style={{ color: palette.primary.red }}>46€</strong> par participant.
                         <br />
-                        Pour les boursiers, elle s'élève à <strong style={{ color: palette.primary.main }}>28€</strong> sous présentation du justificatif.
+                        Pour les boursiers, elle s&apos;élève à <strong style={{ color: palette.primary.red }}>28€</strong> sous présentation du justificatif.
                         <br />
-                        Pour les électrocentraliens, elle s'élève à <strong style={{ color: palette.primary.main }}>35€</strong> sous présentation du justificatif.
+                        Pour les électrocentraliens, elle s&apos;élève à <strong style={{ color: palette.primary.red }}>35€</strong> sous présentation du justificatif.
                         <br />
                         <br />
 
@@ -98,12 +100,13 @@ const FaqPractical = () => {
                 <Box sx={{ mt: 2 }}>
                     <Typography
                         sx={{
-                            color: palette.secondary.main,
-                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
                         }}
                     >
                         Les coachs et les supporters <strong>ne peuvent pas</strong> venir au Sixte, seuls les
-                        joueurs étudiants le peuvent en s’inscrivant en équipe sur le site.
+                        joueurs étudiants le peuvent en s&apos;inscrivant en équipe sur le site.
                     </Typography>
                 </Box>
             )
@@ -114,14 +117,15 @@ const FaqPractical = () => {
                 <Box sx={{ mt: 2 }}>
                     <Typography
                         sx={{
-                            color: palette.secondary.main,
-                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
                         }}
                     >
                         Une école peut inscrire au plus deux équipes dans le tournoi féminin et deux dans le
-                        tournoi masculin. Si elle en inscrit deux dans un tournoi, l’équipe “deux” restera en
-                        liste d’attente et ne pourra être validée avant le 15 février, date à laquelle elle
-                        pourra être validée si son dossier est complet (paiement + chartes) et s’il reste
+                        tournoi masculin. Si elle en inscrit deux dans un tournoi, l&apos;équipe &quot;deux&quot; restera en
+                        liste d&apos;attente et ne pourra être validée avant le 15 février, date à laquelle elle
+                        pourra être validée si son dossier est complet (paiement + chartes) et s&apos;il reste
                         de la place.
                     </Typography>
                 </Box>
@@ -133,12 +137,13 @@ const FaqPractical = () => {
                 <Box sx={{ mt: 2 }}>
                     <Typography
                         sx={{
-                            color: palette.secondary.main,
-                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
                         }}
                     >
-                        L’inscription ne peut être validée qu’une fois toutes les chartes signées
-                        et le paiement effectué, l’inscription seule ne réserve pas la place.
+                        L&apos;inscription ne peut être validée qu&apos;une fois toutes les chartes signées
+                        et le paiement effectué, l&apos;inscription seule ne réserve pas la place.
                     </Typography>
                 </Box>
             )
@@ -149,13 +154,14 @@ const FaqPractical = () => {
                 <Box sx={{ mt: 2 }}>
                     <Typography
                         sx={{
-                            color: palette.secondary.main,
-                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
                         }}
                     >
                         Le matériel que doivent prévoir les joueurs : chaussures à crampons moulés
                         (les crampons vissés sont interdits sur terrains synthétiques), protège-tibias,
-                        ballons d’échauffement (ballons non prêtés).
+                        ballons d&apos;échauffement (ballons non prêtés).
                     </Typography>
                 </Box>
             )
@@ -166,8 +172,9 @@ const FaqPractical = () => {
                 <Box sx={{ mt: 2 }}>
                     <Typography
                         sx={{
-                            color: palette.secondary.main,
-                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
                         }}
                     >
                         La buvette propose des boissons chaudes et froides.
@@ -181,23 +188,34 @@ const FaqPractical = () => {
                 <Box sx={{ mt: 2 }}>
                     <Typography
                         sx={{
-                            color: palette.secondary.main,
-                            fontSize: { xs: '1.2rem', sm: '1.2rem', md: '1.2rem', lg: '1rem' },
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
                         }}
                     >
                         Envoie un mail à{" "}
                         <Link
-                            href="mailto:alexandru.state@student-cs.fr"
-                            sx={{ textDecoration: 'none' }}
+                            href="mailto:mathurin.lebrun@student-cs.fr"
+                            sx={{ 
+                                textDecoration: 'none',
+                                color: palette.primary.red,
+                                fontWeight: 'bold',
+                                '&:hover': { textDecoration: 'underline' }
+                            }}
                         >
-                            alexandru.state@student-cs.fr
+                            mathurin.lebrun@student-cs.fr
                         </Link>
                         {" "}ou{" "}
                         <Link
-                            href="mailto:garance.asselin-de-williencourt@student-cs.fr"
-                            sx={{ textDecoration: 'none' }}
+                            href="mailto:laure.desurydaspermont@student-cs.fr"
+                            sx={{ 
+                                textDecoration: 'none',
+                                color: palette.primary.red,
+                                fontWeight: 'bold',
+                                '&:hover': { textDecoration: 'underline' }
+                            }}
                         >
-                            garance.asselin-de-williencourt@student-cs.fr
+                            laure.desurydaspermont@student-cs.fr
                         </Link>
                     </Typography>
                 </Box>
@@ -214,60 +232,128 @@ const FaqPractical = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     minHeight: '100vh',
-                    backgroundPosition: 'center',
+                    background: `linear-gradient(135deg, ${palette.primary.dark} 0%, #0a2540 100%)`,
                     alignItems: 'center',
                     width: '100%',
                     overflow: 'hidden'
                 }}
             >
                 {/* Header Title */}
-                <Box sx={{ height: '20vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Box 
+                    sx={{ 
+                        height: 'auto',
+                        width: '100%', 
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center', 
+                        alignItems: 'center',
+                        paddingTop: { xs: '10rem', md: '12rem' },
+                        paddingBottom: '3rem',
+                        textAlign: 'center',
+                    }}
+                >
                     <Typography
                         variant="h2"
                         sx={{
-                            mt: '8rem',
+                            fontWeight: '600',
+                            marginBottom: '0.5rem',
+                            fontSize: { xs: '0.9rem', sm: '1rem' },
+                            textTransform: 'uppercase',
+                            color: palette.primary.red,
+                            letterSpacing: '2px',
+                        }}
+                    >
+                        FAQ
+                    </Typography>
+                    <Typography
+                        variant="h2"
+                        sx={{
                             fontWeight: 'bold',
-                            fontSize: '3rem',
-                            color: 'black',
+                            fontSize: { xs: '2rem', sm: '3rem' },
+                            color: 'white',
                             textTransform: 'uppercase',
                         }}
                     >
-                        Infos Pratiques
+                        Infos{' '}
+                        <Box 
+                            component="span" 
+                            sx={{ 
+                                color: palette.primary.red,
+                                textShadow: '0 0 20px rgba(255, 107, 107, 0.3)',
+                            }}
+                        >
+                            PRATIQUES
+                        </Box>
                     </Typography>
                 </Box>
 
                 {/* Collapsible FAQ Entries */}
-                <Box sx={{ width: '80%', maxWidth: '1000px' }}>
+                <Box sx={{ width: '90%', maxWidth: '1200px', paddingBottom: '4rem' }}>
                     {faqEntries.map((item, index) => (
-                        <Box key={index} sx={{ mb: 2 }}>
+                        <Box 
+                            key={index} 
+                            sx={{ 
+                                mb: 3,
+                                animation: `fadeIn 0.5s ease-out ${index * 0.1}s`,
+                                animationFillMode: 'backwards',
+                                '@keyframes fadeIn': {
+                                    '0%': { opacity: 0, transform: 'translateY(20px)' },
+                                    '100%': { opacity: 1, transform: 'translateY(0)' },
+                                },
+                            }}
+                        >
                             <Box
                                 onClick={() => handleExpandClick(index)}
                                 sx={{
-                                    p: 2,
-                                    backgroundColor: expandedIndices.includes(index) ? 'grey.200' : 'transparent',
-                                    borderRadius: '15px',
-                                    ':hover': {
-                                        backgroundColor: 'grey.200',
-                                        cursor: 'pointer'
+                                    p: { xs: 2, md: 3 },
+                                    backgroundColor: expandedIndices.includes(index) 
+                                        ? 'rgba(255, 255, 255, 0.15)' 
+                                        : 'rgba(255, 255, 255, 0.05)',
+                                    backdropFilter: 'blur(10px)',
+                                    borderRadius: '20px',
+                                    border: expandedIndices.includes(index)
+                                        ? `2px solid ${palette.primary.red}`
+                                        : '2px solid rgba(255, 255, 255, 0.1)',
+                                    transition: 'all 0.3s ease',
+                                    cursor: 'pointer',
+                                    boxShadow: expandedIndices.includes(index)
+                                        ? '0 10px 40px rgba(255, 107, 107, 0.3)'
+                                        : '0 5px 20px rgba(0, 0, 0, 0.2)',
+                                    '&:hover': {
+                                        backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                                        transform: 'translateY(-5px)',
+                                        boxShadow: '0 15px 50px rgba(255, 107, 107, 0.4)',
+                                        border: `2px solid ${palette.primary.red}`,
                                     }
                                 }}
                             >
                                 {/* Question row */}
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                    <IconButton sx={{ display: { xs: 'none', sm: 'flex' } }}>
-                                        {expandedIndices.includes(index)
-                                            ? <ExpandLessIcon sx={{ color: 'grey.800' }} />
-                                            : <ExpandMoreIcon sx={{ color: 'grey.800' }} />
-                                        }
+                                    <IconButton 
+                                        sx={{ 
+                                            display: { xs: 'none', sm: 'flex' },
+                                            color: palette.primary.red,
+                                            transition: 'transform 0.3s ease',
+                                            transform: expandedIndices.includes(index) ? 'rotate(180deg)' : 'rotate(0deg)',
+                                        }}
+                                    >
+                                        <ExpandMoreIcon sx={{ fontSize: '2rem' }} />
                                     </IconButton>
-                                    <Typography sx={{ color: 'grey.800', fontWeight: 'bold', fontSize: { xs: '1.2rem', md: '1.3rem' } }}>
+                                    <Typography 
+                                        sx={{ 
+                                            color: 'white', 
+                                            fontWeight: 'bold', 
+                                            fontSize: { xs: '1.1rem', md: '1.3rem' },
+                                            letterSpacing: '0.5px',
+                                        }}
+                                    >
                                         {item.question}
                                     </Typography>
                                 </Box>
 
                                 {/* Collapsible content */}
                                 <Collapse in={expandedIndices.includes(index)} timeout="auto" unmountOnExit>
-                                    <Box sx={{ mt: 2 }}>
+                                    <Box sx={{ mt: 3, pl: { xs: 0, sm: '3.5rem' } }}>
                                         {item.answer}
                                     </Box>
                                 </Collapse>

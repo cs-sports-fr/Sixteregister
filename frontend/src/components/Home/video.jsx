@@ -13,6 +13,7 @@ const Video = () => {
 
     return (
         <Box
+            id="video"
             sx={{
                 background: `linear-gradient(135deg, ${palette.secondary.dark} 0%, #0a2540 100%)`,
                 padding: { xs: '4rem 2rem', md: '5rem 3rem' },

@@ -138,11 +138,57 @@ const Footer = ({ navigation }) => {
 
                             <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
                             <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>NAVIGATION RAPIDE</Typography>   
-                            <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Accueil</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> A propos</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Planning </Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>L&apos;équipe</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Le récap 2024</Link>
+                            <Link 
+                                href="/#deroulement" 
+                                color="inherit" 
+                                underline="none" 
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const element = document.getElementById('deroulement');
+                                    if (element) {
+                                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    } else {
+                                        window.location.href = '/#deroulement';
+                                    }
+                                }}
+                                sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' }, cursor: 'pointer' }}
+                            > 
+                                Planning 
+                            </Link>
+                            <Link 
+                                href="/#sixtemen" 
+                                color="inherit" 
+                                underline="none"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const element = document.getElementById('sixtemen');
+                                    if (element) {
+                                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    } else {
+                                        window.location.href = '/#sixtemen';
+                                    }
+                                }}
+                                sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' }, cursor: 'pointer' }}
+                            >
+                                L&apos;équipe
+                            </Link>
+                            <Link 
+                                href="/#video" 
+                                color="inherit" 
+                                underline="none"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const element = document.getElementById('video');
+                                    if (element) {
+                                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    } else {
+                                        window.location.href = '/#video';
+                                    }
+                                }}
+                                sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' }, cursor: 'pointer' }}
+                            > 
+                                Le récap 2025
+                            </Link>
                             </Grid> 
                         </Grid>
                     </Grid> 
