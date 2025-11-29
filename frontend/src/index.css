@@ -1,8 +1,10 @@
 html, body, #root {
   height: 100vh;
   margin: 0;
+  padding: 0;
   min-height: 100vh;
   font-family: 'Oswald', sans-serif; /* Updated to use Rubik font */
+  overflow-x: hidden;
 }
 
 :root {

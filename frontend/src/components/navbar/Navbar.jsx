@@ -23,7 +23,7 @@ const Navbar = ({ navigation }) => {
                     <Box>
                         <a href="/">
                         <img
-                            src="/images/logo_sixte.png"
+                            src="/images/logo_sixte25.PNG"
                             alt="Logo Toss"
                             width={50}
                             height={50}

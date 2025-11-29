@@ -9,42 +9,14 @@ const Footer = ({ navigation }) => {
     const theme = useTheme();
     return (
         <>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection:'column',
-                    gap:'2rem',
-                    alignItems: 'center',
-                    justifyContent:'center space-between',   
-                    width:'100%',
-                }}
-
-            >
-                <Box sx={{display:{xs:'flex',md:'flex',lg:'none'},flexDirection:'row',gap:'5rem',overflow:'hidden',mb:'2rem'}}>
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
-                </Box>
-                <Box sx={{display:{xs:'none',md:'none',lg:'flex'},flexDirection:'row',gap:'5rem',overflow:'hidden',mb:'2rem'}}>
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/redbull_logo.png" alt="" />
-                    <img style={{height:'5rem'}} src="/images/logo_lydia.png" alt="" />
-                </Box>
-                <Grid container spacing={2} justifyContent="space-between" alignItems="flex-start" sx={{display: 'flex',width: '100%',backgroundColor:'secondary.dark' }}>
-                    <Grid item sx={{
+                <Grid container sx={{display: 'flex',width: '100%', backgroundColor: 'secondary.dark'}}>
+                    <Grid item xs={12} md={9} sx={{
                         display : "flex",
                         lignItems: 'center',
                         justifyContent:'space-between',
                         gap:'1rem',
                         color:'white',
                         backgroundColor:'secondary.dark',
-                        width:'65%',
-                        
                     }}
                     >
                         <Grid container sx={{backgroundColor:'secondary.dark',py:'1rem'}} >
@@ -54,8 +26,8 @@ const Footer = ({ navigation }) => {
                                     <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>3, rue Joliot-Curie,<br/>
                                     Gif-sur-Yvette, 91190</Box>
                                     <Box color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>
-                                    garance.asselin-de-williencourt@student-cs.fr
-                                    alexandru.state@student-cs.fr
+                                    laure.desurydaspermont@student-cs.fr
+                                    mathurin.lebrun@student-cs.fr
                                     </Box>
                                 </Box>
                                 <Box sx={{display:'flex',flexDirection:'rox',gap:'1rem'}}>
@@ -66,7 +38,7 @@ const Footer = ({ navigation }) => {
                                         display: 'flex',
                                         justifyContent: 'center',  
                                         alignItems: 'center',
-                                        backgroundColor: 'primary.main'     
+                                        backgroundColor: 'primary.red'     
                                     }}>
                                         <Link href="https://www.instagram.com/bds_centralesupelec/?hl=fr" > 
                                         <InstagramIcon sx={{ fontSize: { sm: '2rem', xs: '1rem' } ,color:'white','&:hover':{opacity:'0.7'}}} />
@@ -80,7 +52,7 @@ const Footer = ({ navigation }) => {
                                         display: 'flex',
                                         justifyContent: 'center', 
                                         alignItems: 'center',
-                                        backgroundColor: 'primary.main' 
+                                        backgroundColor: 'primary.red' 
                                             
                                     }}
                                     >
@@ -105,28 +77,71 @@ const Footer = ({ navigation }) => {
 
                             <Grid item sx={{backgroundColor:'secondary.dark',color:"grey.400"}}>
                             <Typography variant='h5' sx={{fontWeight:'bold',mb:'1rem'}}>NAVIGATION RAPIDE</Typography>   
-                            <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Accueil</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> A propos</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Planning </Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}>L'équipe</Link>
-                                <Link href="" color="inherit" underline="none" sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' } }}> Le récap 2024</Link>
+                            <Link 
+                                href="/#deroulement" 
+                                color="inherit" 
+                                underline="none" 
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const element = document.getElementById('deroulement');
+                                    if (element) {
+                                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    } else {
+                                        window.location.href = '/#deroulement';
+                                    }
+                                }}
+                                sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' }, cursor: 'pointer' }}
+                            > 
+                                Planning 
+                            </Link>
+                            <Link 
+                                href="/#sixtemen" 
+                                color="inherit" 
+                                underline="none"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const element = document.getElementById('sixtemen');
+                                    if (element) {
+                                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    } else {
+                                        window.location.href = '/#sixtemen';
+                                    }
+                                }}
+                                sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' }, cursor: 'pointer' }}
+                            >
+                                L&apos;équipe
+                            </Link>
+                            <Link 
+                                href="/#video" 
+                                color="inherit" 
+                                underline="none"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const element = document.getElementById('video');
+                                    if (element) {
+                                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    } else {
+                                        window.location.href = '/#video';
+                                    }
+                                }}
+                                sx={{ display: 'block',marginBottom: theme.spacing(1), fontSize: { sm: '1rem', xs: '0.6rem' }, cursor: 'pointer' }}
+                            > 
+                                Le récap 2025
+                            </Link>
                             </Grid> 
                         </Grid>
                     </Grid> 
-                    <Grid item sx={{
-                        backgroundColor: 'primary.main',
-                        width: '30%',
+                    <Grid item xs={12} md={3} sx={{
+                        backgroundColor: 'primary.red',
                         display: {xs:'none',md:'flex'},
                         justifyContent: 'center',
                         alignItems: 'center',                        
-                        padding: '2rem'
                     }}
                     >
-                        <img src="../images/Logo_BDS_Blanc.png" alt="logo bds" style={{ width: '60%', maxWidth: '100%' }}
+                        <img src="../images/Logo_BDS_Blanc.png" alt="logo bds" style={{ width: '40%', maxWidth: '100%' }}
                          />
                     </Grid>
                 </Grid>  
-            </Box>
         </>
     )
 };
