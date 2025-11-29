@@ -7,6 +7,7 @@ import Statistics from "../../components/Home/statistics";
 import Scrollingimages from "../../components/Home/scrollingimage";
 import Video from "../../components/Home/video";
 import Footer from "../../components/footer/footer";
+import Sponsors from "../../components/footer/sponsors";
 import IconsInscription from "../../components/Home/iconsinscription";
 const Home = () => {
     const isDarkMode = false;
@@ -22,6 +23,7 @@ const Home = () => {
                 <Statistics/>
                 <Sixtemen/>
                 <Video/>
+                <Sponsors/>
                 <Footer/>
 
             </Box>

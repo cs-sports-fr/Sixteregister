@@ -45,7 +45,7 @@ const ScrollingImages = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '80vh',
+        height: '75vh',
         overflow: 'hidden',
         paddingTop: { xs: '0rem', md: '5rem' },
       }}

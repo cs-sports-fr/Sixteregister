@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import * as yup from 'yup';
 import { ApiTossNotConnected } from "../service/axios";
 import axios from "axios";
+import palette from "../themes/palette";
 
 const Register = () => {
     const isDarkMode = true;
@@ -128,8 +129,12 @@ const Register = () => {
                         }}
                     >
                     </Grid>
-                    <Grid item md={12} lg={6} >
-                        <Grid py={'10vh'} px={'13%'} sx={{}}>
+                    <Grid item md={12} lg={6} sx={{ position: 'relative' }}>
+                        <Grid py={'10vh'} px={'13%'} sx={{ 
+                            filter: 'grayscale(100%) opacity(0.3)',
+                            pointerEvents: 'none',
+                            userSelect: 'none',
+                        }}>
                             <Typography sx={{
                                 fontSize: '3rem',
                                 fontWeight: 'bold',
@@ -342,6 +347,70 @@ const Register = () => {
                                 </Grid>
                             </form>
                         </Grid>
+                        
+                        {/* Overlay Message */}
+                        <Box
+                            sx={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                pointerEvents: 'none',
+                                zIndex: 10,
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    transform: 'rotate(-15deg)',
+                                    backgroundColor: palette.primary.red,
+                                    padding: { xs: '2rem 3rem', md: '3rem 5rem' },
+                                    borderRadius: '25px',
+                                    boxShadow: '0 20px 80px rgba(255, 107, 107, 0.6)',
+                                    border: '4px solid white',
+                                    textAlign: 'center',
+                                    backdropFilter: 'blur(10px)',
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        color: 'white',
+                                        fontWeight: 'bold',
+                                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '3rem' },
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '2px',
+                                        marginBottom: '1rem',
+                                        textShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
+                                    }}
+                                >
+                                    Inscriptions fermées
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: 'white',
+                                        fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
+                                        fontWeight: '500',
+                                        marginBottom: '0.5rem',
+                                    }}
+                                >
+                                    Ouverture le
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: 'white',
+                                        fontWeight: 'bold',
+                                        fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.8rem', lg: '3.5rem' },
+                                        textShadow: '0 0 30px rgba(255, 255, 255, 0.8)',
+                                        letterSpacing: '3px',
+                                    }}
+                                >
+                                    15 DÉCEMBRE 2025
+                                </Typography>
+                            </Box>
+                        </Box>
                     </Grid>
                 </Grid >
             </Box>
