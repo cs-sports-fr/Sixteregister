@@ -24,9 +24,9 @@ const Photo = () => {
                 {/* Header Section */}
                 <Box 
                     sx={{
-                        paddingTop: { xs: '10rem', md: '12rem' },
-                        paddingBottom: { xs: '3rem', md: '4rem' },
-                        paddingX: { xs: '2rem', md: '3rem' },
+                        paddingTop: { xs: '8rem', md: '12rem' },
+                        paddingBottom: { xs: '2rem', md: '4rem' },
+                        paddingX: { xs: '1.5rem', md: '3rem' },
                         textAlign: 'center',
                         backgroundColor: 'white',
                     }}
@@ -36,7 +36,7 @@ const Photo = () => {
                         sx={{
                             fontWeight: '600',
                             marginBottom: '0.5rem',
-                            fontSize: { xs: '0.9rem', sm: '1rem' },
+                            fontSize: { xs: '0.8rem', sm: '1rem' },
                             textTransform: 'uppercase',
                             color: palette.primary.red,
                             letterSpacing: '2px',
@@ -48,9 +48,10 @@ const Photo = () => {
                         variant="h2"
                         sx={{
                             fontWeight: 'bold',
-                            fontSize: { xs: '2rem', sm: '3rem' },
+                            fontSize: { xs: '1.5rem', sm: '2.5rem', md: '3rem' },
                             color: palette.primary.dark,
                             textTransform: 'uppercase',
+                            lineHeight: 1.2,
                         }}
                     >
                         Photos du{' '}
@@ -69,17 +70,13 @@ const Photo = () => {
                 {/* Photos Grid */}
                 <Box 
                     sx={{
-                        width: '100%',
+                        width: { xs: '90%', md: '90%', lg: '100%' },
                         maxWidth: '1400px',
                         margin: '0 auto',
-                        padding: { xs: '2rem 1rem', md: '3rem 2rem' },
+                        padding: { xs: '2rem 1rem', md: '3rem 0.5rem', lg: '3rem 2rem' },
                         display: 'grid',
-                        gridTemplateColumns: { 
-                            xs: '1fr', 
-                            sm: 'repeat(2, 1fr)', 
-                            md: 'repeat(3, 1fr)' 
-                        },
-                        gap: { xs: '1.5rem', md: '2rem' },
+                        gridTemplateColumns: 'repeat(2, 1fr)',
+                        gap: { xs: '1rem', sm: '1.5rem', md: '2rem' },
                     }}
                 >
                     {photos.map((photo, index) => (
@@ -141,7 +138,7 @@ const Photo = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         flexDirection: 'column',
-                        padding: { xs: '4rem 2rem', md: '5rem 3rem' },
+                        padding: { xs: '3rem 1.5rem', md: '5rem 3rem' },
                         backgroundColor: 'white',
                         gap: '2rem',
                     }}
@@ -149,10 +146,11 @@ const Photo = () => {
                     <Typography 
                         sx={{
                             color: palette.primary.dark,
-                            fontSize: { xs: '1rem', md: '1.2rem' },
+                            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.2rem' },
                             textAlign: 'center',
                             maxWidth: '800px',
                             lineHeight: 1.8,
+                            paddingX: { xs: '1rem', md: '0' },
                         }}
                     >
                         Merci à{' '}
@@ -171,10 +169,11 @@ const Photo = () => {
                     <Typography 
                         sx={{
                             color: palette.primary.dark,
-                            fontSize: { xs: '1.2rem', md: '1.5rem' },
+                            fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
                             textAlign: 'center',
                             fontWeight: 'bold',
                             marginTop: '1rem',
+                            paddingX: { xs: '1rem', md: '0' },
                         }}
                     >
                         Retrouvez la galerie complète sur leur site :
@@ -190,7 +189,7 @@ const Photo = () => {
                             flexDirection: 'column',
                             alignItems: 'center',
                             gap: '1rem',
-                            padding: '2rem 3rem',
+                            padding: { xs: '1.5rem 2rem', md: '2rem 3rem' },
                             backgroundColor: 'rgba(255, 255, 255, 0.95)',
                             borderRadius: '20px',
                             boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
@@ -200,6 +199,8 @@ const Photo = () => {
                             cursor: 'pointer',
                             position: 'relative',
                             overflow: 'hidden',
+                            width: { xs: '90%', sm: 'auto' },
+                            maxWidth: { xs: '400px', md: 'none' },
                             '&::before': {
                                 content: '""',
                                 position: 'absolute',
