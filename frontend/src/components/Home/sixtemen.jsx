@@ -163,7 +163,7 @@ const Sixtemen = () => {
   return (
     <Box id="sixtemen" sx={{
       backgroundColor: 'white',
-      padding: { xs: '4rem 2rem', md: '5rem 3rem' },
+      // padding: { xs: '4rem 2rem', md: '5rem 3rem' },
       textAlign: 'center',
       width: '100%',
     }}>

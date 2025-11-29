@@ -140,7 +140,7 @@ const Video = () => {
                             sx={{
                                 fontSize: { xs: '1rem', md: '1.1rem' },
                                 lineHeight: 1.8,
-                                color: 'white',
+                                color: palette.primary.dark,
                                 marginBottom: '2rem',
                             }}
                         >
@@ -158,7 +158,7 @@ const Video = () => {
                                 sx={{
                                     fontSize: '0.85rem',
                                     textTransform: 'uppercase',
-                                    color: palette.grey[400],
+                                    color: palette.grey[700],
                                     letterSpacing: '1px',
                                     lineHeight: 1.6,
                                 }}
