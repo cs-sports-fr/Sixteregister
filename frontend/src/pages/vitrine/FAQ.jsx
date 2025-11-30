@@ -167,7 +167,7 @@ const FaqPractical = () => {
             )
         },
         {
-            question: "Qu’est-ce que propose la buvette ?",
+            question: "Que propose la buvette ?",
             answer: (
                 <Box sx={{ mt: 2 }}>
                     <Typography

@@ -7,7 +7,7 @@ const ScrollingImages = () => {
   const slides = [
     {
       image: '/images/equipe_etoile.jpg',
-      title: 'Samedi 8 Février 2026',
+      title: 'Samedi 7 Février 2026',
       subtitle: 'TOURNOI DE FOOTBALL À 7',
     },
     {
