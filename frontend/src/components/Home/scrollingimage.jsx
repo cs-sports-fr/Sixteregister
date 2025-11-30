@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
@@ -28,6 +28,15 @@ const ScrollingImages = () => {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-scroll every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
   // Handlers for navigation
   const handlePrev = () => {
