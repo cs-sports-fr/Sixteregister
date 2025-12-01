@@ -16,6 +16,7 @@ const Sponsor = () => {
                                         fontSize: '3rem',
                                         color: 'black',
                                         textTransform: 'uppercase',
+                                        paddingTop: '5rem',
                                     }}
                                 >
                                  Nos Partenaires
@@ -24,8 +25,20 @@ const Sponsor = () => {
               
                <Box sx={{display:'flex',
     alignItems: "center",
-    justifyContent: "space-between"}}>
-                <img style={{height:'20rem'}} src="/images/redbull_logo.png" alt="" />
+    justifyContent: "space-between",
+    paddingBottom: "6rem",
+    paddingLeft:'4rem',}}>
+                <Box
+                    component="img"
+                    src="/images/redbull_logo.png"
+                    alt="Red Bull Logo"
+                    sx={{
+                        height: { xs: '5rem', sm: '7rem', md: '10rem', lg: '15rem' },
+                        width: 'auto',
+                        objectFit: 'contain',
+                        paddingRight:'2.5rem'
+                    }}
+                />
                 <Box sx={{paddingRight:'9.375rem',fontSize:'1.25rem'}}>
 Red Bull est une entreprise 
 autrichienne fondée en 1984 par Dietrich 
@@ -58,10 +71,19 @@ innover dans le secteur des paiements numériques. Avec des millions d’utilisa
 continue de redéfinir la manière dont nous interagissons avec l’argent au quotidien.
                 </Box>
                 <Box sx={{paddingRight:'9.375rem'}}>
-                    <img sx={{width:'100%',height:'50%'}}src='images/logo_lydia.png' alt='Logo Lydia'/>
+                    <Box
+                        component="img"
+                        src='images/logo_lydia.png'
+                        alt='Logo Lydia'
+                        sx={{
+                            height: { xs: '5rem', sm: '7rem', md: '10rem', lg: '15rem' },
+                            width: 'auto',
+                            objectFit: 'contain'
+                        }}
+                    />
                 </Box>
                </Box>
-               <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',marginTop: "1.25rem",
+               <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',marginTop: "5.25rem",
                 paddingBottom: "2.5rem",fontSize:'1.25rem'}}>
                 Contact partenaires: <a href="mailto:contact-partenaires@cs-sports.fr" target="_blank">contact-partenaires@cs-sports.fr</a>
                </Box>
