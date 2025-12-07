@@ -56,7 +56,7 @@ const ScrollingImages = () => {
         alignItems: 'center',
         height: '75vh',
         overflow: 'hidden',
-        paddingTop: { xs: '0rem', md: '5rem' },
+        paddingTop: { xs: '0rem', md: '7rem', lg: '10rem' },
       }}
     >
       {/* Image Carousel */}
