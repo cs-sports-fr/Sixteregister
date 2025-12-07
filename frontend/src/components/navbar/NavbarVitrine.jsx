@@ -100,7 +100,7 @@ const NavbarVitrine = () => {
       <Box>
         <a href="/">
           <img
-            src="/images/logo_sixte25.PNG"
+            src="/images/logo_sixte252.PNG"
             alt="Logo"
             width={scrolled ? 45 : 70}
             height={scrolled ? 50 : 90}

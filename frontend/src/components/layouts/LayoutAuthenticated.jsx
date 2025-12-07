@@ -22,7 +22,7 @@ function LayoutAuthenticated({ isDarkMode, children }) {
                 onClick={() => navigate('/')}
             >
                 <img
-                    src={isDarkMode ? "/images/logo_sixte25.PNG" : "/images/logo_sixte25.PNG"}
+                    src={isDarkMode ? "/images/logo_sixte252.PNG" : "/images/logo_sixte252.PNG"}
                     alt="Logo Sixte 2025"
                     width={90}
                     height={110}
