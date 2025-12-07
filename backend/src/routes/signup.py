@@ -7,6 +7,10 @@ from passlib.context import CryptContext  # type: ignore
 
 from infra.prisma import getPrisma  # type: ignore
 
+from .utils import (
+    send_welcome_email,
+)
+
 signup_router = APIRouter(prefix="/signup", tags=["sign-up"])
 
 prisma = getPrisma()
@@ -49,6 +53,11 @@ async def sign_up(signup_data: Signup):
                 status=EnumUserStatus.UserStatus,
             )
         )
+        # await send_welcome_email(
+        #     signup_data.email,
+        #     signup_data.firstname,
+        # )
+        
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

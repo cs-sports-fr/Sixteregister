@@ -1,47 +1,97 @@
-// schema.prisma
-
 datasource db {
-    provider = "postgres"
-    url      = env("DATABASE_URL")
+  provider = "postgres"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
-    provider             = "prisma-client-py"
-    recursive_type_depth = 5
+  provider             = "prisma-client-py"
+  recursive_type_depth = 5
 }
 
 model Sport {
-    id           Int     @id @default(autoincrement())
-    sport        String
-    teams        Team[]
-    nbPlayersMin Int     @default(1)
-    nbPlayersMax Int     @default(300)
-    isCollective Boolean @default(true)
-    nbOfTeams    Int     @default(64)
-    admins       User[]
+  id               Int      @id @default(autoincrement())
+  imageLink        String   @default("http://toss-images.s3.eu-west-3.amazonaws.com/sports/foot.jpeg")
+  sport            String
+  teams            Team[]  
+  nbPlayersMin     Int      @default(1)
+  nbPlayersMax     Int      @default(300)
+  isCollective     Boolean  @default(true)
+  nbOfTeams        Int      @default(64)
+  admins           User[]
+
+  description     String   @default("Sport description")
+  description2    String   @default("Sport description 2")
+ 
+
+
+  // New fields
+  pointsperwin     Int      @default(0)
+  pointsperdraw    Int      @default(0)
+  pointsperdefeat  Int      @default(0) 
+
+
+  // New fields 
+  poolMatchLength  Int      @default(15)
+  startTimeSunday  DateTime @default(now())
+  pools            Pool[] 
+  matches          Match[]  @relation("SportMatches")
+  medals           Medal[] 
+  placesSaturday Place[] @relation("SportPlacesSaturday")
+  placesSunday   Place[] @relation("SportPlacesSunday")
+
+  tiebreakerOrder  TiebreakerCriterion[] @default([HeadToHead, GoalsConceded, FairPlay, TournamentPoints, GoalsScored, GoalDifference,MatchesWon])
+}
+
+enum TiebreakerCriterion {
+  TournamentPoints
+  GoalDifference
+  GoalsScored
+  GoalsConceded
+  HeadToHead
+  FairPlay
+  MatchesWon
 }
 
 enum TeamStatus {
+    Incomplete
     Waiting
+    Awaitingauthorization
     PrincipalList
     Validated
 }
 
 model Team {
-    id                 Int           @id @default(autoincrement())
-    name               String
-    participants       Participant[]
-    status             TeamStatus
-    createdAt          DateTime      @default(now())
-    sportId            Int
-    sport              Sport         @relation(fields: [sportId], references: [id])
-    teamAdminUserId    Int
-    admin              User          @relation(fields: [teamAdminUserId], references: [id])
-    schoolId           Int
-    school             School        @relation(fields: [schoolId], references: [id])
-    amountPaidInCents  Int           @default(0)
-    amountToPayInCents Int           @default(0)
-    Payment            Payment[]
+  id                 Int           @id @default(autoincrement())
+  name               String
+  participants       Participant[]
+  status             TeamStatus
+  createdAt          DateTime      @default(now())
+  sportId            Int
+  sport              Sport         @relation(fields: [sportId], references: [id])
+  teamAdminUserId    Int
+  admin              User          @relation(fields: [teamAdminUserId], references: [id])
+  schoolId           Int
+  school             School        @relation(fields: [schoolId], references: [id])
+  amountPaidInCents  Int           @default(0)
+  amountToPayInCents Int           @default(0)
+  Payment            Payment[]
+
+  level              String        @default("")
+
+  // New fields
+  matchesTeamOne     Match[]       @relation("TeamOne")
+  matchesTeamTwo     Match[]       @relation("TeamTwo")
+  winnerMatches      Match[]       @relation("TeamWinner")  // Inverse relation for winner
+  pools              Pool[]        @relation("TeamPools")   // Inverse relation for teams in Pool
+  tournamentPoints   Int           @default(0) 
+  poolmatcheswon     Int           @default(0) 
+  poolmatcheslost    Int           @default(0)
+  poolmatchesdraw    Int           @default(0)
+  goalsScored        Int           @default(0)  
+  goalsConceded      Int           @default(0) 
+  goalDifference     Int           @default(0)
+  isSelectedforKnockoutStage Boolean  @default(false)
+  isConvocationGenerated Boolean @default(false)
 }
 
 enum EnumUserStatus {
@@ -56,7 +106,34 @@ enum Gender {
     preferNotToSay
 }
 
+enum ClassementTennis {
+    NC
+    C40
+    C305
+    C304
+    C303
+    C302
+    C301
+    C30
+    C155
+    C154
+    C153
+    C152
+    C151
+    C15
+    C56
+    C46
+    C36
+    C26
+    C16
+    C0
+}
 
+enum ArmeEscrime {
+    Sabre
+    Epee
+    Fleuret
+}
 
 model User {
     id           Int            @id @default(autoincrement())
@@ -74,34 +151,219 @@ model User {
     Payment      Payment[]
 }
 
+model Place {
+  id          Int          @id @default(autoincrement())
+  name        String
+  latitude    Float
+  longitude   Float
+  description String?
+  Type         PlaceType    @default(Logement)  
+  sportSaturdayId Int?     
+  sportSaturday   Sport?   @relation("SportPlacesSaturday", fields: [sportSaturdayId], references: [id])
+  sportSundayId   Int?     
+  sportSunday     Sport?   @relation("SportPlacesSunday", fields: [sportSundayId], references: [id])  
+  
+  
+  numberOfFields   Int      @default(2)
+  startTime        DateTime @default (now())
+  startTimeAfternoon        DateTime @default (now())
+  startTimeSunday  DateTime @default(now())
+
+  // Relations avec Participant
+  lieutenteParticipants         Participant[] @relation("LieuEntente")
+  petitDejSamediParticipants    Participant[] @relation("PetitDejSamedi")
+  dejSamediParticipants         Participant[] @relation("DejSamedi")
+  dinerSamediParticipants       Participant[] @relation("DinerSamedi")
+  petitDejDimancheParticipants  Participant[] @relation("PetitDejDimanche")
+  dejDimancheParticipants       Participant[] @relation("DejDimanche")
+  pools  Pool[]
+  matches Match[]
+
+// Relations avec nourriture
+
+  isBreakfast   Boolean @default(false)
+  isLunch       Boolean @default(false)
+  isDinner      Boolean @default(false)
+
+  }
+
 model Participant {
-    id                Int               @id @default(autoincrement())
-    gender            Gender
-    firstname         String
-    lastname          String
-    email             String            @unique
-    dateOfBirth       DateTime
-    charteIsValidated Boolean
-    chartePassword    String
-    createdAt         DateTime          @default(now())
-    isCaptain         Boolean
-    schoolId          Int
-    school            School            @relation(fields: [schoolId], references: [id])
-    teamId            Int
-    team              Team              @relation(fields: [teamId], references: [id])
-    charteEmailSent   Boolean           @default(false)
-    isBoursier        Boolean           @default(false)
-    ValidateBoursier  Boolean           @default(false)
+  id                Int               @id @default(autoincrement())
+  gender            Gender
+  firstname         String
+  lastname          String
+  email             String            @unique
+  mobile            String            @default("0656563425")
+  password          String            @default("230803")
+  status            EnumUserStatus    @default(UserStatus)
+  dateOfBirth       DateTime
+  charteIsValidated Boolean
+  chartePassword    String
+  createdAt         DateTime          @default(now())
+  isCaptain         Boolean
+  licenceID         String            @default("0")
+  packId            Int               @default(1)  
+  pack              Pack              @relation(fields: [packId], references: [id])
+  schoolId          Int
+  school            School            @relation(fields: [schoolId], references: [id])
+  teamId            Int
+  team              Team              @relation(fields: [teamId], references: [id])
+  products          Product[]         @relation()
+  isVegan           Boolean           @default(false)
+  hasAllergies      Boolean           @default(false)
+  certificateLink   String?
+  charteEmailSent   Boolean           @default(false)
+  certificateOK     Boolean           @default(false)
+  weight            Float?
+  mailHebergeur     String?
+  logementRezOk     Boolean           @default(false)
+  cautionOK         Boolean           @default(false)  
+  classementTennis  ClassementTennis?
+  classementTT      Float?
+  armeVoeu1         ArmeEscrime?
+  armeVoeu2         ArmeEscrime?
+  armeVoeu3         ArmeEscrime?
+
+  // Relations avec Place
+  lieutente         Place?            @relation("LieuEntente", fields: [lieutenteId], references: [id])
+  lieutenteId       Int?              // Foreign key to Place model
+  lieupetitdejsamedi Place?           @relation("PetitDejSamedi", fields: [lieupetitdejsamediId], references: [id])
+  lieupetitdejsamediId Int?           // Foreign key to Place model
+  lieudejsamedi     Place?            @relation("DejSamedi", fields: [lieudejsamediId], references: [id])
+  lieudejsamediId   Int?              // Foreign key to Place model
+  lieudinersamedi   Place?            @relation("DinerSamedi", fields: [lieudinersamediId], references: [id])
+  lieudinersamediId Int?              // Foreign key to Place model
+  lieupetitdejdimanche Place?         @relation("PetitDejDimanche", fields: [lieupetitdejdimancheId], references: [id])
+  lieupetitdejdimancheId Int?         // Foreign key to Place model
+  lieudejdimanche   Place?            @relation("DejDimanche", fields: [lieudejdimancheId], references: [id])
+  lieudejdimancheId Int?              // Foreign key to Place model
+
+  // Heures repas
+  heurepetitdejsamedi   String?
+  heuredejsamedi        String?
+  heuredinersamedi      String? 
+  heurepetitdejdimanche String?
+  heuredejdimanche      String?  
+
+  // Heure Transport
+  navettesamedialler      String?
+  navettesamediretour     String?
+  navettedimanchealler    String?
+  navettedimancheretour   String? 
+
+  //Tente 
+  numerotente         String? 
+
+  //Convocation
+  convocationLink     String?
+
+  //10k
+
+  raceTimeSeconds   Float?     
+
+  //Matchs favoris
+  likedMatches  Match[] 
+
+
+
+}
+
+model Pool {
+  id           Int      @id @default(autoincrement())
+  name         String
+  sportId      Int
+  isMorning          Boolean       @default(false)
+  PlaceId    Int?
+  Place      Place?    @relation(fields: [PlaceId], references: [id])
+  sport        Sport     @relation(fields: [sportId], references: [id])
+  teams        Team[]    @relation("TeamPools")  // Update relation name here
+}
+
+
+
+model Match {
+  id              Int       @id @default(autoincrement())
+  phase           PhaseType
+  teamOneId       Int?
+  teamOne         Team?     @relation("TeamOne", fields: [teamOneId], references: [id])
+  teamTwoId       Int?
+  teamTwo         Team?     @relation("TeamTwo", fields: [teamTwoId], references: [id])
+  teamOneSource  String?  
+  teamTwoSource  String?  
+  scoreTeamOne    Int?
+  scoreTeamTwo    Int?
+  matchTime       DateTime  @default(now())
+  createdAt       DateTime  @default(now())
+  winnerId        Int?
+  winner          Team?     @relation("TeamWinner", fields: [winnerId], references: [id])
+  isScheduled     Boolean   @default(true)
+  hasStarted      Boolean   @default(false)
+  hasEnded        Boolean   @default(false)
+  field           Int
+  placeId         Int?
+  place           Place?    @relation(fields: [placeId], references: [id])  
+  sportId         Int
+  sport           Sport     @relation("SportMatches", fields: [sportId], references: [id])
+  likedByParticipants Participant[] 
+}
+
+enum PlaceType {
+  Logement 
+  Tournoi
+  VT
+  RestaurationSoir
+  Restau
+  Acti
+  ArretBus
+  RestaurationMidi
+}
+
+enum PhaseType {
+  Roundof64
+  Roundof32
+  Roundof16
+  GroupStage
+  QuarterFinal
+  SemiFinal
+  ThirdPlace
+  Final
 }
 
 model School {
-    id           Int           @id @default(autoincrement())
-    name         String
-    users        User[]
-    participants Participant[]
-    teams        Team[]
+  id           Int           @id @default(autoincrement())
+  name         String
+  isInIDF      Boolean       @default(false)
+  isDeleg      Boolean       @default(false)
+  longitude    Float?
+  latitude     Float?
+  isCautionPaid Boolean @default(false)
+  isPaid        Boolean @default(false)
+  contact      String? 
+  users        User[]
+  participants Participant[]
+  teams        Team[]
+  pictureLink  String?
+  medals      Medal[]  
 }
 
+model Pack {
+  id             Int           @id @default(autoincrement())
+  name           String
+  participants   Participant[]
+  priceInCents   Int           @default(0)
+  isAllowedInIDF Boolean       @default(true)
+  isBreakfastIncluded  Boolean  @default(false)
+  isLunchIncluded      Boolean  @default(false)
+  isDinnerIncluded     Boolean  @default(false)
+}
+
+model Product {
+  id           Int           @id @default(autoincrement())
+  name         String
+  priceInCents Int
+  participants Participant[]
+  pictureLink  String
+}
 
 enum mailClient {
     SES
@@ -128,14 +390,31 @@ enum PaymentStatus {
 }
 
 model Payment {
-    id            Int           @id @default(autoincrement())
-    amountInCents Int
-    createdAt     DateTime      @default(now())
-    userId        Int
-    user          User          @relation(fields: [userId], references: [id])
-    teamId        Int
-    team          Team          @relation(fields: [teamId], references: [id])
-    paymentStatus PaymentStatus
-    requestId     String?
-    requestUuid   String?
+  id            Int           @id @default(autoincrement())
+  amountInCents Int
+  createdAt     DateTime      @default(now())
+  userId        Int
+  user          User          @relation(fields: [userId], references: [id])
+  teamId        Int
+  team          Team          @relation(fields: [teamId], references: [id])
+  paymentStatus PaymentStatus
+  requestId     String?
+  requestUuid   String?
+}
+
+
+model Medal {
+  id          Int      @id @default(autoincrement())
+  type        MedalType   
+  schoolId    Int
+  school      School   @relation(fields: [schoolId], references: [id])
+  sportId     Int
+  sport       Sport    @relation(fields: [sportId], references: [id])
+}
+
+
+enum MedalType {
+  Gold
+  Silver
+  Bronze
 }
