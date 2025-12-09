@@ -1,20 +1,20 @@
 import { Box, Typography } from "@mui/material";
-import LayoutAuthenticated from "../components/layouts/LayoutAuthenticated";
+import NavbarParticipant from "../components/navbar/NavbarParticipant";
 import palette from "../themes/palette";
 
 const EspaceParticipant = () => {
-    const isDarkMode = false;
-
     return (
-        <LayoutAuthenticated isDarkMode={isDarkMode}>
+        <>
+            <NavbarParticipant />
             <Box 
                 sx={{ 
                     backgroundColor: 'white',
                     minHeight: '100vh',
+                    paddingTop: '80px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: { xs: '2rem', md: '4rem' }
+                    padding: { xs: '80px 2rem 2rem', md: '80px 4rem 4rem' }
                 }}
             >
                 <Typography 
@@ -37,7 +37,7 @@ const EspaceParticipant = () => {
                     Participant
                 </Typography>
             </Box>
-        </LayoutAuthenticated>
+        </>
     );
 };
 

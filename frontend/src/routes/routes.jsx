@@ -6,10 +6,9 @@ import Register from "../pages/Register";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminSportDetail from "../pages/admin/AdminSportDetail";
 import SuperAdminDashboard from "../pages/superAdmin/SuperAdminDashboard";
-import UserDashboard from "../pages/user/UserDashboard";
 import AdminSports from "../pages/admin/AdminSports";
 import UserDetailTeam from "../pages/user/UserDetailTeam";
-import UserRegisterTeam from "../pages/user/UserRegisterTeam";
+// import UserRegisterTeam from "../pages/user/UserRegisterTeam";
 import UserPayment from "../pages/user/UserPayment";
 import Profile from "../pages/common/Profile";
 import AdminTeamDetail from "../pages/admin/AdminTeamDetail";
@@ -22,6 +21,8 @@ import Results from "../pages/vitrine/Results"
 import Sponsor from "../pages/vitrine/Sponsor";
 import RegistrationClosed from "../pages/RegistrationClosed";
 import EspaceParticipant from "../pages/EspaceParticipant";
+import MesEquipes from "../pages/MesEquipes";
+import InscrireEquipe from "../pages/InscrireEquipe";
 
 const routesForUser = [
     {
@@ -30,21 +31,27 @@ const routesForUser = [
         name: 'Espace Participant'
     },
     {
-        path: "/dashboard",
-        element: <UserDashboard />,
-        name: 'Tableau de bord'
+        path: "/mes-equipes",
+        element: <MesEquipes />,
+        name: 'Mes équipes'
     },
     {
-        path: "/register-team",
-        element: <UserRegisterTeam />,
+        path: "/inscrire-equipe",
+        element: <InscrireEquipe />,
         name: 'Inscrire une équipe'
     },
-    {
-        path: "/team/:id",
-        element: <UserDetailTeam />,
-        name: 'Détail d équipe',
-        hidden: true,
-    },
+    // {
+    //     path: "/register-team",
+    //     element: <UserRegisterTeam />,
+    //     name: 'Inscrire une équipe (old)',
+    //     hidden: true,
+    // },
+    // {
+    //     path: "/team/:id",
+    //     element: <UserDetailTeam />,
+    //     name: 'Détail d équipe',
+    //     hidden: true,
+    // },
     {
         path: "/payment",
         element: <UserPayment />,
