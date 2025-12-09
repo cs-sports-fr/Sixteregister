@@ -172,4 +172,13 @@ async def count_users():
 async def get_me(user: Annotated[User, Depends(check_user)]):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return user
+    
+    user_with_school = await prisma.user.find_unique(
+        where={"id": user.id},
+        include={"school": True}, 
+    )
+    
+    if not user_with_school:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return user_with_school

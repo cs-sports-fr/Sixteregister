@@ -21,12 +21,18 @@ import Photo from "../pages/vitrine/photo";
 import Results from "../pages/vitrine/Results"
 import Sponsor from "../pages/vitrine/Sponsor";
 import RegistrationClosed from "../pages/RegistrationClosed";
+import EspaceParticipant from "../pages/EspaceParticipant";
 
 const routesForUser = [
     {
         path: "/",
+        element: <EspaceParticipant />,
+        name: 'Espace Participant'
+    },
+    {
+        path: "/dashboard",
         element: <UserDashboard />,
-        name: 'Accueil'
+        name: 'Tableau de bord'
     },
     {
         path: "/register-team",
