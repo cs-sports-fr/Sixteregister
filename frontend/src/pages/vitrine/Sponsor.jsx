@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,Fade,Slide } from "@mui/material";
+import { Box, Button, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,Fade,Slide, Container } from "@mui/material";
 import LayoutUnauthenticated from "../../components/layouts/LayoutUnauthenticated";
 import Footer from "../../components/footer/footer";
 const Sponsor = () => {
@@ -16,30 +16,42 @@ const Sponsor = () => {
                                         fontSize: '3rem',
                                         color: 'black',
                                         textTransform: 'uppercase',
-                                        paddingTop: '5rem',
+                                        paddingTop: {md:'3rem', xs:'1rem', lg:'10rem'},
+
                                     }}
                                 >
                                  Nos Partenaires
                                 </Typography>
                             </Box>
               
-               <Box sx={{display:'flex',
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingBottom: "6rem",
-    paddingLeft:'4rem',}}>
-                <Box
-                    component="img"
-                    src="/images/redbull_logo.png"
-                    alt="Red Bull Logo"
-                    sx={{
-                        height: { xs: '5rem', sm: '7rem', md: '10rem', lg: '15rem' },
-                        width: 'auto',
-                        objectFit: 'contain',
-                        paddingRight:'2.5rem'
-                    }}
-                />
-                <Box sx={{paddingRight:'9.375rem',fontSize:'1.25rem'}}>
+               <Container maxWidth="lg" sx={{ paddingY: '4rem' }}>
+                   {/* Red Bull Section */}
+                   <Box sx={{
+                       display:'flex',
+                       alignItems: "center",
+                       justifyContent: "space-between",
+                       paddingTop: {md:'3rem', xs:'1rem', lg:'10rem'},
+                       paddingBottom: "6rem",
+                       gap: '3rem',
+                       flexDirection: { xs: 'column', md: 'row' }
+                   }}>
+                       <Box
+                           component="img"
+                           src="/images/redbull_logo.png"
+                           alt="Red Bull Logo"
+                           sx={{
+                               height: { xs: '5rem', sm: '7rem', md: '10rem', lg: '12rem' },
+                               width: 'auto',
+                               objectFit: 'contain',
+                               flex: '0 0 auto'
+                           }}
+                       />
+                       <Box sx={{
+                           flex: '1 1 auto',
+                           fontSize: { xs: '1rem', md: '1.1rem', lg: '1.25rem' },
+                           lineHeight: 1.6,
+                           textAlign: { xs: 'center', md: 'left' }
+                       }}>
 Red Bull est une entreprise 
 autrichienne fondée en 1984 par Dietrich 
 Mateschitz et Chaleo Yoovidhya, mondialement connue pour son 
@@ -53,13 +65,24 @@ dans le sponsoring sportif, les événements extrêmes, les associations étudia
 équipes de renom comme Red Bull Racing en Formule 1 et des clubs de 
 football tels que le RB Leipzig. Son influence dépasse le simple domaine 
 des boissons, en faisant une référence incontournable dans le lifestyle et le sport.
-                </Box>
-               </Box>
-               <Box sx={{display:'flex',
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: "2.5rem",}}>
-                <Box sx={{paddingLeft:'9.375rem',paddingRight:'2.5rem',fontSize:'1.25rem'}}>
+                       </Box>
+                   </Box>
+
+                   {/* Lydia Section */}
+                   <Box sx={{
+                       display:'flex',
+                       alignItems: "center",
+                       justifyContent: "space-between",
+                       marginBottom: "2.5rem",
+                       gap: '3rem',
+                       flexDirection: { xs: 'column-reverse', md: 'row' }
+                   }}>
+                       <Box sx={{
+                           flex: '1 1 auto',
+                           fontSize: { xs: '1rem', md: '1.1rem', lg: '1.25rem' },
+                           lineHeight: 1.6,
+                           textAlign: { xs: 'center', md: 'left' }
+                       }}>
 Lydia est une entreprise française fondée en 2013 par Cyril Chiche et 
 Antoine Porte, spécialisée dans les solutions de paiement mobile. Initialement
 connue pour son application permettant d’effectuer des paiements entre particuliers 
@@ -68,24 +91,35 @@ Aujourd’hui, Lydia propose une large gamme de services financiers : gestion de
 paiements sans contact, cartes bancaires virtuelles, prêts instantanés, et même des solutions d’épargne. 
 Plébiscitée par les jeunes générations, elle se distingue par son interface intuitive et sa capacité à 
 innover dans le secteur des paiements numériques. Avec des millions d’utilisateurs en Europe, Lydia 
-continue de redéfinir la manière dont nous interagissons avec l’argent au quotidien.
-                </Box>
-                <Box sx={{paddingRight:'9.375rem'}}>
-                    <Box
-                        component="img"
-                        src='images/logo_lydia.png'
-                        alt='Logo Lydia'
-                        sx={{
-                            height: { xs: '5rem', sm: '7rem', md: '10rem', lg: '15rem' },
-                            width: 'auto',
-                            objectFit: 'contain'
-                        }}
-                    />
-                </Box>
-               </Box>
-               <Box sx={{display:'flex',alignItems:'center',justifyContent:'center',marginTop: "5.25rem",
-                paddingBottom: "2.5rem",fontSize:'1.25rem'}}>
-                Contact partenaires: <a href="mailto:contact-partenaires@cs-sports.fr" target="_blank">contact-partenaires@cs-sports.fr</a>
+continue de redéfinir la manière dont nous interagissons avec l'argent au quotidien.
+                       </Box>
+                       <Box sx={{ flex: '0 0 auto' }}>
+                           <Box
+                               component="img"
+                               src='images/logo_lydia.png'
+                               alt='Logo Lydia'
+                               sx={{
+                                   height: { xs: '5rem', sm: '7rem', md: '10rem', lg: '12rem' },
+                                   width: 'auto',
+                                   objectFit: 'contain'
+                               }}
+                           />
+                       </Box>
+                   </Box>
+               </Container>
+
+               <Box sx={{
+                   display:'flex',
+                   alignItems:'center',
+                   justifyContent:'center',
+                   marginTop: "5.25rem",
+                   paddingBottom: "2.5rem",
+                   fontSize: { xs: '1rem', md: '1.25rem' },
+                   flexDirection: { xs: 'column', sm: 'row' },
+                   gap: 1
+               }}>
+                   <Typography component="span">Contact partenaires:</Typography>{' '}
+                   <a href="mailto:contact-partenaires@cs-sports.fr" target="_blank" rel="noreferrer">contact-partenaires@cs-sports.fr</a>
                </Box>
                <Footer/>
 

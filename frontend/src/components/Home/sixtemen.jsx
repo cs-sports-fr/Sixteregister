@@ -149,13 +149,13 @@ const Sixtemen = () => {
       name: 'Mathurin Le Brun',
       role: 'Sixteman',
       imageSrc: '/images/photo_matutu.jpg',
-      mail: 'mathurin.lebrun@student-cs.fr' 
+      mail: 'mathurin.le-brun@student-cs.fr' 
     },
     {
       name: 'Laure De Sury D\'Aspremont',
       role: 'Sixtewoman',
       imageSrc: '/images/photo_laure.jpg',
-      mail: 'laure.desurydaspermont@student-cs.fr' 
+      mail: 'laure.desurydaspremont@student-cs.fr' 
     },
 
   ];
