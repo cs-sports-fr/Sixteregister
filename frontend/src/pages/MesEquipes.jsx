@@ -27,7 +27,7 @@ const MesEquipes = () => {
 
   const fetchTeams = async () => {
     try {
-      const response = await ApiTossConnected.get('/teams/user');
+      const response = await ApiTossConnected.get('/teams');
       setTeams(response.data);
     } catch (error) {
       console.error('Error fetching teams:', error);
