@@ -82,15 +82,16 @@ async def request_lydia_payment_url(payment: Payment, user: User):
         )
 
     json_result: dict = json.loads(response.text)
+    print(f"Lydia response: {json_result}")  # Debug
 
-    if json_result["error"] != "0":
+    if json_result.get("error", "0") != "0":
         await prisma.payment.update(
             where=PaymentWhereUniqueInput(id=payment.id),
             data=PaymentUpdateInput(paymentStatus=PaymentStatus.Failed),
         )
         raise HTTPException(
             status_code=500,
-            detail=f"Error while adding requesting payment",
+            detail=f"Error while adding requesting payment: {json_result.get('message', 'Unknown error')}",
         )
     request_id = json_result["request_id"]
     request_uuid = json_result["request_uuid"]

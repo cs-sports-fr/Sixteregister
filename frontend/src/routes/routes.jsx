@@ -23,6 +23,7 @@ import RegistrationClosed from "../pages/RegistrationClosed";
 import EspaceParticipant from "../pages/EspaceParticipant";
 import MesEquipes from "../pages/MesEquipes";
 import InscrireEquipe from "../pages/InscrireEquipe";
+import ModifierEquipe from "../pages/ModifierEquipe";
 
 const routesForUser = [
     {
@@ -39,6 +40,12 @@ const routesForUser = [
         path: "/inscrire-equipe",
         element: <InscrireEquipe />,
         name: 'Inscrire une équipe'
+    },
+    {
+        path: "/modifier-equipe/:teamId",
+        element: <ModifierEquipe />,
+        name: 'Modifier l\'équipe',
+        hidden: true,
     },
     // {
     //     path: "/register-team",

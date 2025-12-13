@@ -41,11 +41,12 @@ const MesEquipes = () => {
     switch (status) {
       case 'Incomplete':
         return '#FF6B6B';
-      case 'Waitlist':
+      case 'Waiting':
         return '#FFA500';
-      case 'Selected':
+      case 'PrincipalList':
+      case 'Validated':
         return '#4CAF50';
-      case 'Paid':
+      case 'Awaitingauthorization':
         return '#2196F3';
       default:
         return '#999';
@@ -56,14 +57,51 @@ const MesEquipes = () => {
     switch (status) {
       case 'Incomplete':
         return 'Dossier Incomplet';
-      case 'Waitlist':
+      case 'Waiting':
         return 'En attente';
-      case 'Selected':
-        return 'Sélectionné·e';
-      case 'Paid':
-        return 'Inscrit·e';
+      case 'Awaitingauthorization':
+        return 'En attente d\'autorisation';
+      case 'PrincipalList':
+        return 'Liste principale';
+      case 'Validated':
+        return 'Validé';
       default:
         return status;
+    }
+  };
+
+  const handleSubmitTeam = async (teamId) => {
+    try {
+      await ApiTossConnected.put(`/teams/${teamId}/submit`);
+      showSnackbar('Équipe soumise avec succès !', 3000, 'success');
+      fetchTeams(); // Refresh teams list
+    } catch (error) {
+      console.error('Error submitting team:', error);
+      const errorMsg = error.response?.data?.detail || 'Erreur lors de la soumission';
+      showSnackbar(errorMsg, 3000, 'error');
+    }
+  };
+
+  const handlePayment = async () => {
+    // On va payer pour la première équipe qui a un montant à payer
+    // Si plusieurs équipes, on pourrait demander à l'utilisateur de choisir
+    const teamToPay = teams.find(team => (team.amountToPayInCents - (team.amountPaidInCents || 0)) > 0);
+    
+    if (!teamToPay) {
+      showSnackbar('Aucune équipe ne nécessite de paiement', 3000, 'info');
+      return;
+    }
+
+    try {
+      const response = await ApiTossConnected.post(`/payment/request?team_id=${teamToPay.id}`);
+      // La réponse contient l'URL Lydia
+      if (response.data) {
+        window.location.href = response.data;
+      }
+    } catch (error) {
+      console.error('Error requesting payment:', error);
+      const errorMsg = error?.response?.data?.detail || error?.message || 'Erreur lors de la demande de paiement';
+      showSnackbar(errorMsg, 3000, 'error');
     }
   };
 
@@ -142,58 +180,88 @@ const MesEquipes = () => {
           </Box>
 
           {/* Registration Process */}
-          <Typography
-            variant="h5"
-            sx={{
-              color: palette.primary.dark,
-              fontWeight: 'bold',
-              marginBottom: '2rem',
-            }}
-          >
-            Le déroulé de ton inscription
-          </Typography>
+          {teams.length > 0 && (
+            <>
+              <Typography
+                variant="h5"
+                sx={{
+                  color: palette.primary.dark,
+                  fontWeight: 'bold',
+                  marginBottom: '2rem',
+                }}
+              >
+                Le déroulé de ton inscription
+              </Typography>
 
-          <Grid container spacing={3} sx={{ marginBottom: '4rem' }}>
-            {[
-              { number: '1', title: 'Dossier Incomplet', active: true },
-              { number: '2', title: 'En attente', active: false },
-              { number: '3', title: 'Sélectionné·e', active: false },
-              { number: '4', title: 'Inscrit·e', active: false },
-            ].map((step) => (
-              <Grid item xs={12} sm={6} md={3} key={step.number}>
-                <Box
-                  sx={{
-                    textAlign: 'center',
-                    padding: '1.5rem',
-                    borderRadius: '12px',
-                    backgroundColor: step.active
-                      ? palette.primary.red
-                      : 'rgba(5, 25, 57, 0.05)',
-                    color: step.active ? 'white' : palette.primary.dark,
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: '60px',
-                      height: '60px',
-                      borderRadius: '50%',
-                      backgroundColor: step.active ? 'white' : palette.primary.red,
-                      color: step.active ? palette.primary.red : 'white',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '1.5rem',
-                      fontWeight: 'bold',
-                      margin: '0 auto 1rem',
-                    }}
-                  >
-                    {step.number}
-                  </Box>
-                  <Typography sx={{ fontWeight: 'bold' }}>{step.title}</Typography>
-                </Box>
+              <Grid container spacing={3} sx={{ marginBottom: '4rem' }}>
+                {(() => {
+                  const statusOrder = { 
+                    'Incomplete': 1, 
+                    'Waiting': 2, 
+                    'Awaitingauthorization': 3, 
+                    'PrincipalList': 4, 
+                    'Validated': 5 
+                  };
+                  
+                  const mostAdvancedStatus = teams.reduce((max, team) => {
+                    return (statusOrder[team.status] || 0) > (statusOrder[max] || 0) ? team.status : max;
+                  }, 'Incomplete');
+
+                  const steps = [
+                    { number: '1', title: 'Dossier Incomplet', status: 'Incomplete' },
+                    { number: '2', title: 'En attente', status: 'Waiting' },
+                    { number: '3', title: 'Sélectionnée', status: 'PrincipalList' },
+                    { number: '4', title: 'Validé', status: 'Validated' },
+                  ];
+
+                  const currentStepNumber = statusOrder[mostAdvancedStatus] || 1;
+
+                  return steps.map((step) => {
+                    const stepNumber = parseInt(step.number);
+                    const isActive = stepNumber === currentStepNumber;
+                    const isCompleted = stepNumber < currentStepNumber;
+
+                    return (
+                      <Grid item xs={12} sm={6} md={3} key={step.number}>
+                        <Box
+                          sx={{
+                            textAlign: 'center',
+                            padding: '1.5rem',
+                            borderRadius: '12px',
+                            backgroundColor: isActive
+                              ? palette.primary.red
+                              : isCompleted
+                              ? '#4CAF50'
+                              : 'rgba(5, 25, 57, 0.05)',
+                            color: (isActive || isCompleted) ? 'white' : palette.primary.dark,
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              width: '60px',
+                              height: '60px',
+                              borderRadius: '50%',
+                              backgroundColor: (isActive || isCompleted) ? 'white' : palette.primary.red,
+                              color: (isActive || isCompleted) ? (isActive ? palette.primary.red : '#4CAF50') : 'white',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '1.5rem',
+                              fontWeight: 'bold',
+                              margin: '0 auto 1rem',
+                            }}
+                          >
+                            {step.number}
+                          </Box>
+                          <Typography sx={{ fontWeight: 'bold' }}>{step.title}</Typography>
+                        </Box>
+                      </Grid>
+                    );
+                  });
+                })()}
               </Grid>
-            ))}
-          </Grid>
+            </>
+          )}
 
           {/* Teams List */}
           <Typography
@@ -275,23 +343,41 @@ const MesEquipes = () => {
                         Nombre de joueurs: {team.participants?.length || 0}
                       </Typography>
                       <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-                        Prix total: {team.amountToPay || 0} €
+                        Prix total: {((team.amountToPayInCents || 0) / 100).toFixed(2)} €
                       </Typography>
-                      <Button
-                        variant="outlined"
-                        fullWidth
-                        sx={{
-                          marginTop: '1rem',
-                          color: 'white',
-                          borderColor: palette.primary.red,
-                          '&:hover': {
+                      <Box sx={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                        <Button
+                          variant="outlined"
+                          fullWidth
+                          onClick={() => navigate(`/modifier-equipe/${team.id}`)}
+                          sx={{
+                            color: 'white',
                             borderColor: palette.primary.red,
-                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
-                          },
-                        }}
-                      >
-                        Modifier
-                      </Button>
+                            '&:hover': {
+                              borderColor: palette.primary.red,
+                              backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                            },
+                          }}
+                        >
+                          Modifier
+                        </Button>
+                        {team.status === 'Incomplete' && (
+                          <Button
+                            variant="contained"
+                            fullWidth
+                            onClick={() => handleSubmitTeam(team.id)}
+                            sx={{
+                              backgroundColor: palette.primary.red,
+                              color: 'white',
+                              '&:hover': {
+                                backgroundColor: '#FF5252',
+                              },
+                            }}
+                          >
+                            Soumettre
+                          </Button>
+                        )}
+                      </Box>
                     </CardContent>
                   </Card>
                 </Grid>
@@ -315,13 +401,15 @@ const MesEquipes = () => {
                 Somme à payer
               </Typography>
               <Typography variant="h2" sx={{ fontWeight: 'bold', margin: '1rem 0' }}>
-                {teams.reduce((sum, team) => sum + (team.amountToPay || 0), 0)} €
+                {(teams.reduce((sum, team) => sum + (team.amountToPayInCents || 0), 0) / 100).toFixed(2)} €
               </Typography>
               <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', marginBottom: '1.5rem' }}>
                 0 € (avec liste d'attente)
               </Typography>
               <Button
                 variant="contained"
+                onClick={handlePayment}
+                disabled={teams.reduce((sum, team) => sum + (team.amountToPayInCents || 0), 0) === 0}
                 sx={{
                   backgroundColor: palette.primary.red,
                   color: 'white',
@@ -330,9 +418,13 @@ const MesEquipes = () => {
                   '&:hover': {
                     backgroundColor: '#FF5252',
                   },
+                  '&:disabled': {
+                    backgroundColor: '#999',
+                    color: 'white',
+                  },
                 }}
               >
-                Voir détail
+                Payer
               </Button>
             </Box>
           )}

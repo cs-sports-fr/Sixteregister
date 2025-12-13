@@ -160,6 +160,33 @@ async def update_team(
     return team
 
 @teams_router.put(
+    "/{team_id}/submit",
+    response_model=Team,
+)
+async def submit_team(
+    team_id: int,
+    user: Annotated[User, Depends(check_user)],
+):
+    """
+    Submit a team to change status from Incomplete to Waitlist.
+    Only the team owner can submit their team.
+    """
+    existing_team = await get_team_if_allowed(team_id, user)
+    
+    if existing_team.status != TeamStatus.Incomplete:
+        raise HTTPException(
+            status_code=400, 
+            detail="Team can only be submitted if it has Incomplete status"
+        )
+    
+    team = await prisma.team.update(
+        data=TeamUpdateInput(status=TeamStatus.Waiting),
+        where=TeamWhereInput(id=team_id),
+    )
+    
+    return team
+
+@teams_router.put(
     "/{team_id}/status",
     response_model=Team,
     dependencies=[Depends(check_admin)],

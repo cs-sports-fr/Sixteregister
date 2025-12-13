@@ -214,7 +214,7 @@ async def team_update_participant(
 
 @team_participants_router.post(
     "/{team_id}/participant/{participant_id}/resend-charte-email",
-    dependencies=[Depends(check_admin)],
+    dependencies=[Depends(check_user)],
 )
 async def participant_resend_charte_email(team_id: int, participant_id: int):
     existing_participant = await prisma.participant.find_first(
