@@ -145,21 +145,6 @@ const Login = () => {
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                                 <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                                     <Button 
-                                        href="/charte" 
-                                        fullWidth 
-                                        variant="outlined"
-                                        sx={{ 
-                                            borderColor: palette.primary.red,
-                                            color: palette.primary.red,
-                                            '&:hover': {
-                                                borderColor: palette.primary.red,
-                                                backgroundColor: 'rgba(255, 107, 107, 0.1)',
-                                            }
-                                        }}
-                                    >
-                                        Signer la charte
-                                    </Button>
-                                    <Button 
                                         href="/register" 
                                         fullWidth
                                         variant="outlined"
