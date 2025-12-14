@@ -149,7 +149,7 @@ const MesEquipes = () => {
             équipes
           </Typography>
           <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1.1rem' }}>
-            Mise à jour importante concernant les inscriptions
+            Processus d'inscription
           </Typography>
         </Box>
 
@@ -166,22 +166,25 @@ const MesEquipes = () => {
             }}
           >
             <Typography variant="h6" sx={{ marginBottom: '1rem', fontWeight: 'bold' }}>
-              Mise à jour importante concernant les inscriptions
+              📋 Processus d'inscription
             </Typography>
             <Typography sx={{ marginBottom: '1rem' }}>
-              Nous souhaitons vous informer que cette année, le TOSS n'est pas labellisé par la FFSU
+              🎯 <strong>Étape 1 - Création du compte :</strong> Seul le <strong>capitaine</strong> crée un compte sur la plateforme. C'est lui qui pilotera toute l'inscription ! 👨‍✈️
             </Typography>
             <Typography sx={{ marginBottom: '1rem' }}>
-              Cette décision a été prise car la FFSU imposait cette année que tous nos participants soient licenciés chez eux, ce qui aurait causé un surcoût de 95€ pour tous les non licenciés.
+              ⚽ <strong>Étape 2 - Création de l'équipe :</strong> Une fois connecté sur cette page, le capitaine doit créer son équipe et ajouter tous les participants. Pas de stress, il peut modifier son équipe à sa guise jusqu'à la soumission finale ! ✏️
             </Typography>
             <Typography sx={{ marginBottom: '1rem' }}>
-              Cette obligation aurait impliqué un coût supplémentaire de 35€ par chaque participant non licencié, ce qui allait à l'encontre de notre volonté de rendre le tournoi accessible à tous. D'autres grands tournois étudiants, comme le CCL, ont également fait le choix de ne pas être labellisés par la FFSU.
+              ✅ <strong>Étape 3 - Validation des chartes :</strong> Le capitaine doit cocher que <strong>tous les participants ont bien lu et approuvé la charte</strong>. C'est super important pour passer à l'étape suivante ! 📝
             </Typography>
             <Typography sx={{ marginBottom: '1rem' }}>
-              Du point de vue du participant, cela ne change absolument rien par rapport aux années précédentes. Tous nos participants seront couverts par notre assurance tout au long du week-end et offrant les mêmes garanties que celles de la FFSU.
+              🚀 <strong>Étape 4 - Soumission :</strong> Une fois toutes les chartes validées et l'équipe au complet, le capitaine peut cliquer sur "<strong>Soumettre l'équipe</strong>". Votre équipe passera alors en statut "<strong>En attente</strong>" ⏳
+            </Typography>
+            <Typography sx={{ marginBottom: '1rem' }}>
+              🎉 <strong>Étape 5 - Validation :</strong> Nos organisateurs vont examiner votre dossier. Une fois validé, vous passerez en statut "<strong>Sélectionné</strong>" ! Félicitations ! 🎊
             </Typography>
             <Typography>
-              Ce changement n'affecte rien de ce qui était présent sur notre règlement lors de votre inscription.
+              💳 <strong>Étape 6 - Paiement :</strong> Dernière étape : effectuez le paiement directement sur le site. Une fois le paiement confirmé, vous passerez en statut "<strong>Inscrit</strong>" et c'est officiel, vous êtes de la partie ! 🏆✨
             </Typography>
           </Box>
 
