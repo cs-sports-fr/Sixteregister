@@ -51,7 +51,7 @@ async def request_lydia_payment_url(payment: Payment, user: User):
 
     # Enlever le slash final de FRONTEND_URL s'il existe
     frontend_url = FRONTEND_URL.rstrip("/")
-    success_url = f"{frontend_url}/mes-equipes"
+    success_url = f"{frontend_url}/success-payment/{payment.id}"
 
     data = {
         "vendor_token": LYDIA_VENDOR_TOKEN,

@@ -24,6 +24,7 @@ import EspaceParticipant from "../pages/EspaceParticipant";
 import MesEquipes from "../pages/MesEquipes";
 import InscrireEquipe from "../pages/InscrireEquipe";
 import ModifierEquipe from "../pages/ModifierEquipe";
+import SuccessPayment from "../pages/SuccessPayment";
 
 const routesForUser = [
     {
@@ -45,6 +46,12 @@ const routesForUser = [
         path: "/modifier-equipe/:teamId",
         element: <ModifierEquipe />,
         name: 'Modifier l\'équipe',
+        hidden: true,
+    },
+    {
+        path: "/success-payment/:payment_id",
+        element: <SuccessPayment />,
+        name: 'Confirmation de paiement',
         hidden: true,
     },
     // {

@@ -132,7 +132,7 @@ async def request_payment(team_id: int, user: User = Depends(check_user)):
 
 
 @payment_router.post(
-    "/check-state/{payment_id}", dependencies=[Depends(check_admin)]
+    "/check-state/{payment_id}", dependencies=[Depends(check_user)]
 )
 async def check_payment_state(payment_id: int):
     payment = await prisma.payment.find_unique(
