@@ -145,7 +145,7 @@ const InscrireEquipe = () => {
         sx={{
           backgroundColor: palette.primary.dark,
           minHeight: '100vh',
-          paddingTop: '80px',
+          paddingTop: { xs: '80px', md: '80px' },
           color: 'white',
         }}
       >
@@ -153,11 +153,12 @@ const InscrireEquipe = () => {
         <Box
           sx={{
             backgroundColor: 'rgba(255, 255, 255, 0.05)',
-            padding: '1rem 3rem',
+            padding: { xs: '0.8rem 1rem', md: '1rem 3rem' },
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
-            fontSize: '0.9rem',
+            fontSize: { xs: '0.75rem', md: '0.9rem' },
+            flexWrap: 'wrap',
           }}
         >
           <Typography sx={{ color: 'white' }}>Inscrire une équipe</Typography>
@@ -179,10 +180,10 @@ const InscrireEquipe = () => {
             md={3}
             sx={{
               backgroundColor: 'rgba(0, 0, 0, 0.3)',
-              padding: '2rem',
+              padding: { xs: '1.5rem', md: '2rem' },
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.5rem',
+              gap: { xs: '1rem', md: '1.5rem' },
             }}
           >
             {/* Team Name & Level */}
@@ -225,13 +226,13 @@ const InscrireEquipe = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.5rem',
-                    padding: '0.5rem',
+                    padding: { xs: '0.75rem', md: '0.5rem' },
                     backgroundColor: 'rgba(255, 107, 107, 0.1)',
                     borderRadius: '8px',
-                    fontSize: '0.85rem',
+                    fontSize: { xs: '0.8rem', md: '0.85rem' },
                   }}
                 >
-                  <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                  <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: 1.4 }}>
                     ℹ️ Veuillez ajouter [DELEG] au début du nom de votre équipe si votre école est une délégation ET que vous utilisez une place réservée dans ce sport pour CETTE équipe !
                   </Typography>
                 </Box>
@@ -242,8 +243,9 @@ const InscrireEquipe = () => {
                     variant="subtitle2"
                     sx={{
                       color: palette.primary.red,
-                      marginBottom: '1rem',
+                      marginBottom: { xs: '0.75rem', md: '1rem' },
                       fontWeight: 'bold',
+                      fontSize: { xs: '0.95rem', md: '1rem' },
                     }}
                   >
                     Joueur n°1 (Capitaine)
@@ -255,8 +257,8 @@ const InscrireEquipe = () => {
                         key={index}
                         onClick={() => setSelectedParticipant(index)}
                         sx={{
-                          padding: '0.75rem',
-                          marginBottom: '0.5rem',
+                          padding: { xs: '0.9rem', md: '0.75rem' },
+                          marginBottom: { xs: '0.6rem', md: '0.5rem' },
                           cursor: 'pointer',
                           backgroundColor:
                             selectedParticipant === index
@@ -265,6 +267,7 @@ const InscrireEquipe = () => {
                           borderRadius: '8px',
                           color: selectedParticipant === index ? palette.primary.red : 'white',
                           transition: 'all 0.3s ease',
+                          fontSize: { xs: '0.95rem', md: '1rem' },
                           '&:hover': {
                             backgroundColor: 'rgba(255, 107, 107, 0.1)',
                           },
@@ -281,11 +284,12 @@ const InscrireEquipe = () => {
                   fullWidth
                   onClick={handleSubmit}
                   sx={{
-                    marginTop: 'auto',
+                    marginTop: { xs: '1rem', md: 'auto' },
                     backgroundColor: palette.primary.red,
                     color: 'white',
-                    padding: '0.75rem',
+                    padding: { xs: '1rem', md: '0.75rem' },
                     fontWeight: 'bold',
+                    fontSize: { xs: '1rem', md: '0.95rem' },
                     '&:hover': {
                       backgroundColor: '#FF5252',
                     },
@@ -299,7 +303,13 @@ const InscrireEquipe = () => {
             {/* Sport Selection */}
             {!selectedSport && (
               <Box>
-                <Typography variant="h6" sx={{ marginBottom: '1rem' }}>
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    marginBottom: { xs: '1rem', md: '1rem' },
+                    fontSize: { xs: '1.1rem', md: '1.25rem' }
+                  }}
+                >
                   Sélectionnez un sport
                 </Typography>
                 {sports.map((sport) => (
@@ -309,9 +319,11 @@ const InscrireEquipe = () => {
                     fullWidth
                     onClick={() => setSelectedSport(sport)}
                     sx={{
-                      marginBottom: '1rem',
+                      marginBottom: { xs: '0.8rem', md: '1rem' },
+                      padding: { xs: '0.9rem', md: '0.6rem' },
                       color: 'white',
                       borderColor: 'rgba(255, 255, 255, 0.3)',
+                      fontSize: { xs: '0.95rem', md: '1rem' },
                       '&:hover': {
                         borderColor: palette.primary.red,
                         backgroundColor: 'rgba(255, 107, 107, 0.1)',
@@ -332,24 +344,46 @@ const InscrireEquipe = () => {
             md={9}
             sx={{
               backgroundColor: 'rgba(0, 0, 0, 0.2)',
-              padding: '3rem',
+              padding: { xs: '1.5rem', sm: '2rem', md: '3rem' },
             }}
           >
             {selectedSport ? (
               <>
-                <Typography variant="h5" sx={{ marginBottom: '2rem', color: 'white' }}>
+                <Typography 
+                  variant="h5" 
+                  sx={{ 
+                    marginBottom: { xs: '1.5rem', md: '2rem' }, 
+                    color: 'white',
+                    fontSize: { xs: '1.3rem', sm: '1.5rem', md: '2rem' }
+                  }}
+                >
                   Participant n°{selectedParticipant + 1}{' '}
                   {selectedParticipant === 0 && '(Capitaine)'}
                 </Typography>
 
-                <Alert severity="warning" sx={{ marginBottom: '2rem' }}>
+                <Alert 
+                  severity="warning" 
+                  sx={{ 
+                    marginBottom: { xs: '1.5rem', md: '2rem' },
+                    fontSize: { xs: '0.85rem', md: '0.95rem' }
+                  }}
+                >
                   Vous aurez l'option d'ajouter le certificat médical ou l'attestation de santé après la création de l'équipe dans l'onglet "Mes Équipes". Lisez bien les instructions pour savoir quel document est requis en fonction du sport et de la situation du participant.
                 </Alert>
 
                 <Grid container spacing={3}>
                   {/* Nom */}
                   <Grid item xs={12} md={6}>
-                    <Typography sx={{ marginBottom: '0.5rem', color: 'white' }}>Nom</Typography>
+                    <Typography 
+                      sx={{ 
+                        marginBottom: '0.5rem', 
+                        color: 'white',
+                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        fontWeight: 500
+                      }}
+                    >
+                      Nom
+                    </Typography>
                     <TextField
                       placeholder="Nom"
                       value={currentParticipant.lastname}
@@ -359,9 +393,13 @@ const InscrireEquipe = () => {
                         '& .MuiOutlinedInput-root': {
                           color: 'white',
                           backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                          fontSize: { xs: '1rem', md: '1rem' },
                           '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                           '&:hover fieldset': { borderColor: palette.primary.red },
                           '&.Mui-focused fieldset': { borderColor: palette.primary.red },
+                        },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '14px', md: '16.5px 14px' },
                         },
                       }}
                     />
@@ -369,7 +407,16 @@ const InscrireEquipe = () => {
 
                   {/* Prénom */}
                   <Grid item xs={12} md={6}>
-                    <Typography sx={{ marginBottom: '0.5rem', color: 'white' }}>Prénom</Typography>
+                    <Typography 
+                      sx={{ 
+                        marginBottom: '0.5rem', 
+                        color: 'white',
+                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        fontWeight: 500
+                      }}
+                    >
+                      Prénom
+                    </Typography>
                     <TextField
                       placeholder="Prénom"
                       value={currentParticipant.firstname}
@@ -379,9 +426,13 @@ const InscrireEquipe = () => {
                         '& .MuiOutlinedInput-root': {
                           color: 'white',
                           backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                          fontSize: { xs: '1rem', md: '1rem' },
                           '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                           '&:hover fieldset': { borderColor: palette.primary.red },
                           '&.Mui-focused fieldset': { borderColor: palette.primary.red },
+                        },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '14px', md: '16.5px 14px' },
                         },
                       }}
                     />
@@ -389,7 +440,16 @@ const InscrireEquipe = () => {
 
                   {/* Email */}
                   <Grid item xs={12} md={6}>
-                    <Typography sx={{ marginBottom: '0.5rem', color: 'white' }}>Email</Typography>
+                    <Typography 
+                      sx={{ 
+                        marginBottom: '0.5rem', 
+                        color: 'white',
+                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        fontWeight: 500
+                      }}
+                    >
+                      Email
+                    </Typography>
                     <TextField
                       placeholder="Email"
                       type="email"
@@ -400,9 +460,13 @@ const InscrireEquipe = () => {
                         '& .MuiOutlinedInput-root': {
                           color: 'white',
                           backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                          fontSize: { xs: '1rem', md: '1rem' },
                           '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                           '&:hover fieldset': { borderColor: palette.primary.red },
                           '&.Mui-focused fieldset': { borderColor: palette.primary.red },
+                        },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '14px', md: '16.5px 14px' },
                         },
                       }}
                     />
@@ -410,7 +474,14 @@ const InscrireEquipe = () => {
 
                   {/* Numéro de téléphone */}
                   <Grid item xs={12} md={6}>
-                    <Typography sx={{ marginBottom: '0.5rem', color: 'white' }}>
+                    <Typography 
+                      sx={{ 
+                        marginBottom: '0.5rem', 
+                        color: 'white',
+                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        fontWeight: 500
+                      }}
+                    >
                       Numéro de téléphone
                     </Typography>
                     <TextField
@@ -422,9 +493,13 @@ const InscrireEquipe = () => {
                         '& .MuiOutlinedInput-root': {
                           color: 'white',
                           backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                          fontSize: { xs: '1rem', md: '1rem' },
                           '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                           '&:hover fieldset': { borderColor: palette.primary.red },
                           '&.Mui-focused fieldset': { borderColor: palette.primary.red },
+                        },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '14px', md: '16.5px 14px' },
                         },
                       }}
                     />
@@ -432,7 +507,16 @@ const InscrireEquipe = () => {
 
                   {/* Genre */}
                   <Grid item xs={12} md={6}>
-                    <Typography sx={{ marginBottom: '0.5rem', color: 'white' }}>Genre</Typography>
+                    <Typography 
+                      sx={{ 
+                        marginBottom: '0.5rem', 
+                        color: 'white',
+                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        fontWeight: 500
+                      }}
+                    >
+                      Genre
+                    </Typography>
                     <Autocomplete
                       options={gender}
                       getOptionLabel={(option) => option.label}
@@ -448,9 +532,13 @@ const InscrireEquipe = () => {
                             '& .MuiOutlinedInput-root': {
                               color: 'white',
                               backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                              fontSize: { xs: '1rem', md: '1rem' },
                               '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                               '&:hover fieldset': { borderColor: palette.primary.red },
                               '&.Mui-focused fieldset': { borderColor: palette.primary.red },
+                            },
+                            '& .MuiOutlinedInput-input': {
+                              padding: { xs: '14px !important', md: '16.5px 14px !important' },
                             },
                           }}
                         />
@@ -460,7 +548,14 @@ const InscrireEquipe = () => {
 
                   {/* Date de naissance */}
                   <Grid item xs={12} md={6}>
-                    <Typography sx={{ marginBottom: '0.5rem', color: 'white' }}>
+                    <Typography 
+                      sx={{ 
+                        marginBottom: '0.5rem', 
+                        color: 'white',
+                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        fontWeight: 500
+                      }}
+                    >
                       Date de naissance
                     </Typography>
                     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
@@ -474,9 +569,13 @@ const InscrireEquipe = () => {
                           '& .MuiOutlinedInput-root': {
                             color: 'white',
                             backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                            fontSize: { xs: '1rem', md: '1rem' },
                             '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                             '&:hover fieldset': { borderColor: palette.primary.red },
                             '&.Mui-focused fieldset': { borderColor: palette.primary.red },
+                          },
+                          '& .MuiOutlinedInput-input': {
+                            padding: { xs: '14px', md: '16.5px 14px' },
                           },
                           '& .MuiSvgIcon-root': { color: 'white' },
                         }}
@@ -486,7 +585,16 @@ const InscrireEquipe = () => {
 
                   {/* Pack */}
                   <Grid item xs={12} md={6}>
-                    <Typography sx={{ marginBottom: '0.5rem', color: 'white' }}>Pack</Typography>
+                    <Typography 
+                      sx={{ 
+                        marginBottom: '0.5rem', 
+                        color: 'white',
+                        fontSize: { xs: '0.95rem', md: '1rem' },
+                        fontWeight: 500
+                      }}
+                    >
+                      Pack
+                    </Typography>
                     <TextField
                       select
                       value={currentParticipant.packId || ''}
@@ -497,9 +605,13 @@ const InscrireEquipe = () => {
                         '& .MuiOutlinedInput-root': {
                           color: 'white',
                           backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                          fontSize: { xs: '1rem', md: '1rem' },
                           '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
                           '&:hover fieldset': { borderColor: palette.primary.red },
                           '&.Mui-focused fieldset': { borderColor: palette.primary.red },
+                        },
+                        '& .MuiOutlinedInput-input': {
+                          padding: { xs: '14px', md: '16.5px 14px' },
                         },
                       }}
                     >
@@ -513,7 +625,14 @@ const InscrireEquipe = () => {
 
                   {/* Régime alimentaire */}
                   <Grid item xs={12}>
-                    <Typography sx={{ marginBottom: '1rem', color: 'white', fontWeight: 'bold' }}>
+                    <Typography 
+                      sx={{ 
+                        marginBottom: { xs: '0.75rem', md: '1rem' }, 
+                        color: 'white', 
+                        fontWeight: 'bold',
+                        fontSize: { xs: '1rem', md: '1.1rem' }
+                      }}
+                    >
                       Régime alimentaire
                     </Typography>
                     <FormControlLabel
@@ -524,11 +643,17 @@ const InscrireEquipe = () => {
                           sx={{
                             color: palette.primary.red,
                             '&.Mui-checked': { color: palette.primary.red },
+                            '& .MuiSvgIcon-root': { fontSize: { xs: 28, md: 24 } },
                           }}
                         />
                       }
                       label="Végan"
-                      sx={{ color: 'white' }}
+                      sx={{ 
+                        color: 'white',
+                        '& .MuiFormControlLabel-label': {
+                          fontSize: { xs: '0.95rem', md: '1rem' },
+                        },
+                      }}
                     />
                     <FormControlLabel
                       control={
@@ -538,11 +663,17 @@ const InscrireEquipe = () => {
                           sx={{
                             color: palette.primary.red,
                             '&.Mui-checked': { color: palette.primary.red },
+                            '& .MuiSvgIcon-root': { fontSize: { xs: 28, md: 24 } },
                           }}
                         />
                       }
                       label="Allergie arachides/ fruits à coque"
-                      sx={{ color: 'white' }}
+                      sx={{ 
+                        color: 'white',
+                        '& .MuiFormControlLabel-label': {
+                          fontSize: { xs: '0.95rem', md: '1rem' },
+                        },
+                      }}
                     />
                   </Grid>
                 </Grid>
