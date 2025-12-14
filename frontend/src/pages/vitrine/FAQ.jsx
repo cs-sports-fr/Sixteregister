@@ -195,7 +195,7 @@ const FaqPractical = () => {
                     >
                         Envoie un mail à{" "}
                         <Link
-                            href="mailto:mathurin.lebrun@student-cs.fr"
+                            href="mailto:mathurin.le-brun@student-cs.fr"
                             sx={{ 
                                 textDecoration: 'none',
                                 color: palette.primary.red,
@@ -203,11 +203,11 @@ const FaqPractical = () => {
                                 '&:hover': { textDecoration: 'underline' }
                             }}
                         >
-                            mathurin.lebrun@student-cs.fr
+                            mathurin.le-brun@student-cs.fr
                         </Link>
                         {" "}ou{" "}
                         <Link
-                            href="mailto:laure.desurydaspermont@student-cs.fr"
+                            href="mailto:laure.desurydaspremont@student-cs.fr"
                             sx={{ 
                                 textDecoration: 'none',
                                 color: palette.primary.red,
@@ -215,7 +215,7 @@ const FaqPractical = () => {
                                 '&:hover': { textDecoration: 'underline' }
                             }}
                         >
-                            laure.desurydaspermont@student-cs.fr
+                            laure.desurydaspremont@student-cs.fr
                         </Link>
                     </Typography>
                 </Box>
