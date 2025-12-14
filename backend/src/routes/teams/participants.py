@@ -176,6 +176,7 @@ async def team_update_participant(
             isVegan=participant.isVegan,
             hasAllergies=participant.hasAllergies,
             weight=participant.weight,
+            charteIsValidated=participant.charteValidated,
             products=ProductUpdateManyWithoutRelationsInput(
                 set=product_connections,
             ),

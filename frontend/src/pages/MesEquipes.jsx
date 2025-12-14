@@ -407,15 +407,15 @@ const MesEquipes = () => {
                 Somme à payer
               </Typography>
               <Typography variant="h2" sx={{ fontWeight: 'bold', margin: '1rem 0' }}>
-                {(teams.reduce((sum, team) => sum + (team.amountToPayInCents || 0), 0) / 100).toFixed(2)} €
+                {(teams.reduce((sum, team) => sum + ((team.amountToPayInCents || 0) - (team.amountPaidInCents || 0)), 0) / 100).toFixed(2)} €
               </Typography>
               <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', marginBottom: '1.5rem' }}>
-                0 € (avec liste d'attente)
+                Montant restant dû
               </Typography>
               <Button
                 variant="contained"
                 onClick={handlePayment}
-                disabled={teams.reduce((sum, team) => sum + (team.amountToPayInCents || 0), 0) === 0 || paymentLoading}
+                disabled={teams.reduce((sum, team) => sum + ((team.amountToPayInCents || 0) - (team.amountPaidInCents || 0)), 0) === 0 || paymentLoading}
                 sx={{
                   backgroundColor: palette.primary.red,
                   color: 'white',

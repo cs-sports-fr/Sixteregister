@@ -71,6 +71,7 @@ const ModifierEquipe = () => {
           packId: p.packId,
           isVegan: p.isVegan,
           hasAllergies: p.hasAllergies,
+          charteValidated: p.charteValidated || false,
           productsIds: p.products?.map(prod => prod.id) || [],
           weight: p.weight,
           mailHebergeur: p.mailHebergeur || '',
@@ -175,6 +176,7 @@ const ModifierEquipe = () => {
           packId: participant.packId || 1,
           isVegan: participant.isVegan,
           hasAllergies: participant.hasAllergies,
+          charteValidated: participant.charteValidated || false,
           productsIds: participant.productsIds || [],
           weight: participant.weight ? parseFloat(participant.weight) : null,
           mailHebergeur: participant.mailHebergeur || null,
@@ -205,6 +207,7 @@ const ModifierEquipe = () => {
           packId: p.packId || 1,
           isVegan: p.isVegan,
           hasAllergies: p.hasAllergies,
+          charteValidated: p.charteValidated || false,
           productsIds: p.productsIds || [],
           weight: p.weight ? parseFloat(p.weight) : null,
           mailHebergeur: p.mailHebergeur || null,
@@ -604,6 +607,37 @@ const ModifierEquipe = () => {
                   label="Allergie arachides/ fruits à coque"
                   sx={{ color: 'white' }}
                 />
+              </Grid>
+
+              {/* Charte participant */}
+              <Grid item xs={12}>
+                <Typography sx={{ marginBottom: '1rem', color: 'white', fontWeight: 'bold' }}>
+                  Validation de la charte
+                </Typography>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={currentParticipant.charteValidated || false}
+                      onChange={(e) => handleParticipantChange('charteValidated', e.target.checked)}
+                      sx={{
+                        color: palette.primary.red,
+                        '&.Mui-checked': { color: palette.primary.red },
+                      }}
+                    />
+                  }
+                  label="Le participant a lu et approuvé la charte participant"
+                  sx={{ color: 'white' }}
+                />
+                <Typography 
+                  sx={{ 
+                    color: '#FFA500', 
+                    fontSize: '0.875rem', 
+                    marginTop: '0.5rem',
+                    fontStyle: 'italic'
+                  }}
+                >
+                  En cochant cette case, vous vous engagez à ce que ce participant inscrit a lu et s'engage personnellement à respecter la charte.
+                </Typography>
               </Grid>
             </Grid>
           </Grid>

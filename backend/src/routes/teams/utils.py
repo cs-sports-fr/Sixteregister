@@ -42,6 +42,7 @@ class ParticipantInput(BaseModel):
     packId: int
     isVegan: bool
     hasAllergies: bool
+    charteValidated: bool = False
     productsIds: list[int]
     weight: float | None = None
     mailHebergeur: str | None = None
@@ -147,7 +148,7 @@ async def add_participant_to_team(
             mobile=new_participant.mobile,
             email=new_participant.email,
             dateOfBirth=new_participant.dateOfBirth,
-            charteIsValidated=False,
+            charteIsValidated=new_participant.charteValidated,
             chartePassword=charte_password,
             teamId=team_id,
             logementRezOk= logement_rez_ok,
