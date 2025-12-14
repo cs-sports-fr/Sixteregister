@@ -71,7 +71,7 @@ const ModifierEquipe = () => {
           packId: p.packId,
           isVegan: p.isVegan,
           hasAllergies: p.hasAllergies,
-          charteValidated: p.charteValidated || false,
+          charteValidated: p.charteIsValidated || false,
           productsIds: p.products?.map(prod => prod.id) || [],
           weight: p.weight,
           mailHebergeur: p.mailHebergeur || '',
