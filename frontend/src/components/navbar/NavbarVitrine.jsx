@@ -133,12 +133,38 @@ const NavbarVitrine = () => {
         ))}
       </Box>
 
-      {/* S'INSCRIRE Button (Visible on md and up) */}
+      {/* Buttons (Visible on md and up) */}
       <Box
         sx={{
-          display: {xs:'none',sm: 'none', md: 'none',lg:'flex' }, // Hidden on small screens
+          display: {xs:'none',sm: 'none', md: 'none',lg:'flex' },
+          gap: '1rem',
         }}
       >
+        <Button
+          variant="outlined"
+          href='/login'
+          sx={{
+            borderColor: 'white',
+            backgroundColor: 'transparent',
+            color: 'white',
+            width: '11rem',
+            fontWeight: 'bold',
+            borderRadius: '25px',
+            padding: '0.6rem 1.5rem',
+            textTransform: 'uppercase',
+            fontSize: '0.9rem',
+            letterSpacing: '0.5px',
+            transition: 'all 0.3s ease',
+            ":hover": {
+              backgroundColor: 'white',
+              color: 'primary.dark',
+              borderColor: 'white',
+              transform: 'translateY(-2px)',
+            },
+          }}
+        >
+          SE CONNECTER
+        </Button>
         <Button
           variant="outlined"
           href='/register'
@@ -225,22 +251,39 @@ const NavbarVitrine = () => {
                 </ListItemButton>
               </ListItem>
             ))}
-            <ListItem disablePadding sx={{ }}>
-            <ListItemButton
-                  component="a"
-                  href='/register'
-                  sx={{
-                    textAlign: 'left',
-                  }}
-                >
-                  <ListItemText 
-                    primary={
-                      <Typography sx={{ fontWeight: 'bold',fontSize:'2rem',textAlign:'center' }}>
-                        S'inscrire
-                      </Typography>
-                    } 
-                  />
-                </ListItemButton>
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href='/login'
+                sx={{
+                  textAlign: 'left',
+                }}
+              >
+                <ListItemText 
+                  primary={
+                    <Typography sx={{ fontWeight: 'bold',fontSize:'2rem',textAlign:'center' }}>
+                      Se connecter
+                    </Typography>
+                  } 
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href='/register'
+                sx={{
+                  textAlign: 'left',
+                }}
+              >
+                <ListItemText 
+                  primary={
+                    <Typography sx={{ fontWeight: 'bold',fontSize:'2rem',textAlign:'center' }}>
+                      S'inscrire
+                    </Typography>
+                  } 
+                />
+              </ListItemButton>
             </ListItem>
           </List>
         </Box>

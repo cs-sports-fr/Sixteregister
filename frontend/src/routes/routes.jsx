@@ -6,10 +6,9 @@ import Register from "../pages/Register";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminSportDetail from "../pages/admin/AdminSportDetail";
 import SuperAdminDashboard from "../pages/superAdmin/SuperAdminDashboard";
-import UserDashboard from "../pages/user/UserDashboard";
 import AdminSports from "../pages/admin/AdminSports";
 import UserDetailTeam from "../pages/user/UserDetailTeam";
-import UserRegisterTeam from "../pages/user/UserRegisterTeam";
+// import UserRegisterTeam from "../pages/user/UserRegisterTeam";
 import UserPayment from "../pages/user/UserPayment";
 import Profile from "../pages/common/Profile";
 import AdminTeamDetail from "../pages/admin/AdminTeamDetail";
@@ -21,24 +20,54 @@ import Photo from "../pages/vitrine/photo";
 import Results from "../pages/vitrine/Results"
 import Sponsor from "../pages/vitrine/Sponsor";
 import RegistrationClosed from "../pages/RegistrationClosed";
+import EspaceParticipant from "../pages/EspaceParticipant";
+import MesEquipes from "../pages/MesEquipes";
+import InscrireEquipe from "../pages/InscrireEquipe";
+import ModifierEquipe from "../pages/ModifierEquipe";
+import SuccessPayment from "../pages/SuccessPayment";
+import GestionEquipes from "../pages/GestionEquipes";
+
 
 const routesForUser = [
     {
         path: "/",
-        element: <UserDashboard />,
-        name: 'Accueil'
+        element: <EspaceParticipant />,
+        name: 'Espace Participant'
     },
     {
-        path: "/register-team",
-        element: <UserRegisterTeam />,
+        path: "/mes-equipes",
+        element: <MesEquipes />,
+        name: 'Mes équipes'
+    },
+    {
+        path: "/inscrire-equipe",
+        element: <InscrireEquipe />,
         name: 'Inscrire une équipe'
     },
     {
-        path: "/team/:id",
-        element: <UserDetailTeam />,
-        name: 'Détail d équipe',
+        path: "/modifier-equipe/:teamId",
+        element: <ModifierEquipe />,
+        name: 'Modifier l\'équipe',
         hidden: true,
     },
+    {
+        path: "/success-payment/:payment_id",
+        element: <SuccessPayment />,
+        name: 'Confirmation de paiement',
+        hidden: true,
+    },
+    // {
+    //     path: "/register-team",
+    //     element: <UserRegisterTeam />,
+    //     name: 'Inscrire une équipe (old)',
+    //     hidden: true,
+    // },
+    // {
+    //     path: "/team/:id",
+    //     element: <UserDetailTeam />,
+    //     name: 'Détail d équipe',
+    //     hidden: true,
+    // },
     {
         path: "/payment",
         element: <UserPayment />,
@@ -50,6 +79,7 @@ const routesForUser = [
         name: 'Déconnexion',
         hidden: true,
     },
+    
 ]
 
 // Define admin Route
@@ -80,7 +110,38 @@ const routesForAdmin = [
         name: 'Déconnexion',
         hidden: true,
     },
-
+    {
+        path: "/gestion-equipes",
+        element: <GestionEquipes />,
+        name: 'Gestion des équipes',
+    },
+    {
+        path: "/",
+        element: <EspaceParticipant />,
+        name: 'Espace Participant'
+    },
+    {
+        path: "/mes-equipes",
+        element: <MesEquipes />,
+        name: 'Mes équipes'
+    },
+    {
+        path: "/inscrire-equipe",
+        element: <InscrireEquipe />,
+        name: 'Inscrire une équipe'
+    },
+    {
+        path: "/modifier-equipe/:teamId",
+        element: <ModifierEquipe />,
+        name: 'Modifier l\'équipe',
+        hidden: true,
+    },
+    {
+        path: "/success-payment/:payment_id",
+        element: <SuccessPayment />,
+        name: 'Confirmation de paiement',
+        hidden: true,
+    }
 ]
 
 // Define super admin route

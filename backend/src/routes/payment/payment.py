@@ -131,10 +131,33 @@ async def request_payment(team_id: int, user: User = Depends(check_user)):
     return payment_url
 
 
+@payment_router.get("/{payment_id}")
+async def get_payment(payment_id: int, user: User = Depends(check_user)):
+    """Récupérer un paiement spécifique"""
+    payment = await prisma.payment.find_unique(
+        where=PaymentWhereUniqueInput(id=payment_id),
+    )
+    
+    if payment is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Payment not found",
+        )
+    
+    # Vérifier que le paiement appartient à l'utilisateur
+    if payment.userId != user.id:
+        raise HTTPException(
+            status_code=403,
+            detail="Not authorized to access this payment",
+        )
+    
+    return payment
+
+
 @payment_router.post(
-    "/check-state/{payment_id}", dependencies=[Depends(check_admin)]
+    "/check-state/{payment_id}"
 )
-async def check_payment_state(payment_id: int):
+async def check_payment_state(payment_id: int, user: User = Depends(check_user)):
     payment = await prisma.payment.find_unique(
         where=PaymentWhereUniqueInput(id=payment_id),
         include=PaymentInclude(team=True),
@@ -145,17 +168,23 @@ async def check_payment_state(payment_id: int):
             detail="Payment not found",
         )
 
-    if payment.paymentStatus != PaymentStatus.Pending:
+    # Vérifier que le paiement appartient à l'utilisateur
+    if payment.userId != user.id:
         raise HTTPException(
-            status_code=400,
-            detail="Payment is not pending",
+            status_code=403,
+            detail="Not authorized to check this payment",
         )
 
-    payment_status = await check_lydia_payment_state(payment, payment.user)
+    if payment.paymentStatus != PaymentStatus.Pending:
+        return {"status": payment.paymentStatus, "message": "Payment already processed"}
+
+    payment_status = await check_lydia_payment_state(payment, user)
     if payment_status == PaymentStatus.Paid:
         await update_payment_after_confirmation(payment)
+        return {"status": "Paid", "message": "Payment confirmed"}
     else:
         await prisma.payment.update(
             where=PaymentWhereUniqueInput(id=payment.id),
             data=PaymentUpdateInput(paymentStatus=payment_status),
         )
+        return {"status": payment_status, "message": "Payment status updated"}
