@@ -77,6 +77,24 @@ const NavbarParticipant = () => {
           </Button>
         ))}
         <Button
+          href="/logout"
+          sx={{
+            color: 'white',
+            fontSize: { xs: '0.75rem', md: '0.9rem' },
+            fontWeight: '500',
+            textTransform: 'none',
+            padding: { xs: '0.4rem 0.8rem', md: '0.5rem 1.2rem' },
+            borderRadius: '8px',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              color: palette.primary.red,
+            },
+          }}
+        >
+          Se déconnecter
+        </Button>
+        <Button
           href="/"
           sx={{
             color: 'white',
