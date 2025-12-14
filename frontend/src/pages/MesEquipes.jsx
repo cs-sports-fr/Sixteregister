@@ -20,6 +20,7 @@ const MesEquipes = () => {
   const { showSnackbar } = useSnackbar();
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [paymentLoading, setPaymentLoading] = useState(false);
 
   useEffect(() => {
     fetchTeams();
@@ -92,16 +93,21 @@ const MesEquipes = () => {
       return;
     }
 
+    setPaymentLoading(true);
     try {
+      console.log('Requesting payment for team:', teamToPay.id);
       const response = await ApiTossConnected.post(`/payment/request?team_id=${teamToPay.id}`);
+      console.log('Payment response:', response.data);
       // La réponse contient l'URL Lydia
       if (response.data) {
         window.location.href = response.data;
       }
     } catch (error) {
       console.error('Error requesting payment:', error);
+      console.error('Error details:', error?.response?.data);
       const errorMsg = error?.response?.data?.detail || error?.message || 'Erreur lors de la demande de paiement';
       showSnackbar(errorMsg, 3000, 'error');
+      setPaymentLoading(false);
     }
   };
 
@@ -409,7 +415,7 @@ const MesEquipes = () => {
               <Button
                 variant="contained"
                 onClick={handlePayment}
-                disabled={teams.reduce((sum, team) => sum + (team.amountToPayInCents || 0), 0) === 0}
+                disabled={teams.reduce((sum, team) => sum + (team.amountToPayInCents || 0), 0) === 0 || paymentLoading}
                 sx={{
                   backgroundColor: palette.primary.red,
                   color: 'white',
@@ -424,7 +430,14 @@ const MesEquipes = () => {
                   },
                 }}
               >
-                Payer
+                {paymentLoading ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <CircularProgress size={20} sx={{ color: 'white' }} />
+                    Chargement...
+                  </Box>
+                ) : (
+                  'Payer'
+                )}
               </Button>
             </Box>
           )}
