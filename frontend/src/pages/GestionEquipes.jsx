@@ -29,6 +29,9 @@ import { ApiTossConnected } from '../service/axios';
 const GestionEquipes = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [teams, setTeams] = useState([]);
+  const [allTeams, setAllTeams] = useState([]);
+  const [sports, setSports] = useState([]);
+  const [selectedSport, setSelectedSport] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedTeam, setExpandedTeam] = useState(null);
@@ -42,19 +45,32 @@ const GestionEquipes = () => {
   ];
 
   useEffect(() => {
+    fetchSports();
     fetchTeams();
-  }, [currentTab]);
+  }, []);
+
+  useEffect(() => {
+    filterTeams();
+  }, [currentTab, selectedSport, allTeams]);
+
+  const fetchSports = async () => {
+    try {
+      const response = await ApiTossConnected.get('/sports');
+      setSports(response.data);
+      if (response.data.length > 0) {
+        setSelectedSport(response.data[0].id);
+      }
+    } catch (err) {
+      console.error('Erreur lors du chargement des sports:', err);
+    }
+  };
 
   const fetchTeams = async () => {
     setLoading(true);
     setError(null);
     try {
       const response = await ApiTossConnected.get('/teams');
-      const currentStatus = tabs[currentTab].status;
-      const filteredTeams = response.data.filter(
-        (team) => team.status === currentStatus
-      );
-      setTeams(filteredTeams);
+      setAllTeams(response.data);
     } catch (err) {
       setError('Erreur lors du chargement des équipes');
       console.error(err);
@@ -63,8 +79,22 @@ const GestionEquipes = () => {
     }
   };
 
+  const filterTeams = () => {
+    const currentStatus = tabs[currentTab].status;
+    const filtered = allTeams.filter(
+      (team) => team.status === currentStatus && 
+                (selectedSport === '' || team.sportId === selectedSport)
+    );
+    setTeams(filtered);
+  };
+
   const handleTabChange = (event, newValue) => {
     setCurrentTab(newValue);
+    setExpandedTeam(null);
+  };
+
+  const handleSportChange = (event) => {
+    setSelectedSport(event.target.value);
     setExpandedTeam(null);
   };
 
@@ -98,6 +128,24 @@ const GestionEquipes = () => {
       <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
         Gestion des équipes
       </Typography>
+
+      {/* Sport Selector */}
+      <Box sx={{ mb: 3 }}>
+        <FormControl fullWidth>
+          <InputLabel>Sport</InputLabel>
+          <Select
+            value={selectedSport}
+            label="Sport"
+            onChange={handleSportChange}
+          >
+            {sports.map((sport) => (
+              <MenuItem key={sport.id} value={sport.id}>
+                {sport.sport}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
 
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
         <Tabs value={currentTab} onChange={handleTabChange}>
