@@ -75,14 +75,13 @@ const GestionEquipes = () => {
   const handleStatusChange = async (teamId, newStatus) => {
     setUpdatingStatus(true);
     try {
-      await ApiTossConnected.put(`/teams/${teamId}`, {
-        status: newStatus,
-      });
+      await ApiTossConnected.put(`/teams/${teamId}/status?status=${newStatus}`);
       await fetchTeams();
       setExpandedTeam(null);
     } catch (err) {
       console.error('Erreur lors de la mise à jour du statut:', err);
-      alert('Erreur lors de la mise à jour du statut');
+      const errorMsg = err?.response?.data?.detail || 'Erreur lors de la mise à jour du statut';
+      alert(errorMsg);
     } finally {
       setUpdatingStatus(false);
     }
@@ -154,6 +153,13 @@ const GestionEquipes = () => {
                         color="primary"
                         size="small"
                       />
+                      {team.school && (
+                        <Chip
+                          label={team.school.name}
+                          color="info"
+                          size="small"
+                        />
+                      )}
                       <Chip
                         label={`À payer: ${amountToPay.toFixed(2)} €`}
                         color="warning"
@@ -164,6 +170,7 @@ const GestionEquipes = () => {
                         color="success"
                         size="small"
                       />
+                      
                     </Box>
                     <IconButton
                       sx={{
@@ -187,12 +194,11 @@ const GestionEquipes = () => {
                             onChange={(e) => handleStatusChange(team.id, e.target.value)}
                             disabled={updatingStatus}
                           >
-                            <MenuItem value="DossierIncomplet">Dossier incomplet</MenuItem>
-                            <MenuItem value="EnAttente">En attente</MenuItem>
-                            <MenuItem value="Selectionne">Sélectionné</MenuItem>
-                            <MenuItem value="Inscrit">Inscrit</MenuItem>
-                            <MenuItem value="Refuse">Refusé</MenuItem>
-                            <MenuItem value="ListeAttente">Liste d'attente</MenuItem>
+                            <MenuItem value="Incomplete">Dossier incomplet</MenuItem>
+                            <MenuItem value="Waiting">En attente</MenuItem>
+                            {/* <MenuItem value="Awaitingauthorization">En attente d&apos;autorisation</MenuItem> */}
+                            <MenuItem value="PrincipalList">Sélectionné (Liste principale)</MenuItem>
+                            <MenuItem value="Validated">Inscrit (Validé)</MenuItem>
                           </Select>
                         </FormControl>
                       </Box>

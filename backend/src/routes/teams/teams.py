@@ -336,6 +336,7 @@ async def get_teams(user: Annotated[User, Depends(check_user)]):
                     )
                 ),
                 sport=True,
+                school=True,
             )
         )
         return teams
@@ -355,6 +356,7 @@ async def get_teams(user: Annotated[User, Depends(check_user)]):
                     )
                 ),
                 sport=True,
+                school=True,
             ),
         )
         return teams
@@ -368,6 +370,7 @@ async def get_teams(user: Annotated[User, Depends(check_user)]):
                 )
             ),
             sport=True,
+            school=True,
         ),
     )
     return teams
