@@ -62,8 +62,8 @@ const Login = () => {
                 <Grid container spacing={0} sx={{ minHeight: '100vh' }}>
                     <Grid item xs={12} lg={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }}>
                         <Box py={'5vh'} px={{ xs: '8%', md: '15%' }} sx={{ width: '100%', maxWidth: '600px' }}>
-                            <Typography sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, fontWeight: 'bold', mb: 1.5, color: 'palette.primary.dark', textAlign: 'center' }}>
-                                <span style={{ textDecoration: 'underline', textDecorationColor: '#FF6B6B', textUnderlineOffset: '0.7rem', textDecorationThickness: '4px' }}>Conn</span>exion
+                            <Typography sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, fontWeight: 'bold', mb: 1.5, color: palette.primary.dark, textAlign: 'center' }}>
+                                <span style={{ textDecoration: 'underline', textDecorationColor: palette.primary.red, textUnderlineOffset: '0.7rem', textDecorationThickness: '4px' }}>Conn</span>exion
                             </Typography>
                             <Box mt={3}>
                                 <form onSubmit={handleLogin}>
