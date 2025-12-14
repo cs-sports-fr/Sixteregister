@@ -1,15 +1,35 @@
-import React from 'react';
-import { Box, Button } from "@mui/material";
+import React, { useState } from 'react';
+import { 
+  Box, 
+  Button, 
+  IconButton, 
+  Drawer, 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListItemText,
+  Typography 
+} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import palette from "../../themes/palette";
 
 const NavbarParticipant = () => {
   const navigate = useNavigate();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const navigation = [
     { label: 'Mes équipes', href: '/mes-equipes' },
     { label: 'Inscrire une équipe', href: '/inscrire-equipe' },
   ];
+
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerOpen(open);
+  };
 
   return (
     <Box
@@ -47,11 +67,11 @@ const NavbarParticipant = () => {
         />
       </Box>
 
-      {/* Navigation Links */}
+      {/* Navigation Links - Desktop */}
       <Box
         sx={{
-          display: 'flex',
-          gap: { xs: '0.5rem', md: '1rem' },
+          display: { xs: 'none', md: 'none', lg: 'flex' },
+          gap: '1rem',
           alignItems: 'center',
         }}
       >
@@ -61,10 +81,10 @@ const NavbarParticipant = () => {
             href={link.href}
             sx={{
               color: 'white',
-              fontSize: { xs: '0.75rem', md: '0.9rem' },
+              fontSize: '0.9rem',
               fontWeight: '500',
               textTransform: 'none',
-              padding: { xs: '0.4rem 0.8rem', md: '0.5rem 1.2rem' },
+              padding: '0.5rem 1.2rem',
               borderRadius: '8px',
               transition: 'all 0.3s ease',
               '&:hover': {
@@ -80,10 +100,10 @@ const NavbarParticipant = () => {
           href="/logout"
           sx={{
             color: 'white',
-            fontSize: { xs: '0.75rem', md: '0.9rem' },
+            fontSize: '0.9rem',
             fontWeight: '500',
             textTransform: 'none',
-            padding: { xs: '0.4rem 0.8rem', md: '0.5rem 1.2rem' },
+            padding: '0.5rem 1.2rem',
             borderRadius: '8px',
             transition: 'all 0.3s ease',
             '&:hover': {
@@ -98,10 +118,10 @@ const NavbarParticipant = () => {
           href="/"
           sx={{
             color: 'white',
-            fontSize: { xs: '0.75rem', md: '0.9rem' },
+            fontSize: '0.9rem',
             fontWeight: '500',
             textTransform: 'none',
-            padding: { xs: '0.4rem 0.8rem', md: '0.5rem 1.2rem' },
+            padding: '0.5rem 1.2rem',
             borderRadius: '8px',
             border: `1px solid ${palette.primary.red}`,
             backgroundColor: palette.primary.red,
@@ -116,6 +136,99 @@ const NavbarParticipant = () => {
           Revenir à l'accueil
         </Button>
       </Box>
+
+      {/* Hamburger Icon - Mobile */}
+      <Box
+        sx={{
+          display: { xs: 'flex', md: 'flex', lg: 'none' },
+          alignItems: 'center',
+        }}
+      >
+        <IconButton onClick={toggleDrawer(true)}>
+          <MenuIcon sx={{ color: 'white', fontSize: '3rem' }} />
+        </IconButton>
+      </Box>
+
+      {/* Drawer for Mobile Navigation */}
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+      >
+        <Box
+          sx={{ width: 400 }}
+          role="presentation"
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              padding: '1rem',
+            }}
+          >
+            <IconButton onClick={toggleDrawer(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <List>
+            {navigation.map((link) => (
+              <ListItem key={link.label} disablePadding>
+                <ListItemButton
+                  component="a"
+                  href={link.href}
+                  sx={{
+                    textAlign: 'left',
+                  }}
+                >
+                  <ListItemText
+                    primary={
+                      <Typography sx={{ fontWeight: 'bold', fontSize: '2rem', textAlign: 'center' }}>
+                        {link.label}
+                      </Typography>
+                    }
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/logout"
+                sx={{
+                  textAlign: 'left',
+                }}
+              >
+                <ListItemText
+                  primary={
+                    <Typography sx={{ fontWeight: 'bold', fontSize: '2rem', textAlign: 'center' }}>
+                      Se déconnecter
+                    </Typography>
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton
+                component="a"
+                href="/"
+                sx={{
+                  textAlign: 'left',
+                }}
+              >
+                <ListItemText
+                  primary={
+                    <Typography sx={{ fontWeight: 'bold', fontSize: '2rem', textAlign: 'center' }}>
+                      Revenir à l'accueil
+                    </Typography>
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Box>
+      </Drawer>
     </Box>
   );
 };
