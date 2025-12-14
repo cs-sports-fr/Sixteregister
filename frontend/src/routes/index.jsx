@@ -11,6 +11,9 @@ import NotFoundPage from "../pages/NotFound";
 const Routes = () => {
     const { token, permission } = useAuth();
 
+    console.log('Current permission:', permission);
+    console.log('Current token:', token ? 'exists' : 'none');
+
     // Define routes accessible only to authenticated users
     const routesForAuthenticatedOnly = [
         {
@@ -33,7 +36,7 @@ const Routes = () => {
                     children: routesForSuperAdmin
                 }
 
-            ],
+            ].filter(Boolean),
         },
     ];
 

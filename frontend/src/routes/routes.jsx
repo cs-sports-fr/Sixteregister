@@ -25,6 +25,8 @@ import MesEquipes from "../pages/MesEquipes";
 import InscrireEquipe from "../pages/InscrireEquipe";
 import ModifierEquipe from "../pages/ModifierEquipe";
 import SuccessPayment from "../pages/SuccessPayment";
+import GestionEquipes from "../pages/GestionEquipes";
+
 
 const routesForUser = [
     {
@@ -77,6 +79,7 @@ const routesForUser = [
         name: 'Déconnexion',
         hidden: true,
     },
+    
 ]
 
 // Define admin Route
@@ -107,7 +110,38 @@ const routesForAdmin = [
         name: 'Déconnexion',
         hidden: true,
     },
-
+    {
+        path: "/gestion-equipes",
+        element: <GestionEquipes />,
+        name: 'Gestion des équipes',
+    },
+    {
+        path: "/",
+        element: <EspaceParticipant />,
+        name: 'Espace Participant'
+    },
+    {
+        path: "/mes-equipes",
+        element: <MesEquipes />,
+        name: 'Mes équipes'
+    },
+    {
+        path: "/inscrire-equipe",
+        element: <InscrireEquipe />,
+        name: 'Inscrire une équipe'
+    },
+    {
+        path: "/modifier-equipe/:teamId",
+        element: <ModifierEquipe />,
+        name: 'Modifier l\'équipe',
+        hidden: true,
+    },
+    {
+        path: "/success-payment/:payment_id",
+        element: <SuccessPayment />,
+        name: 'Confirmation de paiement',
+        hidden: true,
+    }
 ]
 
 // Define super admin route
