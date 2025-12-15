@@ -52,7 +52,13 @@ app = FastAPI(
 )
 
 
-origins = ["https://localhost:3000", "http://localhost:8081",'http://localhost:5173', "*"]
+origins = [
+    "https://localhost:3000", 
+    "http://localhost:8081",
+    "http://localhost:5173",
+    "https://sixte.bds-cs.fr",  # Votre domaine de production
+    "https://api-sixte.bds-cs.fr",  # Votre API de production
+]
 
 
 app.add_middleware(
