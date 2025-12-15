@@ -53,11 +53,11 @@ app = FastAPI(
 
 
 origins = [
-    "https://localhost:3000", 
+    "http://localhost:3000",  # Frontend React en dev (HTTP)
     "http://localhost:8081",
-    "http://localhost:5173",
-    "https://sixte.bds-cs.fr",  # Votre domaine de production
-    "https://api-sixte.bds-cs.fr",  # Votre API de production
+    "http://localhost:5173",  # Vite dev server
+    "https://sixte.bds-cs.fr",  # Frontend production
+    "https://api-sixte.bds-cs.fr",  # API production
 ]
 
 
