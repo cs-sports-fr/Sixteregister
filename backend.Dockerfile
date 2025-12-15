@@ -1,7 +1,9 @@
 FROM python:3.11-slim-buster
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y git curl
+    apt-get install -y git curl libatomic1 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /backend
 
