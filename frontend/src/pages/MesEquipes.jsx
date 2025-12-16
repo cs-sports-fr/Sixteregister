@@ -174,6 +174,9 @@ const MesEquipes = () => {
             <Typography sx={{ marginBottom: '1rem' }}>
               ⚽ <strong>Étape 2 - Création de l'équipe :</strong> Une fois connecté sur cette page, le capitaine doit créer son équipe et ajouter tous les participants. Pas de stress, il peut modifier son équipe à sa guise jusqu'à la soumission finale ! ✏️
             </Typography>
+            <Typography sx={{ marginBottom: '1rem', paddingLeft: '1.5rem', fontStyle: 'italic', color: '#FFA500' }}>
+              🎓 <strong>Pack boursier :</strong> Durant l'étape "Dossier incomplet", vous pouvez choisir le pack boursier pour les participants concernés. Ces participants devront envoyer un justificatif par mail. Nous devons valider leur statut de boursier avant de passer votre équipe en "Sélectionné".
+            </Typography>
             <Typography sx={{ marginBottom: '1rem' }}>
               ✅ <strong>Étape 3 - Validation des chartes :</strong> Le capitaine doit cocher que <strong>tous les participants ont bien lu et approuvé la charte</strong>. C'est super important pour passer à l'étape suivante ! 📝
             </Typography>
