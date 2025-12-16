@@ -114,8 +114,8 @@ const InscrireEquipe = () => {
         isCaptain: p.isCaptain,
         licenceID: p.licenceID || '',
         packId: p.packId || 1,
-        isVegan: p.isVegan,
-        hasAllergies: p.hasAllergies,
+        isVegan: false,
+        hasAllergies: false,
         productsIds: p.productsIds || [],
         weight: p.weight ? parseFloat(p.weight) : null,
         mailHebergeur: p.mailHebergeur || null,
@@ -361,15 +361,7 @@ const InscrireEquipe = () => {
                   {selectedParticipant === 0 && '(Capitaine)'}
                 </Typography>
 
-                <Alert 
-                  severity="warning" 
-                  sx={{ 
-                    marginBottom: { xs: '1.5rem', md: '2rem' },
-                    fontSize: { xs: '0.85rem', md: '0.95rem' }
-                  }}
-                >
-                  Vous aurez l'option d'ajouter le certificat médical ou l'attestation de santé après la création de l'équipe dans l'onglet "Mes Équipes". Lisez bien les instructions pour savoir quel document est requis en fonction du sport et de la situation du participant.
-                </Alert>
+                
 
                 <Grid container spacing={3}>
                   {/* Nom */}
@@ -538,7 +530,7 @@ const InscrireEquipe = () => {
                               '&.Mui-focused fieldset': { borderColor: palette.primary.red },
                             },
                             '& .MuiOutlinedInput-input': {
-                              padding: { xs: '14px !important', md: '16.5px 14px !important' },
+                              padding: { xs: '16.5px 14px', md: '16.5px 14px' },
                             },
                           }}
                         />
@@ -623,7 +615,7 @@ const InscrireEquipe = () => {
                     </TextField>
                   </Grid>
 
-                  {/* Régime alimentaire */}
+                  {/* Régime alimentaire
                   <Grid item xs={12}>
                     <Typography 
                       sx={{ 
@@ -675,7 +667,7 @@ const InscrireEquipe = () => {
                         },
                       }}
                     />
-                  </Grid>
+                  </Grid>*/}
                 </Grid>
               </>
             ) : (

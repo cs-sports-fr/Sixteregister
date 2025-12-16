@@ -64,6 +64,28 @@ async def team_add_participants(
 ):
     existing_team = await get_team_if_allowed(team_id, user)
 
+    # Récupérer le sport pour vérifier le nombre max de participants
+    team_with_sport = await prisma.team.find_unique(
+        where={"id": team_id},
+        include={"sport": True, "participants": True}
+    )
+    
+    if not team_with_sport:
+        raise HTTPException(
+            status_code=404,
+            detail="Team not found"
+        )
+    
+    max_players = team_with_sport.sport.nbPlayersMax
+    current_participants_count = len(team_with_sport.participants)
+    new_participants_count = len(participants)
+    
+    if current_participants_count + new_participants_count > max_players:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Cannot add {new_participants_count} participant(s). Team currently has {current_participants_count} participant(s) and maximum is {max_players}."
+        )
+
     for new_participant in participants:
 
         charte_password = generate_password()
