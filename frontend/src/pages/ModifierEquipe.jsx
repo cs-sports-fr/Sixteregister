@@ -181,8 +181,8 @@ const ModifierEquipe = () => {
           isCaptain: participant.isCaptain,
           licenceID: participant.licenceID || '',
           packId: participant.packId || 1,
-          isVegan: participant.isVegan,
-          hasAllergies: participant.hasAllergies,
+          isVegan: false,
+          hasAllergies: false,
           charteValidated: participant.charteValidated || false,
           productsIds: participant.productsIds || [],
           weight: participant.weight ? parseFloat(participant.weight) : null,
@@ -212,8 +212,8 @@ const ModifierEquipe = () => {
           isCaptain: p.isCaptain,
           licenceID: p.licenceID || '',
           packId: p.packId || 1,
-          isVegan: p.isVegan,
-          hasAllergies: p.hasAllergies,
+          isVegan: false,
+          hasAllergies: false,
           charteValidated: p.charteValidated || false,
           productsIds: p.productsIds || [],
           weight: p.weight ? parseFloat(p.weight) : null,
@@ -530,6 +530,9 @@ const ModifierEquipe = () => {
                           '&:hover fieldset': { borderColor: palette.primary.red },
                           '&.Mui-focused fieldset': { borderColor: palette.primary.red },
                         },
+                        '& .MuiOutlinedInput-input': {
+                          padding: '16.5px 14px',
+                        },
                       }}
                     />
                   )}
@@ -590,7 +593,7 @@ const ModifierEquipe = () => {
               </Grid>
 
               {/* Régime alimentaire */}
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Typography sx={{ marginBottom: '1rem', color: 'white', fontWeight: 'bold' }}>
                   Régime alimentaire
                 </Typography>
@@ -622,12 +625,12 @@ const ModifierEquipe = () => {
                   label="Allergie arachides/ fruits à coque"
                   sx={{ color: 'white' }}
                 />
-              </Grid>
+              </Grid> */}
 
               {/* Charte participant */}
               <Grid item xs={12}>
                 <Typography sx={{ marginBottom: '1rem', color: 'white', fontWeight: 'bold' }}>
-                  Validation de la charte
+                  Validation de la <a href="/Charte/Charte participant 2026.docx.pdf" download style={{ color: palette.primary.red, textDecoration: 'underline', cursor: 'pointer' }}>charte</a>
                 </Typography>
                 <FormControlLabel
                   control={
@@ -651,7 +654,7 @@ const ModifierEquipe = () => {
                     fontStyle: 'italic'
                   }}
                 >
-                  En cochant cette case, vous vous engagez à ce que ce participant inscrit a lu et s'engage personnellement à respecter la charte.
+                  En cochant cette case, vous vous engagez à ce que ce participant inscrit a lu et s'engage personnellement à respecter la <a href="/Charte/Charte participant 2026.docx.pdf" download style={{ color: '#FFA500', textDecoration: 'underline', cursor: 'pointer' }}>charte</a>.
                 </Typography>
               </Grid>
             </Grid>
