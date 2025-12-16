@@ -100,6 +100,13 @@ const ModifierEquipe = () => {
   };
 
   const handleAddParticipant = () => {
+    const maxParticipants = team?.sport?.nbPlayersMax || 999;
+    
+    if (participants.length >= maxParticipants) {
+      showSnackbar(`Impossible d'ajouter un participant. L'équipe a atteint le nombre maximum de ${maxParticipants} participants.`, 4000, 'error');
+      return;
+    }
+    
     const newParticipant = {
       id: null, // null signifie nouveau participant
       gender: '',
@@ -174,8 +181,8 @@ const ModifierEquipe = () => {
           isCaptain: participant.isCaptain,
           licenceID: participant.licenceID || '',
           packId: participant.packId || 1,
-          isVegan: participant.isVegan,
-          hasAllergies: participant.hasAllergies,
+          isVegan: false,
+          hasAllergies: false,
           charteValidated: participant.charteValidated || false,
           productsIds: participant.productsIds || [],
           weight: participant.weight ? parseFloat(participant.weight) : null,
@@ -205,8 +212,8 @@ const ModifierEquipe = () => {
           isCaptain: p.isCaptain,
           licenceID: p.licenceID || '',
           packId: p.packId || 1,
-          isVegan: p.isVegan,
-          hasAllergies: p.hasAllergies,
+          isVegan: false,
+          hasAllergies: false,
           charteValidated: p.charteValidated || false,
           productsIds: p.productsIds || [],
           weight: p.weight ? parseFloat(p.weight) : null,
@@ -307,11 +314,11 @@ const ModifierEquipe = () => {
                 variant="subtitle2"
                 sx={{
                   color: palette.primary.red,
-                  marginBottom: '1rem',
+                  marginBottom: '0.5rem',
                   fontWeight: 'bold',
                 }}
               >
-                Participants
+                Participants ({participants.length}/{team?.sport?.nbPlayersMax || 999})
               </Typography>
               {participants.map((p, index) => (
                 <Box
@@ -360,6 +367,7 @@ const ModifierEquipe = () => {
                 startIcon={<AddIcon />}
                 onClick={handleAddParticipant}
                 fullWidth
+                disabled={participants.length >= (team?.sport?.nbPlayersMax || 999)}
                 sx={{
                   marginTop: '1rem',
                   color: 'white',
@@ -368,10 +376,17 @@ const ModifierEquipe = () => {
                     borderColor: palette.primary.red,
                     backgroundColor: 'rgba(255, 107, 107, 0.1)',
                   },
+                  '&.Mui-disabled': {
+                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                    color: 'rgba(255, 255, 255, 0.3)',
+                  },
                 }}
                 variant="outlined"
               >
-                Ajouter un participant
+                {participants.length >= (team?.sport?.nbPlayersMax || 999) 
+                  ? 'Limite atteinte' 
+                  : 'Ajouter un participant'
+                }
               </Button>
             </Box>
 
@@ -515,6 +530,9 @@ const ModifierEquipe = () => {
                           '&:hover fieldset': { borderColor: palette.primary.red },
                           '&.Mui-focused fieldset': { borderColor: palette.primary.red },
                         },
+                        '& .MuiOutlinedInput-input': {
+                          padding: '16.5px 14px',
+                        },
                       }}
                     />
                   )}
@@ -575,7 +593,7 @@ const ModifierEquipe = () => {
               </Grid>
 
               {/* Régime alimentaire */}
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <Typography sx={{ marginBottom: '1rem', color: 'white', fontWeight: 'bold' }}>
                   Régime alimentaire
                 </Typography>
@@ -607,12 +625,12 @@ const ModifierEquipe = () => {
                   label="Allergie arachides/ fruits à coque"
                   sx={{ color: 'white' }}
                 />
-              </Grid>
+              </Grid> */}
 
               {/* Charte participant */}
               <Grid item xs={12}>
                 <Typography sx={{ marginBottom: '1rem', color: 'white', fontWeight: 'bold' }}>
-                  Validation de la charte
+                  Validation de la <a href="/Charte/Charte participant 2026.docx.pdf" download style={{ color: palette.primary.red, textDecoration: 'underline', cursor: 'pointer' }}>charte</a>
                 </Typography>
                 <FormControlLabel
                   control={
@@ -636,7 +654,7 @@ const ModifierEquipe = () => {
                     fontStyle: 'italic'
                   }}
                 >
-                  En cochant cette case, vous vous engagez à ce que ce participant inscrit a lu et s'engage personnellement à respecter la charte.
+                  En cochant cette case, vous vous engagez à ce que ce participant inscrit a lu et s'engage personnellement à respecter la <a href="/Charte/Charte participant 2026.docx.pdf" download style={{ color: '#FFA500', textDecoration: 'underline', cursor: 'pointer' }}>charte</a>.
                 </Typography>
               </Grid>
             </Grid>

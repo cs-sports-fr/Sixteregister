@@ -184,10 +184,10 @@ const MesEquipes = () => {
               🚀 <strong>Étape 4 - Soumission :</strong> Une fois toutes les chartes validées et l'équipe au complet, le capitaine peut cliquer sur "<strong>Soumettre l'équipe</strong>". Votre équipe passera alors en statut "<strong>En attente</strong>" ⏳
             </Typography>
             <Typography sx={{ marginBottom: '1rem' }}>
-              🎉 <strong>Étape 5 - Validation :</strong> Nos organisateurs vont examiner votre dossier. Une fois validé, vous passerez en statut "<strong>Sélectionné</strong>" ! Félicitations ! 🎊
+              🎉 <strong>Étape 5 - Validation :</strong> Nos organisateurs vont examiner votre dossier. Une fois validé, vous passerez en statut "<strong>Sélectionné</strong>" ! Félicitations, votre place est assurée ! 🎊
             </Typography>
             <Typography>
-              💳 <strong>Étape 6 - Paiement :</strong> Dernière étape : effectuez le paiement directement sur le site. Une fois le paiement confirmé, vous passerez en statut "<strong>Inscrit</strong>" et c'est officiel, vous êtes de la partie ! 🏆✨
+              💳 <strong>Étape 6 - Paiement :</strong> Dernière étape : effectuez le paiement directement sur le site. Une fois que vous êtes sélectionné, votre place est garantie, il ne vous reste plus qu'à payer ! Une fois le paiement confirmé, vous passerez en statut "<strong>Inscrit</strong>" et c'est officiel, vous êtes de la partie ! 🏆✨
             </Typography>
           </Box>
 
