@@ -100,6 +100,13 @@ const ModifierEquipe = () => {
   };
 
   const handleAddParticipant = () => {
+    const maxParticipants = team?.sport?.nbPlayersMax || 999;
+    
+    if (participants.length >= maxParticipants) {
+      showSnackbar(`Impossible d'ajouter un participant. L'équipe a atteint le nombre maximum de ${maxParticipants} participants.`, 4000, 'error');
+      return;
+    }
+    
     const newParticipant = {
       id: null, // null signifie nouveau participant
       gender: '',
@@ -307,11 +314,11 @@ const ModifierEquipe = () => {
                 variant="subtitle2"
                 sx={{
                   color: palette.primary.red,
-                  marginBottom: '1rem',
+                  marginBottom: '0.5rem',
                   fontWeight: 'bold',
                 }}
               >
-                Participants
+                Participants ({participants.length}/{team?.sport?.nbPlayersMax || 999})
               </Typography>
               {participants.map((p, index) => (
                 <Box
@@ -360,6 +367,7 @@ const ModifierEquipe = () => {
                 startIcon={<AddIcon />}
                 onClick={handleAddParticipant}
                 fullWidth
+                disabled={participants.length >= (team?.sport?.nbPlayersMax || 999)}
                 sx={{
                   marginTop: '1rem',
                   color: 'white',
@@ -368,10 +376,17 @@ const ModifierEquipe = () => {
                     borderColor: palette.primary.red,
                     backgroundColor: 'rgba(255, 107, 107, 0.1)',
                   },
+                  '&.Mui-disabled': {
+                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                    color: 'rgba(255, 255, 255, 0.3)',
+                  },
                 }}
                 variant="outlined"
               >
-                Ajouter un participant
+                {participants.length >= (team?.sport?.nbPlayersMax || 999) 
+                  ? 'Limite atteinte' 
+                  : 'Ajouter un participant'
+                }
               </Button>
             </Box>
 
