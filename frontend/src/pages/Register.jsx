@@ -97,7 +97,7 @@ const Register = () => {
 
     const [schools, setSchools] = useState([]);
     const fetchData = () => {
-        ApiTossNotConnected.get('schools')
+        ApiTossNotConnected.get('/schools')
             .then((response) => {
                 console.log("Schools data:", response.data);
                 const schoolsData = response.data;
