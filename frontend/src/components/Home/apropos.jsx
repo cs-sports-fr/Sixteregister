@@ -19,7 +19,7 @@ const Apropos = () => {
 Le BDS de CentraleSupélec réalise ce rêve et t’emmène au Sixte. Le Sixte est un tournoi de football à 7 étudiants sur les terrains du Centre National
 d’Entrainement à Clairefontaine. C’est dans ce cadre prestigieux que se retrouvent plus de 400 étudiants venus de toute la France pour un samedi de folie !
 Le Sixte accueille pour la cinquième fois un tournoi de football à 7 féminin. Bref, aucune excuse pour ne pas s’inscrire à cette édition qui se déroulera le 
-10 Février. Le tarif individuel est de 44 euros par personne pour le tournoi et un repas de qualité fourni par les cuisines de Clairefontaine.
+10 Février. Le tarif individuel est de 48 euros par personne pour le tournoi et un repas de qualité fourni par les cuisines de Clairefontaine.
 Cette année, tu pourras (peut-être) visiter le château des Bleus, mais tu auras aussi l'opportunité de visiter le musée des Bleus.`;
 
   const aproposText = `À tous les passionnés de sport, les amoureux de la compétition et même les sportifs du dimanche,

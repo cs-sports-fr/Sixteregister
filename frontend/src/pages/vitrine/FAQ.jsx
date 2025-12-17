@@ -79,11 +79,11 @@ const FaqPractical = () => {
                             lineHeight: 1.8,
                         }}
                     >
-                        L&apos;inscription au tournoi est de <strong style={{ color: palette.primary.red }}>46€</strong> par participant.
+                        L&apos;inscription au tournoi est de <strong style={{ color: palette.primary.red }}>48€</strong> par participant.
                         <br />
-                        Pour les boursiers, elle s&apos;élève à <strong style={{ color: palette.primary.red }}>28€</strong> sous présentation du justificatif.
+                        Pour les boursiers, elle s&apos;élève à <strong style={{ color: palette.primary.red }}>30€</strong> sous présentation du justificatif.
                         <br />
-                        Pour les électrocentraliens, elle s&apos;élève à <strong style={{ color: palette.primary.red }}>35€</strong> sous présentation du justificatif.
+                        Pour les électrocentraliens, elle s&apos;élève à <strong style={{ color: palette.primary.red }}>37€</strong> sous présentation du justificatif.
                         <br />
                         <br />
 
