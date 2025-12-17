@@ -377,7 +377,7 @@ const Register = () => {
                                     <Grid item xs={11} md={11}>
                                         <Typography sx={{ fontSize: '0.8rem', color: palette.primary.dark }}>
                                             Je certifie avoir lu et approuvé les{" "}
-                                            <Link href="/CGI/CGI_indiv.pdf" target="_blank" style={{ fontWeight: "600", color: palette.primary.red, textDecorationColor: palette.primary.red }}>
+                                            <Link href="/CGI/CGI 2026 SIXTE.docx-2.pdf" target="_blank" style={{ fontWeight: "600", color: palette.primary.red, textDecorationColor: palette.primary.red }}>
                                                 Conditions Générales d&apos;Inscription{" "}
                                             </Link>{" "}
                                             

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Typography, IconButton, Collapse, Link } from '@mui/material';
+import { Box, Typography, IconButton, Collapse, Link, Button } from '@mui/material';
 import LayoutUnauthenticated from '../../components/layouts/LayoutUnauthenticated';
 import Footer from '../../components/footer/footer';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -18,6 +18,55 @@ const FaqPractical = () => {
     };
 
     const faqEntries = [
+        {
+            question: "Règlements officiels du tournoi",
+            answer: (
+                <Box sx={{ mt: 2 }}>
+                    <Typography
+                        sx={{
+                            color: 'rgba(255, 255, 255, 0.9)',
+                            fontSize: { xs: '1rem', md: '1.1rem' },
+                            lineHeight: 1.8,
+                            marginBottom: '1.5rem',
+                        }}
+                    >
+                        Consultez les règlements officiels du tournoi pour connaître toutes les modalités de participation :
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <Button
+                            variant="contained"
+                            href="/CGI/Reglement_F_2026_SIXTE.pdf"
+                            target="_blank"
+                            sx={{
+                                backgroundColor: palette.primary.red,
+                                color: 'white',
+                                padding: '0.75rem 1.5rem',
+                                '&:hover': {
+                                    backgroundColor: '#e55a5a',
+                                },
+                            }}
+                        >
+                            📄 Télécharger le Règlement Féminin 2026
+                        </Button>
+                        <Button
+                            variant="contained"
+                            href="/CGI/Reglement_M_2026_SIXTE.pdf"
+                            target="_blank"
+                            sx={{
+                                backgroundColor: palette.primary.red,
+                                color: 'white',
+                                padding: '0.75rem 1.5rem',
+                                '&:hover': {
+                                    backgroundColor: '#e55a5a',
+                                },
+                            }}
+                        >
+                            📄 Télécharger le Règlement Masculin 2026
+                        </Button>
+                    </Box>
+                </Box>
+            )
+        },
         {
             question: "Déroulement de la journée",
             answer: (

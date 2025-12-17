@@ -34,6 +34,25 @@ const InscrireEquipe = () => {
   const [teamLevel, setTeamLevel] = useState('');
   const [selectedParticipant, setSelectedParticipant] = useState(0);
   const [participants, setParticipants] = useState([]);
+  const [existingTeam, setExistingTeam] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Check if user already has a team
+  useEffect(() => {
+    const checkExistingTeam = async () => {
+      try {
+        const response = await ApiTossConnected.get('/teams');
+        if (response.data && response.data.length > 0) {
+          setExistingTeam(response.data[0]);
+        }
+      } catch (error) {
+        console.error('Error checking existing team:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkExistingTeam();
+  }, []);
 
   // Load sports and packs
   useEffect(() => {
@@ -137,6 +156,100 @@ const InscrireEquipe = () => {
 
   const currentParticipant = participants[selectedParticipant] || {};
   const minParticipants = selectedSport?.nbPlayersMin || 1;
+
+  // If user already has a team, show message instead of form
+  if (loading) {
+    return (
+      <>
+        <NavbarParticipant />
+        <Box
+          sx={{
+            backgroundColor: palette.primary.dark,
+            minHeight: '100vh',
+            paddingTop: { xs: '80px', md: '80px' },
+            color: 'white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Typography>Chargement...</Typography>
+        </Box>
+      </>
+    );
+  }
+
+  if (existingTeam) {
+    return (
+      <>
+        <NavbarParticipant />
+        <Box
+          sx={{
+            backgroundColor: palette.primary.dark,
+            minHeight: '100vh',
+            paddingTop: { xs: '80px', md: '80px' },
+            color: 'white',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '2rem',
+          }}
+        >
+          <Box
+            sx={{
+              backgroundColor: 'white',
+              color: palette.primary.dark,
+              padding: '3rem',
+              borderRadius: '12px',
+              maxWidth: '600px',
+              textAlign: 'center',
+            }}
+          >
+            <Typography variant="h4" sx={{ fontWeight: 'bold', marginBottom: '1.5rem' }}>
+              ⚠️ Vous avez déjà une équipe
+            </Typography>
+            <Typography variant="body1" sx={{ marginBottom: '1rem' }}>
+              Vous avez déjà créé l'équipe <strong>{existingTeam.name}</strong>.
+            </Typography>
+            <Typography variant="body1" sx={{ marginBottom: '2rem' }}>
+              Vous ne pouvez créer qu'une seule équipe par compte. Si vous souhaitez modifier votre équipe, utilisez le bouton ci-dessous.
+            </Typography>
+            <Box sx={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+              <Button
+                variant="contained"
+                onClick={() => navigate(`/modifier-equipe/${existingTeam.id}`)}
+                sx={{
+                  backgroundColor: palette.primary.red,
+                  color: 'white',
+                  padding: '0.75rem 2rem',
+                  '&:hover': {
+                    backgroundColor: '#FF5252',
+                  },
+                }}
+              >
+                Modifier mon équipe
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => navigate('/mes-equipes')}
+                sx={{
+                  borderColor: palette.primary.dark,
+                  color: 'white',
+                  padding: '0.75rem 2rem',
+                  '&:hover': {
+                    borderColor: palette.primary.dark,
+                    backgroundColor: 'rgba(10, 73, 182, 0.59)',
+                  },
+                }}
+              >
+                Voir mon équipe
+              </Button>
+            </Box>
+          </Box>
+        </Box>
+      </>
+    );
+  }
 
   return (
     <>
