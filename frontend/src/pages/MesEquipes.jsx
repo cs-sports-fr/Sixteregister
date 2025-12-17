@@ -84,12 +84,14 @@ const MesEquipes = () => {
   };
 
   const handlePayment = async () => {
-    // On va payer pour la première équipe qui a un montant à payer
-    // Si plusieurs équipes, on pourrait demander à l'utilisateur de choisir
-    const teamToPay = teams.find(team => (team.amountToPayInCents - (team.amountPaidInCents || 0)) > 0);
+    // On va payer pour la première équipe qui a un montant à payer ET qui est sélectionnée
+    const teamToPay = teams.find(team => 
+      team.status === 'PrincipalList' && 
+      (team.amountToPayInCents - (team.amountPaidInCents || 0)) > 0
+    );
     
     if (!teamToPay) {
-      showSnackbar('Aucune équipe ne nécessite de paiement', 3000, 'info');
+      showSnackbar('Aucune équipe sélectionnée ne nécessite de paiement', 3000, 'info');
       return;
     }
 
@@ -284,7 +286,7 @@ const MesEquipes = () => {
               marginBottom: '2rem',
             }}
           >
-            Mes équipes
+            Mon équipe
           </Typography>
 
           {loading ? (
@@ -418,10 +420,25 @@ const MesEquipes = () => {
               <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', marginBottom: '1.5rem' }}>
                 Montant restant dû
               </Typography>
+              {!teams.some(team => team.status === 'PrincipalList' && (team.amountToPayInCents - (team.amountPaidInCents || 0)) > 0) && (
+                <Typography 
+                  sx={{ 
+                    color: '#FFA500', 
+                    marginBottom: '1rem',
+                    fontStyle: 'italic',
+                    fontSize: '0.95rem'
+                  }}
+                >
+                  ℹ️ Le paiement sera possible une fois que l'équipe sera sélectionnée
+                </Typography>
+              )}
               <Button
                 variant="contained"
                 onClick={handlePayment}
-                disabled={teams.reduce((sum, team) => sum + ((team.amountToPayInCents || 0) - (team.amountPaidInCents || 0)), 0) === 0 || paymentLoading}
+                disabled={
+                  !teams.some(team => team.status === 'PrincipalList' && (team.amountToPayInCents - (team.amountPaidInCents || 0)) > 0) ||
+                  paymentLoading
+                }
                 sx={{
                   backgroundColor: palette.primary.red,
                   color: 'white',

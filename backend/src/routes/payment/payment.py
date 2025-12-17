@@ -97,6 +97,15 @@ async def expire_payment(payment_id: int, hash: str):
 @payment_router.post("/request")
 async def request_payment(team_id: int, user: User = Depends(check_user)):
     existing_team = await get_team_if_allowed(team_id, user)
+    
+    # Vérifier que l'équipe a le statut PrincipalList
+    from prisma.enums import TeamStatus
+    if existing_team.status != TeamStatus.PrincipalList:
+        raise HTTPException(
+            status_code=400,
+            detail="L'équipe doit être sélectionnée (statut 'Liste principale') pour effectuer un paiement"
+        )
+    
     amountLeftToPayInCents = (
         existing_team.amountToPayInCents - existing_team.amountPaidInCents
     )

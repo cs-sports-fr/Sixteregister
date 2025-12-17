@@ -270,7 +270,7 @@ const ModifierEquipe = () => {
             fontSize: '0.9rem',
           }}
         >
-          <Typography sx={{ color: 'white' }}>Mes équipes</Typography>
+          <Typography sx={{ color: 'white' }}>Mon équipe</Typography>
           <Typography sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>›</Typography>
           <Typography sx={{ color: 'white' }}>Modifier l'équipe</Typography>
           <Typography sx={{ color: 'rgba(255, 255, 255, 0.5)' }}>›</Typography>

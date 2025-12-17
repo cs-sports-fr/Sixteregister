@@ -130,7 +130,7 @@ const SuccessPayment = () => {
                                         },
                                     }}
                                 >
-                                    Retour à mes équipes
+                                    Retour à mon équipe
                                 </Button>
                             </Box>
                         ) : (
@@ -152,7 +152,7 @@ const SuccessPayment = () => {
                                     Paiement non confirmé
                                 </Typography>
                                 <Typography sx={{ color: 'rgba(5, 25, 57, 0.8)', textAlign: 'center', fontSize: '1.1rem' }}>
-                                    {error || "Votre paiement n'a pas pu être confirmé. Vous pouvez réessayer depuis votre page mes équipes."}
+                                    {error || "Votre paiement n'a pas pu être confirmé. Vous pouvez réessayer depuis votre page mon équipe."}
                                 </Typography>
                                 <Button
                                     variant="contained"
@@ -168,7 +168,7 @@ const SuccessPayment = () => {
                                         },
                                     }}
                                 >
-                                    Retour à mes équipes
+                                    Retour à mon équipe
                                 </Button>
                             </Box>
                         )}
