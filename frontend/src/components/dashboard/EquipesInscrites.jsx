@@ -10,7 +10,7 @@ function EquipesInscritesPage({ height, teams }) {
     const headerItem =
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <Typography variant="h5">
-                Mes équipes inscrites
+                Mon équipe inscrites
             </Typography>
             <Button variant="contained" sx={{ maxWidth: '20%' }} href="/register-team">
                 Inscrire une équipe
