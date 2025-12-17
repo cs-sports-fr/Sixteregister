@@ -148,7 +148,21 @@ const GestionEquipes = () => {
       </Box>
 
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
-        <Tabs value={currentTab} onChange={handleTabChange}>
+        <Tabs 
+          value={currentTab} 
+          onChange={handleTabChange}
+          TabIndicatorProps={{
+            style: { backgroundColor: '#000000' }
+          }}
+          sx={{
+            '& .MuiTab-root': {
+              color: '#000000',
+            },
+            '& .Mui-selected': {
+              color: '#000000',
+            },
+          }}
+        >
           {tabs.map((tab, index) => (
             <Tab key={index} label={tab.label} />
           ))}
