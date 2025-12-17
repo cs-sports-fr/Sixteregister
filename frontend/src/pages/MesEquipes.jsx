@@ -20,7 +20,7 @@ const MesEquipes = () => {
   const { showSnackbar } = useSnackbar();
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [paymentLoading, setPaymentLoading] = useState(false);
+  const [paymentLoading, setPaymentLoading] = useState({});
 
   useEffect(() => {
     fetchTeams();
@@ -83,22 +83,29 @@ const MesEquipes = () => {
     }
   };
 
-  const handlePayment = async () => {
-    // On va payer pour la première équipe qui a un montant à payer ET qui est sélectionnée
-    const teamToPay = teams.find(team => 
-      team.status === 'PrincipalList' && 
-      (team.amountToPayInCents - (team.amountPaidInCents || 0)) > 0
-    );
+  const handlePayment = async (teamId) => {
+    const team = teams.find(t => t.id === teamId);
     
-    if (!teamToPay) {
-      showSnackbar('Aucune équipe sélectionnée ne nécessite de paiement', 3000, 'info');
+    if (!team) {
+      showSnackbar('Équipe non trouvée', 3000, 'error');
       return;
     }
 
-    setPaymentLoading(true);
+    if (team.status !== 'PrincipalList') {
+      showSnackbar('L\'équipe doit être sélectionnée pour effectuer un paiement', 3000, 'info');
+      return;
+    }
+
+    const amountToPay = (team.amountToPayInCents || 0) - (team.amountPaidInCents || 0);
+    if (amountToPay <= 0) {
+      showSnackbar('Aucun paiement nécessaire pour cette équipe', 3000, 'info');
+      return;
+    }
+
+    setPaymentLoading(prev => ({ ...prev, [teamId]: true }));
     try {
-      console.log('Requesting payment for team:', teamToPay.id);
-      const response = await ApiTossConnected.post(`/payment/request?team_id=${teamToPay.id}`);
+      console.log('Requesting payment for team:', teamId);
+      const response = await ApiTossConnected.post(`/payment/request?team_id=${teamId}`);
       console.log('Payment response:', response.data);
       // La réponse contient l'URL Lydia
       if (response.data) {
@@ -109,7 +116,7 @@ const MesEquipes = () => {
       console.error('Error details:', error?.response?.data);
       const errorMsg = error?.response?.data?.detail || error?.message || 'Erreur lors de la demande de paiement';
       showSnackbar(errorMsg, 3000, 'error');
-      setPaymentLoading(false);
+      setPaymentLoading(prev => ({ ...prev, [teamId]: false }));
     }
   };
 
@@ -286,7 +293,7 @@ const MesEquipes = () => {
               marginBottom: '2rem',
             }}
           >
-            Mon équipe
+            {teams.length === 1 ? 'Mon équipe' : 'Mes équipes'}
           </Typography>
 
           {loading ? (
@@ -356,40 +363,89 @@ const MesEquipes = () => {
                       <Typography sx={{ marginBottom: '0.5rem', color: 'rgba(255, 255, 255, 0.8)' }}>
                         Nombre de joueurs: {team.participants?.length || 0}
                       </Typography>
-                      <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                      <Typography sx={{ marginBottom: '0.5rem', color: 'rgba(255, 255, 255, 0.8)' }}>
                         Prix total: {((team.amountToPayInCents || 0) / 100).toFixed(2)} €
                       </Typography>
-                      <Box sx={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                        <Button
-                          variant="outlined"
-                          fullWidth
-                          onClick={() => navigate(`/modifier-equipe/${team.id}`)}
-                          sx={{
-                            color: 'white',
-                            borderColor: palette.primary.red,
-                            '&:hover': {
-                              borderColor: palette.primary.red,
-                              backgroundColor: 'rgba(255, 107, 107, 0.1)',
-                            },
-                          }}
-                        >
-                          Modifier
-                        </Button>
-                        {team.status === 'Incomplete' && (
+                      <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+                        Montant restant: {(((team.amountToPayInCents || 0) - (team.amountPaidInCents || 0)) / 100).toFixed(2)} €
+                      </Typography>
+                      <Box sx={{ display: 'flex', gap: '1rem', marginTop: '1rem', flexDirection: 'column' }}>
+                        <Box sx={{ display: 'flex', gap: '1rem' }}>
                           <Button
-                            variant="contained"
+                            variant="outlined"
                             fullWidth
-                            onClick={() => handleSubmitTeam(team.id)}
+                            onClick={() => navigate(`/modifier-equipe/${team.id}`)}
                             sx={{
-                              backgroundColor: palette.primary.red,
                               color: 'white',
+                              borderColor: palette.primary.red,
                               '&:hover': {
-                                backgroundColor: '#FF5252',
+                                borderColor: palette.primary.red,
+                                backgroundColor: 'rgba(255, 107, 107, 0.1)',
                               },
                             }}
                           >
-                            Soumettre
+                            Modifier
                           </Button>
+                          {team.status === 'Incomplete' && (
+                            <Button
+                              variant="contained"
+                              fullWidth
+                              onClick={() => handleSubmitTeam(team.id)}
+                              sx={{
+                                backgroundColor: palette.primary.red,
+                                color: 'white',
+                                '&:hover': {
+                                  backgroundColor: '#FF5252',
+                                },
+                              }}
+                            >
+                              Soumettre
+                            </Button>
+                          )}
+                        </Box>
+                        {/* Bouton de paiement individuel pour chaque équipe */}
+                        {((team.amountToPayInCents || 0) - (team.amountPaidInCents || 0)) > 0 && (
+                          <Box>
+                            {team.status !== 'PrincipalList' && (
+                              <Typography 
+                                sx={{ 
+                                  color: '#FFA500', 
+                                  fontSize: '0.85rem',
+                                  fontStyle: 'italic',
+                                  marginBottom: '0.5rem',
+                                  textAlign: 'center'
+                                }}
+                              >
+                                ℹ️ Le paiement sera possible une fois l'équipe sélectionnée
+                              </Typography>
+                            )}
+                            <Button
+                              variant="contained"
+                              fullWidth
+                              onClick={() => handlePayment(team.id)}
+                              disabled={team.status !== 'PrincipalList' || paymentLoading[team.id]}
+                              sx={{
+                                backgroundColor: palette.primary.red,
+                                color: 'white',
+                                '&:hover': {
+                                  backgroundColor: '#FF5252',
+                                },
+                                '&:disabled': {
+                                  backgroundColor: '#999',
+                                  color: 'white',
+                                },
+                              }}
+                            >
+                              {paymentLoading[team.id] ? (
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                  <CircularProgress size={20} sx={{ color: 'white' }} />
+                                  Chargement...
+                                </Box>
+                              ) : (
+                                `Payer ${(((team.amountToPayInCents || 0) - (team.amountPaidInCents || 0)) / 100).toFixed(2)} €`
+                              )}
+                            </Button>
+                          </Box>
                         )}
                       </Box>
                     </CardContent>
@@ -397,72 +453,6 @@ const MesEquipes = () => {
                 </Grid>
               ))}
             </Grid>
-          )}
-
-          {/* Total Amount */}
-          {teams.length > 0 && (
-            <Box
-              sx={{
-                marginTop: '3rem',
-                padding: '2rem',
-                backgroundColor: palette.primary.dark,
-                color: 'white',
-                borderRadius: '12px',
-                textAlign: 'center',
-              }}
-            >
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-                Somme à payer
-              </Typography>
-              <Typography variant="h2" sx={{ fontWeight: 'bold', margin: '1rem 0' }}>
-                {(teams.reduce((sum, team) => sum + ((team.amountToPayInCents || 0) - (team.amountPaidInCents || 0)), 0) / 100).toFixed(2)} €
-              </Typography>
-              <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', marginBottom: '1.5rem' }}>
-                Montant restant dû
-              </Typography>
-              {!teams.some(team => team.status === 'PrincipalList' && (team.amountToPayInCents - (team.amountPaidInCents || 0)) > 0) && (
-                <Typography 
-                  sx={{ 
-                    color: '#FFA500', 
-                    marginBottom: '1rem',
-                    fontStyle: 'italic',
-                    fontSize: '0.95rem'
-                  }}
-                >
-                  ℹ️ Le paiement sera possible une fois que l'équipe sera sélectionnée
-                </Typography>
-              )}
-              <Button
-                variant="contained"
-                onClick={handlePayment}
-                disabled={
-                  !teams.some(team => team.status === 'PrincipalList' && (team.amountToPayInCents - (team.amountPaidInCents || 0)) > 0) ||
-                  paymentLoading
-                }
-                sx={{
-                  backgroundColor: palette.primary.red,
-                  color: 'white',
-                  padding: '0.75rem 3rem',
-                  fontSize: '1.1rem',
-                  '&:hover': {
-                    backgroundColor: '#FF5252',
-                  },
-                  '&:disabled': {
-                    backgroundColor: '#999',
-                    color: 'white',
-                  },
-                }}
-              >
-                {paymentLoading ? (
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <CircularProgress size={20} sx={{ color: 'white' }} />
-                    Chargement...
-                  </Box>
-                ) : (
-                  'Payer'
-                )}
-              </Button>
-            </Box>
           )}
         </Box>
       </Box>
