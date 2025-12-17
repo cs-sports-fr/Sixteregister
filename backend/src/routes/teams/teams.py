@@ -327,7 +327,8 @@ async def update_team_amount_paid(team_id: int, amount_paid_in_cents: int):
 
 @teams_router.get("", response_model=List[Team])
 async def get_teams(user: Annotated[User, Depends(check_user)]):
-    if user.status == EnumUserStatus.SuperAdminStatus:
+    # SuperAdmins and Admins can see all teams
+    if user.status in [EnumUserStatus.SuperAdminStatus, EnumUserStatus.AdminStatus]:
         teams = await prisma.team.find_many(
             include=TeamInclude(
                 participants=FindManyParticipantArgsFromTeam(
@@ -341,26 +342,7 @@ async def get_teams(user: Annotated[User, Depends(check_user)]):
         )
         return teams
 
-    elif (
-        user.status == EnumUserStatus.AdminStatus
-        and user.sportAdminId is not None
-    ):
-        teams = await prisma.team.find_many(
-            where=TeamWhereInput(
-                schoolId=user.schoolId, sportId=user.sportAdminId
-            ),
-            include=TeamInclude(
-                participants=FindManyParticipantArgsFromTeam(
-                    include=ParticipantIncludeFromParticipantRecursive1(
-                        products=True
-                    )
-                ),
-                sport=True,
-                school=True,
-            ),
-        )
-        return teams
-
+    # Regular users only see their own teams
     teams = await prisma.team.find_many(
         where=TeamWhereInput(teamAdminUserId=user.id),
         include=TeamInclude(
