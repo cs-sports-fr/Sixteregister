@@ -18,11 +18,17 @@ import {
   InputLabel,
   CircularProgress,
   Alert,
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from '@mui/material';
 import {
   ExpandMore as ExpandMoreIcon,
   CheckCircle as CheckCircleIcon,
   Cancel as CancelIcon,
+  Add as AddIcon,
 } from '@mui/icons-material';
 import { ApiTossConnected } from '../service/axios';
 
@@ -36,6 +42,11 @@ const GestionEquipes = () => {
   const [error, setError] = useState(null);
   const [expandedTeam, setExpandedTeam] = useState(null);
   const [updatingStatus, setUpdatingStatus] = useState(false);
+  const [openSchoolDialog, setOpenSchoolDialog] = useState(false);
+  const [newSchoolName, setNewSchoolName] = useState('');
+  const [creatingSchool, setCreatingSchool] = useState(false);
+  const [schoolSuccess, setSchoolSuccess] = useState(null);
+  const [schoolError, setSchoolError] = useState(null);
 
   const tabs = [
     { label: 'Dossier incomplet', status: 'Incomplete' },
@@ -123,11 +134,89 @@ const GestionEquipes = () => {
     return { amountToPay, amountPaid };
   };
 
+  const handleCreateSchool = async () => {
+    if (!newSchoolName.trim()) {
+      setSchoolError('Le nom de l\'école est requis');
+      return;
+    }
+
+    setCreatingSchool(true);
+    setSchoolError(null);
+    setSchoolSuccess(null);
+
+    try {
+      await ApiTossConnected.post('/schools/', null, {
+        params: { name: newSchoolName.trim() }
+      });
+      setSchoolSuccess('École créée avec succès !');
+      setNewSchoolName('');
+      setTimeout(() => {
+        setOpenSchoolDialog(false);
+        setSchoolSuccess(null);
+      }, 2000);
+    } catch (err) {
+      console.error('Erreur lors de la création de l\'école:', err);
+      setSchoolError(err?.response?.data?.detail || 'Erreur lors de la création de l\'école');
+    } finally {
+      setCreatingSchool(false);
+    }
+  };
+
   return (
     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', mb: 3 }}>
-        Gestion des équipes
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+        <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+          Gestion des équipes
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={() => setOpenSchoolDialog(true)}
+        >
+          Ajouter une école
+        </Button>
+      </Box>
+
+      {/* Dialog pour créer une école */}
+      <Dialog open={openSchoolDialog} onClose={() => setOpenSchoolDialog(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Ajouter une nouvelle école</DialogTitle>
+        <DialogContent>
+          {schoolSuccess && (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              {schoolSuccess}
+            </Alert>
+          )}
+          {schoolError && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {schoolError}
+            </Alert>
+          )}
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Nom de l'école"
+            fullWidth
+            variant="outlined"
+            value={newSchoolName}
+            onChange={(e) => setNewSchoolName(e.target.value)}
+            disabled={creatingSchool}
+            sx={{ mt: 2 }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenSchoolDialog(false)} disabled={creatingSchool}>
+            Annuler
+          </Button>
+          <Button 
+            onClick={handleCreateSchool} 
+            variant="contained" 
+            disabled={creatingSchool || !newSchoolName.trim()}
+          >
+            {creatingSchool ? <CircularProgress size={24} /> : 'Créer'}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       {/* Sport Selector */}
       <Box sx={{ mb: 3 }}>
@@ -293,6 +382,11 @@ const GestionEquipes = () => {
                                   <Typography variant="body2" color="text.secondary">
                                     📱 {participant.mobile}
                                   </Typography>
+                                  {participant.pack && (
+                                    <Typography variant="body2" color="text.secondary">
+                                      📦 Pack: {participant.pack.name}
+                                    </Typography>
+                                  )}
                                   <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
                                     {participant.charteIsValidated ? (
                                       <Box sx={{ display: 'flex', alignItems: 'center', color: 'success.main' }}>

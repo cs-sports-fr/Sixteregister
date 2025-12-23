@@ -195,25 +195,7 @@ async def check_and_update_team_amount_to_pay_then_get_team(
 
     for participant in team.participants:
         if participant.pack is not None:
-            if team.schoolId == 34:
-                amount_to_pay_in_cents += participant.pack.priceInCents - 4300
-                
-            elif team.schoolId ==2 or team.schoolId == 93 or team.schoolId== 97 or team.schoolId == 43 or team.schoolId == 10 or team.schoolId == 59 or team.schoolId == 118:
-                amount_to_pay_in_cents += participant.pack.priceInCents - 1000
-      
-    
-                
-            else:
-                amount_to_pay_in_cents += participant.pack.priceInCents
-
-        if team.sportId == 19:
-            amount_to_pay_in_cents += 1500
-            
-        if team.sportId == 14:
-            amount_to_pay_in_cents += 1500
-         
-        if team.sportId == 34:
-            amount_to_pay_in_cents -= 1000
+            amount_to_pay_in_cents += participant.pack.priceInCents
 
         if participant.products is None:
             break

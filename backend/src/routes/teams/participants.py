@@ -887,11 +887,7 @@ async def get_participants_details(
         for participant in participants:
             pack_price = participant.pack.priceInCents/100 if participant.pack else 0
             products_price = sum(product.priceInCents/100 for product in participant.products) if participant.products else 0
-            school_discount = 43 if participant.team and participant.team.schoolId in [34] else 0
-            school_discount2 = 10 if participant.team and participant.team.schoolId in [2,93,97,43,10,59,118] else 0
-            sport_extra_fee = 15 if participant.team and participant.team.sportId in [14, 19] else 0
-            sport_discount = 10 if participant.team and participant.team.sportId == 34 else 0
-            total_price = pack_price + products_price - school_discount + sport_extra_fee - sport_discount - school_discount2
+            total_price = pack_price + products_price
             
             participant_detail = {
                 "id": participant.id,

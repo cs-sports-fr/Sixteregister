@@ -333,7 +333,8 @@ async def get_teams(user: Annotated[User, Depends(check_user)]):
             include=TeamInclude(
                 participants=FindManyParticipantArgsFromTeam(
                     include=ParticipantIncludeFromParticipantRecursive1(
-                        products=True
+                        products=True,
+                        pack=True
                     )
                 ),
                 sport=True,
@@ -348,7 +349,8 @@ async def get_teams(user: Annotated[User, Depends(check_user)]):
         include=TeamInclude(
             participants=FindManyParticipantArgsFromTeam(
                 include=ParticipantIncludeFromParticipantRecursive1(
-                    products=True
+                    products=True,
+                    pack=True
                 )
             ),
             sport=True,
