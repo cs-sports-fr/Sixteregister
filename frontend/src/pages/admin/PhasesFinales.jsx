@@ -27,6 +27,8 @@ import {
     Delete as DeleteIcon,
     Refresh as RefreshIcon,
     EmojiEvents as TrophyIcon,
+    PlayArrow as PlayIcon,
+    Stop as StopIcon,
 } from '@mui/icons-material';
 import Navbar from '../../components/navbar/Navbar';
 import { routesForAdmin, routesForSuperAdmin } from '../../routes/routes';
@@ -38,6 +40,8 @@ import {
     deleteMatch,
     modifyMatch,
     getSportWithTeams,
+    startMatch,
+    endMatch,
 } from '../../service/matchService';
 
 const PhasesFinales = () => {
@@ -265,6 +269,28 @@ const PhasesFinales = () => {
         }
     };
 
+    const handleStartMatch = async (matchId) => {
+        try {
+            await startMatch(matchId);
+            setSuccess('Match démarré');
+            fetchMatches();
+        } catch (err) {
+            setError('Erreur lors du démarrage du match');
+            console.error(err);
+        }
+    };
+
+    const handleEndMatch = async (matchId) => {
+        try {
+            await endMatch(matchId);
+            setSuccess('Match terminé');
+            fetchMatches();
+        } catch (err) {
+            setError('Erreur lors de la fin du match');
+            console.error(err);
+        }
+    };
+
     // Grouper les matchs par phase
     const matchesByPhase = phases.reduce((acc, phase) => {
         acc[phase.value] = matches.filter(m => m.phase === phase.value);
@@ -361,6 +387,8 @@ const PhasesFinales = () => {
                             onEditScore={handleOpenScoreDialog}
                             onEditMatch={handleOpenEditMatch}
                             onDelete={handleDeleteMatch}
+                            onStart={handleStartMatch}
+                            onEnd={handleEndMatch}
                         />
 
                         {matches.length === 0 && (
@@ -561,7 +589,7 @@ const PhasesFinales = () => {
 
 // Composant Bracket visuel
 // eslint-disable-next-line no-unused-vars
-const BracketView = ({ matchesByPhase, phases, getPhaseLabel, formatTime, onEditScore, onEditMatch, onDelete }) => {
+const BracketView = ({ matchesByPhase, phases, getPhaseLabel, formatTime, onEditScore, onEditMatch, onDelete, onStart, onEnd }) => {
     // Ordre d'affichage pour le bracket: 64èmes -> 32èmes -> Huitièmes -> Quarts -> Demis -> Finale (+ 3ème place)
     const mainBracketPhases = ['Roundof64', 'Roundof32', 'Roundof16', 'QuarterFinal', 'SemiFinal', 'Final'];
     
@@ -609,6 +637,8 @@ const BracketView = ({ matchesByPhase, phases, getPhaseLabel, formatTime, onEdit
                                                     onEditScore={onEditScore}
                                                     onEditMatch={onEditMatch}
                                                     onDelete={onDelete}
+                                                    onStart={onStart}
+                                                    onEnd={onEnd}
                                                 />
                                             ))}
                                         </Box>
@@ -636,6 +666,8 @@ const BracketView = ({ matchesByPhase, phases, getPhaseLabel, formatTime, onEdit
                                     onEditScore={onEditScore}
                                     onEditMatch={onEditMatch}
                                     onDelete={onDelete}
+                                    onStart={onStart}
+                                    onEnd={onEnd}
                                 />
                             ))}
                         </Box>
@@ -647,8 +679,16 @@ const BracketView = ({ matchesByPhase, phases, getPhaseLabel, formatTime, onEdit
 };
 
 // Composant carte de match
-const MatchCard = ({ match, formatTime, onEditScore, onEditMatch, onDelete }) => {
+const MatchCard = ({ match, formatTime, onEditScore, onEditMatch, onDelete, onStart, onEnd }) => {
     const isWinner = (teamId) => match.winnerId && match.winnerId === teamId;
+    
+    // Déterminer le statut du match
+    const getMatchStatus = () => {
+        if (match.hasEnded) return { label: 'Terminé', color: 'success' };
+        if (match.hasStarted) return { label: 'En cours', color: 'warning' };
+        return { label: 'À venir', color: 'default' };
+    };
+    const status = getMatchStatus();
     
     return (
         <Paper
@@ -661,6 +701,24 @@ const MatchCard = ({ match, formatTime, onEditScore, onEditMatch, onDelete }) =>
                 borderColor: match.phase === 'Final' ? 'gold' : 'divider',
             }}
         >
+            {/* Statut du match */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+                <Typography 
+                    variant="caption" 
+                    sx={{ 
+                        px: 1, 
+                        py: 0.25, 
+                        borderRadius: 1,
+                        bgcolor: status.color === 'success' ? 'success.light' : 
+                                 status.color === 'warning' ? 'warning.light' : 'grey.200',
+                        color: status.color === 'success' ? 'success.dark' : 
+                               status.color === 'warning' ? 'warning.dark' : 'text.secondary',
+                    }}
+                >
+                    {status.label}
+                </Typography>
+            </Box>
+
             {/* Équipe 1 */}
             <Box
                 sx={{
@@ -726,6 +784,17 @@ const MatchCard = ({ match, formatTime, onEditScore, onEditMatch, onDelete }) =>
                     </Typography>
                 </Box>
                 <Box>
+                    {/* Boutons Démarrer/Arrêter */}
+                    {!match.hasStarted && !match.hasEnded && (
+                        <IconButton size="small" color="success" onClick={() => onStart(match.id)} title="Démarrer le match">
+                            <PlayIcon fontSize="small" />
+                        </IconButton>
+                    )}
+                    {match.hasStarted && !match.hasEnded && (
+                        <IconButton size="small" color="warning" onClick={() => onEnd(match.id)} title="Terminer le match">
+                            <StopIcon fontSize="small" />
+                        </IconButton>
+                    )}
                     <IconButton size="small" onClick={() => onEditScore(match)} title="Modifier le score">
                         <EditIcon fontSize="small" />
                     </IconButton>
@@ -749,6 +818,8 @@ BracketView.propTypes = {
     onEditScore: PropTypes.func.isRequired,
     onEditMatch: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onStart: PropTypes.func.isRequired,
+    onEnd: PropTypes.func.isRequired,
 };
 
 MatchCard.propTypes = {
@@ -757,6 +828,8 @@ MatchCard.propTypes = {
     onEditScore: PropTypes.func.isRequired,
     onEditMatch: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onStart: PropTypes.func.isRequired,
+    onEnd: PropTypes.func.isRequired,
 };
 
 export default PhasesFinales;
