@@ -96,7 +96,6 @@ async def generate_matches(sport_id: int):
                     "Place": True,
                 }
             },
-            "placesSaturday": True,
         }
     )
 
@@ -104,24 +103,53 @@ async def generate_matches(sport_id: int):
         raise HTTPException(status_code=404, detail="Sport not found.")
 
     pool_match_length = sport.poolMatchLength
+    
+    # Debug info
+    debug_info = {
+        "total_pools": len(sport.pools),
+        "pools_with_place": 0,
+        "pools_with_teams": 0,
+        "pools_morning": 0,
+        "pools_afternoon": 0,
+        "pools_details": []
+    }
 
     # Group pools by their assigned Place and by morning/afternoon
     place_id_to_pools_morning = {}
     place_id_to_pools_afternoon = {}
+    places_map = {}  # Pour stocker les infos des Places
 
     for pool in sport.pools:
-        if pool.PlaceId is not None and pool.teams:
+        pool_detail = {
+            "name": pool.name,
+            "placeId": pool.PlaceId,
+            "placeName": pool.Place.name if pool.Place else None,
+            "isMorning": pool.isMorning,
+            "teamsCount": len(pool.teams) if pool.teams else 0
+        }
+        debug_info["pools_details"].append(pool_detail)
+        
+        if pool.PlaceId is not None:
+            debug_info["pools_with_place"] += 1
+        if pool.teams and len(pool.teams) >= 2:
+            debug_info["pools_with_teams"] += 1
+            
+        # Condition: PlaceId défini, au moins 2 équipes, et Place chargé
+        if pool.PlaceId is not None and pool.teams and len(pool.teams) >= 2 and pool.Place:
+            places_map[pool.PlaceId] = pool.Place  # Stocker l'objet Place
             if pool.isMorning:
                 place_id_to_pools_morning.setdefault(pool.PlaceId, []).append(pool)
+                debug_info["pools_morning"] += 1
             else:
                 place_id_to_pools_afternoon.setdefault(pool.PlaceId, []).append(pool)
+                debug_info["pools_afternoon"] += 1
 
     all_scheduled_matches = []
 
-    # Schedule morning matches
-    for place in sport.placesSaturday:
-        pools_for_place = place_id_to_pools_morning.get(place.id, [])
-        if not pools_for_place:
+    # Schedule morning matches - utiliser les places des pools directement
+    for place_id, pools_for_place in place_id_to_pools_morning.items():
+        place = places_map.get(place_id)
+        if not place or not pools_for_place:
             continue
         matches_for_pools = []
         for pool in pools_for_place:
@@ -134,13 +162,13 @@ async def generate_matches(sport_id: int):
             start_time=place.startTime, 
         )
         for match_info in scheduled_matches:
-            match_info["placeId"] = place.id
+            match_info["placeId"] = place_id
         all_scheduled_matches.extend(scheduled_matches)
 
-    # Schedule afternoon matches
-    for place in sport.placesSaturday:
-        pools_for_place = place_id_to_pools_afternoon.get(place.id, [])
-        if not pools_for_place:
+    # Schedule afternoon matches - utiliser les places des pools directement
+    for place_id, pools_for_place in place_id_to_pools_afternoon.items():
+        place = places_map.get(place_id)
+        if not place or not pools_for_place:
             continue
         matches_for_pools = []
         for pool in pools_for_place:
@@ -153,7 +181,7 @@ async def generate_matches(sport_id: int):
             start_time=place.startTimeAfternoon, 
         )
         for match_info in scheduled_matches:
-            match_info["placeId"] = place.id
+            match_info["placeId"] = place_id
         all_scheduled_matches.extend(scheduled_matches)
 
     # Save scheduled matches to the database
@@ -176,7 +204,11 @@ async def generate_matches(sport_id: int):
             }
         )
 
-    return {"status": "Matches generated successfully"}
+    return {
+        "status": "Matches generated successfully", 
+        "matchesCreated": len(all_scheduled_matches),
+        "debug": debug_info
+    }
 
 
 class MatchUpdate(BaseModel):

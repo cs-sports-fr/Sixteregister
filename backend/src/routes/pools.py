@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException
 from prisma.models import Pool, Team
 from prisma.types import (
@@ -8,6 +8,7 @@ from prisma.types import (
     FindManyTeamArgsFromPool,
     TeamIncludeFromTeamRecursive1,
 )
+from pydantic import BaseModel
 from infra.prisma import getPrisma  # type: ignore
 from routes.auth.utils import check_super_admin, check_token, check_admin  # type: ignore
 
@@ -29,7 +30,7 @@ async def get_all_pools():
 async def get_pools_by_sport(sport_id: int):
     pools = await prisma.pool.find_many(
         where={"sportId": sport_id},
-        include=PoolInclude(teams=True)
+        include=PoolInclude(teams=True, Place=True)
     )
     return pools
 
@@ -112,6 +113,35 @@ async def update_pool(pool_id: int, name: str, sport_id: int):
             name=name,
             sportId=sport_id,
         )
+    )
+    return updated_pool
+
+
+class PoolSettingsUpdate(BaseModel):
+    placeId: Optional[int] = None
+    isMorning: Optional[bool] = None
+
+
+@pools_router.put(
+    "/{pool_id}/settings",
+    response_model=Pool,
+    dependencies=[Depends(check_admin)],
+)
+async def update_pool_settings(pool_id: int, settings: PoolSettingsUpdate):
+    """Met à jour le lieu et le créneau (matin/après-midi) d'une poule"""
+    update_data = {}
+    if settings.placeId is not None:
+        update_data["PlaceId"] = settings.placeId
+    if settings.isMorning is not None:
+        update_data["isMorning"] = settings.isMorning
+    
+    if not update_data:
+        raise HTTPException(status_code=400, detail="No settings to update")
+    
+    updated_pool = await prisma.pool.update(
+        where={"id": pool_id},
+        data=update_data,
+        include={"teams": True, "Place": True}
     )
     return updated_pool
 
