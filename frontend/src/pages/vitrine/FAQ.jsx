@@ -192,7 +192,7 @@ const FaqPractical = () => {
                         }}
                     >
                         L&apos;inscription ne peut être validée qu&apos;une fois toutes les chartes signées
-                        et le paiement effectué, l&apos;inscription seule ne réserve pas la place.
+                        et les justificatifs de bourses envoyés par mail, l&apos;inscription seule ne réserve pas la place.
                     </Typography>
                 </Box>
             )
