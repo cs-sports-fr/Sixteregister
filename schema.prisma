@@ -264,7 +264,9 @@ model Participant {
   //Matchs favoris
   likedMatches  Match[] 
 
-
+  // Paris sportifs
+  betPoints     Int      @default(0)  // Total des points de paris gagnés
+  bets          Bet[]
 
 }
 
@@ -304,7 +306,11 @@ model Match {
   place           Place?    @relation(fields: [placeId], references: [id])  
   sportId         Int
   sport           Sport     @relation("SportMatches", fields: [sportId], references: [id])
-  likedByParticipants Participant[] 
+  likedByParticipants Participant[]
+  
+  // Paris sportifs
+  bets            Bet[]
+  bettingClosedAt DateTime?  // Heure de fermeture des paris (ex: 5min avant le match)
 }
 
 enum PlaceType {
@@ -327,6 +333,43 @@ enum PhaseType {
   SemiFinal
   ThirdPlace
   Final
+}
+
+enum BetPrediction {
+  TeamOne
+  TeamTwo
+  Draw
+}
+
+model Bet {
+  id                    Int            @id @default(autoincrement())
+  
+  // Relations
+  participantId         Int
+  participant           Participant    @relation(fields: [participantId], references: [id])
+  
+  matchId               Int
+  match                 Match          @relation(fields: [matchId], references: [id])
+  
+  // Prédictions
+  predictedWinner       BetPrediction  // TeamOne, TeamTwo, ou Draw
+  predictedScoreTeamOne Int?           // Optionnel : score exact prédit
+  predictedScoreTeamTwo Int?
+  
+  // Snapshot des cotes au moment du pari (pour historique)
+  oddsSnapshotTeamOne   Float?
+  oddsSnapshotTeamTwo   Float?
+  oddsSnapshotDraw      Float?
+  
+  // Résultats
+  pointsWon             Int            @default(0)  // Points gagnés après résolution
+  isResolved            Boolean        @default(false)
+  isCorrect             Boolean?       // null = pas encore résolu, true/false après résolution
+  
+  // Métadonnées
+  createdAt             DateTime       @default(now())
+  
+  @@unique([participantId, matchId])  // Un seul pari par match par participant
 }
 
 model School {
