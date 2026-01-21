@@ -32,8 +32,8 @@ const ForgotPassword = () => {
             await validationSchema.validate({ email: email }, { abortEarly: false });
             setEmailError(""); // Réinitialiser les erreurs
 
-            // Envoyer les données du formulaire
-            ApiTossNotConnected.post("/password-reset-request?email=" + email).then(() => {
+            // Envoyer les données du formulaire (email encodé et en minuscules)
+            ApiTossNotConnected.post("/password-reset-request?email=" + encodeURIComponent(email.toLowerCase().trim())).then(() => {
                 showSnackbar("Un email de réinitialisation de mot de passe a été envoyé.", 3000, "success")
                 navigate("/");
             }).catch(() => {
