@@ -1,14 +1,16 @@
 import os
 import boto3  # type: ignore
 from botocore.exceptions import ClientError  # type: ignore
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(".env")
+# Charge le fichier .env en remontant automatiquement depuis le répertoire courant
+# jusqu'à trouver le premier .env (par exemple à la racine du projet).
+load_dotenv(find_dotenv())
 AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
 AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY")
 AWS_REGION = "eu-west-3"
 CHARSET = "UTF-8"
-SENDER = "Toss 2025 - Inscriptions <inscriptions@toss-register.bds-cs.fr>"
+SENDER = "Sixte 2026 <inscriptions@toss-register.bds-cs.fr>"
 
 
 class EmailClient:

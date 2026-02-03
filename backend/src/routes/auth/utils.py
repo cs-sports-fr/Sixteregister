@@ -15,7 +15,7 @@ from passlib.context import CryptContext  # type: ignore
 
 from prisma.models import User
 from prisma.types import UserWhereInput, UserInclude
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 from infra.aws.ses import EmailClient  # type: ignore
 from infra.prisma import getPrisma  # type: ignore
@@ -26,8 +26,10 @@ auth_router = APIRouter(tags=["auth"])
 
 prisma = getPrisma()
 
+# Charge le fichier .env (par ex. à la racine du projet) en remontant
+# depuis le répertoire courant jusqu'à trouver le premier .env.
 if os.getenv("MODE", "dev") == "dev":
-    load_dotenv("../.env")
+    load_dotenv(find_dotenv())
 
 
 SECRET_KEY = os.getenv("JWT_SECRET_KEY", "default")
@@ -167,7 +169,7 @@ async def send_reset_password_email(
             if general_config.mailClient == mailClient.SES:
                 email_client.send_email(
                     to_address=email,
-                    subject="[TOSS 2025] Réinitialisez votre mot de passe",
+                    subject="Sixte 2026 Reinitialisation Mot de passe",
                     body_html=html_content,
                     body_text=txt_content,
                 )
@@ -175,7 +177,7 @@ async def send_reset_password_email(
                 mailgun_client.send_email(
                     from_email="toss-register@cs-sports.fr",
                     to_email=email,
-                    subject="[TOSS 2025] Réinitialisez votre mot de passe",
+                    subject="Sixte 2026 Reinitialisation Mot de passe",
                     text=txt_content,
                     html=html_content,
                 )

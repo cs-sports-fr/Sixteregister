@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel
 
-from prisma.types import UserWhereInput, UserUpdateInput
+from prisma.types import UserWhereInput, UserUpdateInput, StringFilter
 
 from .utils import (  # type: ignore
     check_token,
@@ -87,7 +87,16 @@ def verify_auth(requiresAuth: Annotated[None, Depends(check_token)]) -> bool:
 
 @auth_router.post("/password-reset-request")
 async def password_reset(email: str):
-    user = await prisma.user.find_unique(where=UserWhereInput(email=email))
+    # Normaliser l'email en minuscules pour la recherche
+    normalized_email = email.lower().strip()
+    user = await prisma.user.find_first(
+        where=UserWhereInput(
+            email=StringFilter(
+                equals=normalized_email,
+                mode="insensitive"
+            )
+        )
+    )
     if user is None:
         raise HTTPException(
             status_code=400, detail="Cannot find the requested user"
@@ -101,7 +110,7 @@ async def password_reset(email: str):
     )
 
     await prisma.user.update(
-        where=UserWhereInput(email=email),
+        where=UserWhereInput(email=user.email),
         data=UserUpdateInput(
             password=get_password_hash(new_password),
         ),

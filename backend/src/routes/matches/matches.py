@@ -438,6 +438,21 @@ async def update_match_score(match_id: int, score_data: MatchScoreUpdate):
                 "winnerId": winner_id,
             },
         )
+    
+    # Récupérer le match mis à jour pour vérifier hasEnded
+    updated_match = await prisma.match.find_unique(where={"id": match_id})
+    
+    # Résoudre automatiquement les paris si le match est terminé
+    if updated_match and updated_match.hasEnded:
+        try:
+            from routes.bet.bet import resolve_match_bets
+            await resolve_match_bets(match_id)
+        except ImportError:
+            # Le module bets n'existe pas encore
+            pass
+        except Exception as e:
+            # Log l'erreur mais ne fait pas échouer la mise à jour du score
+            print(f"Erreur lors de la résolution des paris: {e}")
 
     return {"status": "Score and match result updated successfully"}
 
