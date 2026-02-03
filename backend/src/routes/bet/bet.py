@@ -3,12 +3,13 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime, timedelta
 from infra.prisma import getPrisma
-from routes.auth.utils import check_token, check_admin
-from routes.bets.utils import calculate_odds, calculate_bet_points, get_winner_from_score
+from routes.auth.utils import check_token, check_admin, check_user
+from routes.bet.utils import calculate_odds, calculate_bet_points, get_winner_from_score
+from prisma.models import User
 
 bets_router = APIRouter(
-    prefix="/bets",
-    tags=["bets"],
+    prefix="/bet",
+    tags=["bet"],
     dependencies=[Depends(check_token)],
 )
 prisma = getPrisma()
@@ -19,6 +20,7 @@ prisma = getPrisma()
 class BetCreate(BaseModel):
     matchId: int
     predictedWinner: str  # "TeamOne", "TeamTwo", "Draw"
+    pointsBet: int  # Nombre de points misés
     predictedScoreTeamOne: Optional[int] = None
     predictedScoreTeamTwo: Optional[int] = None
 
@@ -27,6 +29,7 @@ class BetResponse(BaseModel):
     id: int
     matchId: int
     predictedWinner: str
+    pointsBet: int
     predictedScoreTeamOne: Optional[int]
     predictedScoreTeamTwo: Optional[int]
     pointsWon: int
@@ -38,6 +41,18 @@ class BetResponse(BaseModel):
 
 
 # ==================== ROUTES ====================
+
+@bets_router.get("/balance")
+async def get_balance(current_user: User = Depends(check_user)):
+    """Récupérer le solde de points de paris de l'utilisateur."""
+    user = await prisma.user.find_unique(where={"id": current_user.id})
+    return {
+        "userId": current_user.id,
+        "betPoints": user.betPoints if user else 0,
+        "minBet": 10,
+        "maxBet": 500
+    }
+
 
 @bets_router.get("/odds/{match_id}")
 async def get_match_odds(match_id: int):
@@ -70,8 +85,26 @@ async def get_match_odds(match_id: int):
 
 
 @bets_router.post("/place")
-async def place_bet(bet_data: BetCreate, participant_id: int):
+async def place_bet(bet_data: BetCreate, current_user: User = Depends(check_user)):
     """Placer un pari sur un match."""
+    
+    # Récupérer l'utilisateur connecté (avec son ID)
+    user_id = current_user.id
+    
+    # Vérifier la mise
+    MIN_BET = 10
+    MAX_BET = 500
+    
+    if bet_data.pointsBet < MIN_BET:
+        raise HTTPException(status_code=400, detail=f"La mise minimum est de {MIN_BET} points")
+    
+    if bet_data.pointsBet > MAX_BET:
+        raise HTTPException(status_code=400, detail=f"La mise maximum est de {MAX_BET} points")
+    
+    # Récupérer les points actuels de l'utilisateur
+    user = await prisma.user.find_unique(where={"id": user_id})
+    if not user or user.betPoints < bet_data.pointsBet:
+        raise HTTPException(status_code=400, detail=f"Solde insuffisant. Vous avez {user.betPoints if user else 0} points")
     
     # Vérifier que le match existe et est ouvert aux paris
     match = await prisma.match.find_unique(
@@ -87,15 +120,15 @@ async def place_bet(bet_data: BetCreate, participant_id: int):
         raise HTTPException(status_code=400, detail="Cannot bet on a match that has started")
     
     # Vérifier que les paris sont encore ouverts (5 min avant le match)
-    betting_deadline = match.matchTime - timedelta(minutes=5)
-    if datetime.now() > betting_deadline:
-        raise HTTPException(status_code=400, detail="Betting is closed for this match")
+    # betting_deadline = match.matchTime - timedelta(minutes=5)
+    # if datetime.now() > betting_deadline:
+    #     raise HTTPException(status_code=400, detail="Betting is closed for this match")
     
-    # Vérifier que le participant n'a pas déjà parié sur ce match
+    # Vérifier que l'utilisateur n'a pas déjà parié sur ce match
     existing_bet = await prisma.bet.find_unique(
         where={
-            "participantId_matchId": {
-                "participantId": participant_id,
+            "userId_matchId": {
+                "userId": user_id,
                 "matchId": bet_data.matchId
             }
         }
@@ -119,12 +152,19 @@ async def place_bet(bet_data: BetCreate, participant_id: int):
     
     odds = calculate_odds(bets_team_one, bets_team_two, bets_draw)
     
+    # Déduire les points misés du solde de l'utilisateur
+    await prisma.user.update(
+        where={"id": user_id},
+        data={"betPoints": {"decrement": bet_data.pointsBet}}
+    )
+    
     # Créer le pari
     new_bet = await prisma.bet.create(
         data={
-            "participantId": participant_id,
+            "userId": user_id,
             "matchId": bet_data.matchId,
             "predictedWinner": bet_data.predictedWinner,
+            "pointsBet": bet_data.pointsBet,
             "predictedScoreTeamOne": bet_data.predictedScoreTeamOne,
             "predictedScoreTeamTwo": bet_data.predictedScoreTeamTwo,
             "oddsSnapshotTeamOne": odds["teamOne"],
@@ -133,14 +173,17 @@ async def place_bet(bet_data: BetCreate, participant_id: int):
         }
     )
     
-    return new_bet
+    return {
+        **new_bet.model_dump(),
+        "newBalance": user.betPoints - bet_data.pointsBet
+    }
 
 
-@bets_router.get("/my-bets/{participant_id}")
-async def get_my_bets(participant_id: int):
-    """Récupérer tous les paris d'un participant."""
+@bets_router.get("/my-bets")
+async def get_my_bets(current_user: User = Depends(check_user)):
+    """Récupérer tous les paris de l'utilisateur connecté."""
     bets = await prisma.bet.find_many(
-        where={"participantId": participant_id},
+        where={"userId": current_user.id},
         include={
             "match": {
                 "include": {
@@ -157,23 +200,22 @@ async def get_my_bets(participant_id: int):
 @bets_router.get("/leaderboard")
 async def get_leaderboard(limit: int = 50):
     """Récupérer le classement des parieurs."""
-    participants = await prisma.participant.find_many(
+    users = await prisma.user.find_many(
         where={"betPoints": {"gt": 0}},
         order={"betPoints": "desc"},
         take=limit,
-        include={"school": True, "team": True}
+        include={"school": True}
     )
     
     return [
         {
             "rank": i + 1,
-            "participantId": p.id,
-            "name": f"{p.firstname} {p.lastname}",
-            "school": p.school.name if p.school else None,
-            "team": p.team.name if p.team else None,
-            "betPoints": p.betPoints,
+            "userId": u.id,
+            "name": f"{u.firstname} {u.lastname}",
+            "school": u.school.name if u.school else None,
+            "betPoints": u.betPoints,
         }
-        for i, p in enumerate(participants)
+        for i, u in enumerate(users)
     ]
 
 
@@ -182,6 +224,11 @@ async def resolve_match_bets(match_id: int):
     """
     Résoudre tous les paris d'un match terminé.
     Appelé automatiquement ou manuellement après la fin du match.
+    
+    Calcul des gains:
+    - Si correct: mise × cote (ex: 50 points × 2.5 = 125 points)
+    - Si incorrect: 0 points (la mise a déjà été déduite)
+    - Bonus score exact: +50% de la mise
     """
     match = await prisma.match.find_unique(
         where={"id": match_id},
@@ -208,18 +255,17 @@ async def resolve_match_bets(match_id: int):
         else:
             odds = bet.oddsSnapshotDraw or 3.0
         
-        # Calculer les points
-        points = calculate_bet_points(
-            bet_prediction=bet.predictedWinner,
-            predicted_score_one=bet.predictedScoreTeamOne,
-            predicted_score_two=bet.predictedScoreTeamTwo,
-            actual_winner=actual_winner,
-            actual_score_one=match.scoreTeamOne,
-            actual_score_two=match.scoreTeamTwo,
-            odds=odds
-        )
-        
         is_correct = (bet.predictedWinner == actual_winner)
+        points = 0
+        
+        if is_correct:
+            # Gain = mise × cote
+            points = int(bet.pointsBet * odds)
+            
+            # Bonus score exact: +50% de la mise
+            if (bet.predictedScoreTeamOne == match.scoreTeamOne and 
+                bet.predictedScoreTeamTwo == match.scoreTeamTwo):
+                points += int(bet.pointsBet * 0.5)
         
         # Mettre à jour le pari
         await prisma.bet.update(
@@ -231,10 +277,10 @@ async def resolve_match_bets(match_id: int):
             }
         )
         
-        # Ajouter les points au participant
+        # Ajouter les points gagnés à l'utilisateur
         if points > 0:
-            await prisma.participant.update(
-                where={"id": bet.participantId},
+            await prisma.user.update(
+                where={"id": bet.userId},
                 data={"betPoints": {"increment": points}}
             )
             total_points_distributed += points
