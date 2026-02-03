@@ -26,6 +26,9 @@ import InscrireEquipe from "../pages/InscrireEquipe";
 import ModifierEquipe from "../pages/ModifierEquipe";
 import SuccessPayment from "../pages/SuccessPayment";
 import GestionEquipes from "../pages/GestionEquipes";
+import GestionPoules from "../pages/admin/GestionPoules";
+import MatchsPoules from "../pages/admin/MatchsPoules";
+import PhasesFinales from "../pages/admin/PhasesFinales";
 
 
 const routesForUser = [
@@ -116,6 +119,21 @@ const routesForAdmin = [
         name: 'Gestion des équipes',
     },
     {
+        path: "/gestion-poules",
+        element: <GestionPoules />,
+        name: 'Poules',
+    },
+    {
+        path: "/matchs-poules",
+        element: <MatchsPoules />,
+        name: 'Matchs Poules',
+    },
+    {
+        path: "/phases-finales",
+        element: <PhasesFinales />,
+        name: 'Phases Finales',
+    },
+    {
         path: "/",
         element: <EspaceParticipant />,
         name: 'Espace Participant'
@@ -175,6 +193,21 @@ const routesForSuperAdmin = [
         path: '/parameters',
         element: <SuperAdminParameters />,
         name: 'Paramètres',
+    },
+    {
+        path: "/gestion-poules",
+        element: <GestionPoules />,
+        name: 'Poules',
+    },
+    {
+        path: "/matchs-poules",
+        element: <MatchsPoules />,
+        name: 'Matchs Poules',
+    },
+    {
+        path: "/phases-finales",
+        element: <PhasesFinales />,
+        name: 'Phases Finales',
     },
     {
         path: "/logout",
