@@ -26,6 +26,7 @@ import InscrireEquipe from "../pages/InscrireEquipe";
 import ModifierEquipe from "../pages/ModifierEquipe";
 import SuccessPayment from "../pages/SuccessPayment";
 import GestionEquipes from "../pages/GestionEquipes";
+import FootballFeminin from "../pages/footf";
 
 
 const routesForUser = [
@@ -234,7 +235,10 @@ const routesForNotAuthenticatedOnly = [
         path: "/resultats",
         element: <Results />,
     },
-
+    {
+        path: "/paris-feminin",
+        element: <FootballFeminin />,
+    },
     {
         path: "/login",
         element: <Login />,
