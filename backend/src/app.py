@@ -15,6 +15,7 @@ from routes.schools import schools_router
 from routes.products import products_router
 from routes.packs import packs_router
 from routes.sports import sports_router
+from routes.bet.bet import bets_router
 from routes.users import users_router
 from routes.config import config_router
 from routes.payment.payment import payment_router
@@ -96,6 +97,7 @@ app.include_router(payment_router)
 app.include_router(pools_router)
 app.include_router(matches_router)
 app.include_router(participant_router)
+app.include_router(bets_router)
 app.include_router(places_router)
 app.include_router(medals_router)
 app.include_router(pdf_router)

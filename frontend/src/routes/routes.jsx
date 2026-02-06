@@ -26,6 +26,13 @@ import InscrireEquipe from "../pages/InscrireEquipe";
 import ModifierEquipe from "../pages/ModifierEquipe";
 import SuccessPayment from "../pages/SuccessPayment";
 import GestionEquipes from "../pages/GestionEquipes";
+import GestionPoules from "../pages/admin/GestionPoules";
+import MatchsPoules from "../pages/admin/MatchsPoules";
+import PhasesFinales from "../pages/admin/PhasesFinales";
+import MonPetitProno from "../pages/MonPetitProno";
+import MatchsProno from "../pages/MatchsProno";
+import ClassementProno from "../pages/ClassementProno";
+import AccueilProno from "../pages/AccueilProno";
 
 
 const routesForUser = [
@@ -74,6 +81,28 @@ const routesForUser = [
         name: 'Paiement',
     },
     {
+        path: "/mon-petit-prono",
+        element: <AccueilProno />,
+        name: 'Mon Petit Prono',
+    },
+    {
+        path: "/mes-pronos",
+        element: <MonPetitProno />,
+        name: 'Mes Pronos',
+        hidden: true,
+    },
+    {
+        path: "/matchs-prono/:sportId",
+        element: <MatchsProno />,
+        name: 'Matchs Prono',
+        hidden: true,
+    },
+    {
+        path: "/classement",
+        element: <ClassementProno />,
+        name: 'Classement',
+    },
+    {
         path: "/logout",
         element: <Logout />,
         name: 'Déconnexion',
@@ -114,6 +143,21 @@ const routesForAdmin = [
         path: "/gestion-equipes",
         element: <GestionEquipes />,
         name: 'Gestion des équipes',
+    },
+    {
+        path: "/gestion-poules",
+        element: <GestionPoules />,
+        name: 'Poules',
+    },
+    {
+        path: "/matchs-poules",
+        element: <MatchsPoules />,
+        name: 'Matchs Poules',
+    },
+    {
+        path: "/phases-finales",
+        element: <PhasesFinales />,
+        name: 'Phases Finales',
     },
     {
         path: "/",
@@ -175,6 +219,21 @@ const routesForSuperAdmin = [
         path: '/parameters',
         element: <SuperAdminParameters />,
         name: 'Paramètres',
+    },
+    {
+        path: "/gestion-poules",
+        element: <GestionPoules />,
+        name: 'Poules',
+    },
+    {
+        path: "/matchs-poules",
+        element: <MatchsPoules />,
+        name: 'Matchs Poules',
+    },
+    {
+        path: "/phases-finales",
+        element: <PhasesFinales />,
+        name: 'Phases Finales',
     },
     {
         path: "/logout",

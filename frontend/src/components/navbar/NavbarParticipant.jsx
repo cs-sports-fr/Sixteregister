@@ -22,6 +22,8 @@ const NavbarParticipant = () => {
   const navigation = [
     { label: 'Mes équipes', href: '/mes-equipes' },
     { label: 'Inscrire une équipe', href: '/inscrire-equipe' },
+    { label: 'Mon Petit Prono', href: '/mon-petit-prono' },
+    { label: 'Classement', href: '/classement' },
   ];
 
   const toggleDrawer = (open) => (event) => {
