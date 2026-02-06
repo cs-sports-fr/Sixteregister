@@ -30,6 +30,7 @@ import GestionPoules from "../pages/admin/GestionPoules";
 import MatchsPoules from "../pages/admin/MatchsPoules";
 import PhasesFinales from "../pages/admin/PhasesFinales";
 import MonPetitProno from "../pages/MonPetitProno";
+import MatchsProno from "../pages/MatchsProno";
 
 
 const routesForUser = [
@@ -81,6 +82,12 @@ const routesForUser = [
         path: "/mon-petit-prono",
         element: <MonPetitProno />,
         name: 'Mon Petit Prono',
+    },
+    {
+        path: "/matchs-prono/:sportId",
+        element: <MatchsProno />,
+        name: 'Matchs Prono',
+        hidden: true,
     },
     {
         path: "/logout",

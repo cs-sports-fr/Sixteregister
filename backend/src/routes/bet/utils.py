@@ -1,4 +1,5 @@
 from typing import Dict, Tuple
+import math
 
 def calculate_odds(bets_team_one: int, bets_team_two: int, bets_draw: int = 0) -> Dict[str, float]:
     """
@@ -40,6 +41,49 @@ def calculate_odds(bets_team_one: int, bets_team_two: int, bets_draw: int = 0) -
     }
 
 
+def calculate_score_bonus(
+    predicted_score_one: int | None,
+    predicted_score_two: int | None,
+    actual_score_one: int,
+    actual_score_two: int,
+) -> int:
+    """
+    Calcule le bonus de points basé sur la distance euclidienne entre le score prédit et le score réel.
+    
+    - Score parfait (distance = 0): +50 pts
+    - Plus le score est proche, plus le bonus est élevé
+    - Au-delà d'une distance de 5, pas de bonus
+    
+    Formule: bonus = max(0, 50 * (1 - distance / 5))
+    
+    Exemples:
+    - Prédit 2-1, Réel 2-1 → distance=0 → +50 pts
+    - Prédit 2-1, Réel 2-0 → distance=1 → +40 pts
+    - Prédit 2-1, Réel 3-2 → distance=√2≈1.41 → +36 pts
+    - Prédit 2-1, Réel 4-3 → distance=√8≈2.83 → +22 pts
+    - Prédit 2-1, Réel 5-5 → distance=√25≈5 → +0 pts
+    """
+    if predicted_score_one is None or predicted_score_two is None:
+        return 0
+    
+    # Calculer la distance euclidienne
+    distance = math.sqrt(
+        (predicted_score_one - actual_score_one) ** 2 + 
+        (predicted_score_two - actual_score_two) ** 2
+    )
+    
+    # Score parfait = gros bonus
+    MAX_BONUS = 50
+    MAX_DISTANCE = 5  # Au-delà de cette distance, pas de bonus
+    
+    if distance >= MAX_DISTANCE:
+        return 0
+    
+    # Bonus linéaire décroissant
+    bonus = int(MAX_BONUS * (1 - distance / MAX_DISTANCE))
+    return bonus
+
+
 def calculate_bet_points(
     bet_prediction: str,
     predicted_score_one: int | None,
@@ -55,12 +99,8 @@ def calculate_bet_points(
     Système de points:
     - Mauvais vainqueur: 0 points
     - Bon vainqueur: 10 * cote points
-    - Bon vainqueur + score exact d'une équipe: +5 points bonus
-    - Bon vainqueur + score exact des deux: +15 points bonus (score parfait)
-    - Bonne différence de buts (sans score exact): +3 points bonus
+    - Bonus score: basé sur la distance euclidienne (jusqu'à +50 pts pour score exact)
     """
-    points = 0
-    
     # Vérifier si le vainqueur prédit est correct
     if bet_prediction != actual_winner:
         return 0  # Mauvaise prédiction = 0 points
@@ -69,23 +109,14 @@ def calculate_bet_points(
     BASE_POINTS = 10
     points = int(BASE_POINTS * odds)
     
-    # Bonus pour le score exact (si renseigné)
-    if predicted_score_one is not None and predicted_score_two is not None:
-        score_one_correct = (predicted_score_one == actual_score_one)
-        score_two_correct = (predicted_score_two == actual_score_two)
-        
-        if score_one_correct and score_two_correct:
-            # Score parfait !
-            points += 15
-        elif score_one_correct or score_two_correct:
-            # Un score correct
-            points += 5
-        else:
-            # Vérifier la différence de buts
-            predicted_diff = predicted_score_one - predicted_score_two
-            actual_diff = actual_score_one - actual_score_two
-            if predicted_diff == actual_diff:
-                points += 3
+    # Bonus pour le score (basé sur la distance euclidienne)
+    score_bonus = calculate_score_bonus(
+        predicted_score_one, 
+        predicted_score_two, 
+        actual_score_one, 
+        actual_score_two
+    )
+    points += score_bonus
     
     return points
 

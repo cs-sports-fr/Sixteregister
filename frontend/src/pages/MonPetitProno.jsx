@@ -14,19 +14,24 @@ import {
   EmojiEvents as TrophyIcon,
   Stars as StarsIcon,
   SportsSoccer as SoccerIcon,
+  ArrowForward as ArrowForwardIcon,
 } from "@mui/icons-material";
+import { useNavigate } from 'react-router-dom';
 import NavbarParticipant from "../components/navbar/NavbarParticipant";
 import palette from "../themes/palette";
 import { getMyBets, getLeaderboard, getCurrentUser } from "../service/betService";
+import { ApiTossConnected } from "../service/axios";
 import { useSnackbar } from "../provider/snackbarProvider";
 
 const MonPetitProno = () => {
+  const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [bets, setBets] = useState([]);
   const [rank, setRank] = useState(null);
   const [leaderboard, setLeaderboard] = useState([]);
+  const [sports, setSports] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -37,15 +42,17 @@ const MonPetitProno = () => {
       setLoading(true);
       
       // Récupérer les données en parallèle
-      const [userResponse, betsResponse, leaderboardResponse] = await Promise.all([
+      const [userResponse, betsResponse, leaderboardResponse, sportsResponse] = await Promise.all([
         getCurrentUser(),
         getMyBets(),
         getLeaderboard(100),
+        ApiTossConnected.get('/sports'),
       ]);
 
       setUser(userResponse);
       setBets(betsResponse);
       setLeaderboard(leaderboardResponse);
+      setSports(sportsResponse.data);
 
       // Calculer le rang
       const userRank = leaderboardResponse.findIndex(u => u.userId === userResponse.id) + 1;
@@ -496,6 +503,41 @@ const MonPetitProno = () => {
               </Box>
             </>
           )}
+
+          {/* Section Sports - Pour aller parier */}
+          <Divider sx={{ my: 3 }} />
+          <Typography variant="h6" sx={{ fontWeight: 'bold', color: palette.primary.dark, mb: 2 }}>
+            🎯 Parier sur les matchs
+          </Typography>
+          <Grid container spacing={2}>
+            {sports.map((sport) => (
+              <Grid item xs={12} sm={6} md={4} key={sport.id}>
+                <Card
+                  sx={{
+                    borderRadius: '12px',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+                    cursor: 'pointer',
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                    },
+                  }}
+                  onClick={() => navigate(`/matchs-prono/${sport.id}`)}
+                >
+                  <CardContent sx={{ padding: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                      <SoccerIcon sx={{ color: palette.primary.main, fontSize: 28 }} />
+                      <Typography sx={{ fontWeight: 'bold', color: palette.primary.dark }}>
+                        {sport.sport}
+                      </Typography>
+                    </Box>
+                    <ArrowForwardIcon sx={{ color: palette.primary.red }} />
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
         </Box>
       </Box>
     </>
