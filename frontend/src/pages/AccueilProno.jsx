@@ -456,7 +456,7 @@ const AccueilProno = () => {
                 },
               }}
             >
-              Voir tous les matchs
+              ⚽ Voir tous les matchs
             </Button>
           </Box>
             </Grid>
@@ -481,7 +481,7 @@ const AccueilProno = () => {
                 },
               }}
             >
-              Voir tous les matchs
+              ⚽ Voir tous les matchs
             </Button>
           </Box>
             </Grid>
@@ -683,27 +683,7 @@ const AccueilProno = () => {
           </Grid>
 
           {/* Navigation rapide */}
-          <Box sx={{ mt: 3, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-            {sports.slice(0, 4).map((sport) => (
-              <Button
-                key={sport.id}
-                variant="outlined"
-                onClick={() => navigate(`/matchs-prono/${sport.id}`)}
-                sx={{
-                  textTransform: 'none',
-                  borderRadius: '20px',
-                  borderColor: '#ddd',
-                  color: palette.primary.dark,
-                  '&:hover': {
-                    borderColor: palette.primary.main,
-                    backgroundColor: 'rgba(49, 140, 231, 0.05)',
-                  },
-                }}
-              >
-                ⚽ {sport.sport}
-              </Button>
-            ))}
-          </Box>
+          
         </Box>
       </Box>
 
