@@ -225,11 +225,10 @@ async def get_leaderboard(limit: int = 50):
     ]
 
 
-@bets_router.post("/resolve/{match_id}", dependencies=[Depends(check_admin)])
-async def resolve_match_bets(match_id: int):
+async def resolve_match_bets_internal(match_id: int):
     """
-    Résoudre tous les paris d'un match terminé.
-    Appelé automatiquement ou manuellement après la fin du match.
+    Fonction interne pour résoudre les paris d'un match.
+    Peut être appelée depuis d'autres modules sans authentification.
     
     Calcul des gains avec mise:
     - Mauvais gagnant: perd la mise
@@ -241,15 +240,18 @@ async def resolve_match_bets(match_id: int):
     )
     
     if not match:
-        raise HTTPException(status_code=404, detail="Match not found")
+        return {"error": "Match not found", "matchId": match_id}
     
     if match.scoreTeamOne is None or match.scoreTeamTwo is None:
-        raise HTTPException(status_code=400, detail="Match score not set")
+        return {"error": "Match score not set", "matchId": match_id}
     
     # Récupérer les paris non résolus
     unresolved_bets = await prisma.bet.find_many(
         where={"matchId": match_id, "isResolved": False}
     )
+    
+    if not unresolved_bets:
+        return {"matchId": match_id, "resolvedBets": 0, "message": "No unresolved bets"}
     
     actual_winner = get_winner_from_score(match.scoreTeamOne, match.scoreTeamTwo)
     
@@ -292,13 +294,12 @@ async def resolve_match_bets(match_id: int):
             }
         )
         
-        # Ajouter les points gagnés à l'utilisateur
-        if points > 0:
-            await prisma.user.update(
-                where={"id": bet.userId},
-                data={"betPoints": {"increment": points}}
-            )
-            total_points_distributed += points
+        # Ajouter les points gagnés à l'utilisateur (les points peuvent être négatifs si pari perdu)
+        await prisma.user.update(
+            where={"id": bet.userId},
+            data={"betPoints": {"increment": points}}
+        )
+        total_points_distributed += points
         
         resolved_count += 1
     
@@ -309,6 +310,20 @@ async def resolve_match_bets(match_id: int):
         "actualWinner": actual_winner,
         "actualScore": f"{match.scoreTeamOne}-{match.scoreTeamTwo}"
     }
+
+
+@bets_router.post("/resolve/{match_id}", dependencies=[Depends(check_admin)])
+async def resolve_match_bets(match_id: int):
+    """
+    Résoudre tous les paris d'un match terminé (route admin).
+    Appelé automatiquement ou manuellement après la fin du match.
+    """
+    result = await resolve_match_bets_internal(match_id)
+    
+    if "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
+    
+    return result
 
 
 @bets_router.get("/match/{match_id}/stats")

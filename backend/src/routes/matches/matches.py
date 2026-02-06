@@ -253,6 +253,17 @@ async def end_match(match_id: int):
         where={"id": match_id},
         data={"hasEnded": True}
     )
+    
+    # Résoudre automatiquement les paris quand le match est terminé
+    try:
+        from routes.bet.bet import resolve_match_bets_internal
+        result = await resolve_match_bets_internal(match_id)
+        print(f"Résolution des paris pour match {match_id}: {result}")
+    except ImportError as ie:
+        print(f"Module bet non disponible: {ie}")
+    except Exception as e:
+        print(f"Erreur lors de la résolution des paris: {e}")
+    
     return match
 
 
@@ -438,21 +449,6 @@ async def update_match_score(match_id: int, score_data: MatchScoreUpdate):
                 "winnerId": winner_id,
             },
         )
-    
-    # Récupérer le match mis à jour pour vérifier hasEnded
-    updated_match = await prisma.match.find_unique(where={"id": match_id})
-    
-    # Résoudre automatiquement les paris si le match est terminé
-    if updated_match and updated_match.hasEnded:
-        try:
-            from routes.bet.bet import resolve_match_bets
-            await resolve_match_bets(match_id)
-        except ImportError:
-            # Le module bets n'existe pas encore
-            pass
-        except Exception as e:
-            # Log l'erreur mais ne fait pas échouer la mise à jour du score
-            print(f"Erreur lors de la résolution des paris: {e}")
 
     return {"status": "Score and match result updated successfully"}
 
