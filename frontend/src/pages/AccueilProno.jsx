@@ -437,17 +437,11 @@ const AccueilProno = () => {
           <Grid container spacing={2} sx={{ mb: 2 }}>
             <Grid item xs={12} md={6}>
               <MatchHighlight match={nextMatchFeminin} categoryLabel="👩 Sport Féminin" />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <MatchHighlight match={nextMatchMasculin} categoryLabel="👨 Sport Masculin" />
-            </Grid>
-          </Grid>
-
-          {/* Bouton Voir tous les matchs */}
+              {/* Bouton Voir tous les matchs */}
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
             <Button
               variant="outlined"
-              onClick={() => navigate('/matchs-prono')}
+              onClick={() => navigate('/matchs-prono/2')}
               sx={{
                 borderColor: palette.primary.red,
                 color: palette.primary.red,
@@ -465,6 +459,35 @@ const AccueilProno = () => {
               Voir tous les matchs
             </Button>
           </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <MatchHighlight match={nextMatchMasculin} categoryLabel="👨 Sport Masculin" />
+              {/* Bouton Voir tous les matchs */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+            <Button
+              variant="outlined"
+              onClick={() => navigate('/matchs-prono/1')}
+              sx={{
+                borderColor: palette.primary.red,
+                color: palette.primary.red,
+                borderRadius: '25px',
+                textTransform: 'none',
+                fontWeight: 'bold',
+                px: 4,
+                py: 1,
+                '&:hover': {
+                  borderColor: palette.primary.red,
+                  backgroundColor: 'rgba(208, 32, 47, 0.08)',
+                },
+              }}
+            >
+              Voir tous les matchs
+            </Button>
+          </Box>
+            </Grid>
+          </Grid>
+
+         
 
           {/* Section Paris + Top 3 */}
           <Grid container spacing={2}>
