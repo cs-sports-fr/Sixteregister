@@ -38,18 +38,26 @@ import AccueilProno from "../pages/AccueilProno";
 const routesForUser = [
     {
         path: "/",
+        element: <AccueilProno />,
+        name: 'Mon Petit Prono'
+    },
+    {
+        path: "/espace-participant",
         element: <EspaceParticipant />,
-        name: 'Espace Participant'
+        name: 'Espace Participant',
+        hidden: true,
     },
     {
         path: "/mes-equipes",
         element: <MesEquipes />,
-        name: 'Mes équipes'
+        name: 'Mes équipes',
+        hidden: true,
     },
     {
         path: "/inscrire-equipe",
         element: <InscrireEquipe />,
-        name: 'Inscrire une équipe'
+        name: 'Inscrire une équipe',
+        hidden: true,
     },
     {
         path: "/modifier-equipe/:teamId",
@@ -79,16 +87,24 @@ const routesForUser = [
         path: "/payment",
         element: <UserPayment />,
         name: 'Paiement',
+        hidden: true,
     },
     {
         path: "/mon-petit-prono",
         element: <AccueilProno />,
         name: 'Mon Petit Prono',
+        hidden: true,
     },
     {
         path: "/mes-pronos",
         element: <MonPetitProno />,
         name: 'Mes Pronos',
+        hidden: true,
+    },
+    {
+        path: "/matchs-prono/all",
+        element: <MatchsProno />,
+        name: 'Tous les matchs',
         hidden: true,
     },
     {
