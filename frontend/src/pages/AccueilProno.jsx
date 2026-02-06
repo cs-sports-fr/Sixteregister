@@ -10,10 +10,19 @@ import {
   Button,
   Chip,
   Divider,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Alert,
 } from "@mui/material";
 import {
   SportsSoccer as SoccerIcon,
-  Star as StarIcon,
   EmojiEvents as TrophyIcon,
   AccessTime as TimeIcon,
   Casino as CasinoIcon,
@@ -21,7 +30,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import NavbarParticipant from "../components/navbar/NavbarParticipant";
 import palette from "../themes/palette";
-import { getMyBets, getLeaderboard, getCurrentUser } from "../service/betService";
+import { getMyBets, getLeaderboard, getCurrentUser, getMatchOdds, placeBet } from "../service/betService";
 import { ApiTossConnected } from "../service/axios";
 import { useSnackbar } from "../provider/snackbarProvider";
 
@@ -35,6 +44,17 @@ const AccueilProno = () => {
   const [nextMatchFeminin, setNextMatchFeminin] = useState(null);
   const [nextMatchMasculin, setNextMatchMasculin] = useState(null);
   const [sports, setSports] = useState([]);
+  
+  // États pour le dialog de pari
+  const [betDialogOpen, setBetDialogOpen] = useState(false);
+  const [selectedMatch, setSelectedMatch] = useState(null);
+  const [matchOdds, setMatchOdds] = useState(null);
+  const [betData, setBetData] = useState({
+    predictedWinner: '',
+    predictedScoreTeamOne: '',
+    predictedScoreTeamTwo: '',
+  });
+  const [betLoading, setBetLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -105,6 +125,60 @@ const AccueilProno = () => {
   const activeBets = bets.filter(bet => !bet.isResolved);
   // Historique (résolus)
   const historyBets = bets.filter(bet => bet.isResolved).slice(0, 3);
+
+  // Ouvrir le dialog de pari
+  const handleOpenBetDialog = async (match) => {
+    if (match.hasStarted) {
+      showSnackbar('Impossible de parier sur un match déjà commencé', 3000, 'warning');
+      return;
+    }
+    
+    setSelectedMatch(match);
+    setBetData({
+      predictedWinner: '',
+      predictedScoreTeamOne: '',
+      predictedScoreTeamTwo: '',
+    });
+    setBetDialogOpen(true);
+    
+    // Récupérer les cotes
+    try {
+      const odds = await getMatchOdds(match.id);
+      setMatchOdds(odds);
+    } catch (error) {
+      console.error('Error fetching odds:', error);
+    }
+  };
+
+  // Placer un pari
+  const handlePlaceBet = async () => {
+    if (!betData.predictedWinner) {
+      showSnackbar('Veuillez sélectionner un gagnant', 3000, 'warning');
+      return;
+    }
+    
+    setBetLoading(true);
+    try {
+      await placeBet({
+        matchId: selectedMatch.id,
+        predictedWinner: betData.predictedWinner,
+        predictedScoreTeamOne: betData.predictedScoreTeamOne ? parseInt(betData.predictedScoreTeamOne) : null,
+        predictedScoreTeamTwo: betData.predictedScoreTeamTwo ? parseInt(betData.predictedScoreTeamTwo) : null,
+      });
+      
+      showSnackbar('Pari placé avec succès !', 3000, 'success');
+      setBetDialogOpen(false);
+      // Rafraîchir les données
+      fetchData();
+      
+    } catch (error) {
+      console.error('Error placing bet:', error);
+      const message = error.response?.data?.detail || 'Erreur lors du pari';
+      showSnackbar(message, 3000, 'error');
+    } finally {
+      setBetLoading(false);
+    }
+  };
 
   // Formater la date du match
   const formatMatchTime = (dateString) => {
@@ -246,9 +320,7 @@ const AccueilProno = () => {
             fullWidth
             variant="contained"
             startIcon={<CasinoIcon />}
-            onClick={() => {
-              if (match.sportId) navigate(`/matchs-prono/${match.sportId}`);
-            }}
+            onClick={() => handleOpenBetDialog(match)}
             sx={{
               backgroundColor: palette.primary.red,
               borderRadius: '10px',
@@ -327,17 +399,18 @@ const AccueilProno = () => {
             </Box>
             <Box
               sx={{
-                backgroundColor: 'rgba(255,255,255,0.1)',
-                padding: '0.5rem 1rem',
-                borderRadius: '20px',
+                backgroundColor: 'rgba(255,255,255,0.15)',
+                padding: '0.6rem 1.2rem',
+                borderRadius: '25px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 1,
+                gap: 1.5,
+                border: '2px solid rgba(255,255,255,0.3)',
               }}
             >
-              <StarIcon sx={{ color: '#FFD700', fontSize: 18 }} />
-              <Typography sx={{ fontWeight: 'bold', fontSize: '0.95rem' }}>
-                {user?.betPoints || 0}
+              <SoccerIcon sx={{ color: '#fff', fontSize: 28 }} />
+              <Typography sx={{ fontWeight: 'bold', fontSize: '1.4rem' }}>
+                {user?.betPoints || 0} pts
               </Typography>
             </Box>
           </Box>
@@ -361,7 +434,7 @@ const AccueilProno = () => {
             Prochains matchs
           </Typography>
 
-          <Grid container spacing={2} sx={{ mb: 3 }}>
+          <Grid container spacing={2} sx={{ mb: 2 }}>
             <Grid item xs={12} md={6}>
               <MatchHighlight match={nextMatchFeminin} categoryLabel="👩 Sport Féminin" />
             </Grid>
@@ -369,6 +442,29 @@ const AccueilProno = () => {
               <MatchHighlight match={nextMatchMasculin} categoryLabel="👨 Sport Masculin" />
             </Grid>
           </Grid>
+
+          {/* Bouton Voir tous les matchs */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+            <Button
+              variant="outlined"
+              onClick={() => navigate('/matchs-prono')}
+              sx={{
+                borderColor: palette.primary.red,
+                color: palette.primary.red,
+                borderRadius: '25px',
+                textTransform: 'none',
+                fontWeight: 'bold',
+                px: 4,
+                py: 1,
+                '&:hover': {
+                  borderColor: palette.primary.red,
+                  backgroundColor: 'rgba(208, 32, 47, 0.08)',
+                },
+              }}
+            >
+              Voir tous les matchs
+            </Button>
+          </Box>
 
           {/* Section Paris + Top 3 */}
           <Grid container spacing={2}>
@@ -587,6 +683,109 @@ const AccueilProno = () => {
           </Box>
         </Box>
       </Box>
+
+      {/* Dialog pour placer un pari */}
+      <Dialog
+        open={betDialogOpen}
+        onClose={() => setBetDialogOpen(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: { borderRadius: '16px' }
+        }}
+      >
+        <DialogTitle sx={{ fontWeight: 'bold', color: palette.primary.dark }}>
+          Placer un pari
+        </DialogTitle>
+        <DialogContent>
+          {selectedMatch && (
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                {selectedMatch.pool?.sport?.sport || 'Match'}
+              </Typography>
+              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                {selectedMatch.team1?.school || 'Équipe 1'} vs {selectedMatch.team2?.school || 'Équipe 2'}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {selectedMatch.scheduledAt
+                  ? new Date(selectedMatch.scheduledAt).toLocaleString('fr-FR')
+                  : 'Date à définir'}
+              </Typography>
+            </Box>
+          )}
+
+          <FormControl fullWidth sx={{ mb: 3 }}>
+            <InputLabel>Votre pronostic</InputLabel>
+            <Select
+              value={betData.prediction}
+              onChange={(e) => setBetData({ ...betData, prediction: e.target.value })}
+              label="Votre pronostic"
+            >
+              <MenuItem value="TEAM1">
+                {selectedMatch?.team1?.school || 'Équipe 1'} 
+                {matchOdds && ` (Cote: ${matchOdds.team1Odds?.toFixed(2)})`}
+              </MenuItem>
+              <MenuItem value="DRAW">
+                Match nul
+                {matchOdds && ` (Cote: ${matchOdds.drawOdds?.toFixed(2)})`}
+              </MenuItem>
+              <MenuItem value="TEAM2">
+                {selectedMatch?.team2?.school || 'Équipe 2'}
+                {matchOdds && ` (Cote: ${matchOdds.team2Odds?.toFixed(2)})`}
+              </MenuItem>
+            </Select>
+          </FormControl>
+
+          <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
+            Score prédit (optionnel, +50 pts si exact)
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+            <TextField
+              label={selectedMatch?.team1?.school || 'Équipe 1'}
+              type="number"
+              size="small"
+              value={betData.predictedScore1}
+              onChange={(e) => setBetData({ ...betData, predictedScore1: e.target.value })}
+              inputProps={{ min: 0 }}
+              sx={{ flex: 1 }}
+            />
+            <TextField
+              label={selectedMatch?.team2?.school || 'Équipe 2'}
+              type="number"
+              size="small"
+              value={betData.predictedScore2}
+              onChange={(e) => setBetData({ ...betData, predictedScore2: e.target.value })}
+              inputProps={{ min: 0 }}
+              sx={{ flex: 1 }}
+            />
+          </Box>
+
+          {matchOdds && (
+            <Alert severity="info" sx={{ mt: 2 }}>
+              <strong>Cotes actuelles:</strong><br />
+              {selectedMatch?.team1?.school}: {matchOdds.team1Odds?.toFixed(2)} | 
+              Nul: {matchOdds.drawOdds?.toFixed(2)} | 
+              {selectedMatch?.team2?.school}: {matchOdds.team2Odds?.toFixed(2)}
+            </Alert>
+          )}
+        </DialogContent>
+        <DialogActions sx={{ p: 2 }}>
+          <Button onClick={() => setBetDialogOpen(false)}>
+            Annuler
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handlePlaceBet}
+            disabled={betLoading || !betData.prediction}
+            sx={{
+              backgroundColor: palette.primary.red,
+              '&:hover': { backgroundColor: '#b01020' },
+            }}
+          >
+            {betLoading ? 'En cours...' : 'Valider le pari'}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
