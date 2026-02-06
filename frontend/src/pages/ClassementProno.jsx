@@ -10,11 +10,14 @@ import {
   InputAdornment,
   Tabs,
   Tab,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import {
   EmojiEvents as TrophyIcon,
   Search as SearchIcon,
   Star as StarIcon,
+  SportsSoccer as SoccerIcon,
 } from "@mui/icons-material";
 import NavbarParticipant from "../components/navbar/NavbarParticipant";
 import palette from "../themes/palette";
@@ -23,6 +26,8 @@ import { useSnackbar } from "../provider/snackbarProvider";
 
 const ClassementProno = () => {
   const { showSnackbar } = useSnackbar();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const [loading, setLoading] = useState(true);
   const [leaderboard, setLeaderboard] = useState([]);
   const [schoolLeaderboard, setSchoolLeaderboard] = useState([]);
@@ -102,7 +107,7 @@ const ClassementProno = () => {
         <NavbarParticipant />
         <Box
           sx={{
-            backgroundColor: '#f5f5f5',
+            background: `linear-gradient(135deg, ${palette.primary.dark} 0%, #1a1a2e 100%)`,
             minHeight: '100vh',
             paddingTop: '80px',
             display: 'flex',
@@ -110,7 +115,7 @@ const ClassementProno = () => {
             alignItems: 'center',
           }}
         >
-          <CircularProgress sx={{ color: palette.primary.main }} />
+          <CircularProgress sx={{ color: palette.primary.red }} />
         </Box>
       </>
     );
@@ -121,32 +126,48 @@ const ClassementProno = () => {
       <NavbarParticipant />
       <Box
         sx={{
-          backgroundColor: '#f5f5f5',
+          background: `linear-gradient(135deg, ${palette.primary.dark} 0%, #1a1a2e 100%)`,
           minHeight: '100vh',
+          height: '100vh',
           paddingTop: '80px',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
         }}
       >
         {/* Header */}
         <Box
           sx={{
-            backgroundColor: palette.primary.dark,
-            padding: '2rem 3rem',
+            background: `linear-gradient(135deg, ${palette.primary.red} 0%, #a01020 100%)`,
+            padding: { xs: '1.5rem 1rem', lg: '2.5rem 3rem' },
             color: 'white',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              right: '-50px',
+              top: '-50px',
+              width: '200px',
+              height: '200px',
+              background: 'rgba(255, 255, 255, 0.05)',
+              borderRadius: '50%',
+            },
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <TrophyIcon sx={{ fontSize: 32, color: '#FFD700' }} />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1.5, lg: 2 } }}>
+              <TrophyIcon sx={{ fontSize: { xs: 32, lg: 40 }, color: '#FFD700' }} />
               <Typography
-                variant="h4"
                 sx={{
                   fontWeight: 'bold',
+                  fontSize: { xs: '1.5rem', lg: '2.2rem' },
                 }}
               >
                 <span
                   style={{
                     textDecoration: 'underline',
-                    textDecorationColor: palette.primary.red,
+                    textDecorationColor: '#FFD700',
                     textDecorationThickness: '4px',
                     textUnderlineOffset: '8px',
                   }}
@@ -158,48 +179,72 @@ const ClassementProno = () => {
             </Box>
             {currentUser && (
               <Box sx={{ 
-                backgroundColor: 'rgba(255,255,255,0.1)', 
-                padding: '0.5rem 1rem', 
+                backgroundColor: 'rgba(255,255,255,0.15)', 
+                padding: { xs: '0.4rem 0.8rem', lg: '0.6rem 1.2rem' }, 
                 borderRadius: '20px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 1
+                gap: 0.5,
+                backdropFilter: 'blur(10px)',
               }}>
-                <StarIcon sx={{ color: '#FFD700', fontSize: 20 }} />
-                <Typography sx={{ fontWeight: 'bold' }}>
+                <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 18, lg: 24 } }} />
+                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '0.85rem', lg: '1.1rem' } }}>
                   {currentUser.betPoints} pts
                 </Typography>
               </Box>
             )}
           </Box>
-          <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1rem', mt: 1 }}>
+          <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: { xs: '0.75rem', lg: '1rem' }, mt: 1 }}>
             Top des meilleurs pronostiqueurs
           </Typography>
         </Box>
 
         {/* Search & Tabs */}
-        <Box sx={{ padding: '1.5rem 3rem 0' }}>
-          <TextField
-            fullWidth
-            placeholder="Rechercher un parieur ou une école..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            sx={{
-              backgroundColor: 'white',
-              borderRadius: '12px',
-              mb: 2,
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '12px',
-              },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon sx={{ color: '#999' }} />
-                </InputAdornment>
-              ),
-            }}
-          />
+        <Box sx={{ padding: { xs: '1rem', lg: '1.5rem 3rem 0' } }}>
+          <Box sx={{ mb: { xs: 1.5, lg: 2 } }}>
+            <TextField
+              fullWidth
+              placeholder={isMobile ? "Rechercher..." : "Rechercher un parieur ou une école..."}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              sx={{
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '16px',
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: '16px',
+                  color: 'white',
+                  fontSize: { xs: '0.9rem', lg: '1rem' },
+                  padding: { xs: '4px 8px', lg: '8px 12px' },
+                  '& fieldset': {
+                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: palette.primary.red,
+                  },
+                },
+                '& .MuiInputBase-input': {
+                  padding: { xs: '10px 8px', lg: '14px 12px' },
+                },
+                '& .MuiInputBase-input::placeholder': {
+                  color: 'rgba(255, 255, 255, 0.5)',
+                  opacity: 1,
+                },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: { xs: 20, lg: 24 } }} />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Typography sx={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: { xs: '0.65rem', lg: '0.75rem' }, mt: 0.5, ml: 1 }}>
+              🔍 Recherche les scores de tes amis ou des écoles
+            </Typography>
+          </Box>
           
           <Tabs
             value={tabValue}
@@ -208,13 +253,16 @@ const ClassementProno = () => {
               '& .MuiTab-root': {
                 textTransform: 'none',
                 fontWeight: 'bold',
-                fontSize: '0.95rem',
+                fontSize: { xs: '0.75rem', lg: '0.95rem' },
                 borderRadius: '20px',
-                minHeight: '40px',
+                minHeight: { xs: '32px', lg: '40px' },
+                minWidth: { xs: '80px', lg: 'auto' },
                 mr: 1,
+                color: 'rgba(255, 255, 255, 0.7)',
+                padding: { xs: '4px 12px', lg: '6px 16px' },
               },
               '& .Mui-selected': {
-                backgroundColor: palette.primary.main,
+                backgroundColor: palette.primary.red,
                 color: 'white !important',
               },
               '& .MuiTabs-indicator': {
@@ -222,31 +270,40 @@ const ClassementProno = () => {
               },
             }}
           >
-            <Tab label="👤 Parieurs" />
+            <Tab label={isMobile ? "👤 Joueurs" : "👤 Parieurs"} />
             <Tab label="🏫 Écoles" />
           </Tabs>
         </Box>
 
         {/* Podium */}
-        <Box sx={{ padding: '1.5rem 3rem' }}>
+        <Box sx={{ 
+          padding: { xs: '1.5rem 1rem', lg: '2rem 3rem' },
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 0,
+          overflow: 'hidden',
+        }}>
           <Box sx={{ 
             display: 'flex', 
             justifyContent: 'center', 
             alignItems: 'flex-end',
-            gap: 2,
-            mb: 3
+            gap: { xs: 2, lg: 4 },
+            mb: { xs: 2, lg: 2.5 },
+            flexShrink: 0,
           }}>
             {/* 2ème place */}
             {podium[1] && (
               <Box sx={{ textAlign: 'center', order: 1 }}>
                 <Avatar
                   sx={{
-                    width: 70,
-                    height: 70,
+                    width: { xs: 65, lg: 85 },
+                    height: { xs: 65, lg: 85 },
                     border: `4px solid ${podiumColors[1]}`,
                     margin: '0 auto',
-                    backgroundColor: palette.primary.light,
-                    fontSize: '1.5rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    fontSize: { xs: '1.3rem', lg: '1.8rem' },
+                    color: 'white',
                   }}
                 >
                   {tabValue === 0 ? podium[1].name?.[0] : podium[1].name?.[0]}
@@ -256,24 +313,24 @@ const ClassementProno = () => {
                     position: 'relative',
                     mt: -1.5,
                     mx: 'auto',
-                    width: 24,
-                    height: 24,
+                    width: { xs: 24, lg: 30 },
+                    height: { xs: 24, lg: 30 },
                     borderRadius: '50%',
                     backgroundColor: podiumColors[1],
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 'bold',
-                    fontSize: '0.75rem',
+                    fontSize: { xs: '0.75rem', lg: '0.9rem' },
                     color: '#333',
                   }}
                 >
                   2
                 </Box>
-                <Typography sx={{ fontWeight: 'bold', mt: 1, fontSize: '0.9rem', color: palette.primary.dark }}>
-                  {tabValue === 0 ? podium[1].name?.split(' ')[0] : podium[1].name}
+                <Typography sx={{ fontWeight: 'bold', mt: 1, fontSize: { xs: '0.85rem', lg: '1.1rem' }, color: 'white' }}>
+                  {tabValue === 0 ? podium[1].name?.split(' ')[0] : (isMobile ? podium[1].name?.slice(0, 8) : podium[1].name)}
                 </Typography>
-                <Typography sx={{ fontSize: '0.8rem', color: '#888' }}>
+                <Typography sx={{ fontSize: { xs: '0.75rem', lg: '0.95rem' }, color: 'rgba(255,255,255,0.7)' }}>
                   {tabValue === 0 ? podium[1].betPoints : podium[1].totalPoints} pts
                 </Typography>
               </Box>
@@ -282,15 +339,17 @@ const ClassementProno = () => {
             {/* 1ère place */}
             {podium[0] && (
               <Box sx={{ textAlign: 'center', order: 2 }}>
-                <TrophyIcon sx={{ color: podiumColors[0], fontSize: 28, mb: 0.5 }} />
+                <TrophyIcon sx={{ color: podiumColors[0], fontSize: { xs: 28, lg: 36 }, mb: 0.5 }} />
                 <Avatar
                   sx={{
-                    width: 90,
-                    height: 90,
-                    border: `4px solid ${podiumColors[0]}`,
+                    width: { xs: 85, lg: 110 },
+                    height: { xs: 85, lg: 110 },
+                    border: `5px solid ${podiumColors[0]}`,
                     margin: '0 auto',
-                    backgroundColor: palette.primary.main,
-                    fontSize: '2rem',
+                    backgroundColor: palette.primary.red,
+                    fontSize: { xs: '1.8rem', lg: '2.5rem' },
+                    color: 'white',
+                    boxShadow: '0 0 20px rgba(255, 215, 0, 0.4)',
                   }}
                 >
                   {tabValue === 0 ? podium[0].name?.[0] : podium[0].name?.[0]}
@@ -298,26 +357,27 @@ const ClassementProno = () => {
                 <Box
                   sx={{
                     position: 'relative',
-                    mt: -1.5,
+                    mt: -2,
                     mx: 'auto',
-                    width: 28,
-                    height: 28,
+                    width: { xs: 28, lg: 36 },
+                    height: { xs: 28, lg: 36 },
                     borderRadius: '50%',
                     backgroundColor: podiumColors[0],
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 'bold',
-                    fontSize: '0.85rem',
+                    fontSize: { xs: '0.85rem', lg: '1rem' },
                     color: '#333',
+                    boxShadow: '0 2px 8px rgba(255, 215, 0, 0.5)',
                   }}
                 >
                   1
                 </Box>
-                <Typography sx={{ fontWeight: 'bold', mt: 1, fontSize: '1rem', color: palette.primary.dark }}>
-                  {tabValue === 0 ? podium[0].name?.split(' ')[0] : podium[0].name}
+                <Typography sx={{ fontWeight: 'bold', mt: 1, fontSize: { xs: '1rem', lg: '1.3rem' }, color: 'white' }}>
+                  {tabValue === 0 ? podium[0].name?.split(' ')[0] : (isMobile ? podium[0].name?.slice(0, 10) : podium[0].name)}
                 </Typography>
-                <Typography sx={{ fontSize: '0.85rem', color: palette.primary.main, fontWeight: 'bold' }}>
+                <Typography sx={{ fontSize: { xs: '0.85rem', lg: '1.1rem' }, color: '#FFD700', fontWeight: 'bold' }}>
                   {tabValue === 0 ? podium[0].betPoints : podium[0].totalPoints} pts
                 </Typography>
               </Box>
@@ -328,12 +388,13 @@ const ClassementProno = () => {
               <Box sx={{ textAlign: 'center', order: 3 }}>
                 <Avatar
                   sx={{
-                    width: 60,
-                    height: 60,
+                    width: { xs: 55, lg: 75 },
+                    height: { xs: 55, lg: 75 },
                     border: `4px solid ${podiumColors[2]}`,
                     margin: '0 auto',
-                    backgroundColor: palette.primary.light,
-                    fontSize: '1.3rem',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    fontSize: { xs: '1.1rem', lg: '1.6rem' },
+                    color: 'white',
                   }}
                 >
                   {tabValue === 0 ? podium[2].name?.[0] : podium[2].name?.[0]}
@@ -343,24 +404,24 @@ const ClassementProno = () => {
                     position: 'relative',
                     mt: -1.5,
                     mx: 'auto',
-                    width: 22,
-                    height: 22,
+                    width: { xs: 22, lg: 28 },
+                    height: { xs: 22, lg: 28 },
                     borderRadius: '50%',
                     backgroundColor: podiumColors[2],
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontWeight: 'bold',
-                    fontSize: '0.7rem',
+                    fontSize: { xs: '0.7rem', lg: '0.85rem' },
                     color: 'white',
                   }}
                 >
                   3
                 </Box>
-                <Typography sx={{ fontWeight: 'bold', mt: 1, fontSize: '0.85rem', color: palette.primary.dark }}>
-                  {tabValue === 0 ? podium[2].name?.split(' ')[0] : podium[2].name}
+                <Typography sx={{ fontWeight: 'bold', mt: 1, fontSize: { xs: '0.8rem', lg: '1rem' }, color: 'white' }}>
+                  {tabValue === 0 ? podium[2].name?.split(' ')[0] : (isMobile ? podium[2].name?.slice(0, 8) : podium[2].name)}
                 </Typography>
-                <Typography sx={{ fontSize: '0.75rem', color: '#888' }}>
+                <Typography sx={{ fontSize: { xs: '0.7rem', lg: '0.85rem' }, color: 'rgba(255,255,255,0.7)' }}>
                   {tabValue === 0 ? podium[2].betPoints : podium[2].totalPoints} pts
                 </Typography>
               </Box>
@@ -368,23 +429,32 @@ const ClassementProno = () => {
           </Box>
 
           {/* Liste des classés */}
-          <Card sx={{ borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
-            <CardContent sx={{ padding: '0 !important' }}>
+          <Card sx={{ 
+            borderRadius: '16px', 
+            boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            backdropFilter: 'blur(10px)',
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+            minHeight: 0,
+          }}>
+            <CardContent sx={{ padding: '0 !important', display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
               <Box sx={{ 
-                padding: '1rem 1.5rem', 
-                borderBottom: '1px solid #eee',
+                padding: { xs: '0.75rem 1rem', lg: '1rem 1.5rem' }, 
+                borderBottom: '1px solid rgba(255,255,255,0.1)',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center'
               }}>
-                <Typography sx={{ fontWeight: 'bold', color: palette.primary.dark }}>
-                  {tabValue === 0 ? 'Classement parieurs' : 'Classement écoles'}
+                <Typography sx={{ fontWeight: 'bold', color: 'white', fontSize: { xs: '0.9rem', lg: '1.1rem' } }}>
+                  {tabValue === 0 ? (isMobile ? 'Classement' : 'Classement parieurs') : (isMobile ? 'Écoles' : 'Classement écoles')}
                 </Typography>
-                <StarIcon sx={{ color: '#FFD700', fontSize: 20 }} />
+                <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 18, lg: 22 } }} />
               </Box>
 
-              {/* Liste scrollable */}
-              <Box sx={{ maxHeight: '400px', overflow: 'auto' }}>
+              {/* Liste scrollable - prend tout l'espace restant */}
+              <Box sx={{ flex: 1, overflow: 'auto', minHeight: 0 }}>
                 {restOfList.map((item, index) => {
                   const rank = index + 4;
                   const isCurrentUser = tabValue === 0 && item.userId === currentUser?.id;
@@ -395,65 +465,80 @@ const ClassementProno = () => {
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
-                        padding: '0.75rem 1.5rem',
-                        borderBottom: '1px solid #f5f5f5',
-                        backgroundColor: isCurrentUser ? 'rgba(49, 140, 231, 0.1)' : 'transparent',
+                        padding: { xs: '0.5rem 1rem', lg: '0.75rem 1.5rem' },
+                        borderBottom: '1px solid rgba(255,255,255,0.05)',
+                        backgroundColor: isCurrentUser ? 'rgba(207, 20, 39, 0.2)' : 'transparent',
                         transition: 'background-color 0.2s',
                         '&:hover': {
-                          backgroundColor: isCurrentUser ? 'rgba(49, 140, 231, 0.15)' : '#f9f9f9',
+                          backgroundColor: isCurrentUser ? 'rgba(207, 20, 39, 0.25)' : 'rgba(255,255,255,0.05)',
                         },
                       }}
                     >
                       {/* Rang */}
                       <Typography
                         sx={{
-                          width: '30px',
+                          width: { xs: '25px', lg: '30px' },
                           fontWeight: 'bold',
-                          color: isCurrentUser ? palette.primary.main : '#888',
-                          fontSize: '0.9rem',
+                          color: isCurrentUser ? palette.primary.red : 'rgba(255,255,255,0.6)',
+                          fontSize: { xs: '0.75rem', lg: '0.9rem' },
                         }}
                       >
                         {rank}
                       </Typography>
 
-                      {/* Avatar */}
-                      <Avatar
-                        sx={{
-                          width: 40,
-                          height: 40,
-                          backgroundColor: isCurrentUser ? palette.primary.main : palette.primary.light,
-                          fontSize: '1rem',
-                          mr: 2,
-                        }}
-                      >
-                        {tabValue === 0 ? item.name?.[0] : item.name?.[0]}
-                      </Avatar>
+                      {/* Avatar - caché sur mobile */}
+                      {!isMobile && (
+                        <Avatar
+                          sx={{
+                            width: 36,
+                            height: 36,
+                            backgroundColor: isCurrentUser ? palette.primary.red : 'rgba(255,255,255,0.1)',
+                            fontSize: '0.9rem',
+                            mr: 2,
+                            color: 'white',
+                          }}
+                        >
+                          {tabValue === 0 ? item.name?.[0] : item.name?.[0]}
+                        </Avatar>
+                      )}
 
                       {/* Nom et école */}
-                      <Box sx={{ flex: 1 }}>
+                      <Box sx={{ flex: 1, minWidth: 0 }}>
                         <Typography sx={{ 
                           fontWeight: isCurrentUser ? 'bold' : 'medium', 
-                          fontSize: '0.9rem',
-                          color: isCurrentUser ? palette.primary.main : palette.primary.dark,
+                          fontSize: { xs: '0.75rem', lg: '0.9rem' },
+                          color: isCurrentUser ? palette.primary.red : 'white',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
                         }}>
-                          {tabValue === 0 ? (isCurrentUser ? `${item.name} (Vous)` : item.name) : item.name}
+                          {tabValue === 0 
+                            ? (isCurrentUser 
+                                ? (isMobile ? `${item.name?.split(' ')[0]} (Vous)` : `${item.name} (Vous)`)
+                                : (isMobile ? item.name?.split(' ')[0] : item.name)
+                              ) 
+                            : (isMobile ? item.name?.slice(0, 15) : item.name)}
                         </Typography>
-                        <Typography sx={{ fontSize: '0.75rem', color: '#888' }}>
-                          {tabValue === 0 ? item.school : `${item.participants} participants`}
+                        <Typography sx={{ fontSize: { xs: '0.6rem', lg: '0.75rem' }, color: 'rgba(255,255,255,0.5)' }}>
+                          {tabValue === 0 
+                            ? (isMobile ? item.school?.slice(0, 20) : item.school) 
+                            : `${item.participants} participants`}
                         </Typography>
                       </Box>
 
                       {/* Points */}
-                      <Typography
-                        sx={{
-                          fontWeight: 'bold',
-                          color: isCurrentUser ? palette.primary.main : palette.primary.dark,
-                          fontSize: '0.95rem',
-                        }}
-                      >
-                        {tabValue === 0 ? item.betPoints : item.totalPoints}
-                        <span style={{ color: '#FFD700', marginLeft: '4px' }}>★</span>
-                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography
+                          sx={{
+                            fontWeight: 'bold',
+                            color: isCurrentUser ? palette.primary.red : 'white',
+                            fontSize: { xs: '0.75rem', lg: '0.95rem' },
+                          }}
+                        >
+                          {tabValue === 0 ? item.betPoints : item.totalPoints}
+                        </Typography>
+                        <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 14, lg: 18 }, ml: 0.5 }} />
+                      </Box>
                     </Box>
                   );
                 })}
@@ -465,29 +550,47 @@ const ClassementProno = () => {
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    padding: '0.75rem 1.5rem',
-                    backgroundColor: 'rgba(49, 140, 231, 0.1)',
-                    borderTop: '2px dashed #ddd',
+                    padding: { xs: '0.5rem 1rem', lg: '0.75rem 1.5rem' },
+                    backgroundColor: 'rgba(207, 20, 39, 0.2)',
+                    borderTop: '2px dashed rgba(255,255,255,0.2)',
                   }}
                 >
-                  <Typography sx={{ width: '30px', fontWeight: 'bold', color: palette.primary.main }}>
+                  <Typography sx={{ 
+                    width: { xs: '25px', lg: '30px' }, 
+                    fontWeight: 'bold', 
+                    color: palette.primary.red,
+                    fontSize: { xs: '0.75rem', lg: '0.9rem' },
+                  }}>
                     {currentUserRank}
                   </Typography>
-                  <Avatar sx={{ width: 40, height: 40, backgroundColor: palette.primary.main, mr: 2 }}>
-                    {currentUser?.firstname?.[0]}
-                  </Avatar>
-                  <Box sx={{ flex: 1 }}>
-                    <Typography sx={{ fontWeight: 'bold', color: palette.primary.main }}>
-                      {currentUser?.firstname} {currentUser?.lastname} (Vous)
+                  {!isMobile && (
+                    <Avatar sx={{ width: 36, height: 36, backgroundColor: palette.primary.red, mr: 2, color: 'white' }}>
+                      {currentUser?.firstname?.[0]}
+                    </Avatar>
+                  )}
+                  <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Typography sx={{ 
+                      fontWeight: 'bold', 
+                      color: palette.primary.red,
+                      fontSize: { xs: '0.75rem', lg: '0.9rem' },
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}>
+                      {isMobile 
+                        ? `${currentUser?.firstname} (Vous)` 
+                        : `${currentUser?.firstname} ${currentUser?.lastname} (Vous)`}
                     </Typography>
-                    <Typography sx={{ fontSize: '0.75rem', color: '#888' }}>
-                      {currentUser?.school?.name}
+                    <Typography sx={{ fontSize: { xs: '0.6rem', lg: '0.75rem' }, color: 'rgba(255,255,255,0.5)' }}>
+                      {isMobile ? currentUser?.school?.name?.slice(0, 20) : currentUser?.school?.name}
                     </Typography>
                   </Box>
-                  <Typography sx={{ fontWeight: 'bold', color: palette.primary.main }}>
-                    {currentUser?.betPoints}
-                    <span style={{ color: '#FFD700', marginLeft: '4px' }}>★</span>
-                  </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Typography sx={{ fontWeight: 'bold', color: palette.primary.red, fontSize: { xs: '0.75rem', lg: '0.95rem' } }}>
+                      {currentUser?.betPoints}
+                    </Typography>
+                    <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 14, lg: 18 }, ml: 0.5 }} />
+                  </Box>
                 </Box>
               )}
             </CardContent>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../provider/authProvider";
 import { useState } from "react";
-import { Box, Button, Grid, InputLabel, Link, TextField, Typography, Divider } from "@mui/material";
+import { Box, Button, Grid, InputLabel, Link, TextField, Typography, Divider, useMediaQuery, useTheme } from "@mui/material";
 // eslint-disable-next-line no-unused-vars
 import { validateEmail } from "../service/validation";
 import { ApiTossNotConnected } from "../service/axios";
@@ -13,6 +13,8 @@ const Login = () => {
     const { setToken } = useAuth();
     const { showSnackbar } = useSnackbar();
     const navigate = useNavigate();
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -60,16 +62,39 @@ const Login = () => {
         <LayoutAuthenticated isDarkMode={isDarkMode}>
             <Box sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
                 <Grid container spacing={0} sx={{ minHeight: '100vh' }}>
-                    <Grid item xs={12} lg={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }}>
-                        <Box py={'5vh'} px={{ xs: '8%', md: '15%' }} sx={{ width: '100%', maxWidth: '600px' }}>
-                            <Typography sx={{ fontSize: { xs: '2.5rem', md: '3.5rem' }, fontWeight: 'bold', mb: 1.5, color: palette.primary.dark, textAlign: 'center' }}>
-                                <span style={{ textDecoration: 'underline', textDecorationColor: palette.primary.red, textUnderlineOffset: '0.7rem', textDecorationThickness: '4px' }}>Conn</span>exion
+                    <Grid item xs={12} lg={6} sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center', 
+                        backgroundColor: 'white',
+                        minHeight: { xs: '100vh', lg: 'auto' },
+                    }}>
+                        <Box 
+                            py={{ xs: '3vh', lg: '5vh' }} 
+                            px={{ xs: '5%', sm: '10%', lg: '15%' }} 
+                            sx={{ 
+                                width: '100%', 
+                                maxWidth: { xs: '100%', lg: '600px' },
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                minHeight: { xs: 'calc(100vh - 6vh)', lg: 'auto' },
+                            }}
+                        >
+                            <Typography sx={{ 
+                                fontSize: { xs: '2rem', sm: '2.5rem', lg: '3.5rem' }, 
+                                fontWeight: 'bold', 
+                                mb: { xs: 2, lg: 1.5 }, 
+                                color: palette.primary.dark, 
+                                textAlign: 'center' 
+                            }}>
+                                <span style={{ textDecoration: 'underline', textDecorationColor: palette.primary.red, textUnderlineOffset: '0.5rem', textDecorationThickness: '4px' }}>Conn</span>exion
                             </Typography>
-                            <Box mt={3}>
+                            <Box mt={{ xs: 2, lg: 3 }}>
                                 <form onSubmit={handleLogin}>
-                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2, lg: 2.5 } }}>
                                         <Box>
-                                            <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: palette.primary.dark }}>Email</InputLabel>
+                                            <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '1rem', lg: '0.875rem' } }}>Email</InputLabel>
                                             <TextField id="email"
                                                 variant="outlined"
                                                 value={email}
@@ -80,6 +105,10 @@ const Login = () => {
                                                 helperText={emailError}
                                                 sx={{
                                                     '& .MuiOutlinedInput-root': {
+                                                        fontSize: { xs: '1.1rem', lg: '1rem' },
+                                                        '& input': {
+                                                            padding: { xs: '16px 14px', lg: '14px' },
+                                                        },
                                                         '&:hover fieldset': {
                                                             borderColor: palette.primary.red,
                                                         },
@@ -94,7 +123,7 @@ const Login = () => {
                                             />
                                         </Box>
                                         <Box>
-                                            <InputLabel htmlFor="password" sx={{ marginBottom: 1, color: palette.primary.dark }}>Mot de passe</InputLabel>
+                                            <InputLabel htmlFor="password" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '1rem', lg: '0.875rem' } }}>Mot de passe</InputLabel>
                                             <TextField id="password"
                                                 variant="outlined"
                                                 type="password"
@@ -106,6 +135,10 @@ const Login = () => {
                                                 helperText={passwordError}
                                                 sx={{
                                                     '& .MuiOutlinedInput-root': {
+                                                        fontSize: { xs: '1.1rem', lg: '1rem' },
+                                                        '& input': {
+                                                            padding: { xs: '16px 14px', lg: '14px' },
+                                                        },
                                                         '&:hover fieldset': {
                                                             borderColor: palette.primary.red,
                                                         },
@@ -119,16 +152,16 @@ const Login = () => {
                                                 }}
                                             />
                                         </Box>
-                                        <Link href="/forgot-password" underline="hover" sx={{ textAlign: 'left', color: palette.primary.red, fontWeight: '500' }}>Mot de passe oublié ?</Link>
+                                        <Link href="/forgot-password" underline="hover" sx={{ textAlign: 'left', color: palette.primary.red, fontWeight: '500', fontSize: { xs: '1rem', lg: '0.875rem' } }}>Mot de passe oublié ?</Link>
                                         <Button 
                                             type="submit" 
                                             fullWidth 
                                             sx={{ 
                                                 backgroundColor: palette.primary.red,
                                                 color: '#fff',
-                                                padding: '0.8rem',
+                                                padding: { xs: '1rem', lg: '0.8rem' },
                                                 fontWeight: 'bold',
-                                                fontSize: '1rem',
+                                                fontSize: { xs: '1.1rem', lg: '1rem' },
                                                 textTransform: 'uppercase',
                                                 borderRadius: '8px',
                                                 '&:hover': {
@@ -141,7 +174,7 @@ const Login = () => {
                                     </Box>
                                 </form>
                             </Box>
-                            <Divider sx={{ my: 4 }} />
+                            <Divider sx={{ my: { xs: 3, lg: 4 } }} />
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                                 <Box sx={{ display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                                     <Button 
@@ -151,6 +184,8 @@ const Login = () => {
                                         sx={{ 
                                             borderColor: palette.primary.red,
                                             color: palette.primary.red,
+                                            padding: { xs: '0.9rem', lg: '0.6rem' },
+                                            fontSize: { xs: '1rem', lg: '0.875rem' },
                                             '&:hover': {
                                                 borderColor: palette.primary.red,
                                                 backgroundColor: 'rgba(255, 107, 107, 0.1)',
@@ -166,6 +201,8 @@ const Login = () => {
                                     sx={{ 
                                         backgroundColor: palette.primary.dark,
                                         color: '#fff',
+                                        padding: { xs: '0.9rem', lg: '0.6rem' },
+                                        fontSize: { xs: '1rem', lg: '0.875rem' },
                                         '&:hover': {
                                             backgroundColor: '#062a4d',
                                         }

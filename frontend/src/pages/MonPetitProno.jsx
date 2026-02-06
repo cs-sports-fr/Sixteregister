@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
   Card,
   CardContent,
-  Grid,
   CircularProgress,
   Avatar,
   Chip,
   Divider,
+  Button,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import {
   EmojiEvents as TrophyIcon,
-  Stars as StarsIcon,
   SportsSoccer as SoccerIcon,
   ArrowForward as ArrowForwardIcon,
+  ArrowBack as ArrowBackIcon,
+  History as HistoryIcon,
 } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
 import NavbarParticipant from "../components/navbar/NavbarParticipant";
@@ -26,11 +29,13 @@ import { useSnackbar } from "../provider/snackbarProvider";
 const MonPetitProno = () => {
   const navigate = useNavigate();
   const { showSnackbar } = useSnackbar();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+  
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [bets, setBets] = useState([]);
   const [rank, setRank] = useState(null);
-  const [leaderboard, setLeaderboard] = useState([]);
   const [sports, setSports] = useState([]);
 
   useEffect(() => {
@@ -51,7 +56,6 @@ const MonPetitProno = () => {
 
       setUser(userResponse);
       setBets(betsResponse);
-      setLeaderboard(leaderboardResponse);
       setSports(sportsResponse.data);
 
       // Calculer le rang
@@ -131,7 +135,7 @@ const MonPetitProno = () => {
         <NavbarParticipant />
         <Box
           sx={{
-            backgroundColor: '#f5f5f5',
+            backgroundColor: '#f8f9fa',
             minHeight: '100vh',
             paddingTop: '80px',
             display: 'flex',
@@ -139,7 +143,7 @@ const MonPetitProno = () => {
             alignItems: 'center',
           }}
         >
-          <CircularProgress sx={{ color: palette.primary.main }} />
+          <CircularProgress sx={{ color: palette.primary.red }} />
         </Box>
       </>
     );
@@ -150,160 +154,145 @@ const MonPetitProno = () => {
       <NavbarParticipant />
       <Box
         sx={{
-          backgroundColor: '#f5f5f5',
+          backgroundColor: '#f8f9fa',
           minHeight: '100vh',
           paddingTop: '80px',
         }}
       >
-        {/* Header */}
+        {/* Header avec profil */}
         <Box
           sx={{
-            backgroundColor: palette.primary.dark,
-            padding: '2rem 3rem',
+            background: `linear-gradient(135deg, ${palette.primary.red} 0%, #a01020 100%)`,
+            padding: { xs: '1rem', lg: '1.5rem 3rem' },
             color: 'white',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              right: '-50px',
+              top: '-50px',
+              width: '150px',
+              height: '150px',
+              background: 'rgba(255, 255, 255, 0.05)',
+              borderRadius: '50%',
+            },
           }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-            <SoccerIcon sx={{ fontSize: 32 }} />
-            <Typography
-              variant="h4"
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, lg: 2 }, mb: { xs: 1.5, lg: 2 } }}>
+            <Button
+              onClick={() => navigate('/mon-petit-prono')}
+              sx={{ color: 'white', minWidth: 'auto', p: { xs: 0.5, lg: 1 } }}
+              startIcon={<ArrowBackIcon />}
+            >
+              {!isMobile && 'Retour'}
+            </Button>
+          </Box>
+          
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1.5, lg: 3 } }}>
+            <Avatar
               sx={{
+                width: { xs: 50, lg: 70 },
+                height: { xs: 50, lg: 70 },
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                fontSize: { xs: '1rem', lg: '1.5rem' },
                 fontWeight: 'bold',
+                border: '3px solid rgba(255, 255, 255, 0.3)',
               }}
             >
-              <span
-                style={{
-                  textDecoration: 'underline',
-                  textDecorationColor: palette.primary.red,
-                  textDecorationThickness: '4px',
-                  textUnderlineOffset: '8px',
-                }}
-              >
-                Mon
-              </span>{' '}
-              Petit Prono
-            </Typography>
+              {user?.firstname?.[0]}{user?.lastname?.[0]}
+            </Avatar>
+            <Box sx={{ flex: 1 }}>
+              <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '1.1rem', lg: '1.4rem' } }}>
+                {user?.firstname} {user?.lastname?.[0]}.
+              </Typography>
+              <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: { xs: '0.75rem', lg: '0.9rem' } }}>
+                {user?.school?.name || 'École non définie'}
+              </Typography>
+            </Box>
+            
+            {/* Stats compactes */}
+            <Box sx={{ display: 'flex', gap: { xs: 1, lg: 2 } }}>
+              <Box sx={{ 
+                backgroundColor: 'rgba(255,255,255,0.15)', 
+                padding: { xs: '0.4rem 0.7rem', lg: '0.5rem 1rem' }, 
+                borderRadius: '12px',
+                textAlign: 'center',
+              }}>
+                <TrophyIcon sx={{ color: '#FFD700', fontSize: { xs: 18, lg: 24 } }} />
+                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '0.85rem', lg: '1rem' } }}>
+                  {rank ? `${rank}${rank === 1 ? 'er' : 'e'}` : '-'}
+                </Typography>
+              </Box>
+              <Box sx={{ 
+                backgroundColor: 'rgba(255,255,255,0.15)', 
+                padding: { xs: '0.4rem 0.7rem', lg: '0.5rem 1rem' }, 
+                borderRadius: '12px',
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}>
+                <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 18, lg: 24 } }} />
+                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '0.85rem', lg: '1rem' } }}>
+                  {user?.betPoints || 0}
+                </Typography>
+              </Box>
+            </Box>
           </Box>
-          <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '1rem', mt: 1 }}>
-            Pariez sur les matchs et grimpez dans le classement !
-          </Typography>
         </Box>
 
-        {/* Profile Section */}
-        <Box sx={{ padding: '2rem 3rem' }}>
-          {/* User Info Card */}
-          <Card
-            sx={{
-              borderRadius: '16px',
-              marginBottom: '2rem',
-              overflow: 'visible',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-            }}
-          >
-            <CardContent sx={{ padding: '2rem' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 3 }}>
-                <Avatar
-                  sx={{
-                    width: 80,
-                    height: 80,
-                    backgroundColor: palette.primary.main,
-                    fontSize: '2rem',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {user?.firstname?.[0]}{user?.lastname?.[0]}
-                </Avatar>
-                <Box>
-                  <Typography variant="h5" sx={{ fontWeight: 'bold', color: palette.primary.dark }}>
-                    {user?.firstname} {user?.lastname?.[0]}.
-                  </Typography>
-                  <Typography sx={{ color: '#666', fontSize: '0.9rem' }}>
-                    {user?.school?.name || 'École non définie'}
-                  </Typography>
-                </Box>
-              </Box>
-
-              {/* Stats Cards */}
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <Box
-                    sx={{
-                      backgroundColor: '#f8f9fa',
-                      borderRadius: '12px',
-                      padding: '1.5rem',
-                      textAlign: 'center',
-                      border: '2px solid #e9ecef',
-                    }}
-                  >
-                    <TrophyIcon sx={{ fontSize: 32, color: '#FFD700', mb: 1 }} />
-                    <Typography
-                      variant="h4"
-                      sx={{ fontWeight: 'bold', color: palette.primary.dark }}
-                    >
-                      {rank ? `${rank}${rank === 1 ? 'er' : 'ème'}` : '-'}
-                    </Typography>
-                    <Typography sx={{ color: '#666', fontSize: '0.85rem' }}>
-                      Classement
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6}>
-                  <Box
-                    sx={{
-                      backgroundColor: '#f8f9fa',
-                      borderRadius: '12px',
-                      padding: '1.5rem',
-                      textAlign: 'center',
-                      border: '2px solid #e9ecef',
-                    }}
-                  >
-                    <StarsIcon sx={{ fontSize: 32, color: palette.primary.main, mb: 1 }} />
-                    <Typography
-                      variant="h4"
-                      sx={{ fontWeight: 'bold', color: palette.primary.dark }}
-                    >
-                      {user?.betPoints || 0}
-                    </Typography>
-                    <Typography sx={{ color: '#666', fontSize: '0.85rem' }}>
-                      Points
-                    </Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
+        {/* Contenu principal */}
+        <Box sx={{ padding: { xs: '1rem', lg: '2rem 3rem' } }}>
 
           {/* Active Bets Section */}
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: 'bold',
-              color: palette.primary.dark,
-              marginBottom: '1rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-            }}
-          >
-            <SoccerIcon sx={{ color: palette.primary.red }} />
-            Paris en cours
-          </Typography>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between',
+            mb: { xs: 1, lg: 1.5 },
+          }}>
+            <Typography
+              sx={{
+                fontWeight: 'bold',
+                color: palette.primary.dark,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                fontSize: { xs: '1rem', lg: '1.15rem' },
+              }}
+            >
+              <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 20, lg: 24 } }} />
+              Paris en cours
+            </Typography>
+            <Chip 
+              label={activeBets.length} 
+              size="small" 
+              sx={{ 
+                backgroundColor: palette.primary.red, 
+                color: 'white', 
+                fontWeight: 'bold',
+                fontSize: { xs: '0.7rem', lg: '0.8rem' },
+              }} 
+            />
+          </Box>
 
           {activeBets.length === 0 ? (
             <Card
               sx={{
                 borderRadius: '12px',
-                padding: '2rem',
+                padding: { xs: '1.5rem', lg: '2rem' },
                 textAlign: 'center',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+                mb: { xs: 2, lg: 3 },
               }}
             >
-              <Typography sx={{ color: '#666' }}>
+              <Typography sx={{ color: '#666', fontSize: { xs: '0.85rem', lg: '0.95rem' } }}>
                 Aucun pari en cours. Rendez-vous sur les matchs pour parier !
               </Typography>
             </Card>
           ) : (
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 1, lg: 2 }, mb: { xs: 2, lg: 3 } }}>
               {activeBets.map((bet) => (
                 <Card
                   key={bet.id}
@@ -313,10 +302,10 @@ const MonPetitProno = () => {
                     overflow: 'hidden',
                   }}
                 >
-                  <CardContent sx={{ padding: '1.5rem' }}>
+                  <CardContent sx={{ padding: { xs: '0.75rem', lg: '1.5rem' } }}>
                     {/* Match Header */}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                      <Typography sx={{ color: '#666', fontSize: '0.85rem' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: { xs: 1, lg: 2 } }}>
+                      <Typography sx={{ color: '#666', fontSize: { xs: '0.7rem', lg: '0.85rem' } }}>
                         {bet.match?.sport?.sport || 'Sport'}
                       </Typography>
                       <Chip
@@ -326,96 +315,113 @@ const MonPetitProno = () => {
                           backgroundColor: getMatchStatusColor(bet.match),
                           color: 'white',
                           fontWeight: 'bold',
-                          fontSize: '0.7rem',
+                          fontSize: { xs: '0.6rem', lg: '0.7rem' },
+                          height: { xs: 20, lg: 24 },
                         }}
                       />
                     </Box>
 
-                    {/* Teams */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-                      <Box sx={{ flex: 1, textAlign: 'center' }}>
+                    {/* Teams - Version compacte sur mobile */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: { xs: 1, lg: 2 } }}>
+                      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: { xs: 0.75, lg: 1 } }}>
                         <Avatar
                           src={bet.match?.teamOne?.school?.pictureLink}
                           sx={{ 
-                            width: 48, 
-                            height: 48, 
-                            margin: '0 auto 0.5rem',
+                            width: { xs: 32, lg: 48 }, 
+                            height: { xs: 32, lg: 48 }, 
                             backgroundColor: palette.primary.light,
+                            fontSize: { xs: '0.75rem', lg: '1rem' },
                           }}
                         >
                           {bet.match?.teamOne?.name?.[0]}
                         </Avatar>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '0.9rem', color: palette.primary.dark }}>
-                          {bet.match?.teamOne?.name || 'Équipe 1'}
-                        </Typography>
-                        <Typography sx={{ fontSize: '0.75rem', color: '#888' }}>
-                          {bet.match?.teamOne?.school?.name}
-                        </Typography>
+                        <Box sx={{ minWidth: 0 }}>
+                          <Typography sx={{ 
+                            fontWeight: 'bold', 
+                            fontSize: { xs: '0.75rem', lg: '0.9rem' }, 
+                            color: palette.primary.dark,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {isMobile ? bet.match?.teamOne?.name?.split(' ')[0] : bet.match?.teamOne?.name || 'Équipe 1'}
+                          </Typography>
+                          {!isMobile && (
+                            <Typography sx={{ fontSize: '0.7rem', color: '#888' }}>
+                              {bet.match?.teamOne?.school?.name}
+                            </Typography>
+                          )}
+                        </Box>
                       </Box>
 
-                      <Box sx={{ px: 2 }}>
-                        <Typography
-                          sx={{
-                            fontWeight: 'bold',
-                            color: '#999',
-                            fontSize: '0.9rem',
-                          }}
-                        >
+                      <Box sx={{ px: { xs: 1, lg: 2 }, textAlign: 'center' }}>
+                        <Typography sx={{ fontWeight: 'bold', color: '#999', fontSize: { xs: '0.75rem', lg: '0.9rem' } }}>
                           VS
                         </Typography>
-                        <Typography sx={{ fontSize: '0.7rem', color: '#aaa', textAlign: 'center', mt: 0.5 }}>
+                        <Typography sx={{ fontSize: { xs: '0.6rem', lg: '0.7rem' }, color: '#aaa', mt: 0.5 }}>
                           {formatMatchDate(bet.match?.matchTime)}
                         </Typography>
                       </Box>
 
-                      <Box sx={{ flex: 1, textAlign: 'center' }}>
+                      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: { xs: 0.75, lg: 1 }, justifyContent: 'flex-end' }}>
+                        <Box sx={{ minWidth: 0, textAlign: 'right' }}>
+                          <Typography sx={{ 
+                            fontWeight: 'bold', 
+                            fontSize: { xs: '0.75rem', lg: '0.9rem' }, 
+                            color: palette.primary.dark,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {isMobile ? bet.match?.teamTwo?.name?.split(' ')[0] : bet.match?.teamTwo?.name || 'Équipe 2'}
+                          </Typography>
+                          {!isMobile && (
+                            <Typography sx={{ fontSize: '0.7rem', color: '#888' }}>
+                              {bet.match?.teamTwo?.school?.name}
+                            </Typography>
+                          )}
+                        </Box>
                         <Avatar
                           src={bet.match?.teamTwo?.school?.pictureLink}
                           sx={{ 
-                            width: 48, 
-                            height: 48, 
-                            margin: '0 auto 0.5rem',
+                            width: { xs: 32, lg: 48 }, 
+                            height: { xs: 32, lg: 48 }, 
                             backgroundColor: palette.primary.light,
+                            fontSize: { xs: '0.75rem', lg: '1rem' },
                           }}
                         >
                           {bet.match?.teamTwo?.name?.[0]}
                         </Avatar>
-                        <Typography sx={{ fontWeight: 'bold', fontSize: '0.9rem', color: palette.primary.dark }}>
-                          {bet.match?.teamTwo?.name || 'Équipe 2'}
-                        </Typography>
-                        <Typography sx={{ fontSize: '0.75rem', color: '#888' }}>
-                          {bet.match?.teamTwo?.school?.name}
-                        </Typography>
                       </Box>
                     </Box>
 
-                    <Divider sx={{ my: 1.5 }} />
+                    <Divider sx={{ my: { xs: 1, lg: 1.5 } }} />
 
                     {/* User Prediction */}
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Box>
-                        <Typography sx={{ fontSize: '0.75rem', color: '#888' }}>
+                        <Typography sx={{ fontSize: { xs: '0.65rem', lg: '0.75rem' }, color: '#888' }}>
                           Votre Pronostic
                         </Typography>
                         <Typography
                           sx={{
                             fontWeight: 'bold',
-                            color: palette.primary.main,
-                            fontSize: '0.95rem',
+                            color: palette.primary.red,
+                            fontSize: { xs: '0.8rem', lg: '0.95rem' },
                           }}
                         >
                           {getPredictionLabel(bet)}
                         </Typography>
                       </Box>
                       <Box sx={{ textAlign: 'right' }}>
-                        <Typography sx={{ fontSize: '0.75rem', color: '#888' }}>
+                        <Typography sx={{ fontSize: { xs: '0.65rem', lg: '0.75rem' }, color: '#888' }}>
                           Cote
                         </Typography>
                         <Typography
                           sx={{
                             fontWeight: 'bold',
                             color: palette.primary.dark,
-                            fontSize: '1.1rem',
+                            fontSize: { xs: '0.95rem', lg: '1.1rem' },
                           }}
                         >
                           x{(bet.predictedWinner === 'TeamOne' 
@@ -436,23 +442,39 @@ const MonPetitProno = () => {
           {/* Past Bets Section */}
           {bets.filter(b => b.match?.hasEnded).length > 0 && (
             <>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontWeight: 'bold',
-                  color: palette.primary.dark,
-                  marginTop: '2rem',
-                  marginBottom: '1rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
-                }}
-              >
-                <TrophyIcon sx={{ color: '#FFD700' }} />
-                Historique des paris
-              </Typography>
+              <Box sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'space-between',
+                mt: { xs: 2, lg: 3 },
+                mb: { xs: 1, lg: 1.5 },
+              }}>
+                <Typography
+                  sx={{
+                    fontWeight: 'bold',
+                    color: palette.primary.dark,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    fontSize: { xs: '1rem', lg: '1.15rem' },
+                  }}
+                >
+                  <HistoryIcon sx={{ color: '#FFD700', fontSize: { xs: 20, lg: 24 } }} />
+                  Historique des paris
+                </Typography>
+                <Chip 
+                  label={bets.filter(b => b.match?.hasEnded).length} 
+                  size="small" 
+                  sx={{ 
+                    backgroundColor: '#666', 
+                    color: 'white', 
+                    fontWeight: 'bold',
+                    fontSize: { xs: '0.7rem', lg: '0.8rem' },
+                  }} 
+                />
+              </Box>
 
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 1, lg: 2 }, mb: { xs: 2, lg: 3 } }}>
                 {bets.filter(b => b.match?.hasEnded).map((bet) => (
                   <Card
                     key={bet.id}
@@ -462,20 +484,30 @@ const MonPetitProno = () => {
                       borderLeft: `4px solid ${bet.isCorrect ? '#4CAF50' : '#f44336'}`,
                     }}
                   >
-                    <CardContent sx={{ padding: '1rem 1.5rem' }}>
+                    <CardContent sx={{ padding: { xs: '0.75rem 1rem', lg: '1rem 1.5rem' } }}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Box>
-                          <Typography sx={{ fontWeight: 'bold', fontSize: '0.9rem', color: palette.primary.dark }}>
-                            {bet.match?.teamOne?.name} vs {bet.match?.teamTwo?.name}
+                        <Box sx={{ flex: 1, minWidth: 0 }}>
+                          <Typography sx={{ 
+                            fontWeight: 'bold', 
+                            fontSize: { xs: '0.8rem', lg: '0.9rem' }, 
+                            color: palette.primary.dark,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {isMobile 
+                              ? `${bet.match?.teamOne?.name?.split(' ')[0]} vs ${bet.match?.teamTwo?.name?.split(' ')[0]}`
+                              : `${bet.match?.teamOne?.name} vs ${bet.match?.teamTwo?.name}`
+                            }
                           </Typography>
-                          <Typography sx={{ fontSize: '0.8rem', color: '#888' }}>
+                          <Typography sx={{ fontSize: { xs: '0.7rem', lg: '0.8rem' }, color: '#888' }}>
                             Score: {bet.match?.scoreTeamOne} - {bet.match?.scoreTeamTwo}
                           </Typography>
-                          <Typography sx={{ fontSize: '0.75rem', color: '#aaa' }}>
-                            Pronostic: {getPredictionLabel(bet)}
+                          <Typography sx={{ fontSize: { xs: '0.65rem', lg: '0.75rem' }, color: '#aaa' }}>
+                            Pronostic: {isMobile ? getPredictionLabel(bet).split(' ')[0] : getPredictionLabel(bet)}
                           </Typography>
                         </Box>
-                        <Box sx={{ textAlign: 'right' }}>
+                        <Box sx={{ textAlign: 'right', ml: 1 }}>
                           <Chip
                             label={bet.isCorrect ? 'Gagné' : 'Perdu'}
                             size="small"
@@ -484,13 +516,15 @@ const MonPetitProno = () => {
                               color: 'white',
                               fontWeight: 'bold',
                               mb: 0.5,
+                              fontSize: { xs: '0.6rem', lg: '0.7rem' },
+                              height: { xs: 20, lg: 24 },
                             }}
                           />
                           <Typography
                             sx={{
                               fontWeight: 'bold',
                               color: bet.isCorrect ? '#4CAF50' : '#f44336',
-                              fontSize: '1rem',
+                              fontSize: { xs: '0.85rem', lg: '1rem' },
                             }}
                           >
                             {bet.isCorrect ? `+${bet.pointsWon}` : '0'} pts
@@ -504,40 +538,41 @@ const MonPetitProno = () => {
             </>
           )}
 
-          {/* Section Sports - Pour aller parier */}
-          <Divider sx={{ my: 3 }} />
-          <Typography variant="h6" sx={{ fontWeight: 'bold', color: palette.primary.dark, mb: 2 }}>
-            🎯 Parier sur les matchs
-          </Typography>
-          <Grid container spacing={2}>
-            {sports.map((sport) => (
-              <Grid item xs={12} sm={6} md={4} key={sport.id}>
-                <Card
-                  sx={{
-                    borderRadius: '12px',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-                    cursor: 'pointer',
-                    transition: 'transform 0.2s, box-shadow 0.2s',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-                    },
-                  }}
-                  onClick={() => navigate(`/matchs-prono/${sport.id}`)}
-                >
-                  <CardContent sx={{ padding: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <SoccerIcon sx={{ color: palette.primary.main, fontSize: 28 }} />
-                      <Typography sx={{ fontWeight: 'bold', color: palette.primary.dark }}>
-                        {sport.sport}
-                      </Typography>
-                    </Box>
-                    <ArrowForwardIcon sx={{ color: palette.primary.red }} />
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          {/* Section Accès aux matchs */}
+          <Divider sx={{ my: { xs: 2, lg: 3 } }} />
+          
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={() => navigate('/matchs-prono/all')}
+            sx={{
+              background: `linear-gradient(135deg, ${palette.primary.red} 0%, #a01020 100%)`,
+              borderRadius: '12px',
+              padding: { xs: '1rem', lg: '1.25rem' },
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              textTransform: 'none',
+              boxShadow: '0 4px 15px rgba(207, 20, 39, 0.3)',
+              '&:hover': {
+                background: `linear-gradient(135deg, #a01020 0%, #800815 100%)`,
+                boxShadow: '0 6px 20px rgba(207, 20, 39, 0.4)',
+              },
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, lg: 2 } }}>
+              <SoccerIcon sx={{ fontSize: { xs: 24, lg: 32 } }} />
+              <Box sx={{ textAlign: 'left' }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', lg: '1.15rem' } }}>
+                  Voir tous les matchs
+                </Typography>
+                <Typography sx={{ fontSize: { xs: '0.7rem', lg: '0.8rem' }, opacity: 0.9 }}>
+                  Parier sur les prochains matchs
+                </Typography>
+              </Box>
+            </Box>
+            <ArrowForwardIcon sx={{ fontSize: { xs: 20, lg: 24 } }} />
+          </Button>
         </Box>
       </Box>
     </>
