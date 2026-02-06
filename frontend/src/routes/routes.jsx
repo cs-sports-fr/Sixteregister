@@ -31,6 +31,7 @@ import MatchsPoules from "../pages/admin/MatchsPoules";
 import PhasesFinales from "../pages/admin/PhasesFinales";
 import MonPetitProno from "../pages/MonPetitProno";
 import MatchsProno from "../pages/MatchsProno";
+import ClassementProno from "../pages/ClassementProno";
 
 
 const routesForUser = [
@@ -88,6 +89,11 @@ const routesForUser = [
         element: <MatchsProno />,
         name: 'Matchs Prono',
         hidden: true,
+    },
+    {
+        path: "/classement",
+        element: <ClassementProno />,
+        name: 'Classement',
     },
     {
         path: "/logout",
