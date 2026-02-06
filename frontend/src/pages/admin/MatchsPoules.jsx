@@ -28,6 +28,7 @@ import {
     Paper,
     Grid,
     Tooltip,
+    Autocomplete,
 } from '@mui/material';
 import {
     PlayArrow as PlayIcon,
@@ -36,6 +37,8 @@ import {
     Delete as DeleteIcon,
     Refresh as RefreshIcon,
     AutoFixHigh as GenerateIcon,
+    Add as AddIcon,
+    Settings as SettingsIcon,
 } from '@mui/icons-material';
 import Navbar from '../../components/navbar/Navbar';
 import { routesForAdmin, routesForSuperAdmin } from '../../routes/routes';
@@ -49,6 +52,9 @@ import {
     startMatch,
     endMatch,
     getPoolsBySport,
+    createMatch,
+    getSportWithTeams,
+    modifyMatch,
 } from '../../service/matchService';
 
 const MatchsPoules = () => {
@@ -60,15 +66,26 @@ const MatchsPoules = () => {
     const [selectedSport, setSelectedSport] = useState(null);
     const [matches, setMatches] = useState([]);
     const [pools, setPools] = useState([]);
+    const [teams, setTeams] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
 
     // Dialog states
     const [scoreDialogOpen, setScoreDialogOpen] = useState(false);
+    const [createMatchDialogOpen, setCreateMatchDialogOpen] = useState(false);
+    const [editMatchDialogOpen, setEditMatchDialogOpen] = useState(false);
     const [selectedMatch, setSelectedMatch] = useState(null);
     const [scoreTeamOne, setScoreTeamOne] = useState('');
     const [scoreTeamTwo, setScoreTeamTwo] = useState('');
+
+    // Form state pour création de match
+    const [newMatch, setNewMatch] = useState({
+        teamOneId: null,
+        teamTwoId: null,
+        matchTime: '',
+        field: '1',
+    });
 
     // Filter state
     const [selectedPool, setSelectedPool] = useState('all');
@@ -83,9 +100,19 @@ const MatchsPoules = () => {
         if (selectedSport) {
             fetchMatches();
             fetchPools();
+            fetchTeams();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedSport]);
+
+    const fetchTeams = async () => {
+        try {
+            const data = await getSportWithTeams(selectedSport);
+            setTeams(data.teams?.filter(t => t.status === 'Validated') || []);
+        } catch (err) {
+            console.error('Erreur lors du chargement des équipes', err);
+        }
+    };
 
     const fetchSports = async () => {
         try {
@@ -129,6 +156,52 @@ const MatchsPoules = () => {
             setPools(data);
         } catch (err) {
             console.error('Erreur lors du chargement des poules', err);
+        }
+    };
+
+    const handleCreateMatch = async () => {
+        if (!newMatch.teamOneId || !newMatch.teamTwoId) {
+            setError('Veuillez sélectionner les deux équipes');
+            return;
+        }
+        if (newMatch.teamOneId === newMatch.teamTwoId) {
+            setError('Les deux équipes doivent être différentes');
+            return;
+        }
+        try {
+            setLoading(true);
+            // Créer une date par défaut si non spécifiée (aujourd'hui à 10h)
+            let matchTime = newMatch.matchTime;
+            if (!matchTime) {
+                const today = new Date();
+                today.setHours(10, 0, 0, 0);
+                matchTime = today.toISOString();
+            } else {
+                const today = new Date();
+                const [hours, minutes] = newMatch.matchTime.split(':');
+                today.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+                matchTime = today.toISOString();
+            }
+            await createMatch({
+                sportId: selectedSport,
+                phase: 'GroupStage',
+                teamOneId: newMatch.teamOneId,
+                teamTwoId: newMatch.teamTwoId,
+                matchTime: matchTime,
+                field: parseInt(newMatch.field) || 1,
+                teamOneSource: null,
+                teamTwoSource: null,
+                placeId: null,
+            });
+            setSuccess('Match créé avec succès');
+            setCreateMatchDialogOpen(false);
+            setNewMatch({ teamOneId: null, teamTwoId: null, matchTime: '', field: '1' });
+            fetchMatches();
+        } catch (err) {
+            setError('Erreur lors de la création du match');
+            console.error(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -225,6 +298,60 @@ const MatchsPoules = () => {
         }
     };
 
+    const handleOpenEditMatch = (match) => {
+        setSelectedMatch(match);
+        // Extraire l'heure du matchTime pour le champ time
+        let timeValue = '';
+        if (match.matchTime) {
+            const date = new Date(match.matchTime);
+            timeValue = date.toTimeString().slice(0, 5); // HH:MM
+        }
+        setNewMatch({
+            teamOneId: match.teamOneId,
+            teamTwoId: match.teamTwoId,
+            matchTime: timeValue,
+            field: match.field?.toString() || '1',
+        });
+        setEditMatchDialogOpen(true);
+    };
+
+    const handleEditMatch = async () => {
+        if (!newMatch.teamOneId || !newMatch.teamTwoId) {
+            setError('Veuillez sélectionner les deux équipes');
+            return;
+        }
+        if (newMatch.teamOneId === newMatch.teamTwoId) {
+            setError('Les deux équipes doivent être différentes');
+            return;
+        }
+        try {
+            setLoading(true);
+            // Convertir l'heure en datetime
+            let matchTime = null;
+            if (newMatch.matchTime) {
+                const today = new Date();
+                const [hours, minutes] = newMatch.matchTime.split(':');
+                today.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+                matchTime = today.toISOString();
+            }
+            await modifyMatch(selectedMatch.id, {
+                teamOneId: newMatch.teamOneId,
+                teamTwoId: newMatch.teamTwoId,
+                matchTime: matchTime,
+                field: newMatch.field ? parseInt(newMatch.field) : null,
+            });
+            setSuccess('Match modifié avec succès');
+            setEditMatchDialogOpen(false);
+            setNewMatch({ teamOneId: null, teamTwoId: null, matchTime: '', field: '1' });
+            fetchMatches();
+        } catch (err) {
+            setError('Erreur lors de la modification du match');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     // Filter matches by selected pool (utilise les pools des équipes)
     const getMatchPoolId = (match) => {
         // La poule d'un match est déterminée par les équipes qui y participent
@@ -317,11 +444,21 @@ const MatchsPoules = () => {
                     <Button
                         variant="contained"
                         color="primary"
+                        startIcon={<AddIcon />}
+                        onClick={() => setCreateMatchDialogOpen(true)}
+                        disabled={!selectedSport || loading}
+                    >
+                        Créer un match
+                    </Button>
+
+                    <Button
+                        variant="outlined"
+                        color="secondary"
                         startIcon={<GenerateIcon />}
                         onClick={handleGenerateMatches}
                         disabled={!selectedSport || loading}
                     >
-                        Générer les matchs
+                        Générer auto
                     </Button>
 
                     <Button
@@ -364,6 +501,7 @@ const MatchsPoules = () => {
                                                 formatTime={formatTime}
                                                 getMatchStatus={getMatchStatus}
                                                 onEditScore={handleOpenScoreDialog}
+                                                onEditMatch={handleOpenEditMatch}
                                                 onStart={handleStartMatch}
                                                 onEnd={handleEndMatch}
                                                 onDelete={handleDeleteMatch}
@@ -382,6 +520,7 @@ const MatchsPoules = () => {
                                             formatTime={formatTime}
                                             getMatchStatus={getMatchStatus}
                                             onEditScore={handleOpenScoreDialog}
+                                            onEditMatch={handleOpenEditMatch}
                                             onStart={handleStartMatch}
                                             onEnd={handleEndMatch}
                                             onDelete={handleDeleteMatch}
@@ -470,12 +609,102 @@ const MatchsPoules = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
+
+            {/* Dialog: Créer un match de poule */}
+            <Dialog open={createMatchDialogOpen} onClose={() => setCreateMatchDialogOpen(false)} maxWidth="sm" fullWidth>
+                <DialogTitle>Créer un match de poule</DialogTitle>
+                <DialogContent>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
+                        <Autocomplete
+                            options={teams}
+                            getOptionLabel={(option) => `${option.name} (${option.school?.name || 'N/A'})`}
+                            value={teams.find(t => t.id === newMatch.teamOneId) || null}
+                            onChange={(e, value) => setNewMatch({ ...newMatch, teamOneId: value?.id || null })}
+                            renderInput={(params) => <TextField {...params} label="Équipe 1" />}
+                        />
+
+                        <Autocomplete
+                            options={teams}
+                            getOptionLabel={(option) => `${option.name} (${option.school?.name || 'N/A'})`}
+                            value={teams.find(t => t.id === newMatch.teamTwoId) || null}
+                            onChange={(e, value) => setNewMatch({ ...newMatch, teamTwoId: value?.id || null })}
+                            renderInput={(params) => <TextField {...params} label="Équipe 2" />}
+                        />
+
+                        <TextField
+                            label="Heure du match"
+                            type="time"
+                            value={newMatch.matchTime}
+                            onChange={(e) => setNewMatch({ ...newMatch, matchTime: e.target.value })}
+                            InputLabelProps={{ shrink: true }}
+                        />
+
+                        <TextField
+                            label="Terrain"
+                            type="number"
+                            value={newMatch.field}
+                            onChange={(e) => setNewMatch({ ...newMatch, field: e.target.value })}
+                        />
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setCreateMatchDialogOpen(false)}>Annuler</Button>
+                    <Button onClick={handleCreateMatch} variant="contained" disabled={loading}>
+                        Créer
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* Dialog: Modifier un match de poule */}
+            <Dialog open={editMatchDialogOpen} onClose={() => setEditMatchDialogOpen(false)} maxWidth="sm" fullWidth>
+                <DialogTitle>Modifier le match</DialogTitle>
+                <DialogContent>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
+                        <Autocomplete
+                            options={teams}
+                            getOptionLabel={(option) => `${option.name} (${option.school?.name || 'N/A'})`}
+                            value={teams.find(t => t.id === newMatch.teamOneId) || null}
+                            onChange={(e, value) => setNewMatch({ ...newMatch, teamOneId: value?.id || null })}
+                            renderInput={(params) => <TextField {...params} label="Équipe 1" />}
+                        />
+
+                        <Autocomplete
+                            options={teams}
+                            getOptionLabel={(option) => `${option.name} (${option.school?.name || 'N/A'})`}
+                            value={teams.find(t => t.id === newMatch.teamTwoId) || null}
+                            onChange={(e, value) => setNewMatch({ ...newMatch, teamTwoId: value?.id || null })}
+                            renderInput={(params) => <TextField {...params} label="Équipe 2" />}
+                        />
+
+                        <TextField
+                            label="Heure du match"
+                            type="time"
+                            value={newMatch.matchTime}
+                            onChange={(e) => setNewMatch({ ...newMatch, matchTime: e.target.value })}
+                            InputLabelProps={{ shrink: true }}
+                        />
+
+                        <TextField
+                            label="Terrain"
+                            type="number"
+                            value={newMatch.field}
+                            onChange={(e) => setNewMatch({ ...newMatch, field: e.target.value })}
+                        />
+                    </Box>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setEditMatchDialogOpen(false)}>Annuler</Button>
+                    <Button onClick={handleEditMatch} variant="contained" disabled={loading}>
+                        Enregistrer
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Box>
     );
 };
 
 // Composant tableau de matchs
-const MatchTable = ({ matches, formatTime, getMatchStatus, onEditScore, onStart, onEnd, onDelete }) => {
+const MatchTable = ({ matches, formatTime, getMatchStatus, onEditScore, onEditMatch, onStart, onEnd, onDelete }) => {
     if (matches.length === 0) {
         return (
             <Typography color="text.secondary" sx={{ textAlign: 'center', py: 2 }}>
@@ -540,6 +769,11 @@ const MatchTable = ({ matches, formatTime, getMatchStatus, onEditScore, onStart,
                                                 <EditIcon fontSize="small" />
                                             </IconButton>
                                         </Tooltip>
+                                        <Tooltip title="Modifier le match">
+                                            <IconButton size="small" color="primary" onClick={() => onEditMatch(match)}>
+                                                <SettingsIcon fontSize="small" />
+                                            </IconButton>
+                                        </Tooltip>
                                         {!match.hasStarted && !match.hasEnded && (
                                             <Tooltip title="Démarrer le match">
                                                 <IconButton size="small" color="success" onClick={() => onStart(match.id)}>
@@ -575,6 +809,7 @@ MatchTable.propTypes = {
     formatTime: PropTypes.func.isRequired,
     getMatchStatus: PropTypes.func.isRequired,
     onEditScore: PropTypes.func.isRequired,
+    onEditMatch: PropTypes.func.isRequired,
     onStart: PropTypes.func.isRequired,
     onEnd: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
