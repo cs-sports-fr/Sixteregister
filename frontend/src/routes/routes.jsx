@@ -32,6 +32,7 @@ import PhasesFinales from "../pages/admin/PhasesFinales";
 import MonPetitProno from "../pages/MonPetitProno";
 import MatchsProno from "../pages/MatchsProno";
 import ClassementProno from "../pages/ClassementProno";
+import AccueilProno from "../pages/AccueilProno";
 
 
 const routesForUser = [
@@ -81,8 +82,14 @@ const routesForUser = [
     },
     {
         path: "/mon-petit-prono",
-        element: <MonPetitProno />,
+        element: <AccueilProno />,
         name: 'Mon Petit Prono',
+    },
+    {
+        path: "/mes-pronos",
+        element: <MonPetitProno />,
+        name: 'Mes Pronos',
+        hidden: true,
     },
     {
         path: "/matchs-prono/:sportId",
