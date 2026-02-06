@@ -20,6 +20,7 @@ import {
   Select,
   MenuItem,
   Alert,
+  Slider,
 } from "@mui/material";
 import {
   SportsSoccer as SoccerIcon,
@@ -53,6 +54,7 @@ const AccueilProno = () => {
     predictedWinner: '',
     predictedScoreTeamOne: '',
     predictedScoreTeamTwo: '',
+    stake: 0,
   });
   const [betLoading, setBetLoading] = useState(false);
 
@@ -138,6 +140,7 @@ const AccueilProno = () => {
       predictedWinner: '',
       predictedScoreTeamOne: '',
       predictedScoreTeamTwo: '',
+      stake: 0,
     });
     setBetDialogOpen(true);
     
@@ -157,17 +160,25 @@ const AccueilProno = () => {
       return;
     }
     
+    if (betData.stake <= 0) {
+      showSnackbar('Veuillez miser au moins 1 crédit', 3000, 'warning');
+      return;
+    }
+    
     setBetLoading(true);
     try {
-      await placeBet({
+      const result = await placeBet({
         matchId: selectedMatch.id,
         predictedWinner: betData.predictedWinner,
         predictedScoreTeamOne: betData.predictedScoreTeamOne ? parseInt(betData.predictedScoreTeamOne) : null,
         predictedScoreTeamTwo: betData.predictedScoreTeamTwo ? parseInt(betData.predictedScoreTeamTwo) : null,
+        stake: betData.stake,
       });
       
-      showSnackbar('Pari placé avec succès !', 3000, 'success');
+      showSnackbar(`Pari de ${betData.stake} crédits placé avec succès ! Nouveau solde: ${result.newBalance}`, 3000, 'success');
       setBetDialogOpen(false);
+      // Mettre à jour le solde local
+      setUser(prev => ({ ...prev, betPoints: result.newBalance }));
       // Rafraîchir les données
       fetchData();
       
@@ -704,71 +715,114 @@ const AccueilProno = () => {
           {selectedMatch && (
             <Box sx={{ mb: 3 }}>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                {selectedMatch.pool?.sport?.sport || 'Match'}
+                {selectedMatch.sportName || 'Match'}
               </Typography>
               <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                {selectedMatch.team1?.school || 'Équipe 1'} vs {selectedMatch.team2?.school || 'Équipe 2'}
+                {selectedMatch.teamOne?.school?.name || selectedMatch.teamOne?.name || 'Équipe 1'} vs {selectedMatch.teamTwo?.school?.name || selectedMatch.teamTwo?.name || 'Équipe 2'}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {selectedMatch.scheduledAt
-                  ? new Date(selectedMatch.scheduledAt).toLocaleString('fr-FR')
+                {selectedMatch.matchTime
+                  ? new Date(selectedMatch.matchTime).toLocaleString('fr-FR')
                   : 'Date à définir'}
               </Typography>
             </Box>
           )}
 
+          {/* Slider de mise */}
+          <Box sx={{ mb: 3 }}>
+            <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold', display: 'flex', justifyContent: 'space-between' }}>
+              <span>Votre mise</span>
+              <span style={{ color: palette.primary.red }}>{betData.stake} / {user?.betPoints || 0} crédits</span>
+            </Typography>
+            <Slider
+              value={betData.stake}
+              onChange={(e, newValue) => setBetData({ ...betData, stake: newValue })}
+              min={0}
+              max={user?.betPoints || 0}
+              step={1}
+              valueLabelDisplay="auto"
+              sx={{
+                color: palette.primary.red,
+                '& .MuiSlider-thumb': {
+                  '&:hover, &.Mui-focusVisible': {
+                    boxShadow: `0px 0px 0px 8px rgba(208, 32, 47, 0.16)`,
+                  },
+                },
+              }}
+            />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5 }}>
+              <Typography variant="caption" color="text.secondary">0</Typography>
+              <Typography variant="caption" color="text.secondary">Max: {user?.betPoints || 0}</Typography>
+            </Box>
+          </Box>
+
           <FormControl fullWidth sx={{ mb: 3 }}>
             <InputLabel>Votre pronostic</InputLabel>
             <Select
-              value={betData.prediction}
-              onChange={(e) => setBetData({ ...betData, prediction: e.target.value })}
+              value={betData.predictedWinner}
+              onChange={(e) => setBetData({ ...betData, predictedWinner: e.target.value })}
               label="Votre pronostic"
             >
-              <MenuItem value="TEAM1">
-                {selectedMatch?.team1?.school || 'Équipe 1'} 
-                {matchOdds && ` (Cote: ${matchOdds.team1Odds?.toFixed(2)})`}
+              <MenuItem value="TeamOne">
+                {selectedMatch?.teamOne?.school?.name || selectedMatch?.teamOne?.name || 'Équipe 1'} 
+                {matchOdds && ` (Cote: ${matchOdds.odds?.teamOne?.toFixed(2)})`}
               </MenuItem>
-              <MenuItem value="DRAW">
+              <MenuItem value="Draw">
                 Match nul
-                {matchOdds && ` (Cote: ${matchOdds.drawOdds?.toFixed(2)})`}
+                {matchOdds && ` (Cote: ${matchOdds.odds?.draw?.toFixed(2)})`}
               </MenuItem>
-              <MenuItem value="TEAM2">
-                {selectedMatch?.team2?.school || 'Équipe 2'}
-                {matchOdds && ` (Cote: ${matchOdds.team2Odds?.toFixed(2)})`}
+              <MenuItem value="TeamTwo">
+                {selectedMatch?.teamTwo?.school?.name || selectedMatch?.teamTwo?.name || 'Équipe 2'}
+                {matchOdds && ` (Cote: ${matchOdds.odds?.teamTwo?.toFixed(2)})`}
               </MenuItem>
             </Select>
           </FormControl>
 
           <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
-            Score prédit (optionnel, +50 pts si exact)
+            Score prédit (optionnel, bonus jusqu'à +100% de la mise si exact)
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
             <TextField
-              label={selectedMatch?.team1?.school || 'Équipe 1'}
+              label={selectedMatch?.teamOne?.school?.name || selectedMatch?.teamOne?.name || 'Équipe 1'}
               type="number"
               size="small"
-              value={betData.predictedScore1}
-              onChange={(e) => setBetData({ ...betData, predictedScore1: e.target.value })}
+              value={betData.predictedScoreTeamOne}
+              onChange={(e) => setBetData({ ...betData, predictedScoreTeamOne: e.target.value })}
               inputProps={{ min: 0 }}
               sx={{ flex: 1 }}
             />
             <TextField
-              label={selectedMatch?.team2?.school || 'Équipe 2'}
+              label={selectedMatch?.teamTwo?.school?.name || selectedMatch?.teamTwo?.name || 'Équipe 2'}
               type="number"
               size="small"
-              value={betData.predictedScore2}
-              onChange={(e) => setBetData({ ...betData, predictedScore2: e.target.value })}
+              value={betData.predictedScoreTeamTwo}
+              onChange={(e) => setBetData({ ...betData, predictedScoreTeamTwo: e.target.value })}
               inputProps={{ min: 0 }}
               sx={{ flex: 1 }}
             />
           </Box>
 
+          {/* Affichage des gains potentiels */}
+          {betData.stake > 0 && betData.predictedWinner && matchOdds && (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              <strong>Gains potentiels:</strong><br />
+              {(() => {
+                const odds = betData.predictedWinner === 'TeamOne' ? matchOdds.odds?.teamOne :
+                             betData.predictedWinner === 'TeamTwo' ? matchOdds.odds?.teamTwo :
+                             matchOdds.odds?.draw;
+                const baseWin = Math.round(betData.stake * (odds || 2));
+                const maxBonus = betData.stake; // 100% de la mise en bonus max
+                return `Base: +${baseWin} crédits | Avec score exact: +${baseWin + maxBonus} crédits`;
+              })()}
+            </Alert>
+          )}
+
           {matchOdds && (
-            <Alert severity="info" sx={{ mt: 2 }}>
+            <Alert severity="info">
               <strong>Cotes actuelles:</strong><br />
-              {selectedMatch?.team1?.school}: {matchOdds.team1Odds?.toFixed(2)} | 
-              Nul: {matchOdds.drawOdds?.toFixed(2)} | 
-              {selectedMatch?.team2?.school}: {matchOdds.team2Odds?.toFixed(2)}
+              {selectedMatch?.teamOne?.school?.name || selectedMatch?.teamOne?.name}: {matchOdds.odds?.teamOne?.toFixed(2)} | 
+              Nul: {matchOdds.odds?.draw?.toFixed(2)} | 
+              {selectedMatch?.teamTwo?.school?.name || selectedMatch?.teamTwo?.name}: {matchOdds.odds?.teamTwo?.toFixed(2)}
             </Alert>
           )}
         </DialogContent>
@@ -779,13 +833,13 @@ const AccueilProno = () => {
           <Button
             variant="contained"
             onClick={handlePlaceBet}
-            disabled={betLoading || !betData.prediction}
+            disabled={betLoading || !betData.predictedWinner || betData.stake <= 0}
             sx={{
               backgroundColor: palette.primary.red,
               '&:hover': { backgroundColor: '#b01020' },
             }}
           >
-            {betLoading ? 'En cours...' : 'Valider le pari'}
+            {betLoading ? 'En cours...' : `Miser ${betData.stake} crédits`}
           </Button>
         </DialogActions>
       </Dialog>

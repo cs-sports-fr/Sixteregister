@@ -22,6 +22,7 @@ import {
   MenuItem,
   Alert,
   IconButton,
+  Slider,
 } from "@mui/material";
 import {
   SportsSoccer as SoccerIcon,
@@ -33,7 +34,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import NavbarParticipant from "../components/navbar/NavbarParticipant";
 import palette from "../themes/palette";
 import { ApiTossConnected } from "../service/axios";
-import { getMatchOdds, placeBet } from "../service/betService";
+import { getMatchOdds, placeBet, getCurrentUser } from "../service/betService";
 import { useSnackbar } from "../provider/snackbarProvider";
 
 const MatchsProno = () => {
@@ -56,8 +57,10 @@ const MatchsProno = () => {
     predictedWinner: '',
     predictedScoreTeamOne: '',
     predictedScoreTeamTwo: '',
+    stake: 0,
   });
   const [betLoading, setBetLoading] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -66,6 +69,10 @@ const MatchsProno = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
+      
+      // Récupérer l'utilisateur pour son solde
+      const userData = await getCurrentUser();
+      setUser(userData);
       
       // Récupérer les infos du sport
       const sportsResponse = await ApiTossConnected.get('/sports');
@@ -123,6 +130,7 @@ const MatchsProno = () => {
       predictedWinner: '',
       predictedScoreTeamOne: '',
       predictedScoreTeamTwo: '',
+      stake: 0,
     });
     setBetDialogOpen(true);
     
@@ -142,17 +150,25 @@ const MatchsProno = () => {
       return;
     }
     
+    if (betData.stake <= 0) {
+      showSnackbar('Veuillez miser au moins 1 crédit', 3000, 'warning');
+      return;
+    }
+    
     setBetLoading(true);
     try {
-      await placeBet({
+      const result = await placeBet({
         matchId: selectedMatch.id,
         predictedWinner: betData.predictedWinner,
         predictedScoreTeamOne: betData.predictedScoreTeamOne ? parseInt(betData.predictedScoreTeamOne) : null,
         predictedScoreTeamTwo: betData.predictedScoreTeamTwo ? parseInt(betData.predictedScoreTeamTwo) : null,
+        stake: betData.stake,
       });
       
-      showSnackbar('Pari placé avec succès !', 3000, 'success');
+      showSnackbar(`Pari de ${betData.stake} crédits placé avec succès ! Nouveau solde: ${result.newBalance}`, 3000, 'success');
       setBetDialogOpen(false);
+      // Mettre à jour le solde local
+      setUser(prev => ({ ...prev, betPoints: result.newBalance }));
       
     } catch (error) {
       console.error('Error placing bet:', error);
@@ -406,9 +422,15 @@ const MatchsProno = () => {
         fullWidth
       >
         <DialogTitle sx={{ backgroundColor: palette.primary.dark, color: 'white' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <CasinoIcon />
-            Placer un pari
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <CasinoIcon />
+              Placer un pari
+            </Box>
+            <Chip 
+              label={`${user?.betPoints || 0} crédits`}
+              sx={{ backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', fontWeight: 'bold' }}
+            />
           </Box>
         </DialogTitle>
         <DialogContent sx={{ pt: 3 }}>
@@ -422,6 +444,34 @@ const MatchsProno = () => {
                 <Typography sx={{ color: '#888', fontSize: '0.85rem' }}>
                   {formatMatchDate(selectedMatch.matchTime)}
                 </Typography>
+              </Box>
+
+              {/* Slider de mise */}
+              <Box sx={{ mb: 3, px: 1 }}>
+                <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Votre mise</span>
+                  <span style={{ color: palette.primary.red }}>{betData.stake} crédits</span>
+                </Typography>
+                <Slider
+                  value={betData.stake}
+                  onChange={(e, newValue) => setBetData({ ...betData, stake: newValue })}
+                  min={0}
+                  max={user?.betPoints || 0}
+                  step={1}
+                  valueLabelDisplay="auto"
+                  sx={{
+                    color: palette.primary.red,
+                    '& .MuiSlider-thumb': {
+                      '&:hover, &.Mui-focusVisible': {
+                        boxShadow: `0px 0px 0px 8px rgba(208, 32, 47, 0.16)`,
+                      },
+                    },
+                  }}
+                />
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5 }}>
+                  <Typography variant="caption" color="text.secondary">0</Typography>
+                  <Typography variant="caption" color="text.secondary">Max: {user?.betPoints || 0}</Typography>
+                </Box>
               </Box>
 
               {/* Cotes */}
@@ -460,9 +510,24 @@ const MatchsProno = () => {
                 </Select>
               </FormControl>
 
+              {/* Gains potentiels */}
+              {betData.stake > 0 && betData.predictedWinner && matchOdds && (
+                <Alert severity="success" sx={{ mb: 2 }}>
+                  <strong>Gains potentiels:</strong><br />
+                  {(() => {
+                    const odds = betData.predictedWinner === 'TeamOne' ? matchOdds.odds?.teamOne :
+                                 betData.predictedWinner === 'TeamTwo' ? matchOdds.odds?.teamTwo :
+                                 matchOdds.odds?.draw;
+                    const baseWin = Math.round(betData.stake * (odds || 2));
+                    const maxBonus = betData.stake;
+                    return `Base: +${baseWin} crédits | Avec score exact: +${baseWin + maxBonus} crédits`;
+                  })()}
+                </Alert>
+              )}
+
               {/* Score prédit (optionnel) */}
               <Alert severity="info" sx={{ mb: 2 }}>
-                Score prédit (optionnel) : jusqu'à +50 pts bonus ! Plus votre score est proche du réel, plus vous gagnez de points.
+                Score prédit (optionnel) : bonus jusqu'à +100% de la mise ! Plus votre score est proche du réel, plus vous gagnez.
               </Alert>
               
               <Grid container spacing={2}>
@@ -497,13 +562,13 @@ const MatchsProno = () => {
           <Button
             variant="contained"
             onClick={handlePlaceBet}
-            disabled={betLoading || !betData.predictedWinner}
+            disabled={betLoading || !betData.predictedWinner || betData.stake <= 0}
             sx={{
               backgroundColor: palette.primary.red,
               '&:hover': { backgroundColor: '#b01020' },
             }}
           >
-            {betLoading ? <CircularProgress size={24} /> : 'Valider le pari'}
+            {betLoading ? <CircularProgress size={24} /> : `Miser ${betData.stake} crédits`}
           </Button>
         </DialogActions>
       </Dialog>

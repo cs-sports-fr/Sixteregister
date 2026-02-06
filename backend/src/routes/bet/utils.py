@@ -41,30 +41,30 @@ def calculate_odds(bets_team_one: int, bets_team_two: int, bets_draw: int = 0) -
     }
 
 
-def calculate_score_bonus(
+def calculate_score_bonus_percentage(
     predicted_score_one: int | None,
     predicted_score_two: int | None,
     actual_score_one: int,
     actual_score_two: int,
-) -> int:
+) -> float:
     """
-    Calcule le bonus de points basé sur la distance euclidienne entre le score prédit et le score réel.
+    Calcule le bonus en pourcentage basé sur la distance euclidienne entre le score prédit et le score réel.
     
-    - Score parfait (distance = 0): +50 pts
+    - Score parfait (distance = 0): +100% de la mise
     - Plus le score est proche, plus le bonus est élevé
     - Au-delà d'une distance de 5, pas de bonus
     
-    Formule: bonus = max(0, 50 * (1 - distance / 5))
+    Formule: bonus_pct = max(0, 1.0 * (1 - distance / 5))
     
     Exemples:
-    - Prédit 2-1, Réel 2-1 → distance=0 → +50 pts
-    - Prédit 2-1, Réel 2-0 → distance=1 → +40 pts
-    - Prédit 2-1, Réel 3-2 → distance=√2≈1.41 → +36 pts
-    - Prédit 2-1, Réel 4-3 → distance=√8≈2.83 → +22 pts
-    - Prédit 2-1, Réel 5-5 → distance=√25≈5 → +0 pts
+    - Prédit 2-1, Réel 2-1 → distance=0 → +100% de la mise
+    - Prédit 2-1, Réel 2-0 → distance=1 → +80% de la mise
+    - Prédit 2-1, Réel 3-2 → distance=√2≈1.41 → +72% de la mise
+    - Prédit 2-1, Réel 4-3 → distance=√8≈2.83 → +43% de la mise
+    - Prédit 2-1, Réel 5-5 → distance≥5 → +0%
     """
     if predicted_score_one is None or predicted_score_two is None:
-        return 0
+        return 0.0
     
     # Calculer la distance euclidienne
     distance = math.sqrt(
@@ -72,50 +72,54 @@ def calculate_score_bonus(
         (predicted_score_two - actual_score_two) ** 2
     )
     
-    # Score parfait = gros bonus
-    MAX_BONUS = 50
     MAX_DISTANCE = 5  # Au-delà de cette distance, pas de bonus
     
     if distance >= MAX_DISTANCE:
-        return 0
+        return 0.0
     
-    # Bonus linéaire décroissant
-    bonus = int(MAX_BONUS * (1 - distance / MAX_DISTANCE))
-    return bonus
+    # Bonus linéaire décroissant (retourne un pourcentage entre 0 et 1)
+    bonus_pct = 1.0 - (distance / MAX_DISTANCE)
+    return bonus_pct
 
 
-def calculate_bet_points(
+def calculate_bet_points_with_stake(
     bet_prediction: str,
     predicted_score_one: int | None,
     predicted_score_two: int | None,
     actual_winner: str,  # "TeamOne", "TeamTwo", "Draw"
     actual_score_one: int,
     actual_score_two: int,
-    odds: float
+    odds: float,
+    stake: int
 ) -> int:
     """
-    Calcule les points gagnés pour un pari.
+    Calcule les points gagnés/perdus pour un pari avec mise.
     
     Système de points:
-    - Mauvais vainqueur: 0 points
-    - Bon vainqueur: 10 * cote points
-    - Bonus score: basé sur la distance euclidienne (jusqu'à +50 pts pour score exact)
+    - Mauvais vainqueur: perd la mise (-stake)
+    - Bon vainqueur: gagne mise × cote (stake * odds)
+    - Bonus score: pourcentage de la mise selon la proximité du score
+    
+    Exemples avec mise de 50 et cote de 2.0:
+    - Mauvais vainqueur: -50 pts
+    - Bon vainqueur: +100 pts (50 * 2.0)
+    - Bon vainqueur + score exact: +100 + 50 pts bonus = +150 pts
     """
     # Vérifier si le vainqueur prédit est correct
     if bet_prediction != actual_winner:
-        return 0  # Mauvaise prédiction = 0 points
+        return -stake  # Mauvaise prédiction = perd la mise
     
-    # Points de base * cote
-    BASE_POINTS = 10
-    points = int(BASE_POINTS * odds)
+    # Points de base = mise × cote
+    points = int(stake * odds)
     
-    # Bonus pour le score (basé sur la distance euclidienne)
-    score_bonus = calculate_score_bonus(
+    # Bonus pour le score (pourcentage de la mise)
+    score_bonus_pct = calculate_score_bonus_percentage(
         predicted_score_one, 
         predicted_score_two, 
         actual_score_one, 
         actual_score_two
     )
+    score_bonus = int(stake * score_bonus_pct)
     points += score_bonus
     
     return points
