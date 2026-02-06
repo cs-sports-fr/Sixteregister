@@ -286,6 +286,7 @@ model Bet {
   predictedWinner       BetPrediction
   predictedScoreTeamOne Int?
   predictedScoreTeamTwo Int?
+  stake                 Int           @default(10)
   oddsSnapshotTeamOne   Float?
   oddsSnapshotTeamTwo   Float?
   oddsSnapshotDraw      Float?
