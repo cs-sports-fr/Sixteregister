@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -14,10 +14,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Alert,
   IconButton,
   Slider,
@@ -64,8 +60,8 @@ const MatchsProno = () => {
   const [matchOdds, setMatchOdds] = useState(null);
   const [betData, setBetData] = useState({
     predictedWinner: '',
-    predictedScoreTeamOne: '',
-    predictedScoreTeamTwo: '',
+    predictedScoreTeamOne: '0',
+    predictedScoreTeamTwo: '0',
     stake: 0,
   });
   const [betLoading, setBetLoading] = useState(false);
@@ -172,8 +168,8 @@ const MatchsProno = () => {
     setSelectedMatch(match);
     setBetData({
       predictedWinner: '',
-      predictedScoreTeamOne: '',
-      predictedScoreTeamTwo: '',
+      predictedScoreTeamOne: '0',
+      predictedScoreTeamTwo: '0',
       stake: 0,
     });
     setBetDialogOpen(true);
@@ -187,10 +183,22 @@ const MatchsProno = () => {
     }
   };
 
+  // Calculer le gagnant prédit à partir des scores
+  const getPredictedWinnerFromScores = () => {
+    const scoreOne = parseInt(betData.predictedScoreTeamOne) || 0;
+    const scoreTwo = parseInt(betData.predictedScoreTeamTwo) || 0;
+    if (scoreOne > scoreTwo) return 'TeamOne';
+    if (scoreTwo > scoreOne) return 'TeamTwo';
+    return 'Draw';
+  };
+
   // Placer un pari
   const handlePlaceBet = async () => {
-    if (!betData.predictedWinner) {
-      showSnackbar('Veuillez sélectionner un gagnant', 3000, 'warning');
+    const scoreOne = parseInt(betData.predictedScoreTeamOne);
+    const scoreTwo = parseInt(betData.predictedScoreTeamTwo);
+    
+    if (isNaN(scoreOne) || isNaN(scoreTwo)) {
+      showSnackbar('Veuillez entrer les deux scores', 3000, 'warning');
       return;
     }
     
@@ -199,13 +207,16 @@ const MatchsProno = () => {
       return;
     }
     
+    // Calculer automatiquement le gagnant prédit
+    const predictedWinner = getPredictedWinnerFromScores();
+    
     setBetLoading(true);
     try {
       const result = await placeBet({
         matchId: selectedMatch.id,
-        predictedWinner: betData.predictedWinner,
-        predictedScoreTeamOne: betData.predictedScoreTeamOne ? parseInt(betData.predictedScoreTeamOne) : null,
-        predictedScoreTeamTwo: betData.predictedScoreTeamTwo ? parseInt(betData.predictedScoreTeamTwo) : null,
+        predictedWinner: predictedWinner,
+        predictedScoreTeamOne: scoreOne,
+        predictedScoreTeamTwo: scoreTwo,
         stake: betData.stake,
       });
       
@@ -717,41 +728,10 @@ const MatchsProno = () => {
                 </Box>
               )}
 
-              {/* Sélection du gagnant */}
-              <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel sx={{ color: isMobile ? 'rgba(255, 255, 255, 0.7)' : undefined }}>Votre pronostic *</InputLabel>
-                <Select
-                  value={betData.predictedWinner}
-                  label="Votre pronostic *"
-                  onChange={(e) => setBetData({ ...betData, predictedWinner: e.target.value })}
-                  sx={{
-                    color: isMobile ? 'white' : 'inherit',
-                    '& .MuiOutlinedInput-notchedOutline': {
-                      borderColor: isMobile ? 'rgba(255, 255, 255, 0.3)' : undefined,
-                    },
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
-                      borderColor: isMobile ? 'rgba(255, 255, 255, 0.5)' : undefined,
-                    },
-                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: palette.primary.red,
-                    },
-                    '& .MuiSvgIcon-root': {
-                      color: isMobile ? 'white' : undefined,
-                    },
-                  }}
-                >
-                  <MenuItem value="TeamOne">
-                    Victoire {selectedMatch.teamOne?.name}
-                  </MenuItem>
-                  <MenuItem value="Draw">Match nul</MenuItem>
-                  <MenuItem value="TeamTwo">
-                    Victoire {selectedMatch.teamTwo?.name}
-                  </MenuItem>
-                </Select>
-              </FormControl>
+
 
               {/* Gains potentiels */}
-              {betData.stake > 0 && betData.predictedWinner && matchOdds && (
+              {betData.stake > 0 && matchOdds && (betData.predictedScoreTeamOne !== '' || betData.predictedScoreTeamTwo !== '') && (
                 <Alert severity="success" sx={{ 
                   mb: 2,
                   backgroundColor: isMobile ? 'rgba(76, 175, 80, 0.2)' : undefined,
@@ -764,8 +744,11 @@ const MatchsProno = () => {
                 }}>
                   <strong>Gains potentiels:</strong><br />
                   {(() => {
-                    const odds = betData.predictedWinner === 'TeamOne' ? matchOdds.odds?.teamOne :
-                                 betData.predictedWinner === 'TeamTwo' ? matchOdds.odds?.teamTwo :
+                    const scoreOne = parseInt(betData.predictedScoreTeamOne) || 0;
+                    const scoreTwo = parseInt(betData.predictedScoreTeamTwo) || 0;
+                    const calculatedWinner = scoreOne > scoreTwo ? 'TeamOne' : scoreTwo > scoreOne ? 'TeamTwo' : 'Draw';
+                    const odds = calculatedWinner === 'TeamOne' ? matchOdds.odds?.teamOne :
+                                 calculatedWinner === 'TeamTwo' ? matchOdds.odds?.teamTwo :
                                  matchOdds.odds?.draw;
                     const baseWin = Math.round(betData.stake * (odds || 2));
                     const maxBonus = betData.stake;
@@ -774,7 +757,7 @@ const MatchsProno = () => {
                 </Alert>
               )}
 
-              {/* Score prédit (optionnel) */}
+              {/* Score prédit */}
               <Alert severity="info" sx={{ 
                 mb: 2,
                 backgroundColor: isMobile ? 'rgba(33, 150, 243, 0.2)' : undefined,
@@ -785,7 +768,7 @@ const MatchsProno = () => {
                 },
                 fontSize: { xs: '1.5rem', lg: '0.875rem' },
               }}>
-                Score prédit (optionnel) : bonus jusqu'à +100% de la mise ! Plus votre score est proche du réel, plus vous gagnez.
+                Entrez votre pronostic de score. Le gagnant sera calculé automatiquement.
               </Alert>
               
               <Box sx={{ 
@@ -927,7 +910,7 @@ const MatchsProno = () => {
                   <Button
                     variant="contained"
                     onClick={handlePlaceBet}
-                    disabled={betLoading || !betData.predictedWinner || betData.stake <= 0}
+                    disabled={betLoading || betData.stake <= 0}
                     fullWidth
                     sx={{
                       backgroundColor: palette.primary.red,
@@ -957,7 +940,7 @@ const MatchsProno = () => {
             <Button
               variant="contained"
               onClick={handlePlaceBet}
-              disabled={betLoading || !betData.predictedWinner || betData.stake <= 0}
+              disabled={betLoading || betData.stake <= 0}
               sx={{
                 backgroundColor: palette.primary.red,
                 '&:hover': { backgroundColor: '#b01020' },
