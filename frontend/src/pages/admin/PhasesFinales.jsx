@@ -20,6 +20,8 @@ import {
     CircularProgress,
     Paper,
     Autocomplete,
+    Tabs,
+    Tab,
 } from '@mui/material';
 import {
     Add as AddIcon,
@@ -56,6 +58,7 @@ const PhasesFinales = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
+    const [bracketTab, setBracketTab] = useState(0); // 0 = Principal, 1 = Consolantes
 
     // Dialog states
     const [createMatchDialogOpen, setCreateMatchDialogOpen] = useState(false);
@@ -75,6 +78,7 @@ const PhasesFinales = () => {
     const [scoreTeamTwo, setScoreTeamTwo] = useState('');
 
     // Phases disponibles (selon le schema Prisma)
+    // Convention: terrain 1-99 = tableau principal, terrain 100+ = consolantes
     const phases = [
         { value: 'Roundof64', label: '64èmes de finale' },
         { value: 'Roundof32', label: '32èmes de finale' },
@@ -84,6 +88,17 @@ const PhasesFinales = () => {
         { value: 'ThirdPlace', label: 'Match pour la 3ème place' },
         { value: 'Final', label: 'Finale' },
     ];
+
+    // Helper: déterminer si un match est une consolante (terrain >= 100)
+    const isConsolationMatch = (match) => match.field >= 100;
+
+    // Filtrer les matchs selon l'onglet actif
+    const getFilteredMatches = () => {
+        if (bracketTab === 0) {
+            return matches.filter(m => !isConsolationMatch(m));
+        }
+        return matches.filter(m => isConsolationMatch(m));
+    };
 
     // Fetch sports on mount
     useEffect(() => {
@@ -142,6 +157,19 @@ const PhasesFinales = () => {
         } catch (err) {
             console.error('Erreur lors du chargement des équipes', err);
         }
+    };
+
+    // Ouvrir le dialog de création avec le bon terrain par défaut selon l'onglet
+    const handleOpenCreateMatch = () => {
+        const defaultField = bracketTab === 0 ? '1' : '101';
+        setNewMatch({
+            phase: 'QuarterFinal',
+            teamOneId: null,
+            teamTwoId: null,
+            matchTime: '',
+            field: defaultField,
+        });
+        setCreateMatchDialogOpen(true);
     };
 
     const handleCreateMatch = async () => {
@@ -291,9 +319,10 @@ const PhasesFinales = () => {
         }
     };
 
-    // Grouper les matchs par phase
+    // Grouper les matchs par phase (filtrés selon l'onglet actif)
+    const filteredMatches = getFilteredMatches();
     const matchesByPhase = phases.reduce((acc, phase) => {
-        acc[phase.value] = matches.filter(m => m.phase === phase.value);
+        acc[phase.value] = filteredMatches.filter(m => m.phase === phase.value);
         return acc;
     }, {});
 
@@ -356,7 +385,7 @@ const PhasesFinales = () => {
                         variant="contained"
                         color="primary"
                         startIcon={<AddIcon />}
-                        onClick={() => setCreateMatchDialogOpen(true)}
+                        onClick={handleOpenCreateMatch}
                         disabled={!selectedSport}
                     >
                         Créer un match
@@ -378,6 +407,26 @@ const PhasesFinales = () => {
                     </Box>
                 ) : (
                     <Box>
+                        {/* Tabs: Tableau Principal / Consolantes */}
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+                            <Tabs 
+                                value={bracketTab} 
+                                onChange={(e, v) => setBracketTab(v)} 
+                                centered
+                            >
+                                <Tab 
+                                    label="Tableau Principal" 
+                                    icon={<TrophyIcon sx={{ color: 'gold' }} />}
+                                    iconPosition="start"
+                                />
+                                <Tab 
+                                    label="Consolantes" 
+                                    icon={<TrophyIcon sx={{ color: 'silver' }} />}
+                                    iconPosition="start"
+                                />
+                            </Tabs>
+                        </Box>
+
                         {/* Bracket visuel */}
                         <BracketView
                             matchesByPhase={matchesByPhase}
@@ -389,21 +438,24 @@ const PhasesFinales = () => {
                             onDelete={handleDeleteMatch}
                             onStart={handleStartMatch}
                             onEnd={handleEndMatch}
+                            bracketTab={bracketTab}
                         />
 
-                        {matches.length === 0 && (
+                        {filteredMatches.length === 0 && (
                             <Paper sx={{ p: 4, textAlign: 'center', mt: 3 }}>
                                 <Typography variant="h6" color="text.secondary">
-                                    Aucun match de phase finale
+                                    {bracketTab === 0 ? 'Aucun match de phase finale' : 'Aucun match de consolante'}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                                    Créez des matchs éliminatoires pour construire votre bracket.
+                                    {bracketTab === 0 
+                                        ? 'Créez des matchs éliminatoires pour construire votre bracket.'
+                                        : 'Créez des matchs de consolante (terrain 100+) pour les équipes éliminées.'}
                                 </Typography>
                                 <Button
                                     variant="contained"
                                     startIcon={<AddIcon />}
                                     sx={{ mt: 2 }}
-                                    onClick={() => setCreateMatchDialogOpen(true)}
+                                    onClick={handleOpenCreateMatch}
                                     disabled={!selectedSport}
                                 >
                                     Créer un match
@@ -463,6 +515,9 @@ const PhasesFinales = () => {
                             type="number"
                             value={newMatch.field}
                             onChange={(e) => setNewMatch({ ...newMatch, field: e.target.value })}
+                            helperText={bracketTab === 0 
+                                ? "Terrain 1-99 = Tableau principal" 
+                                : "Terrain 100+ = Consolantes"}
                         />
                     </Box>
                 </DialogContent>
@@ -589,21 +644,26 @@ const PhasesFinales = () => {
 
 // Composant Bracket visuel
 // eslint-disable-next-line no-unused-vars
-const BracketView = ({ matchesByPhase, phases, getPhaseLabel, formatTime, onEditScore, onEditMatch, onDelete, onStart, onEnd }) => {
+const BracketView = ({ matchesByPhase, phases, getPhaseLabel, formatTime, onEditScore, onEditMatch, onDelete, onStart, onEnd, bracketTab }) => {
     // Ordre d'affichage pour le bracket: 64èmes -> 32èmes -> Huitièmes -> Quarts -> Demis -> Finale (+ 3ème place)
     const mainBracketPhases = ['Roundof64', 'Roundof32', 'Roundof16', 'QuarterFinal', 'SemiFinal', 'Final'];
     
     const hasMainMatches = mainBracketPhases.some(p => matchesByPhase[p]?.length > 0);
     const hasThirdPlace = matchesByPhase['ThirdPlace']?.length > 0;
 
+    // Titres selon l'onglet
+    const bracketTitle = bracketTab === 0 ? 'Tableau Principal' : 'Tableau Consolantes';
+    const thirdPlaceTitle = bracketTab === 0 ? '🥉 Match pour la 3ème place' : '🥉 3ème place consolante';
+    const trophyColor = bracketTab === 0 ? 'gold' : 'silver';
+
     return (
         <Box>
-            {/* Tableau principal */}
+            {/* Tableau */}
             {hasMainMatches && (
                 <Card sx={{ mb: 3 }}>
                     <CardContent>
                         <Typography variant="h5" gutterBottom sx={{ color: 'primary.main', display: 'flex', alignItems: 'center', gap: 1 }}>
-                            <TrophyIcon /> Tableau Principal
+                            <TrophyIcon sx={{ color: trophyColor }} /> {bracketTitle}
                         </Typography>
                         <Box sx={{ 
                             display: 'flex', 
@@ -655,7 +715,7 @@ const BracketView = ({ matchesByPhase, phases, getPhaseLabel, formatTime, onEdit
                 <Card sx={{ mb: 3 }}>
                     <CardContent>
                         <Typography variant="h6" gutterBottom sx={{ color: 'warning.main' }}>
-                            🥉 Match pour la 3ème place
+                            {thirdPlaceTitle}
                         </Typography>
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                             {matchesByPhase['ThirdPlace'].map((match) => (
@@ -820,6 +880,7 @@ BracketView.propTypes = {
     onDelete: PropTypes.func.isRequired,
     onStart: PropTypes.func.isRequired,
     onEnd: PropTypes.func.isRequired,
+    bracketTab: PropTypes.number.isRequired,
 };
 
 MatchCard.propTypes = {
