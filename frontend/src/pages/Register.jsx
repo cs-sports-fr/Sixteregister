@@ -18,9 +18,7 @@ const Register = () => {
         firstname: '',
         email: '',
         school: null,
-        tel: '',
         password: '',
-        confirmPassword: '',
         checkbox: false,
     });
     const [errors, setErrors] = useState({});
@@ -30,11 +28,7 @@ const Register = () => {
         name: yup.string().required('Le nom est obligatoire').matches(/^[a-zA-ZÀ-ÿ ]*$/, 'Le nom ne doit pas contenir de chiffres'),
         firstname: yup.string().required('Le prénom est obligatoire').matches(/^[a-zA-ZÀ-ÿ ]*$/, 'Le prénom ne doit pas contenir de chiffres'),
         email: yup.string().required('L\'email est obligatoire').email('L\'email n\'est pas valide'),
-        tel: yup.string().required('Le numéro de téléphone est obligatoire')
-            .matches(/^\+?\d+$/, "Le numéro de téléphone doit être numérique")
-            .min(10, 'Le numéro de téléphone doit contenir au moins 10 chiffres'),
-        password: yup.string().required('Le mot de passe est obligatoire').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'Le mot de passe doit contenir minimum 8 caractères, 1 chiffre, 1 majuscule et 1 caractère spécial : @$!%*?&'),
-        confirmPassword: yup.string().required('Le mot de passe est obligatoire').oneOf([yup.ref('password'), null], 'Les mots de passe doivent correspondre'),
+        password: yup.string().required('Le mot de passe est obligatoire'),
         checkbox: yup.bool().oneOf([true], 'Vous devez accepter les conditions générales'),
         school: yup.object().required('L\'école est obligatoire'),
     });
@@ -67,7 +61,7 @@ const Register = () => {
                 firstname: formData.firstname,
                 email: formData.email,
                 schoolId: formData.school.id,
-                mobile: formData.tel,
+                mobile: '',
                 password: formData.password,
             };
 
@@ -121,8 +115,8 @@ const Register = () => {
 
     return (
         <LayoutAuthenticated isDarkMode={isDarkMode}>
-            <Box display={'flex'} flexDirection={'column'} sx={{ backgroundColor: 'white', minHeight: '100vh' }}>
-                <Grid container spacing={0} sx={{ minHeight: '100vh' }}>
+            <Box display={'flex'} flexDirection={'column'} sx={{ backgroundColor: 'white', minHeight: '100vh', height: '100%' }}>
+                <Grid container spacing={0} sx={{ minHeight: '100vh', height: '100%' }}>
                     <Grid item md={0} lg={6}
                         sx={{
                             backgroundImage: 'url(/images/cup.jpg)',
@@ -135,22 +129,23 @@ const Register = () => {
                         }}
                     >
                     </Grid>
-                    <Grid item xs={12} lg={6} sx={{ position: 'relative', backgroundColor: 'white' }}>
-                        <Grid py={'10vh'} px={'13%'} sx={{}}>
+                    <Grid item xs={12} lg={6} sx={{ position: 'relative', backgroundColor: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: { xs: '100vh', lg: 'auto' } }}>
+                        <Grid py={{ xs: '3vh', lg: '10vh' }} px={{ xs: '5%', lg: '13%' }} sx={{}}>
                             <Typography sx={{
-                                fontSize: { xs: '2rem', md: '3rem' },
+                                fontSize: { xs: '3.5rem', lg: '3rem' },
                                 fontWeight: 'bold',
-                                mb: 1.5,
+                                mb: { xs: 3, lg: 1.5 },
                                 letterSpacing: '0.001rem',
-                                color: palette.primary.dark
+                                color: palette.primary.dark,
+                                textAlign: { xs: 'center', lg: 'left' },
                             }}>
-                                <span style={{ textDecoration: 'underline', textDecorationColor: palette.primary.red, textUnderlineOffset: '0.7rem', textDecorationThickness: '4px', }}>Inscr</span>iption au <span style={{ color: palette.primary.red }}>SIXTE {import.meta.env.VITE_TOSS_YEAR}</span>
+                                <span style={{ textDecoration: 'underline', textDecorationColor: palette.primary.red, textUnderlineOffset: '0.5rem', textDecorationThickness: '3px', }}>Inscr</span>iption au <span style={{ color: palette.primary.red }}>SIXTE {import.meta.env.VITE_TOSS_YEAR}</span>
                             </Typography>
 
                             <form >
-                                <Grid container columnSpacing={6}>
-                                    <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="name" sx={{ marginBottom: 1, color: palette.primary.dark }}>Nom</InputLabel>
+                                <Grid container columnSpacing={{ xs: 2, lg: 6 }} rowSpacing={{ xs: 2.5, lg: 0 }}>
+                                    <Grid item xs={12} lg={6}>
+                                        <InputLabel htmlFor="name" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '2.4rem', lg: '1rem' }, fontWeight: { xs: 600, lg: 400 } }}>Nom</InputLabel>
                                         <TextField id="name"
                                             variant="outlined"
                                             fullWidth
@@ -168,14 +163,18 @@ const Register = () => {
                                                         borderColor: palette.primary.red,
                                                     },
                                                 },
+                                                '& .MuiInputBase-input': {
+                                                    fontSize: { xs: '2.2rem', lg: '1rem' },
+                                                    padding: { xs: '20px 14px', lg: '16.5px 14px' },
+                                                },
                                             }}
                                             InputProps={{
                                                 style: { color: palette.primary.dark }
                                             }}
                                         />
                                     </Grid>
-                                    <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="firstname" sx={{ marginBottom: 1, color: palette.primary.dark }}>Prénom</InputLabel>
+                                    <Grid item xs={12} lg={6}>
+                                        <InputLabel htmlFor="firstname" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '2.4rem', lg: '1rem' }, fontWeight: { xs: 600, lg: 400 } }}>Prénom</InputLabel>
                                         <TextField id="firstname"
                                             variant="outlined"
                                             fullWidth
@@ -193,6 +192,10 @@ const Register = () => {
                                                         borderColor: palette.primary.red,
                                                     },
                                                 },
+                                                '& .MuiInputBase-input': {
+                                                    fontSize: { xs: '2.2rem', lg: '1rem' },
+                                                    padding: { xs: '20px 14px', lg: '16.5px 14px' },
+                                                },
                                             }}
                                             InputProps={{
                                                 style: { color: palette.primary.dark }
@@ -200,8 +203,8 @@ const Register = () => {
                                         />
                                     </Grid>
                                 </Grid>
-                                <Grid mt={errors.name || errors.firstname ? 0 : 2} mb={errors.school ? 0 : 2}>
-                                    <InputLabel htmlFor="school" sx={{ marginBottom: 1, color: palette.primary.dark }}>Ecole</InputLabel>
+                                <Grid mt={{ xs: 2.5, lg: errors.name || errors.firstname ? 0 : 2 }} mb={{ xs: 2.5, lg: errors.school ? 0 : 2 }}>
+                                    <InputLabel htmlFor="school" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '2.4rem', lg: '1rem' }, fontWeight: { xs: 600, lg: 400 } }}>Ecole</InputLabel>
                                     <Autocomplete id="school"
                                         variant="outlined"
                                         fullWidth
@@ -219,12 +222,15 @@ const Register = () => {
                                                             borderColor: palette.primary.red,
                                                         },
                                                     },
+                                                    '& .MuiInputBase-input': {
+                                                        fontSize: { xs: '2.2rem', lg: '1rem' },
+                                                    },
                                                 }}
                                                 inputProps={{
                                                     ...params.inputProps,
                                                     style: {
                                                         paddingTop: 0,
-                                                        color: palette.primary.dark
+                                                        color: palette.primary.dark,
                                                     },
                                                 }}
                                                 error={!!errors.school}
@@ -235,8 +241,14 @@ const Register = () => {
                                                 key={option.id}
                                                 {...props}
                                                 variant="school"
+                                                sx={{ py: { xs: 2, lg: 1 } }}
                                             >
-                                                <ListItemText primary={option.name} />
+                                                <ListItemText 
+                                                    primary={option.name} 
+                                                    primaryTypographyProps={{ 
+                                                        sx: { fontSize: { xs: '1.8rem', lg: '1rem' } } 
+                                                    }}
+                                                />
                                             </ListItem>
                                         )}
                                         value={formData.school}
@@ -244,9 +256,9 @@ const Register = () => {
                                         isOptionEqualToValue={(option, value) => option.id === value.id}
                                     />
                                 </Grid>
-                                <Grid container columnSpacing={6}>
-                                    <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: palette.primary.dark }}>Email</InputLabel>
+                                <Grid container columnSpacing={{ xs: 2, lg: 6 }} rowSpacing={{ xs: 2.5, lg: 0 }}>
+                                    <Grid item xs={12} lg={6}>
+                                        <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '2.4rem', lg: '1rem' }, fontWeight: { xs: 600, lg: 400 } }}>Email</InputLabel>
                                         <TextField id="email"
                                             variant="outlined"
                                             fullWidth
@@ -265,30 +277,9 @@ const Register = () => {
                                                         borderColor: palette.primary.red,
                                                     },
                                                 },
-                                            }}
-                                            InputProps={{
-                                                style: { color: palette.primary.dark }
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="tel" sx={{ marginBottom: 1, color: palette.primary.dark }}>Téléphone</InputLabel>
-                                        <TextField id="tel"
-                                            variant="outlined"
-                                            fullWidth
-                                            value={formData.tel}
-                                            name="tel"
-                                            error={!!errors.tel}
-                                            helperText={errors.tel}
-                                            onChange={handleChange}
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    '&:hover fieldset': {
-                                                        borderColor: palette.primary.red,
-                                                    },
-                                                    '&.Mui-focused fieldset': {
-                                                        borderColor: palette.primary.red,
-                                                    },
+                                                '& .MuiInputBase-input': {
+                                                    fontSize: { xs: '2.2rem', lg: '1rem' },
+                                                    padding: { xs: '20px 14px', lg: '16.5px 14px' },
                                                 },
                                             }}
                                             InputProps={{
@@ -296,13 +287,8 @@ const Register = () => {
                                             }}
                                         />
                                     </Grid>
-                                </Grid>
-
-                                <Divider variant="lighter" sx={{ mb: 3, mt: errors.tel || errors.email ? 1 : 3 }} />
-
-                                <Grid container columnSpacing={6}>
-                                    <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="password" sx={{ marginBottom: 1, color: palette.primary.dark }}>Mot de passe</InputLabel>
+                                    <Grid item xs={12} lg={6}>
+                                        <InputLabel htmlFor="password" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '2.4rem', lg: '1rem' }, fontWeight: { xs: 600, lg: 400 } }}>Mot de passe</InputLabel>
                                         <PasswordInput id="password"
                                             variant="outlined"
                                             fullWidth
@@ -321,31 +307,9 @@ const Register = () => {
                                                         borderColor: palette.primary.red,
                                                     },
                                                 },
-                                            }}
-                                            InputProps={{
-                                                style: { color: palette.primary.dark }
-                                            }}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} md={6}>
-                                        <InputLabel htmlFor="confirm-password" sx={{ marginBottom: 1, color: palette.primary.dark }}>Confirmer le mot de passe</InputLabel>
-                                        <PasswordInput id="confirm-password"
-                                            variant="outlined"
-                                            fullWidth
-                                            password={formData.confirmPassword}
-                                            name="confirmPassword"
-                                            error={!!errors.confirmPassword}
-                                            helperText={errors.confirmPassword}
-                                            handlePassword={handleChange}
-                                            autoComplete="new-password"
-                                            sx={{
-                                                '& .MuiOutlinedInput-root': {
-                                                    '&:hover fieldset': {
-                                                        borderColor: palette.primary.red,
-                                                    },
-                                                    '&.Mui-focused fieldset': {
-                                                        borderColor: palette.primary.red,
-                                                    },
+                                                '& .MuiInputBase-input': {
+                                                    fontSize: { xs: '2.2rem', lg: '1rem' },
+                                                    padding: { xs: '20px 14px', lg: '16.5px 14px' },
                                                 },
                                             }}
                                             InputProps={{
@@ -354,28 +318,26 @@ const Register = () => {
                                         />
                                     </Grid>
                                 </Grid>
-                                <Typography sx={{ marginY: 2, fontSize: '0.8rem', fontStyle: 'italic', fontWeight: 'bolder', textAlign: 'center', color: palette.primary.dark }} >
-                                    Le mot de passe doit contenir minimum 8 caractères, 1 chiffre, 1 majuscule et 1 caractère spécial
-                                </Typography>
 
-                                <Divider variant="lighter" sx={{ marginY: 3, marginX: 20 }} />
+                                <Divider variant="lighter" sx={{ marginY: { xs: 3, lg: 3 }, marginX: { xs: 2, lg: 20 } }} />
 
                                 <Grid container sx={{display:'flex',alignItems:'center'}}>
-                                    <Grid item xs={1} md={1}>
+                                    <Grid item xs={2} lg={1}>
                                         <Checkbox
                                             sx={{
                                                 color: !errors.checkbox ? palette.primary.red : 'red',
                                                 '&.Mui-checked': {
                                                     color: palette.primary.red,
                                                 },
+                                                transform: { xs: 'scale(2.5)', lg: 'scale(1)' },
                                             }}
                                             name="checkbox"
                                             checked={formData.checkbox}
                                             onChange={handleChange}
                                         />
                                     </Grid>
-                                    <Grid item xs={11} md={11}>
-                                        <Typography sx={{ fontSize: '0.8rem', color: palette.primary.dark }}>
+                                    <Grid item xs={10} lg={11}>
+                                        <Typography sx={{ fontSize: { xs: '2rem', lg: '0.8rem' }, color: palette.primary.dark }}>
                                             Je certifie avoir lu et approuvé les{" "}
                                             <Link href="/CGI/CGI 2026 SIXTE.docx-2.pdf" target="_blank" style={{ fontWeight: "600", color: palette.primary.red, textDecorationColor: palette.primary.red }}>
                                                 Conditions Générales d&apos;Inscription{" "}
@@ -385,17 +347,21 @@ const Register = () => {
                                     </Grid>
                                 </Grid>
 
-                                <Grid container columnSpacing={6} sx={{ mt: 3 }}>
-                                    <Grid item xs={12} md={6}>
+                                <Grid container columnSpacing={{ xs: 2, lg: 6 }} rowSpacing={{ xs: 2.5, lg: 0 }} sx={{ mt: { xs: 3, lg: 3 } }}>
+                                    <Grid item xs={12} lg={6} order={{ xs: 2, lg: 1 }}>
                                         <Button 
                                             variant="outlined" 
                                             sx={{ 
                                                 width: '100%',
                                                 borderColor: palette.primary.red,
                                                 color: palette.primary.red,
+                                                fontSize: { xs: '2.2rem', lg: '0.875rem' },
+                                                padding: { xs: '24px', lg: '8px 16px' },
+                                                borderWidth: { xs: 2, lg: 1 },
                                                 '&:hover': {
                                                     borderColor: palette.primary.red,
-                                                    backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                                                    backgroundColor: 'rgba(207, 20, 39, 0.1)',
+                                                    borderWidth: { xs: 2, lg: 1 },
                                                 }
                                             }} 
                                             onClick={() => navigate('/')} 
@@ -404,16 +370,20 @@ const Register = () => {
                                             Retour
                                         </Button>
                                     </Grid>
-                                    <Grid item xs={12} md={6}>
+                                    <Grid item xs={12} lg={6} order={{ xs: 1, lg: 2 }}>
                                         <Button 
                                             sx={{ 
                                                 backgroundColor: palette.primary.red,
-                                                color: '#fff',
+                                                color: palette.primary.contrastText,
+                                                fontSize: { xs: '2.2rem', lg: '0.875rem' },
+                                                padding: { xs: '24px', lg: '8px 16px' },
+                                                fontWeight: 600,
                                                 '&:hover': {
-                                                    backgroundColor: '#e55a5a',
+                                                    backgroundColor: '#a01020',
                                                 },
                                                 '&:disabled': {
-                                                    backgroundColor: '#ccc',
+                                                    backgroundColor: palette.secondary.main,
+                                                    color: palette.primary.contrastText,
                                                 }
                                             }} 
                                             type="submit" 
