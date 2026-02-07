@@ -19,9 +19,18 @@ const NavbarParticipant = () => {
   const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  // Navigation complète pour desktop
   const navigation = [
     { label: 'Mes équipes', href: '/mes-equipes' },
     { label: 'Inscrire une équipe', href: '/inscrire-equipe' },
+    { label: 'Tous les matchs', href: '/matchs-prono/all' },
+    { label: 'Mon Petit Prono', href: '/mon-petit-prono' },
+    { label: 'Classement', href: '/classement' },
+  ];
+
+  // Navigation réduite pour mobile (hamburger)
+  const mobileNavigation = [
+    { label: 'Tous les matchs', href: '/matchs-prono/all' },
     { label: 'Mon Petit Prono', href: '/mon-petit-prono' },
     { label: 'Classement', href: '/classement' },
   ];
@@ -175,7 +184,7 @@ const NavbarParticipant = () => {
             </IconButton>
           </Box>
           <List>
-            {navigation.map((link) => (
+            {mobileNavigation.map((link) => (
               <ListItem key={link.label} disablePadding>
                 <ListItemButton
                   component="a"

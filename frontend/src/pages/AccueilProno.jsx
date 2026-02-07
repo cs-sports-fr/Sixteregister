@@ -478,7 +478,7 @@ const AccueilProno = () => {
                 <Button
                   variant="text"
                   size="small"
-                  onClick={() => navigate('/pronostics')}
+                  onClick={() => navigate('/matchs-prono/all')}
                   sx={{
                     color: palette.primary.red,
                     textTransform: 'none',
@@ -511,7 +511,7 @@ const AccueilProno = () => {
                 <Button
                   variant="text"
                   size="small"
-                  onClick={() => navigate('/pronostics')}
+                  onClick={() => navigate('/matchs-prono/all')}
                   sx={{
                     color: palette.primary.red,
                     textTransform: 'none',
