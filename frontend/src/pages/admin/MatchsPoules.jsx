@@ -39,6 +39,7 @@ import {
     AutoFixHigh as GenerateIcon,
     Add as AddIcon,
     Settings as SettingsIcon,
+    EmojiEvents as TrophyIcon,
 } from '@mui/icons-material';
 import Navbar from '../../components/navbar/Navbar';
 import { routesForAdmin, routesForSuperAdmin } from '../../routes/routes';
@@ -369,6 +370,69 @@ const MatchsPoules = () => {
         return acc;
     }, {});
 
+    // Calcul du classement des équipes par poule
+    const calculatePoolStandings = (poolMatches) => {
+        const teamStats = {};
+        
+        poolMatches.forEach(match => {
+            if (!match.hasEnded || match.scoreTeamOne === null || match.scoreTeamTwo === null) return;
+            
+            // Team 1
+            if (match.teamOne) {
+                const teamId = match.teamOne.id;
+                if (!teamStats[teamId]) {
+                    teamStats[teamId] = {
+                        team: match.teamOne,
+                        wins: 0,
+                        draws: 0,
+                        losses: 0,
+                        goalsFor: 0,
+                        goalsAgainst: 0,
+                    };
+                }
+                teamStats[teamId].goalsFor += match.scoreTeamOne;
+                teamStats[teamId].goalsAgainst += match.scoreTeamTwo;
+                if (match.scoreTeamOne > match.scoreTeamTwo) {
+                    teamStats[teamId].wins += 1;
+                } else if (match.scoreTeamOne < match.scoreTeamTwo) {
+                    teamStats[teamId].losses += 1;
+                } else {
+                    teamStats[teamId].draws += 1;
+                }
+            }
+            
+            // Team 2
+            if (match.teamTwo) {
+                const teamId = match.teamTwo.id;
+                if (!teamStats[teamId]) {
+                    teamStats[teamId] = {
+                        team: match.teamTwo,
+                        wins: 0,
+                        draws: 0,
+                        losses: 0,
+                        goalsFor: 0,
+                        goalsAgainst: 0,
+                    };
+                }
+                teamStats[teamId].goalsFor += match.scoreTeamTwo;
+                teamStats[teamId].goalsAgainst += match.scoreTeamOne;
+                if (match.scoreTeamTwo > match.scoreTeamOne) {
+                    teamStats[teamId].wins += 1;
+                } else if (match.scoreTeamTwo < match.scoreTeamOne) {
+                    teamStats[teamId].losses += 1;
+                } else {
+                    teamStats[teamId].draws += 1;
+                }
+            }
+        });
+        
+        // Trier par: 1) victoires, 2) buts marqués
+        return Object.values(teamStats).sort((a, b) => {
+            if (b.wins !== a.wins) return b.wins - a.wins;
+            return b.goalsFor - a.goalsFor;
+        });
+    };
+
     const formatTime = (dateString) => {
         if (!dateString) return '-';
         const date = new Date(dateString);
@@ -496,6 +560,10 @@ const MatchsPoules = () => {
                                             <Typography variant="h6" gutterBottom sx={{ color: 'primary.main' }}>
                                                 {pool.name}
                                             </Typography>
+                                            
+                                            {/* Classement de la poule */}
+                                            <PoolStandings standings={calculatePoolStandings(matchesByPool[pool.id] || [])} />
+                                            
                                             <MatchTable
                                                 matches={matchesByPool[pool.id] || []}
                                                 formatTime={formatTime}
@@ -515,6 +583,9 @@ const MatchsPoules = () => {
                             <Grid item xs={12}>
                                 <Card>
                                     <CardContent>
+                                        {/* Classement de la poule sélectionnée */}
+                                        <PoolStandings standings={calculatePoolStandings(filteredMatches)} />
+                                        
                                         <MatchTable
                                             matches={filteredMatches}
                                             formatTime={formatTime}
@@ -701,6 +772,78 @@ const MatchsPoules = () => {
             </Dialog>
         </Box>
     );
+};
+
+// Composant classement de la poule
+const PoolStandings = ({ standings }) => {
+    if (standings.length === 0) {
+        return (
+            <Box sx={{ mb: 3, p: 2, bgcolor: 'grey.100', borderRadius: 2 }}>
+                <Typography color="text.secondary" sx={{ textAlign: 'center' }}>
+                    Aucun match terminé - Le classement sera disponible après les premiers résultats
+                </Typography>
+            </Box>
+        );
+    }
+
+    return (
+        <Box sx={{ mb: 3 }}>
+            <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 1 }}>
+                <TrophyIcon color="primary" /> Classement
+            </Typography>
+            <TableContainer component={Paper} variant="outlined">
+                <Table size="small">
+                    <TableHead>
+                        <TableRow sx={{ bgcolor: 'primary.main' }}>
+                            <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>#</TableCell>
+                            <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Équipe</TableCell>
+                            <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>V</TableCell>
+                            <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>N</TableCell>
+                            <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>D</TableCell>
+                            <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>BP</TableCell>
+                            <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>BC</TableCell>
+                            <TableCell align="center" sx={{ color: 'white', fontWeight: 'bold' }}>Diff</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {standings.map((team, index) => (
+                            <TableRow 
+                                key={team.team.id} 
+                                sx={{ 
+                                    bgcolor: index === 0 ? 'success.light' : index === 1 ? 'info.light' : 'inherit',
+                                    '&:hover': { bgcolor: 'action.hover' }
+                                }}
+                            >
+                                <TableCell sx={{ fontWeight: 'bold' }}>{index + 1}</TableCell>
+                                <TableCell>
+                                    <Box>
+                                        <Typography variant="body2" fontWeight="bold">
+                                            {team.team.name}
+                                        </Typography>
+                                        <Typography variant="caption" color="text.secondary">
+                                            {team.team.school?.name}
+                                        </Typography>
+                                    </Box>
+                                </TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold', color: 'success.main' }}>{team.wins}</TableCell>
+                                <TableCell align="center">{team.draws}</TableCell>
+                                <TableCell align="center" sx={{ color: 'error.main' }}>{team.losses}</TableCell>
+                                <TableCell align="center">{team.goalsFor}</TableCell>
+                                <TableCell align="center">{team.goalsAgainst}</TableCell>
+                                <TableCell align="center" sx={{ fontWeight: 'bold', color: team.goalsFor - team.goalsAgainst > 0 ? 'success.main' : team.goalsFor - team.goalsAgainst < 0 ? 'error.main' : 'inherit' }}>
+                                    {team.goalsFor - team.goalsAgainst > 0 ? '+' : ''}{team.goalsFor - team.goalsAgainst}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Box>
+    );
+};
+
+PoolStandings.propTypes = {
+    standings: PropTypes.array.isRequired,
 };
 
 // Composant tableau de matchs
