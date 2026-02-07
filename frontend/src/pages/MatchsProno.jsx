@@ -367,7 +367,7 @@ const MatchsProno = () => {
           >
             {isAllMode ? (
               sports.map((s) => (
-                <Tab key={s.id} label={isMobile ? s.sport?.split(' ')[0] : s.sport} value={s.id} />
+                <Tab key={s.id} label={s.sport?.toLowerCase().includes('feminin') || s.sport?.toLowerCase().includes('féminin') ? 'Féminin' : 'Masculin'} value={s.id} />
               ))
             ) : (
               <>
