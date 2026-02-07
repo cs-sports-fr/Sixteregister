@@ -82,7 +82,7 @@ const Login = () => {
                             }}
                         >
                             <Typography sx={{ 
-                                fontSize: { xs: '2rem', sm: '2.5rem', lg: '3.5rem' }, 
+                                fontSize: { xs: '3.5rem', sm: '3.5rem', lg: '3.5rem' }, 
                                 fontWeight: 'bold', 
                                 mb: { xs: 2, lg: 1.5 }, 
                                 color: palette.primary.dark, 
@@ -94,7 +94,7 @@ const Login = () => {
                                 <form onSubmit={handleLogin}>
                                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 2, lg: 2.5 } }}>
                                         <Box>
-                                            <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '1rem', lg: '0.875rem' } }}>Email</InputLabel>
+                                            <InputLabel htmlFor="email" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '2.4rem', lg: '0.875rem' } }}>Email</InputLabel>
                                             <TextField id="email"
                                                 variant="outlined"
                                                 value={email}
@@ -105,9 +105,9 @@ const Login = () => {
                                                 helperText={emailError}
                                                 sx={{
                                                     '& .MuiOutlinedInput-root': {
-                                                        fontSize: { xs: '1.1rem', lg: '1rem' },
+                                                        fontSize: { xs: '2.2rem', lg: '1rem' },
                                                         '& input': {
-                                                            padding: { xs: '16px 14px', lg: '14px' },
+                                                            padding: { xs: '20px 18px', lg: '14px' },
                                                         },
                                                         '&:hover fieldset': {
                                                             borderColor: palette.primary.red,
@@ -123,7 +123,7 @@ const Login = () => {
                                             />
                                         </Box>
                                         <Box>
-                                            <InputLabel htmlFor="password" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '1rem', lg: '0.875rem' } }}>Mot de passe</InputLabel>
+                                            <InputLabel htmlFor="password" sx={{ marginBottom: 1, color: palette.primary.dark, fontSize: { xs: '2.4rem', lg: '0.875rem' } }}>Mot de passe</InputLabel>
                                             <TextField id="password"
                                                 variant="outlined"
                                                 type="password"
@@ -135,9 +135,9 @@ const Login = () => {
                                                 helperText={passwordError}
                                                 sx={{
                                                     '& .MuiOutlinedInput-root': {
-                                                        fontSize: { xs: '1.1rem', lg: '1rem' },
+                                                        fontSize: { xs: '2.2rem', lg: '1rem' },
                                                         '& input': {
-                                                            padding: { xs: '16px 14px', lg: '14px' },
+                                                            padding: { xs: '20px 18px', lg: '14px' },
                                                         },
                                                         '&:hover fieldset': {
                                                             borderColor: palette.primary.red,
@@ -152,16 +152,16 @@ const Login = () => {
                                                 }}
                                             />
                                         </Box>
-                                        <Link href="/forgot-password" underline="hover" sx={{ textAlign: 'left', color: palette.primary.red, fontWeight: '500', fontSize: { xs: '1rem', lg: '0.875rem' } }}>Mot de passe oublié ?</Link>
+                                        <Link href="/forgot-password" underline="hover" sx={{ textAlign: 'left', color: palette.primary.red, fontWeight: '500', fontSize: { xs: '2rem', lg: '0.875rem' } }}>Mot de passe oublié ?</Link>
                                         <Button 
                                             type="submit" 
                                             fullWidth 
                                             sx={{ 
                                                 backgroundColor: palette.primary.red,
                                                 color: '#fff',
-                                                padding: { xs: '1rem', lg: '0.8rem' },
+                                                padding: { xs: '1.3rem', lg: '0.8rem' },
                                                 fontWeight: 'bold',
-                                                fontSize: { xs: '1.1rem', lg: '1rem' },
+                                                fontSize: { xs: '2.2rem', lg: '1rem' },
                                                 textTransform: 'uppercase',
                                                 borderRadius: '8px',
                                                 '&:hover': {
@@ -184,8 +184,8 @@ const Login = () => {
                                         sx={{ 
                                             borderColor: palette.primary.red,
                                             color: palette.primary.red,
-                                            padding: { xs: '0.9rem', lg: '0.6rem' },
-                                            fontSize: { xs: '1rem', lg: '0.875rem' },
+                                            padding: { xs: '1.1rem', lg: '0.6rem' },
+                                            fontSize: { xs: '2rem', lg: '0.875rem' },
                                             '&:hover': {
                                                 borderColor: palette.primary.red,
                                                 backgroundColor: 'rgba(255, 107, 107, 0.1)',
@@ -201,8 +201,8 @@ const Login = () => {
                                     sx={{ 
                                         backgroundColor: palette.primary.dark,
                                         color: '#fff',
-                                        padding: { xs: '0.9rem', lg: '0.6rem' },
-                                        fontSize: { xs: '1rem', lg: '0.875rem' },
+                                        padding: { xs: '1.1rem', lg: '0.6rem' },
+                                        fontSize: { xs: '2rem', lg: '0.875rem' },
                                         '&:hover': {
                                             backgroundColor: '#062a4d',
                                         }
