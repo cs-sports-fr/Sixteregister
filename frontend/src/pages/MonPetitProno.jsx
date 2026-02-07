@@ -189,13 +189,13 @@ const MonPetitProno = () => {
             </Button>
           </Box>
           
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1.5, lg: 3 } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 3, lg: 3 } }}>
             <Avatar
               sx={{
-                width: { xs: 50, lg: 70 },
-                height: { xs: 50, lg: 70 },
+                width: { xs: 100, lg: 70 },
+                height: { xs: 100, lg: 70 },
                 backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                fontSize: { xs: '1rem', lg: '1.5rem' },
+                fontSize: { xs: '2rem', lg: '1.5rem' },
                 fontWeight: 'bold',
                 border: '3px solid rgba(255, 255, 255, 0.3)',
               }}
@@ -203,38 +203,38 @@ const MonPetitProno = () => {
               {user?.firstname?.[0]}{user?.lastname?.[0]}
             </Avatar>
             <Box sx={{ flex: 1 }}>
-              <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '1.1rem', lg: '1.4rem' } }}>
+              <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '2.2rem', lg: '1.4rem' } }}>
                 {user?.firstname} {user?.lastname?.[0]}.
               </Typography>
-              <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: { xs: '0.75rem', lg: '0.9rem' } }}>
+              <Typography sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: { xs: '1.5rem', lg: '0.9rem' } }}>
                 {user?.school?.name || 'École non définie'}
               </Typography>
             </Box>
             
             {/* Stats compactes */}
-            <Box sx={{ display: 'flex', gap: { xs: 1, lg: 2 } }}>
+            <Box sx={{ display: 'flex', gap: { xs: 2, lg: 2 } }}>
               <Box sx={{ 
                 backgroundColor: 'rgba(255,255,255,0.15)', 
-                padding: { xs: '0.4rem 0.7rem', lg: '0.5rem 1rem' }, 
+                padding: { xs: '0.8rem 1.4rem', lg: '0.5rem 1rem' }, 
                 borderRadius: '12px',
                 textAlign: 'center',
               }}>
-                <TrophyIcon sx={{ color: '#FFD700', fontSize: { xs: 18, lg: 24 } }} />
-                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '0.85rem', lg: '1rem' } }}>
+                <TrophyIcon sx={{ color: '#FFD700', fontSize: { xs: 36, lg: 24 } }} />
+                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '1.7rem', lg: '1rem' } }}>
                   {rank ? `${rank}${rank === 1 ? 'er' : 'e'}` : '-'}
                 </Typography>
               </Box>
               <Box sx={{ 
                 backgroundColor: 'rgba(255,255,255,0.15)', 
-                padding: { xs: '0.4rem 0.7rem', lg: '0.5rem 1rem' }, 
+                padding: { xs: '0.8rem 1.4rem', lg: '0.5rem 1rem' }, 
                 borderRadius: '12px',
                 textAlign: 'center',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
               }}>
-                <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 18, lg: 24 } }} />
-                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '0.85rem', lg: '1rem' } }}>
+                <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 36, lg: 24 } }} />
+                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '1.7rem', lg: '1rem' } }}>
                   {user?.betPoints || 0}
                 </Typography>
               </Box>
@@ -243,14 +243,14 @@ const MonPetitProno = () => {
         </Box>
 
         {/* Contenu principal */}
-        <Box sx={{ padding: { xs: '1rem', lg: '2rem 3rem' } }}>
+        <Box sx={{ padding: { xs: '2rem', lg: '2rem 3rem' } }}>
 
           {/* Active Bets Section */}
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'space-between',
-            mb: { xs: 1, lg: 1.5 },
+            mb: { xs: 2, lg: 1.5 },
           }}>
             <Typography
               sx={{
@@ -259,10 +259,10 @@ const MonPetitProno = () => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: 1,
-                fontSize: { xs: '1rem', lg: '1.15rem' },
+                fontSize: { xs: '2rem', lg: '1.15rem' },
               }}
             >
-              <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 20, lg: 24 } }} />
+              <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 40, lg: 24 } }} />
               Paris en cours
             </Typography>
             <Chip 
@@ -272,7 +272,8 @@ const MonPetitProno = () => {
                 backgroundColor: palette.primary.red, 
                 color: 'white', 
                 fontWeight: 'bold',
-                fontSize: { xs: '0.7rem', lg: '0.8rem' },
+                fontSize: { xs: '1.4rem', lg: '0.8rem' },
+                height: { xs: 40, lg: 24 },
               }} 
             />
           </Box>
@@ -281,13 +282,13 @@ const MonPetitProno = () => {
             <Card
               sx={{
                 borderRadius: '12px',
-                padding: { xs: '1.5rem', lg: '2rem' },
+                padding: { xs: '3rem', lg: '2rem' },
                 textAlign: 'center',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
                 mb: { xs: 2, lg: 3 },
               }}
             >
-              <Typography sx={{ color: '#666', fontSize: { xs: '0.85rem', lg: '0.95rem' } }}>
+              <Typography sx={{ color: '#666', fontSize: { xs: '1.7rem', lg: '0.95rem' } }}>
                 Aucun pari en cours. Rendez-vous sur les matchs pour parier !
               </Typography>
             </Card>
@@ -302,10 +303,10 @@ const MonPetitProno = () => {
                     overflow: 'hidden',
                   }}
                 >
-                  <CardContent sx={{ padding: { xs: '0.75rem', lg: '1.5rem' } }}>
+                  <CardContent sx={{ padding: { xs: '1.5rem', lg: '1.5rem' } }}>
                     {/* Match Header */}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: { xs: 1, lg: 2 } }}>
-                      <Typography sx={{ color: '#666', fontSize: { xs: '0.7rem', lg: '0.85rem' } }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: { xs: 2, lg: 2 } }}>
+                      <Typography sx={{ color: '#666', fontSize: { xs: '1.4rem', lg: '0.85rem' } }}>
                         {bet.match?.sport?.sport || 'Sport'}
                       </Typography>
                       <Chip
@@ -315,22 +316,22 @@ const MonPetitProno = () => {
                           backgroundColor: getMatchStatusColor(bet.match),
                           color: 'white',
                           fontWeight: 'bold',
-                          fontSize: { xs: '0.6rem', lg: '0.7rem' },
-                          height: { xs: 20, lg: 24 },
+                          fontSize: { xs: '1.2rem', lg: '0.7rem' },
+                          height: { xs: 40, lg: 24 },
                         }}
                       />
                     </Box>
 
                     {/* Teams - Version compacte sur mobile */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: { xs: 1, lg: 2 } }}>
-                      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: { xs: 0.75, lg: 1 } }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: { xs: 2, lg: 2 } }}>
+                      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: { xs: 1.5, lg: 1 } }}>
                         <Avatar
                           src={bet.match?.teamOne?.school?.pictureLink}
                           sx={{ 
-                            width: { xs: 32, lg: 48 }, 
-                            height: { xs: 32, lg: 48 }, 
+                            width: { xs: 64, lg: 48 }, 
+                            height: { xs: 64, lg: 48 }, 
                             backgroundColor: palette.primary.light,
-                            fontSize: { xs: '0.75rem', lg: '1rem' },
+                            fontSize: { xs: '1.5rem', lg: '1rem' },
                           }}
                         >
                           {bet.match?.teamOne?.name?.[0]}
@@ -338,7 +339,7 @@ const MonPetitProno = () => {
                         <Box sx={{ minWidth: 0 }}>
                           <Typography sx={{ 
                             fontWeight: 'bold', 
-                            fontSize: { xs: '0.75rem', lg: '0.9rem' }, 
+                            fontSize: { xs: '1.5rem', lg: '0.9rem' }, 
                             color: palette.primary.dark,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -354,20 +355,20 @@ const MonPetitProno = () => {
                         </Box>
                       </Box>
 
-                      <Box sx={{ px: { xs: 1, lg: 2 }, textAlign: 'center' }}>
-                        <Typography sx={{ fontWeight: 'bold', color: '#999', fontSize: { xs: '0.75rem', lg: '0.9rem' } }}>
+                      <Box sx={{ px: { xs: 2, lg: 2 }, textAlign: 'center' }}>
+                        <Typography sx={{ fontWeight: 'bold', color: '#999', fontSize: { xs: '1.5rem', lg: '0.9rem' } }}>
                           VS
                         </Typography>
-                        <Typography sx={{ fontSize: { xs: '0.6rem', lg: '0.7rem' }, color: '#aaa', mt: 0.5 }}>
+                        <Typography sx={{ fontSize: { xs: '1.2rem', lg: '0.7rem' }, color: '#aaa', mt: 0.5 }}>
                           {formatMatchDate(bet.match?.matchTime)}
                         </Typography>
                       </Box>
 
-                      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: { xs: 0.75, lg: 1 }, justifyContent: 'flex-end' }}>
+                      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', gap: { xs: 1.5, lg: 1 }, justifyContent: 'flex-end' }}>
                         <Box sx={{ minWidth: 0, textAlign: 'right' }}>
                           <Typography sx={{ 
                             fontWeight: 'bold', 
-                            fontSize: { xs: '0.75rem', lg: '0.9rem' }, 
+                            fontSize: { xs: '1.5rem', lg: '0.9rem' }, 
                             color: palette.primary.dark,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -384,10 +385,10 @@ const MonPetitProno = () => {
                         <Avatar
                           src={bet.match?.teamTwo?.school?.pictureLink}
                           sx={{ 
-                            width: { xs: 32, lg: 48 }, 
-                            height: { xs: 32, lg: 48 }, 
+                            width: { xs: 64, lg: 48 }, 
+                            height: { xs: 64, lg: 48 }, 
                             backgroundColor: palette.primary.light,
-                            fontSize: { xs: '0.75rem', lg: '1rem' },
+                            fontSize: { xs: '1.5rem', lg: '1rem' },
                           }}
                         >
                           {bet.match?.teamTwo?.name?.[0]}
@@ -400,28 +401,28 @@ const MonPetitProno = () => {
                     {/* User Prediction */}
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Box>
-                        <Typography sx={{ fontSize: { xs: '0.65rem', lg: '0.75rem' }, color: '#888' }}>
+                        <Typography sx={{ fontSize: { xs: '1.3rem', lg: '0.75rem' }, color: '#888' }}>
                           Votre Pronostic
                         </Typography>
                         <Typography
                           sx={{
                             fontWeight: 'bold',
                             color: palette.primary.red,
-                            fontSize: { xs: '0.8rem', lg: '0.95rem' },
+                            fontSize: { xs: '1.6rem', lg: '0.95rem' },
                           }}
                         >
                           {getPredictionLabel(bet)}
                         </Typography>
                       </Box>
                       <Box sx={{ textAlign: 'right' }}>
-                        <Typography sx={{ fontSize: { xs: '0.65rem', lg: '0.75rem' }, color: '#888' }}>
+                        <Typography sx={{ fontSize: { xs: '1.3rem', lg: '0.75rem' }, color: '#888' }}>
                           Cote
                         </Typography>
                         <Typography
                           sx={{
                             fontWeight: 'bold',
                             color: palette.primary.dark,
-                            fontSize: { xs: '0.95rem', lg: '1.1rem' },
+                            fontSize: { xs: '1.9rem', lg: '1.1rem' },
                           }}
                         >
                           x{(bet.predictedWinner === 'TeamOne' 
@@ -446,8 +447,8 @@ const MonPetitProno = () => {
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'space-between',
-                mt: { xs: 2, lg: 3 },
-                mb: { xs: 1, lg: 1.5 },
+                mt: { xs: 4, lg: 3 },
+                mb: { xs: 2, lg: 1.5 },
               }}>
                 <Typography
                   sx={{
@@ -456,10 +457,10 @@ const MonPetitProno = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 1,
-                    fontSize: { xs: '1rem', lg: '1.15rem' },
+                    fontSize: { xs: '2rem', lg: '1.15rem' },
                   }}
                 >
-                  <HistoryIcon sx={{ color: '#FFD700', fontSize: { xs: 20, lg: 24 } }} />
+                  <HistoryIcon sx={{ color: '#FFD700', fontSize: { xs: 40, lg: 24 } }} />
                   Historique des paris
                 </Typography>
                 <Chip 
@@ -469,7 +470,8 @@ const MonPetitProno = () => {
                     backgroundColor: '#666', 
                     color: 'white', 
                     fontWeight: 'bold',
-                    fontSize: { xs: '0.7rem', lg: '0.8rem' },
+                    fontSize: { xs: '1.4rem', lg: '0.8rem' },
+                    height: { xs: 40, lg: 24 },
                   }} 
                 />
               </Box>
@@ -484,12 +486,12 @@ const MonPetitProno = () => {
                       borderLeft: `4px solid ${bet.isCorrect ? '#4CAF50' : '#f44336'}`,
                     }}
                   >
-                    <CardContent sx={{ padding: { xs: '0.75rem 1rem', lg: '1rem 1.5rem' } }}>
+                    <CardContent sx={{ padding: { xs: '1.5rem 2rem', lg: '1rem 1.5rem' } }}>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <Box sx={{ flex: 1, minWidth: 0 }}>
                           <Typography sx={{ 
                             fontWeight: 'bold', 
-                            fontSize: { xs: '0.8rem', lg: '0.9rem' }, 
+                            fontSize: { xs: '1.6rem', lg: '0.9rem' }, 
                             color: palette.primary.dark,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -500,10 +502,10 @@ const MonPetitProno = () => {
                               : `${bet.match?.teamOne?.name} vs ${bet.match?.teamTwo?.name}`
                             }
                           </Typography>
-                          <Typography sx={{ fontSize: { xs: '0.7rem', lg: '0.8rem' }, color: '#888' }}>
+                          <Typography sx={{ fontSize: { xs: '1.4rem', lg: '0.8rem' }, color: '#888' }}>
                             Score: {bet.match?.scoreTeamOne} - {bet.match?.scoreTeamTwo}
                           </Typography>
-                          <Typography sx={{ fontSize: { xs: '0.65rem', lg: '0.75rem' }, color: '#aaa' }}>
+                          <Typography sx={{ fontSize: { xs: '1.3rem', lg: '0.75rem' }, color: '#aaa' }}>
                             Pronostic: {isMobile ? getPredictionLabel(bet).split(' ')[0] : getPredictionLabel(bet)}
                           </Typography>
                         </Box>
@@ -516,15 +518,15 @@ const MonPetitProno = () => {
                               color: 'white',
                               fontWeight: 'bold',
                               mb: 0.5,
-                              fontSize: { xs: '0.6rem', lg: '0.7rem' },
-                              height: { xs: 20, lg: 24 },
+                              fontSize: { xs: '1.2rem', lg: '0.7rem' },
+                              height: { xs: 40, lg: 24 },
                             }}
                           />
                           <Typography
                             sx={{
                               fontWeight: 'bold',
                               color: bet.isCorrect ? '#4CAF50' : '#f44336',
-                              fontSize: { xs: '0.85rem', lg: '1rem' },
+                              fontSize: { xs: '1.7rem', lg: '1rem' },
                             }}
                           >
                             {bet.isCorrect ? `+${bet.pointsWon}` : '0'} pts
@@ -548,7 +550,7 @@ const MonPetitProno = () => {
             sx={{
               background: `linear-gradient(135deg, ${palette.primary.red} 0%, #a01020 100%)`,
               borderRadius: '12px',
-              padding: { xs: '1rem', lg: '1.25rem' },
+              padding: { xs: '2rem', lg: '1.25rem' },
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -560,18 +562,18 @@ const MonPetitProno = () => {
               },
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, lg: 2 } }}>
-              <SoccerIcon sx={{ fontSize: { xs: 24, lg: 32 } }} />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 2, lg: 2 } }}>
+              <SoccerIcon sx={{ fontSize: { xs: 48, lg: 32 } }} />
               <Box sx={{ textAlign: 'left' }}>
-                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', lg: '1.15rem' } }}>
+                <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '2rem', lg: '1.15rem' } }}>
                   Voir tous les matchs
                 </Typography>
-                <Typography sx={{ fontSize: { xs: '0.7rem', lg: '0.8rem' }, opacity: 0.9 }}>
+                <Typography sx={{ fontSize: { xs: '1.4rem', lg: '0.8rem' }, opacity: 0.9 }}>
                   Parier sur les prochains matchs
                 </Typography>
               </Box>
             </Box>
-            <ArrowForwardIcon sx={{ fontSize: { xs: 20, lg: 24 } }} />
+            <ArrowForwardIcon sx={{ fontSize: { xs: 40, lg: 24 } }} />
           </Button>
         </Box>
       </Box>

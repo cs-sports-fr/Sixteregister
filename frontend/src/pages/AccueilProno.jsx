@@ -23,6 +23,8 @@ import {
   SportsSoccer as SoccerIcon,
   EmojiEvents as TrophyIcon,
   History as HistoryIcon,
+  Add as AddIcon,
+  Remove as RemoveIcon,
 } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
 import NavbarParticipant from "../components/navbar/NavbarParticipant";
@@ -108,8 +110,8 @@ const AccueilProno = () => {
       const matchesFeminin = upcomingMatches.filter(m => isFeminin(m.sportName));
       const matchesMasculin = upcomingMatches.filter(m => !isFeminin(m.sportName));
 
-      setNextMatchesFeminin(matchesFeminin.slice(0, 2));
-      setNextMatchesMasculin(matchesMasculin.slice(0, 2));
+      setNextMatchesFeminin(matchesFeminin.slice(0, 1));
+      setNextMatchesMasculin(matchesMasculin.slice(0, 1));
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -251,7 +253,7 @@ const AccueilProno = () => {
         }}
       >
         {/* Heure du match */}
-        <Typography sx={{ fontSize: { xs: '0.9rem', lg: '0.7rem' }, color: palette.secondary.main, fontWeight: 'bold', mb: 1 }}>
+        <Typography sx={{ fontSize: { xs: '2.1rem', lg: '0.7rem' }, color: palette.secondary.main, fontWeight: 'bold', mb: 1 }}>
           {formatMatchTime(match.matchTime)}
         </Typography>
 
@@ -262,17 +264,17 @@ const AccueilProno = () => {
             <Avatar
               src={match.teamOne?.school?.pictureLink}
               sx={{
-                width: { xs: 65, lg: 55 },
-                height: { xs: 65, lg: 55 },
+                width: { xs: 100, lg: 55 },
+                height: { xs: 100, lg: 55 },
                 margin: '0 auto',
                 backgroundColor: palette.primary.dark,
                 border: `3px solid ${palette.primary.red}`,
-                fontSize: { xs: '1.4rem', lg: '1.2rem' },
+                fontSize: { xs: '2.7rem', lg: '1.2rem' },
               }}
             >
               {match.teamOne?.name?.[0]}
             </Avatar>
-            <Typography sx={{ mt: 0.75, fontWeight: 'bold', fontSize: { xs: '0.9rem', lg: '0.8rem' }, color: palette.primary.dark }}>
+            <Typography sx={{ mt: 0.75, fontWeight: 'bold', fontSize: { xs: '2.1rem', lg: '0.8rem' }, color: palette.primary.dark }}>
               {match.teamOne?.school?.name || match.teamOne?.name}
             </Typography>
           </Box>
@@ -282,7 +284,7 @@ const AccueilProno = () => {
             <Typography
               sx={{
                 fontWeight: 'bold',
-                fontSize: { xs: '1.3rem', lg: '1.1rem' },
+                fontSize: { xs: '2.7rem', lg: '1.1rem' },
                 color: palette.primary.red,
               }}
             >
@@ -295,17 +297,17 @@ const AccueilProno = () => {
             <Avatar
               src={match.teamTwo?.school?.pictureLink}
               sx={{
-                width: { xs: 65, lg: 55 },
-                height: { xs: 65, lg: 55 },
+                width: { xs: 100, lg: 55 },
+                height: { xs: 100, lg: 55 },
                 margin: '0 auto',
                 backgroundColor: palette.primary.dark,
                 border: `3px solid ${palette.primary.red}`,
-                fontSize: { xs: '1.4rem', lg: '1.2rem' },
+                fontSize: { xs: '2.7rem', lg: '1.2rem' },
               }}
             >
               {match.teamTwo?.name?.[0]}
             </Avatar>
-            <Typography sx={{ mt: 0.75, fontWeight: 'bold', fontSize: { xs: '0.9rem', lg: '0.8rem' }, color: palette.primary.dark }}>
+            <Typography sx={{ mt: 0.75, fontWeight: 'bold', fontSize: { xs: '2.1rem', lg: '0.8rem' }, color: palette.primary.dark }}>
               {match.teamTwo?.school?.name || match.teamTwo?.name}
             </Typography>
           </Box>
@@ -313,7 +315,7 @@ const AccueilProno = () => {
 
         {/* Sport + Bouton Parier */}
         <Box sx={{ mt: 1 }}>
-          <Typography sx={{ fontSize: { xs: '0.85rem', lg: '0.65rem' }, color: palette.secondary.main, mb: 0.5 }}>
+          <Typography sx={{ fontSize: { xs: '1.8rem', lg: '0.65rem' }, color: palette.secondary.main, mb: 0.5 }}>
             {match.sportName}
           </Typography>
           <Button
@@ -326,8 +328,9 @@ const AccueilProno = () => {
               borderRadius: '10px',
               textTransform: 'none',
               fontWeight: 'bold',
-              fontSize: { xs: '0.95rem', lg: '0.75rem' },
-              py: { xs: 1, lg: 0.75 },
+              fontSize: { xs: '2.1rem', lg: '0.75rem' },
+              py: { xs: 2.5, lg: 0.75 },
+              minHeight: { xs: '70px', lg: 'auto' },
               boxShadow: '0 4px 15px rgba(207, 20, 39, 0.3)',
               '&:hover': {
                 backgroundColor: '#b01020',
@@ -393,7 +396,7 @@ const AccueilProno = () => {
             variant="h2"
             sx={{
               fontWeight: 'bold',
-              fontSize: { xs: '1.2rem', lg: '2.5rem' },
+              fontSize: { xs: '3rem', lg: '2.5rem' },
               marginBottom: { xs: '0.3rem', lg: '0.75rem' },
               color: 'white',
               textTransform: 'uppercase',
@@ -411,14 +414,14 @@ const AccueilProno = () => {
               alignItems: 'center',
               backgroundColor: 'rgba(255,255,255,0.1)',
               backdropFilter: 'blur(10px)',
-              padding: { xs: '0.4rem 0.8rem', lg: '0.75rem 1.5rem' },
+              padding: { xs: '0.5rem 1rem', lg: '0.75rem 1.5rem' },
               borderRadius: '20px',
               border: '2px solid rgba(255,255,255,0.2)',
             }}
           >
-            <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 18, lg: 28 }, mr: 0.75 }} />
-            <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', lg: '1.5rem' }, color: 'white' }}>
-              {user?.betPoints || 0} <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.7)' }}>crédits</span>
+            <SoccerIcon sx={{ color: palette.primary.red, fontSize: { xs: 45, lg: 28 }, mr: 0.75 }} />
+            <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '2.4rem', lg: '1.5rem' }, color: 'white' }}>
+              {user?.betPoints || 0} <span style={{ fontSize: '1.65rem', color: 'rgba(255,255,255,0.7)' }}>crédits</span>
             </Typography>
           </Box>
         </Box>
@@ -440,7 +443,7 @@ const AccueilProno = () => {
           <Typography
             sx={{
               fontWeight: 'bold',
-              fontSize: { xs: '1rem', lg: '1.5rem' },
+              fontSize: { xs: '2.4rem', lg: '1.5rem' },
               color: palette.primary.dark,
               textTransform: 'uppercase',
               textAlign: 'center',
@@ -462,13 +465,13 @@ const AccueilProno = () => {
           >
             {/* Matchs Féminins - empilés verticalement */}
             <Box sx={{ flex: 1 }}>
-              <Typography sx={{ fontWeight: 'bold', fontSize: '0.85rem', color: palette.primary.red, textTransform: 'uppercase', mb: 1 }}>
-                 Féminin
+              <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '2.1rem', lg: '0.85rem' }, color: palette.primary.red, textTransform: 'uppercase', mb: 1 }}>
+                 Foot Féminin
               </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 {nextMatchesFeminin.length === 0 ? (
                   <Box sx={{ backgroundColor: 'white', borderRadius: '12px', p: 2, textAlign: 'center' }}>
-                    <Typography sx={{ color: palette.secondary.main, fontSize: '0.85rem' }}>Aucun match à venir</Typography>
+                    <Typography sx={{ color: palette.secondary.main, fontSize: { xs: '2rem', lg: '0.85rem' } }}>Aucun match à venir</Typography>
                   </Box>
                 ) : (
                   nextMatchesFeminin.map((match, index) => (
@@ -483,7 +486,7 @@ const AccueilProno = () => {
                     color: palette.primary.red,
                     textTransform: 'none',
                     fontWeight: 'bold',
-                    fontSize: '0.75rem',
+                    fontSize: { xs: '2rem', lg: '0.75rem' },
                     mt: 0.5,
                     '&:hover': { backgroundColor: 'rgba(207, 20, 39, 0.08)' },
                   }}
@@ -495,13 +498,13 @@ const AccueilProno = () => {
             
             {/* Matchs Masculins - empilés verticalement */}
             <Box sx={{ flex: 1 }}>
-              <Typography sx={{ fontWeight: 'bold', fontSize: '0.85rem', color: palette.primary.red, textTransform: 'uppercase', mb: 1 }}>
-                👨 Foot Masculin
+              <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '2.1rem', lg: '0.85rem' }, color: palette.primary.red, textTransform: 'uppercase', mb: 1 }}>
+                Foot Masculin
               </Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 {nextMatchesMasculin.length === 0 ? (
                   <Box sx={{ backgroundColor: 'white', borderRadius: '12px', p: 2, textAlign: 'center' }}>
-                    <Typography sx={{ color: palette.secondary.main, fontSize: '0.85rem' }}>Aucun match à venir</Typography>
+                    <Typography sx={{ color: palette.secondary.main, fontSize: { xs: '2rem', lg: '0.85rem' } }}>Aucun match à venir</Typography>
                   </Box>
                 ) : (
                   nextMatchesMasculin.map((match, index) => (
@@ -516,7 +519,7 @@ const AccueilProno = () => {
                     color: palette.primary.red,
                     textTransform: 'none',
                     fontWeight: 'bold',
-                    fontSize: '0.75rem',
+                    fontSize: { xs: '2rem', lg: '0.75rem' },
                     mt: 0.5,
                     '&:hover': { backgroundColor: 'rgba(207, 20, 39, 0.08)' },
                   }}
@@ -566,10 +569,10 @@ const AccueilProno = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 1,
-                    fontSize: { xs: '0.85rem', lg: '1rem' },
+                    fontSize: { xs: '2.25rem', lg: '1rem' },
                   }}
                 >
-                  <TrophyIcon sx={{ color: '#FFD700', fontSize: { xs: 18, lg: 20 } }} />
+                  <TrophyIcon sx={{ color: '#FFD700', fontSize: { xs: 42, lg: 20 } }} />
                   {isMobile ? 'Top 3' : 'Top 3 parieurs'}
                 </Typography>
 
@@ -584,12 +587,12 @@ const AccueilProno = () => {
                         sx={{
                           display: 'flex',
                           alignItems: 'center',
-                          padding: { xs: '0.5rem', lg: '0.75rem 1rem' },
+                          padding: { xs: '0.75rem', lg: '0.75rem 1rem' },
                           backgroundColor: bgColors[index],
                           borderRadius: '12px',
                         }}
                       >
-                        <Typography sx={{ fontSize: { xs: '1rem', lg: '1.2rem' }, mr: { xs: 0.5, lg: 1.5 } }}>
+                        <Typography sx={{ fontSize: { xs: '2.4rem', lg: '1.2rem' }, mr: { xs: 1.5, lg: 1.5 } }}>
                           {medals[index]}
                         </Typography>
                         {!isMobile && (
@@ -609,7 +612,7 @@ const AccueilProno = () => {
                           <Typography 
                             sx={{ 
                               fontWeight: 'bold', 
-                              fontSize: { xs: '0.7rem', lg: '0.9rem' }, 
+                              fontSize: { xs: '2rem', lg: '0.9rem' }, 
                               color: palette.primary.dark,
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
@@ -624,7 +627,7 @@ const AccueilProno = () => {
                             </Typography>
                           )}
                         </Box>
-                        <Typography sx={{ fontWeight: 'bold', color: palette.primary.dark, fontSize: { xs: '0.7rem', lg: '0.95rem' } }}>
+                        <Typography sx={{ fontWeight: 'bold', color: palette.primary.dark, fontSize: { xs: '2rem', lg: '0.95rem' } }}>
                           {player.betPoints}
                         </Typography>
                       </Box>
@@ -641,8 +644,8 @@ const AccueilProno = () => {
                     borderColor: '#FFD700',
                     color: 'white',
                     borderRadius: '10px',
-                    fontSize: { xs: '0.7rem', lg: '0.85rem' },
-                    py: { xs: 0.5, lg: 1 },
+                    fontSize: { xs: '2rem', lg: '0.85rem' },
+                    py: { xs: 1.5, lg: 1 },
                     '&:hover': {
                       backgroundColor: 'rgba(255, 215, 0, 0.1)',
                       borderColor: '#FFD700',
@@ -685,15 +688,15 @@ const AccueilProno = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 1,
-                    fontSize: { xs: '0.85rem', lg: '1rem' },
+                    fontSize: { xs: '2.25rem', lg: '1rem' },
                   }}
                 >
-                  <HistoryIcon sx={{ color: palette.primary.main, fontSize: { xs: 18, lg: 20 } }} />
+                  <HistoryIcon sx={{ color: palette.primary.main, fontSize: { xs: 42, lg: 20 } }} />
                   {isMobile ? 'Historique' : 'Historique des paris'}
                 </Typography>
 
                 {historyBets.length === 0 ? (
-                  <Typography sx={{ fontSize: { xs: '0.75rem', lg: '0.85rem' }, color: palette.secondary.main, textAlign: 'center', py: { xs: 2, lg: 3 } }}>
+                  <Typography sx={{ fontSize: { xs: '2rem', lg: '0.85rem' }, color: palette.secondary.main, textAlign: 'center', py: { xs: 2, lg: 3 } }}>
                     Aucun pari résolu
                   </Typography>
                 ) : (
@@ -715,7 +718,7 @@ const AccueilProno = () => {
                           <Typography 
                             sx={{ 
                               fontWeight: 'bold', 
-                              fontSize: { xs: '0.7rem', lg: '0.85rem' }, 
+                              fontSize: { xs: '2rem', lg: '0.85rem' }, 
                               color: palette.primary.dark,
                               overflow: 'hidden',
                               textOverflow: 'ellipsis',
@@ -727,7 +730,7 @@ const AccueilProno = () => {
                               : `${bet.match?.teamOne?.name} vs ${bet.match?.teamTwo?.name}`
                             }
                           </Typography>
-                          <Typography sx={{ fontSize: { xs: '0.6rem', lg: '0.75rem' }, color: palette.secondary.main }}>
+                          <Typography sx={{ fontSize: { xs: '1.65rem', lg: '0.75rem' }, color: palette.secondary.main }}>
                             {bet.match?.scoreTeamOne} - {bet.match?.scoreTeamTwo}
                           </Typography>
                         </Box>
@@ -735,7 +738,7 @@ const AccueilProno = () => {
                           sx={{
                             fontWeight: 'bold',
                             color: bet.isCorrect ? '#4CAF50' : '#f44336',
-                            fontSize: { xs: '0.75rem', lg: '0.9rem' },
+                            fontSize: { xs: '2.1rem', lg: '0.9rem' },
                             ml: 1,
                           }}
                         >
@@ -753,7 +756,7 @@ const AccueilProno = () => {
                     mt: { xs: 1, lg: 2 }, 
                     textTransform: 'none', 
                     color: 'white',
-                    fontSize: { xs: '0.75rem', lg: '0.9rem' },
+                    fontSize: { xs: '2rem', lg: '0.9rem' },
                   }}
                   onClick={() => navigate('/mes-pronos')}
                 >
@@ -775,19 +778,19 @@ const AccueilProno = () => {
           sx: { borderRadius: '16px' }
         }}
       >
-        <DialogTitle sx={{ fontWeight: 'bold', color: palette.primary.dark }}>
+        <DialogTitle sx={{ fontWeight: 'bold', color: palette.primary.dark, fontSize: { xs: '1.3rem', lg: '1.25rem' } }}>
           Placer un pari
         </DialogTitle>
         <DialogContent>
           {selectedMatch && (
             <Box sx={{ mb: 3 }}>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              <Typography color="text.secondary" sx={{ mb: 1, fontSize: { xs: '1rem', lg: '0.875rem' } }}>
                 {selectedMatch.sportName || 'Match'}
               </Typography>
-              <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+              <Typography sx={{ fontWeight: 'bold', fontSize: { xs: '1.2rem', lg: '1.25rem' } }}>
                 {selectedMatch.teamOne?.school?.name || selectedMatch.teamOne?.name || 'Équipe 1'} vs {selectedMatch.teamTwo?.school?.name || selectedMatch.teamTwo?.name || 'Équipe 2'}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography color="text.secondary" sx={{ fontSize: { xs: '1rem', lg: '0.875rem' } }}>
                 {selectedMatch.matchTime
                   ? new Date(selectedMatch.matchTime).toLocaleString('fr-FR')
                   : 'Date à définir'}
@@ -795,12 +798,56 @@ const AccueilProno = () => {
             </Box>
           )}
 
-          {/* Slider de mise */}
+          {/* Slider de mise avec boutons +/- */}
           <Box sx={{ mb: 3 }}>
-            <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold', display: 'flex', justifyContent: 'space-between' }}>
+            <Typography sx={{ mb: 1, fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', fontSize: { xs: '1.1rem', lg: '0.875rem' } }}>
               <span>Votre mise</span>
               <span style={{ color: palette.primary.red }}>{betData.stake} / {user?.betPoints || 0} crédits</span>
             </Typography>
+            
+            {/* Boutons +/- */}
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2, mb: 2 }}>
+              <Button
+                variant="contained"
+                onClick={() => setBetData({ ...betData, stake: Math.max(0, betData.stake - 10) })}
+                sx={{ 
+                  minWidth: { xs: 48, lg: 44 }, 
+                  width: { xs: 48, lg: 44 }, 
+                  height: { xs: 48, lg: 44 }, 
+                  borderRadius: '50%', 
+                  backgroundColor: palette.primary.dark, 
+                  fontSize: { xs: '1.2rem', lg: '1rem' },
+                  '&:hover': { backgroundColor: '#333' } 
+                }}
+              >
+                <RemoveIcon sx={{ fontSize: { xs: 24, lg: 20 } }} />
+              </Button>
+              <Typography sx={{ 
+                fontSize: { xs: '1.8rem', lg: '1.5rem' }, 
+                fontWeight: 'bold', 
+                minWidth: { xs: 80, lg: 60 }, 
+                textAlign: 'center', 
+                color: palette.primary.dark 
+              }}>
+                {betData.stake}
+              </Typography>
+              <Button
+                variant="contained"
+                onClick={() => setBetData({ ...betData, stake: Math.min(user?.betPoints || 0, betData.stake + 10) })}
+                sx={{ 
+                  minWidth: { xs: 48, lg: 44 }, 
+                  width: { xs: 48, lg: 44 }, 
+                  height: { xs: 48, lg: 44 }, 
+                  borderRadius: '50%', 
+                  backgroundColor: palette.primary.red, 
+                  fontSize: { xs: '1.2rem', lg: '1rem' },
+                  '&:hover': { backgroundColor: '#b01020' } 
+                }}
+              >
+                <AddIcon sx={{ fontSize: { xs: 24, lg: 20 } }} />
+              </Button>
+            </Box>
+
             <Slider
               value={betData.stake}
               onChange={(e, newValue) => setBetData({ ...betData, stake: newValue })}
@@ -811,67 +858,182 @@ const AccueilProno = () => {
               sx={{
                 color: palette.primary.red,
                 '& .MuiSlider-thumb': {
+                  width: { xs: 24, lg: 20 },
+                  height: { xs: 24, lg: 20 },
                   '&:hover, &.Mui-focusVisible': {
                     boxShadow: `0px 0px 0px 8px rgba(208, 32, 47, 0.16)`,
                   },
                 },
+                '& .MuiSlider-rail': {
+                  height: { xs: 8, lg: 4 },
+                },
+                '& .MuiSlider-track': {
+                  height: { xs: 8, lg: 4 },
+                },
               }}
             />
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5 }}>
-              <Typography variant="caption" color="text.secondary">0</Typography>
-              <Typography variant="caption" color="text.secondary">Max: {user?.betPoints || 0}</Typography>
+              <Typography sx={{ fontSize: { xs: '0.9rem', lg: '0.75rem' } }} color="text.secondary">0</Typography>
+              <Typography sx={{ fontSize: { xs: '0.9rem', lg: '0.75rem' } }} color="text.secondary">Max: {user?.betPoints || 0}</Typography>
             </Box>
           </Box>
 
           <FormControl fullWidth sx={{ mb: 3 }}>
-            <InputLabel>Votre pronostic</InputLabel>
+            <InputLabel sx={{ fontSize: { xs: '1.1rem', lg: '1rem' } }}>Votre pronostic</InputLabel>
             <Select
               value={betData.predictedWinner}
               onChange={(e) => setBetData({ ...betData, predictedWinner: e.target.value })}
               label="Votre pronostic"
+              sx={{ fontSize: { xs: '1.1rem', lg: '1rem' } }}
             >
-              <MenuItem value="TeamOne">
+              <MenuItem value="TeamOne" sx={{ fontSize: { xs: '1.1rem', lg: '1rem' } }}>
                 {selectedMatch?.teamOne?.school?.name || selectedMatch?.teamOne?.name || 'Équipe 1'} 
                 {matchOdds && ` (Cote: ${matchOdds.odds?.teamOne?.toFixed(2)})`}
               </MenuItem>
-              <MenuItem value="Draw">
+              <MenuItem value="Draw" sx={{ fontSize: { xs: '1.1rem', lg: '1rem' } }}>
                 Match nul
                 {matchOdds && ` (Cote: ${matchOdds.odds?.draw?.toFixed(2)})`}
               </MenuItem>
-              <MenuItem value="TeamTwo">
+              <MenuItem value="TeamTwo" sx={{ fontSize: { xs: '1.1rem', lg: '1rem' } }}>
                 {selectedMatch?.teamTwo?.school?.name || selectedMatch?.teamTwo?.name || 'Équipe 2'}
                 {matchOdds && ` (Cote: ${matchOdds.odds?.teamTwo?.toFixed(2)})`}
               </MenuItem>
             </Select>
           </FormControl>
 
-          <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'bold' }}>
+          <Typography sx={{ mb: 1, fontWeight: 'bold', fontSize: { xs: '1.1rem', lg: '0.875rem' } }}>
             Score prédit (optionnel, bonus jusqu'à +100% de la mise si exact)
           </Typography>
-          <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-            <TextField
-              label={selectedMatch?.teamOne?.school?.name || selectedMatch?.teamOne?.name || 'Équipe 1'}
-              type="number"
-              size="small"
-              value={betData.predictedScoreTeamOne}
-              onChange={(e) => setBetData({ ...betData, predictedScoreTeamOne: e.target.value })}
-              inputProps={{ min: 0 }}
-              sx={{ flex: 1 }}
-            />
-            <TextField
-              label={selectedMatch?.teamTwo?.school?.name || selectedMatch?.teamTwo?.name || 'Équipe 2'}
-              type="number"
-              size="small"
-              value={betData.predictedScoreTeamTwo}
-              onChange={(e) => setBetData({ ...betData, predictedScoreTeamTwo: e.target.value })}
-              inputProps={{ min: 0 }}
-              sx={{ flex: 1 }}
-            />
+          
+          {/* Score prédit avec boutons +/- */}
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: { xs: 1, lg: 2 }, mb: 2 }}>
+            {/* Score Équipe 1 */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography sx={{ 
+                mb: 0.5, 
+                fontWeight: 'bold', 
+                color: palette.primary.dark, 
+                textAlign: 'center', 
+                maxWidth: { xs: 80, lg: 100 }, 
+                overflow: 'hidden', 
+                textOverflow: 'ellipsis', 
+                whiteSpace: 'nowrap',
+                fontSize: { xs: '0.85rem', lg: '0.75rem' },
+              }}>
+                {selectedMatch?.teamOne?.school?.name?.split(' ')[0] || selectedMatch?.teamOne?.name?.split(' ')[0] || 'Équipe 1'}
+              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, lg: 1 } }}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => setBetData({ ...betData, predictedScoreTeamOne: Math.max(0, (parseInt(betData.predictedScoreTeamOne) || 0) - 1).toString() })}
+                  sx={{ 
+                    minWidth: { xs: 36, lg: 36 }, 
+                    width: { xs: 36, lg: 36 }, 
+                    height: { xs: 36, lg: 36 }, 
+                    borderRadius: '50%', 
+                    backgroundColor: palette.primary.dark, 
+                    '&:hover': { backgroundColor: '#333' } 
+                  }}
+                >
+                  <RemoveIcon sx={{ fontSize: { xs: 18, lg: 20 } }} />
+                </Button>
+                <Typography sx={{ 
+                  fontSize: { xs: '1.4rem', lg: '1.5rem' }, 
+                  fontWeight: 'bold', 
+                  minWidth: { xs: 35, lg: 40 }, 
+                  textAlign: 'center', 
+                  color: palette.primary.dark 
+                }}>
+                  {betData.predictedScoreTeamOne || '0'}
+                </Typography>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => setBetData({ ...betData, predictedScoreTeamOne: ((parseInt(betData.predictedScoreTeamOne) || 0) + 1).toString() })}
+                  sx={{ 
+                    minWidth: { xs: 36, lg: 36 }, 
+                    width: { xs: 36, lg: 36 }, 
+                    height: { xs: 36, lg: 36 }, 
+                    borderRadius: '50%', 
+                    backgroundColor: palette.primary.red, 
+                    '&:hover': { backgroundColor: '#b01020' } 
+                  }}
+                >
+                  <AddIcon sx={{ fontSize: { xs: 18, lg: 20 } }} />
+                </Button>
+              </Box>
+            </Box>
+
+            <Typography sx={{ 
+              fontSize: { xs: '1.2rem', lg: '1.2rem' }, 
+              fontWeight: 'bold', 
+              color: palette.secondary.main, 
+              mx: { xs: 0.5, lg: 1 } 
+            }}>-</Typography>
+
+            {/* Score Équipe 2 */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Typography sx={{ 
+                mb: 0.5, 
+                fontWeight: 'bold', 
+                color: palette.primary.dark, 
+                textAlign: 'center', 
+                maxWidth: { xs: 80, lg: 100 }, 
+                overflow: 'hidden', 
+                textOverflow: 'ellipsis', 
+                whiteSpace: 'nowrap',
+                fontSize: { xs: '0.85rem', lg: '0.75rem' },
+              }}>
+                {selectedMatch?.teamTwo?.school?.name?.split(' ')[0] || selectedMatch?.teamTwo?.name?.split(' ')[0] || 'Équipe 2'}
+              </Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, lg: 1 } }}>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => setBetData({ ...betData, predictedScoreTeamTwo: Math.max(0, (parseInt(betData.predictedScoreTeamTwo) || 0) - 1).toString() })}
+                  sx={{ 
+                    minWidth: { xs: 36, lg: 36 }, 
+                    width: { xs: 36, lg: 36 }, 
+                    height: { xs: 36, lg: 36 }, 
+                    borderRadius: '50%', 
+                    backgroundColor: palette.primary.dark, 
+                    '&:hover': { backgroundColor: '#333' } 
+                  }}
+                >
+                  <RemoveIcon sx={{ fontSize: { xs: 18, lg: 20 } }} />
+                </Button>
+                <Typography sx={{ 
+                  fontSize: { xs: '1.4rem', lg: '1.5rem' }, 
+                  fontWeight: 'bold', 
+                  minWidth: { xs: 35, lg: 40 }, 
+                  textAlign: 'center', 
+                  color: palette.primary.dark 
+                }}>
+                  {betData.predictedScoreTeamTwo || '0'}
+                </Typography>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => setBetData({ ...betData, predictedScoreTeamTwo: ((parseInt(betData.predictedScoreTeamTwo) || 0) + 1).toString() })}
+                  sx={{ 
+                    minWidth: { xs: 36, lg: 36 }, 
+                    width: { xs: 36, lg: 36 }, 
+                    height: { xs: 36, lg: 36 }, 
+                    borderRadius: '50%', 
+                    backgroundColor: palette.primary.red, 
+                    '&:hover': { backgroundColor: '#b01020' } 
+                  }}
+                >
+                  <AddIcon sx={{ fontSize: { xs: 18, lg: 20 } }} />
+                </Button>
+              </Box>
+            </Box>
           </Box>
 
           {/* Affichage des gains potentiels */}
           {betData.stake > 0 && betData.predictedWinner && matchOdds && (
-            <Alert severity="success" sx={{ mb: 2 }}>
+            <Alert severity="success" sx={{ mb: 2, fontSize: { xs: '1rem', lg: '0.875rem' } }}>
               <strong>Gains potentiels:</strong><br />
               {(() => {
                 const odds = betData.predictedWinner === 'TeamOne' ? matchOdds.odds?.teamOne :
@@ -885,7 +1047,7 @@ const AccueilProno = () => {
           )}
 
           {matchOdds && (
-            <Alert severity="info">
+            <Alert severity="info" sx={{ fontSize: { xs: '1rem', lg: '0.875rem' } }}>
               <strong>Cotes actuelles:</strong><br />
               {selectedMatch?.teamOne?.school?.name || selectedMatch?.teamOne?.name}: {matchOdds.odds?.teamOne?.toFixed(2)} | 
               Nul: {matchOdds.odds?.draw?.toFixed(2)} | 
@@ -893,8 +1055,8 @@ const AccueilProno = () => {
             </Alert>
           )}
         </DialogContent>
-        <DialogActions sx={{ p: 2 }}>
-          <Button onClick={() => setBetDialogOpen(false)}>
+        <DialogActions sx={{ p: { xs: 2.5, lg: 2 } }}>
+          <Button onClick={() => setBetDialogOpen(false)} sx={{ fontSize: { xs: '1.1rem', lg: '0.875rem' }, py: { xs: 1.25, lg: 0.75 } }}>
             Annuler
           </Button>
           <Button
@@ -904,6 +1066,9 @@ const AccueilProno = () => {
             sx={{
               backgroundColor: palette.primary.red,
               '&:hover': { backgroundColor: '#b01020' },
+              fontSize: { xs: '1.1rem', lg: '0.875rem' },
+              py: { xs: 1.25, lg: 0.75 },
+              px: { xs: 3, lg: 2 },
             }}
           >
             {betLoading ? 'En cours...' : `Miser ${betData.stake} crédits`}
