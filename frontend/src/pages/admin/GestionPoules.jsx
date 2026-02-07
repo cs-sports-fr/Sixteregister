@@ -250,6 +250,19 @@ const GestionPoules = () => {
     });
     const teamsWithoutPool = teams.filter(t => !teamsInPools.has(t.id));
 
+    // Équipes déjà dans la poule sélectionnée
+    const getTeamsInSelectedPool = () => {
+        if (!selectedPool) return new Set();
+        const teamIds = new Set();
+        selectedPool.teams?.forEach(team => teamIds.add(team.id));
+        return teamIds;
+    };
+
+    // Récupérer les poules d'une équipe
+    const getTeamPools = (teamId) => {
+        return pools.filter(pool => pool.teams?.some(t => t.id === teamId));
+    };
+
     // Obtenir le classement d'une poule
     const getPoolRanking = (poolId) => {
         return rankings.find(r => r.poolId === poolId)?.rankings || [];
@@ -577,27 +590,51 @@ const GestionPoules = () => {
             <Dialog open={assignTeamDialogOpen} onClose={() => setAssignTeamDialogOpen(false)} maxWidth="sm" fullWidth>
                 <DialogTitle>Ajouter une équipe à {selectedPool?.name}</DialogTitle>
                 <DialogContent>
-                    {teamsWithoutPool.length > 0 ? (
+                    {teams.length > 0 ? (
                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1 }}>
-                            {teamsWithoutPool.map((team) => (
-                                <Button
-                                    key={team.id}
-                                    variant="outlined"
-                                    onClick={() => handleAssignTeam(team.id)}
-                                    sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
-                                >
-                                    <Box sx={{ textAlign: 'left' }}>
-                                        <Typography variant="body1">{team.name}</Typography>
-                                        <Typography variant="caption" color="text.secondary">
-                                            {team.school?.name || 'N/A'}
-                                        </Typography>
-                                    </Box>
-                                </Button>
-                            ))}
+                            {teams.map((team) => {
+                                const isInSelectedPool = getTeamsInSelectedPool().has(team.id);
+                                const teamPools = getTeamPools(team.id);
+                                return (
+                                    <Button
+                                        key={team.id}
+                                        variant={isInSelectedPool ? "contained" : "outlined"}
+                                        onClick={() => !isInSelectedPool && handleAssignTeam(team.id)}
+                                        disabled={isInSelectedPool}
+                                        sx={{ justifyContent: 'flex-start', textTransform: 'none' }}
+                                        color={isInSelectedPool ? "success" : "primary"}
+                                    >
+                                        <Box sx={{ textAlign: 'left', flex: 1 }}>
+                                            <Typography variant="body1">{team.name}</Typography>
+                                            <Typography variant="caption" color="text.secondary">
+                                                {team.school?.name || 'N/A'}
+                                            </Typography>
+                                            {teamPools.length > 0 && (
+                                                <Box sx={{ mt: 0.5, display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                                                    {teamPools.map(pool => (
+                                                        <Chip 
+                                                            key={pool.id} 
+                                                            label={pool.name} 
+                                                            size="small" 
+                                                            color={pool.id === selectedPool?.id ? "success" : "default"}
+                                                            sx={{ fontSize: '0.7rem', height: 20 }}
+                                                        />
+                                                    ))}
+                                                </Box>
+                                            )}
+                                        </Box>
+                                        {isInSelectedPool && (
+                                            <Typography variant="caption" color="success.main" sx={{ ml: 1 }}>
+                                                Déjà ajoutée
+                                            </Typography>
+                                        )}
+                                    </Button>
+                                );
+                            })}
                         </Box>
                     ) : (
                         <Typography color="text.secondary" sx={{ mt: 2, textAlign: 'center' }}>
-                            Toutes les équipes sont déjà assignées à une poule
+                            Aucune équipe validée pour ce sport
                         </Typography>
                     )}
                 </DialogContent>
